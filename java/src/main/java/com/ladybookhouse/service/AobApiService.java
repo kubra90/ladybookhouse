@@ -3,8 +3,12 @@ package com.ladybookhouse.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.model.Book;
 
+import java.util.List;
+
 public interface AobApiService {
 
 //    List<Book> getInventoryList() throws JsonProcessingException;
-    Book getInventoryList(String sku) throws NullPointerException, JsonProcessingException;
+    Book getBookInfo(String sku) throws NullPointerException, JsonProcessingException;
+
+    List<Book> getInventoryList() throws NullPointerException, JsonProcessingException;
 }

@@ -18,9 +18,15 @@ public class InventoryController {
 
     //localhost:9000/ladybookhouse
     @RequestMapping(path = "/ladybookhouse/{sku}", method = RequestMethod.GET)
-    public Book getAllBooks(@PathVariable("sku") String sku) throws JsonProcessingException {
+    public Book getBook(@PathVariable("sku") String sku) throws JsonProcessingException {
         // Use 'sku' in your service method to fetch specific book information
-        return service.getInventoryList(sku); // Assuming your service method can handle 'sku'
+        return service.getBookInfo(sku); // Assuming your service method can handle 'sku'
+    }
+
+    //get all inventory List
+    @RequestMapping(path= "/ladybookhouse", method= RequestMethod.GET)
+    public List<Book> getAllBooks() throws JsonProcessingException{
+        return service.getInventoryList();
     }
 
 }
