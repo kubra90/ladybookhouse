@@ -1,4 +1,4 @@
-package com.techelevator.model;
+package com.ladybookhouse.model;
 
 import java.util.Objects;
 

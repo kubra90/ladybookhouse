@@ -1,6 +1,6 @@
-package com.techelevator.dao;
+package com.ladybookhouse.dao;
 
-import com.techelevator.model.User;
+import com.ladybookhouse.model.User;
 
 import java.util.List;
 

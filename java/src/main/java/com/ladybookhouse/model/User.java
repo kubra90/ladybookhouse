@@ -1,4 +1,4 @@
-package com.techelevator.model;
+package com.ladybookhouse.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
