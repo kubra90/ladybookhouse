@@ -2,7 +2,22 @@ package com.ladybookhouse.model;
 
 public class Category {
 
+
+    //this type is about the category of books
     private String type;
+
+    //new and used books
+    private String condition;
+
+    public String getCondition(Book book) {
+        condition = "";
+        return condition += (book.getCondition() == 11) ? "New" : "Used";
+
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
     public String getType() {
         return type;
@@ -30,11 +45,17 @@ public class Category {
         }else if(sku.startsWith("CS")){
             result+= "Technology";
         }else if(sku.startsWith("RP")){
-            result+= "Religion/Philosophy";
+            result+= "Religion&Philosophy";
         }else if(sku.startsWith("MK")){
             result+= "Kids";
         }else if(sku.startsWith("ML")){
             result+= "Language";
+        }else if(sku.startsWith("HM")){
+            result+= "History&Memory";
+        }else if(sku.startsWith("TC")){
+            result+= "Cookbook";
+        }else{
+            result+= "Other";
         }
         return result;
     }

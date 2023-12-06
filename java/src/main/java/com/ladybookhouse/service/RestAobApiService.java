@@ -75,6 +75,8 @@ public class RestAobApiService implements AobApiService{
             temp.setBookCategory(typeBook);
             temp.setPublisher(publisher);
             temp.setCondition(condition);
+            String conditionUsed = type.getCondition(temp);
+            temp.setConditionBook(conditionUsed);
          return temp;
         }
 
