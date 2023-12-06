@@ -16,7 +16,7 @@ public class Book {
     private String publisher;
 
     private String author;
-    private long isbn;
+    private String isbn;
 
     //notes about the condition. Some item includes "" only without note.
     private String notes;
@@ -29,6 +29,16 @@ public class Book {
 
     //numeric value for the condition
     private Integer condition;
+
+    private String bookCategory;
+
+    public String getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(String bookCategory) {
+        this.bookCategory = bookCategory;
+    }
 
     public String getTitle() {
         return title;
@@ -55,15 +65,37 @@ public class Book {
     }
 
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public String getNotes() {
+    public String getNotes(){
+        notes = "";
+        if(getCondition() == 1){
+            notes+= "This book is in near-perfect condition, showing minimal signs " +
+                    "of use. It has clean, crisp pages with no markings or highlighting, " +
+                    "and the spine and cover are intact without any creases or wear. This " +
+                    "book appears as if it has been barely touched and is virtually " +
+                    "indistinguishable from a brand new book.";
+        }else if(getCondition() == 2){
+            notes+= "This book is in very good condition, with only minor signs " +
+                    "of wear and use. The pages may contain limited notes or " +
+                    "highlighting, but overall, the text remains clean and legible. " +
+                    "The cover and spine are also in great shape, with only minimal " +
+                    "shelf wear or creasing. This book has been well-maintained and " +
+                    "still presents a clean and attractive appearance.";
+        }else if(getCondition() == 3){
+            notes+= "This book is in good condition, showing moderate signs of wear " +
+                    "and use. The pages may have noticeable notes, highlighting, or " +
+                    "underlining, but the text remains clearly readable. The cover and " +
+                    "spine may show signs of shelf wear, such as creases, scuff marks, " +
+                    "or small tears. Despite these cosmetic flaws, the book remains " +
+                    "structurally sound and fully functional.";
+        }
         return notes;
     }
 

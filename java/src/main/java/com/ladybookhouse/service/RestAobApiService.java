@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ladybookhouse.model.Book;
+import com.ladybookhouse.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -18,6 +19,8 @@ import java.util.List;
 
 @Component
 public class RestAobApiService implements AobApiService{
+
+    Category type = new Category();
 
     RestTemplate restTemplate = new RestTemplate();
     private final String API_URL = "https://www.theartofbooks.com/api/2.0/item/";
@@ -52,11 +55,13 @@ public class RestAobApiService implements AobApiService{
             String media = root.path(0).path("media").asText("");
             String image = root.path(0).path("image").asText("");
             String notes = root.path(0).path("notes").asText("");
-            long isbn =root.path(0).path("isbn").asLong(0);
+            String isbn =root.path(0).path("isbn").asText("");
             int quantity = root.path(0).path("qty").asInt(0);
             String skuNumber =root.path(0).path("sku").asText("");
+
             String publisher =root.path(0).path("publisher").asText("");
             int condition =root.path(0).path("condition").asInt(0);
+
 
             Book temp = new Book();
             temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
@@ -66,6 +71,8 @@ public class RestAobApiService implements AobApiService{
             temp.setNotes(notes);
             temp.setQuantity(quantity);
             temp.setInventoryCode(skuNumber);
+            String typeBook =type.getBookTypes(temp.getInventoryCode());
+            temp.setBookCategory(typeBook);
             temp.setPublisher(publisher);
             temp.setCondition(condition);
          return temp;
@@ -94,7 +101,7 @@ public class RestAobApiService implements AobApiService{
                 String media = root.path(i).path("media").asText("");
                 String image = root.path(i).path("image").asText("");
                 String notes = root.path(i).path("notes").asText("");
-                long isbn = root.path(i).path("isbn").asLong(0);
+                String isbn = root.path(i).path("isbn").asText("");
 
                 String skuNumber = root.path(i).path("sku").asText("");
                 String publisher = root.path(i).path("publisher").asText("");
