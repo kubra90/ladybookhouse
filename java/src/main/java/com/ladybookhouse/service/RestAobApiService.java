@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ladybookhouse.model.Book;
 import com.ladybookhouse.model.Category;
+import com.sun.jdi.IntegerValue;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -72,11 +73,14 @@ public class RestAobApiService implements AobApiService{
             temp.setQuantity(quantity);
             temp.setInventoryCode(skuNumber);
             String typeBook =type.getBookTypes(temp.getInventoryCode());
-            temp.setBookCategory(typeBook);
+            temp.setCategory(typeBook);
             temp.setPublisher(publisher);
-            temp.setCondition(condition);
-            String conditionUsed = type.getCondition(temp);
-            temp.setConditionBook(conditionUsed);
+       temp.setCondition(condition);
+        String conditionText = temp.getConditionAsText(); // Get the textual description
+//        temp.setCondition(conditionText);
+
+            Boolean conditionUsed = type.getCondition(temp);
+            temp.setUsedBook(conditionUsed);
          return temp;
         }
 
@@ -110,18 +114,23 @@ public class RestAobApiService implements AobApiService{
                 int condition = root.path(i).path("condition").asInt(0);
 
                 Book temp = new Book();
-                temp.setTitle(title);
-                temp.setAuthor(author);
-                temp.setImage(image);
+                temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
                 temp.setIsbn(isbn);
                 temp.setPrice(price);
                 temp.setMedia(media);
                 temp.setNotes(notes);
                 temp.setQuantity(quantity);
                 temp.setInventoryCode(skuNumber);
+                String typeBook =type.getBookTypes(temp.getInventoryCode());
+                temp.setCategory(typeBook);
                 temp.setPublisher(publisher);
                 temp.setCondition(condition);
-                bookList.add(temp);
+                String conditionText = temp.getConditionAsText(); // Get the textual description
+//        temp.setCondition(conditionText);
+
+                Boolean conditionUsed = type.getCondition(temp);
+                temp.setUsedBook(conditionUsed);
+               bookList.add(temp);
 
             }
 

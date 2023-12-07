@@ -7,41 +7,34 @@ public class Book {
     private String title;
 
     private String image;
-
     private Double price;
-
     //paperback or hardcover
     private String media;
-
     private String publisher;
-
     private String author;
     private String isbn;
 
     //notes about the condition. Some item includes "" only without note.
     private String notes;
-
     @JsonProperty("qty")
     private Integer quantity;
-
     @JsonProperty("sku")
     private String inventoryCode;
-
     //numeric value for the condition
     private Integer condition;
 
-    private String bookCategory;
+    private String category;
 
-    private String conditionAsText;
+   private String conditionAsText; //like new, very good
 
-    private String conditionBook;
+    private Boolean usedBook; //
 
-    public String getConditionBook() {
-        return conditionBook;
+    public Boolean getUsedBook() {
+        return usedBook;
     }
 
-    public void setConditionBook(String conditionBook) {
-        this.conditionBook = conditionBook;
+    public void setUsedBook(Boolean usedBook) {
+        this.usedBook = usedBook;
     }
 
     public String getConditionAsText() {
@@ -59,17 +52,16 @@ public class Book {
         }
         return conditionAsText;
     }
-
     public void setConditionAsText(String conditionAsText) {
         this.conditionAsText = conditionAsText;
     }
 
-    public String getBookCategory() {
-        return bookCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setBookCategory(String bookCategory) {
-        this.bookCategory = bookCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getTitle() {
@@ -105,39 +97,46 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getNotes(){
+    public String getNotes() {
         notes = "";
-        if(getCondition() == 1){
-            notes+= "This book is in near-perfect condition, showing minimal signs " +
-                    "of use. It has clean, crisp pages with no markings or highlighting, " +
-                    "and the spine and cover are intact without any creases or wear. This " +
-                    "book appears as if it has been barely touched and is virtually " +
-                    "indistinguishable from a brand new book.";
-        }else if(getCondition() == 2){
-            notes+= "This book is in very good condition, with only minor signs " +
-                    "of wear and use. The pages may contain limited notes or " +
-                    "highlighting, but overall, the text remains clean and legible. " +
-                    "The cover and spine are also in great shape, with only minimal " +
-                    "shelf wear or creasing. This book has been well-maintained and " +
-                    "still presents a clean and attractive appearance.";
-        }else if(getCondition() == 3){
-            notes+= "This book is in good condition, showing moderate signs of wear " +
-                    "and use. The pages may have noticeable notes, highlighting, or " +
-                    "underlining, but the text remains clearly readable. The cover and " +
-                    "spine may show signs of shelf wear, such as creases, scuff marks, " +
-                    "or small tears. Despite these cosmetic flaws, the book remains " +
-                    "structurally sound and fully functional.";
-        }else if(getCondition() == 4){
-            notes+= "This book is in acceptable condition, showing significant signs of " +
+        switch (getCondition()) {
+            case 1:
+                notes += "This book is in near-perfect condition, showing minimal signs " +
+                        "of use. It has clean, crisp pages with no markings or highlighting, " +
+                        "and the spine and cover are intact without any creases or wear. This " +
+                        "book appears as if it has been barely touched and is virtually " +
+                        "indistinguishable from a brand new book.";
+                break;
+            case 2:
+                notes += "This book is in very good condition, with only minor signs " +
+                        "of wear and use. The pages may contain limited notes or " +
+                        "highlighting, but overall, the text remains clean and legible. " +
+                        "The cover and spine are also in great shape, with only minimal " +
+                        "shelf wear or creasing. This book has been well-maintained and " +
+                        "still presents a clean and attractive appearance.";
+                break;
+            case 3:
+                notes += "This book is in good condition, showing moderate signs of wear " +
+                        "and use. The pages may have noticeable notes, highlighting, or " +
+                        "underlining, but the text remains clearly readable. The cover and " +
+                        "spine may show signs of shelf wear, such as creases, scuff marks, " +
+                        "or small tears. Despite these cosmetic flaws, the book remains " +
+                        "structurally sound and fully functional.";
+                break;
+            case 4:
+                notes+= "This book is in acceptable condition, showing significant signs of " +
                     "wear and use. The pages may contain extensive notes, highlighting, or " +
                     "underlining, and the text may be difficult to read in some places. The " +
                     "cover and spine may have considerable wear, including creases, scuff marks, " +
                     "or larger tears. This book may also have a former owner's name or other " +
                     "markings on the inside covers or endpapers. Although the book shows its age " +
                     "and heavy use, it is still intact and suitable for reading or reference purposes.";
-        }else if(getCondition() == 11){
+        break;
+           case 11:
             notes += "Brand New";
+            break;
         }
+
         return notes;
     }
 
@@ -176,13 +175,9 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-
-
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
