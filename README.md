@@ -1,6 +1,13 @@
 # bookstore-app
 
 Welcome to LadyBookHouse, a dynamic e-commerce platform for our multi-platform bookstore. We're integrated with top bookselling websites like eBay, AbeBooks, and more, leveraging the Art of Books API to offer a synchronized shopping experience.
+
+Project partners:
+
+* [Sarah](https://github.com/kubra90)
+* [Kevser](https://github.com/ozrn)
+* [Kubra](https://github.com/Kubrianity)
+
 ### Key Features
 * Synchronized Listings: Books sold on one platform are automatically updated in our LadyBookHouse website.
 * Integrated Platform Support: Seamlessly integrates with eBay, AbeBooks, and other major e-commerce platforms.
