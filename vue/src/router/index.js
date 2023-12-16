@@ -21,12 +21,13 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // this home page is the main page
     {
       path: '/',
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
