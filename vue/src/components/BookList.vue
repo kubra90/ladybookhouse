@@ -1,9 +1,18 @@
 <template>
     <div id="book">
     <ul>
-        <li v-for="book in bookArray" v-bind:key="book.isbn">
+        <li v-for="book in paginatedBooks" v-bind:key="book.isbn">
         <img v-bind:src="book.image"/>
-        {{ book.title }}
+        <router-link
+          v-bind:to="{
+            name: 'detail',
+            params: {
+                sku: book.sku
+            }
+          }">
+       
+        <p>{{ book.title }}</p>
+    </router-link>
         </li>
     </ul>
     <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
@@ -48,19 +57,24 @@
  
  <style scoped>
 #book ul {
-    display: flex; /* Aligns li elements horizontally */
-    list-style-type: none; /* Removes default list styling */
-    padding: 0; /* Removes default padding */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 books per row */
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
 }
 
 #book li {
-    margin-right: 40px; /* Adds space between books */
-    text-align: center; /* Center aligns the text under the image */
+    text-align: center;
 }
 
 #book img {
-    width: 100px; /* Fixed width for each book image */
-    height: 150px; /* Fixed height for each book image */
-    object-fit: cover; /* Ensures images cover the area without being stretched */
+    width: 70%; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed */
+    object-fit: cover;
+}
+
+#book {
+    padding: 30px 130px; /* Adds padding to the start and end of the grid container */
 }
  </style>

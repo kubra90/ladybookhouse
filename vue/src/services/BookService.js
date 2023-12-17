@@ -7,6 +7,10 @@ export default {
 
   getBooks() {
     return http.get('/inventory')
+  },
+
+  getBookById(sku) {
+    return http.get(`/inventory/${sku}`)
   }
 }
 
