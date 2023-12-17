@@ -2,18 +2,16 @@
     <div id="book">
     <ul>
         <li v-for="book in paginatedBooks" v-bind:key="book.isbn">
-        <img v-bind:src="book.image"/>
-        <router-link
-          v-bind:to="{
+          <img v-bind:src="book.image"/>
+          <h4>{{ book.sku }}</h4>
+          <router-link v-bind:to="{
             name: 'detail',
             params: {
                 sku: book.sku
             }
-          }">
-       
-        <p>{{ book.title }}</p>
-    </router-link>
-        </li>
+          }"><p>{{ book.title }}</p>
+         </router-link>
+      </li>
     </ul>
     <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
     <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
@@ -25,12 +23,14 @@
  import bookService from "../services/BookService";
  export default {
      name: "book-list",
+     
      data(){
          return {
              bookArray:[],
              image: "",
              currentPage : 1,
-             booksPerPage: 24
+             booksPerPage: 24,
+
      }
  },
   computed: {
