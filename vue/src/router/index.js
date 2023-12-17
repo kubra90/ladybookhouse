@@ -57,7 +57,7 @@ const router = new Router({
       }
     },
     {
-      path: "/inventory",
+      path: "/books",
       name: "book",
       component: Book,
       meta: {
@@ -65,12 +65,9 @@ const router = new Router({
       }
     },
     {
-      path: "/inventory/:sku",
+      path: "/books/:sku",
       name: "detail",
       component: Detail,
-      meta: {
-        requiresAuth: false
-      },
       props: true
     },
   ]

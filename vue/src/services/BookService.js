@@ -6,11 +6,11 @@ const http = axios.create({
 export default {
 
   getBooks() {
-    return http.get('/inventory')
+    return http.get('/books')
   },
 
   getBookById(sku) {
-    return http.get(`/inventory/${sku}`)
+    return http.get(`/books/${sku}`)
   }
 }
 

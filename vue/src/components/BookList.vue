@@ -3,13 +3,23 @@
     <ul>
         <li v-for="book in paginatedBooks" v-bind:key="book.isbn">
           <img v-bind:src="book.image"/>
-          <h4>{{ book.sku }}</h4>
           <router-link v-bind:to="{
             name: 'detail',
             params: {
                 sku: book.sku
             }
           }"><p>{{ book.title }}</p>
+         </router-link>
+         <h4 id="book-author">{{ book.author }}</h4>
+         <h4 id="book-publisher">{{ book.publisher }}</h4>
+         <h4 id="book-media">{{ book.media }}</h4>
+         <h4 id="book-price">Price: {{ book.price }}</h4>
+         <router-link v-bind:to="{
+            name: 'detail',
+            params: {
+                sku: book.sku
+            }
+          }"><p>READ MORE</p>
          </router-link>
       </li>
     </ul>
