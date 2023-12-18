@@ -1,27 +1,34 @@
 <template>
     <div id="book">
     <ul>
-        <li v-for="book in paginatedBooks" v-bind:key="book.isbn">
-          <img v-bind:src="book.image"/>
+        <div id="body-container" v-for="book in paginatedBooks" v-bind:key="book.isbn">
+          
           <router-link v-bind:to="{
             name: 'detail',
             params: {
                 sku: book.sku
             }
-          }"><p>{{ book.title }}</p>
+          }"><img v-bind:src="book.image"/>
+          <VClamp :line-clamp="1" class="book-title">{{ book.title }}</VClamp>
          </router-link>
-         <h4 id="book-author">{{ book.author }}</h4>
-         <h4 id="book-publisher">{{ book.publisher }}</h4>
-         <h4 id="book-media">{{ book.media }}</h4>
-         <h4 id="book-price">Price: {{ book.price }}</h4>
+         <p class="book-author"><b>{{ book.author }}</b></p>
+         <!-- <h4 id="book-publisher">{{ book.publisher }}</h4> -->
+         <!-- <h4 id="book-media">{{ book.media }}</h4>-->
+        
+         <div class="book-detail">
+            <p>{{ book.publisher }}, {{ book.media }}</p>
+         </div>
+         <div  class="book-price">
+            <p><b>Price:</b> ${{ book.price }}</p>
+         </div>
          <router-link v-bind:to="{
             name: 'detail',
             params: {
                 sku: book.sku
             }
-          }"><p>READ MORE</p>
+          }"><p class="read-more">READ MORE</p>
          </router-link>
-      </li>
+        </div>
     </ul>
     <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
     <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
@@ -31,8 +38,12 @@
  
  <script>
  import bookService from "../services/BookService";
+ import VClamp from 'vue-clamp';
  export default {
      name: "book-list",
+     components: {
+        VClamp
+     },
      
      data(){
          return {
@@ -76,15 +87,37 @@
 
 #book li {
     text-align: center;
+    
 }
 
 #book img {
     width: 70%; /* Adjust width as needed */
-    height: auto; /* Adjust height as needed */
+    height: 60%; /* Adjust height as needed */
     object-fit: cover;
 }
 
 #book {
     padding: 30px 130px; /* Adds padding to the start and end of the grid container */
 }
+
+/* Style for book title */
+
+ .book-title {
+  white-space: nowrap; /* Keeps the text in a single line */
+  overflow: hidden; /* Ensures that overflow text is hidden */
+  text-overflow: ellipsis; /* Adds an ellipsis to indicate text overflow */
+  width: 160px; /*Set a width that suits your layout */
+  text-transform: uppercase
+}
+
+
+#book .book-author {
+    margin: 0; /* Adjust top and bottom margin to reduce white space */
+}
+
+.book-detail p, .book-price p {
+    margin: 0; /* Remove default margin to reduce white space */
+}
+
+
  </style>
