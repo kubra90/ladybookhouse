@@ -113,9 +113,62 @@
   padding: 3px;
   margin:3px;
   color:	#B22222;
-  
-  /* Additional styling for links */
 }
+
+
+/* Responsive adjustments for tablets and smaller desktops */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .app-name {
+    font-size: 40px; /* Reduce font size */
+    padding-left: 20px; /* Adjust padding */
+  }
+
+  .header-nav {
+    flex-wrap: wrap; /* Allow nav items to wrap */
+    justify-content: center; /* Center the items */
+    margin-left: 0; /* Reset margin */
+    margin-right: 0;
+  }
+
+  .account-cart, .search-bar {
+    padding-right: 20px; /* Adjust padding */
+    justify-content: space-between; /* Adjust alignment */
+  }
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 480px) {
+  .header-top {
+    flex-direction: column; /* Stack all items vertically */
+    align-items: center; /* Center align items */
+  }
+
+  .app-name {
+    font-size: 30px; /* Further reduce font size */
+    padding: 10px 0; /* Adjust padding */
+  }
+
+  .header-nav {
+    flex-wrap: wrap; /* Ensure nav items can wrap on small screens */
+    justify-content: center; /* Center the items */
+    gap: 10px; /* Adjust gap between items */
+  }
+
+  .account-cart, .search-bar {
+    padding: 0; /* Remove padding */
+    width: 100%; /* Full width */
+  }
+
+  /* Additional mobile adjustments */
+}
+
+
+
+
 
 </style>
 

@@ -6,20 +6,22 @@
       <!-- decide top right items -->
     <!-- <h1>Lady Bookhouse</h1> -->
     <div><header-page/></div>
-    <div><book /></div>
+    <!-- <div><book /></div> -->
+    <div>specific items</div> 
     <div><footer-page/></div>
   </div>
   
 </template>
 
 <script>
-import book from "../views/Book.vue"
+// import book from "../views/Book.vue"
+// import bookList from "../components/BookList.vue"
 import headerPage from "../components/HeaderPage.vue"
 import footerPage from "../components/FooterPage.vue"
 export default {
   name: "home",
   components: {
-    book, headerPage, footerPage
+   headerPage, footerPage
   }
 };
 </script>

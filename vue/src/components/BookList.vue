@@ -80,7 +80,7 @@
 #book ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-    gap: 10px;
+    gap: 30px;
     list-style-type: none;
     padding: 0;
 }
@@ -92,7 +92,7 @@
 
 #book img {
     width: 70%; /* Adjust width as needed */
-    height: 60%; /* Adjust height as needed */
+    height: 70%; /* Adjust height as needed */
     object-fit: cover;
 }
 
@@ -119,5 +119,58 @@
     margin: 0; /* Remove default margin to reduce white space */
 }
 
+#book ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
+  gap: 30px;
+  list-style-type: none;
+  padding: 0;
+}
+
+/* ... existing styles ... */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #book ul {
+    grid-template-columns: repeat(2, 1fr); /* 2 books per row for tablets */
+    gap: 20px;
+  }
+
+  #book img {
+    width: 80%; /* Increase width for smaller screens */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  #book {
+    padding: 20px; /* Reduce padding */
+  }
+
+  .book-title {
+    width: 120px; /* Adjust width for smaller screens */
+    font-size: 0.9em; /* Reduce font size */
+  }
+
+  /* Adjust other elements as needed */
+}
+
+@media (max-width: 480px) {
+  #book ul {
+    grid-template-columns: 1fr; /* 1 book per row for mobiles */
+  }
+
+  #book img {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .book-title {
+    width: auto; /* Allow title to take full width */
+    font-size: 0.8em; /* Further reduce font size */
+  }
+
+  /* Additional mobile adjustments */
+}
+
+
 
  </style>
+
