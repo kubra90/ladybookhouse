@@ -38,6 +38,7 @@
 
 
 .header-container {
+  box-sizing:border-box;
   display: flex;
   flex-direction: column;
   background-color: oldlace;
@@ -92,11 +93,13 @@
 }
 
 .header-nav {
+  width: calc(100% - 130px - 2px);
+  box-sizing:border-box;
   justify-content: left;
   background-color:#FA8072;
   padding-bottom: 3px;
   /* padding-right:40px; */
-  width: 100%; /* Match the width of .app-name, considering its padding */
+  /* Match the width of .app-name, considering its padding */
   margin-left: 130px; /* Align with .app-name */
   margin-right:80px;
   display:flex;
