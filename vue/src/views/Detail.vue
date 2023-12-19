@@ -7,7 +7,7 @@
 <script>
 import BookDetail from "../components/BookDetail.vue"
 export default {
-    name: 'detail',
+    name: "detail",
     components: {
         BookDetail
     }

@@ -2,22 +2,22 @@
   <div class="home">
     <!-- <h1>Home</h1> -->
     <!-- <p>You must be authenticated to see this</p> -->
-    <div class="your-account">
+  
       <!-- decide top right items -->
-      <h4>Your Account</h4>  
-    </div>
-    <h1>Lady Bookhouse</h1>
-    <div ><book/></div>
+    <!-- <h1>Lady Bookhouse</h1> -->
+    <div><header-page/></div>
+    <div><book /></div>
   </div>
   
 </template>
 
 <script>
 import book from "../views/Book.vue"
+import headerPage from "../components/HeaderPage.vue"
 export default {
   name: "home",
   components: {
-    book
+    book, headerPage
   }
 };
 </script>

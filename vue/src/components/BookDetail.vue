@@ -10,9 +10,9 @@ import bookService from '../services/BookService.js';
 
 export default {
     name: "book-detail",
-    props: {
-        sku: String
-    },
+    // props: {
+    //     sku: String
+    // },
     data() {
         return {
             book: {},
@@ -22,7 +22,7 @@ export default {
     },
     created() {
         const {sku} = this.$route.params;
-    console.log("Received SKU:", this.sku);
+    // console.log("Received SKU:", this.sku);
     bookService.getBookById(sku)
     .then(response => {
         console.log("API Response:", response.data);

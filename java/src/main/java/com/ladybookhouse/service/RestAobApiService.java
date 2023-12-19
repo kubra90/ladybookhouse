@@ -101,7 +101,7 @@ public class RestAobApiService implements AobApiService{
 
             if(quantity> 0) {
                 String title = root.path(i).path("title").asText("");
-                System.out.println(title);
+//                System.out.println(title);
                 String author = root.path(i).path("author").asText("");
                 double price = root.path(i).path("price").asDouble(0);
                 String media = root.path(i).path("media").asText("");
