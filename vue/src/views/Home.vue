@@ -7,6 +7,7 @@
     <!-- <h1>Lady Bookhouse</h1> -->
     <div><header-page/></div>
     <div><book /></div>
+    <div><footer-page/></div>
   </div>
   
 </template>
@@ -14,10 +15,11 @@
 <script>
 import book from "../views/Book.vue"
 import headerPage from "../components/HeaderPage.vue"
+import footerPage from "../components/FooterPage.vue"
 export default {
   name: "home",
   components: {
-    book, headerPage
+    book, headerPage, footerPage
   }
 };
 </script>
@@ -26,7 +28,7 @@ export default {
 
 * {
   box-sizing: border-box;
-  padding: 5px;
+  padding: 0px;
 }
 
 

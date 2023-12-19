@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import Book from '../views/Book.vue'
 import store from '../store/index'
 import Detail from '../views/Detail.vue'
+import About from '../views/About.vue'
 
 Vue.use(Router)
 
@@ -69,6 +70,14 @@ const router = new Router({
       name: "detail",
       component: Detail,
       props: true
+    },
+    {
+      path: "/about-us",
+      name: "about",
+      component: About,
+      meta: {
+        requiresAuth: false
+      }
     },
   ]
 })
