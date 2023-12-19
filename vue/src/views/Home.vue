@@ -23,16 +23,10 @@ export default {
 </script>
 
 <style scoped>
-.your-account {
-  color: orange;
-  text-align: left;
-  text-size-adjust: 30px;
-  font-family: sans-serif;
-  font-size: 7px;
-}
 
-h1 {
-  color: orange
+* {
+  box-sizing: border-box;
+  padding: 5px;
 }
 
 
