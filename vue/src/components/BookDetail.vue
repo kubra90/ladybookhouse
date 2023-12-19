@@ -1,23 +1,31 @@
 <template>
-    <div>
-      <h1>{{ book.title}} {{ book.sku }}</h1>
-      <!-- <img v-bind:src=" book.image"/> -->
+    <div class="book-container">
+      <div class="book-details">
+        <h1>{{ book.title }} {{ book.sku }}</h1>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Notes:</strong> {{ book.notes }}</p>
+        <!-- Other details here -->
+      </div>
+      <div class="book-image">
+        <img v-bind:src="book.image" alt="Book Image"/>
+      </div>
+      <div class="book-actions">
+        <button @click="saveBook">Save the Book</button>
+        <button @click="addToCart">Add to Cart</button>
+      </div>
     </div>
-</template>
+  </template>
+  
 
 <script>
 import bookService from '../services/BookService.js';
 
 export default {
     name: "book-detail",
-    // props: {
-    //     sku: String
-    // },
+
     data() {
         return {
             book: {},
-            // price: "",
-            // image: ""
         }
     },
     created() {
@@ -35,35 +43,29 @@ export default {
 }
 </script>
 
-<!-- <style scoped>
-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+<style scoped>
+.book-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-h4 {
-    margin: 10px 0;
-    color: #333;
-    font-size: 1.5em;
+.book-details {
+  flex: 1;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
+.book-image {
+  flex: 1;
+  /* Adjust width as necessary */
 }
 
-/* Adjust as needed for specific mobile or desktop views */
-@media (max-width: 600px) {
-    div {
-        max-width: 100%;
-    }
+.book-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
-</style> -->
+
+button {
+  /* Button styling */
+}
+</style>
