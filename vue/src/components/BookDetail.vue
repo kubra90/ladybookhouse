@@ -3,18 +3,21 @@
       <div class="book-details">
         <p><strong>{{ book.author }}</strong> </p>
         <p>{{ book.title }} {{ book.isbn }}</p>
-        <p>{{ book.publisher }}.{{ book.media }}, {{ book.conditionAsText }}</p>
+        <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
         <p>{{ book.notes }}. {{ book.sku }}</p>
         <p><strong>Price:</strong> ${{ book.price }}</p>
+        <p> {{ book.usedBook }}</p>
         <!-- Other details here -->
+        <div class="book-actions">
+        <!-- <button @click="saveBook">Save the Book</button>-->
+            <button class="add-to-cart"><strong>Add To Cart</strong></button>
+            <button class="save-book"><strong>Save the book</strong></button>
+         </div>
       </div>
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
-      <div class="book-actions">
-        <!-- <button @click="saveBook">Save the Book</button>
-        <button @click="addToCart">Add to Cart</button> -->
-      </div>
+     
     </div>
   </template>
   
@@ -30,6 +33,30 @@ export default {
             book: {},
         }
     },
+    // methods() {
+    //      saveBook() {
+    //         let bookToSave = {
+    //             book= this.book;
+    //         }
+    //      }
+    // },
+
+    
+        // savePokemon() { 
+        //     let pokemonToSave = {
+        //         id :this.id,
+        //         name: this.name,
+        //         url : this.$route.params.url
+        //     }
+        //     pokemonService.saveFavorite(pokemonToSave)
+        //     .then(() => {
+        //         alert(`${this.name} has been saved to Favorites`);
+        //         //this push the route name pokemon
+        //         this.$router.push({ name : 'pokemon'});
+        //         // this.$store.commit("GET_NEXT_PREVIOUS_POKEMON");
+        //     })
+        // }
+    
     created() {
         const {sku} = this.$route.params;
     // console.log("Received SKU:", this.sku);
@@ -86,7 +113,30 @@ export default {
 }
 
 .book-actions {
-  /* Your existing styles for book-actions */
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+}
+
+
+.book-actions .add-to-cart, .book-actions .save-book {
+  position: relative;
+  display: inline-block;
+  /* background: $button; */
+  /* color: $white; */
+  color: #6B3630;
+  background-color:oldlace;
+  border: none;
+  border-radius: 0;
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: color 0.3s ease;
+  letter-spacing: 0.0625rem;
+  font-family:'PT Sans',sans-serif;
+  
 }
 
 

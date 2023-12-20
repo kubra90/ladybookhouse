@@ -27,13 +27,14 @@ public class Book {
 
    private String conditionAsText; //like new, very good
 
-    private Boolean usedBook; //
+    private String usedBook; // used or new
 
-    public Boolean getUsedBook() {
+
+    public String getUsedBook() {
         return usedBook;
     }
 
-    public void setUsedBook(Boolean usedBook) {
+    public void setUsedBook(String usedBook) {
         this.usedBook = usedBook;
     }
 

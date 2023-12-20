@@ -7,16 +7,22 @@ public class Category {
     private String type;
 
     //new and used books
-    private Boolean condition;
-
-    public Boolean getCondition(Book book) {
-        return book.getCondition() != 11;
-    }
+    private String condition;
 
 
-    public void setCondition(Boolean condition) {
+    public void setCondition(String condition) {
         this.condition = condition;
     }
+
+    public String getCondition(Book book) {
+        if(book.getCondition() == 11){
+            condition = "NEW";
+        }else {
+            condition = "USED";
+        }
+        return condition;
+    }
+
 
     public String getType() {
         return type;

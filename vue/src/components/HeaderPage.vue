@@ -112,7 +112,8 @@
   text-decoration: none;
   padding: 3px;
   margin:3px;
-  color:	#B22222;
+  /* color:	#B22222; */
+  color: #6B3630;
 }
 
 

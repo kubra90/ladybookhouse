@@ -79,7 +79,7 @@ public class RestAobApiService implements AobApiService{
         String conditionText = temp.getConditionAsText(); // Get the textual description
 //        temp.setCondition(conditionText);
 
-            Boolean conditionUsed = type.getCondition(temp);
+            String conditionUsed = type.getCondition(temp);
             temp.setUsedBook(conditionUsed);
          return temp;
         }
@@ -128,7 +128,7 @@ public class RestAobApiService implements AobApiService{
                 String conditionText = temp.getConditionAsText(); // Get the textual description
 //        temp.setCondition(conditionText);
 
-                Boolean conditionUsed = type.getCondition(temp);
+                String conditionUsed = type.getCondition(temp);
                 temp.setUsedBook(conditionUsed);
                bookList.add(temp);
 
