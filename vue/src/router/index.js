@@ -79,6 +79,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    // {
+    //   path: "/sale-shipping-policies",
+    //   name: "policy",
+    //   component: Policy,
+    //   meta: {
+    //     requiresAuth: false
+    //   }
+    // },
   ]
 })
 

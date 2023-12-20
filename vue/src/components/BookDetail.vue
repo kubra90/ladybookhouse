@@ -2,9 +2,10 @@
     <div class="book-container">
       <div class="book-details">
         <p><strong>{{ book.author }}</strong> </p>
-        <p>{{ book.title }} {{ book.sku }}</p>
-        
-        <p>{{ book.notes }}</p>
+        <p>{{ book.title }} {{ book.isbn }}</p>
+        <p>{{ book.publisher }}.{{ book.media }}, {{ book.conditionAsText }}</p>
+        <p>{{ book.notes }}. {{ book.sku }}</p>
+        <p><strong>Price:</strong> ${{ book.price }}</p>
         <!-- Other details here -->
       </div>
       <div class="book-image">
@@ -51,11 +52,11 @@ export default {
   display: flex;
   flex-direction: row;
   font-family:'PT Sans',sans-serif;
-  padding: 40px 40px;
+  padding: 40px 130px;
 }
 
 .book-details {
-  flex: 3; /* Allocate more space to the details */
+  flex: 2; /* Allocate more space to the details */
   display: flex;
   flex-direction: column;
   padding-right: 20px; /* Add some spacing between the details and the image */
@@ -67,16 +68,21 @@ export default {
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
   padding: 10px; /* Add padding around the image */
+ 
 }
 
 .book-image img {
-  max-width: 100px; /* Control the max width of the image */
-  max-height: 150px; /* Control the max height of the image */
-  width: auto; /* Maintain aspect ratio */
+   /* Control the max width of the image */
+  /* Control the max height of the image */
+  /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   border: 1px solid #ddd; /* Add a border */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  width: 200px; /* Increase width for smaller screens */
+    height: 300px; /* Maintain aspect ratio */
+    max-width:300px;
+    max-height:400px;
 }
 
 .book-actions {

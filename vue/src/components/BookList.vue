@@ -98,9 +98,12 @@
 }
 
 #book {
-    padding: 30px 130px; /* Adds padding to the start and end of the grid container */
-
+    /*padding: 30px 130px; Adds padding to the start and end of the grid container*/
+   
+  padding: 30px 90px; /* Reduced left and right padding */
 }
+
+
 /* Style for book title */
 
  .book-title {
