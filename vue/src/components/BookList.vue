@@ -78,11 +78,12 @@
  
  <style scoped>
 #book ul {
+    margin-top:50px;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-    gap: 30px;
+    gap: 10px;
     list-style-type: none;
-    padding: 0;
+ 
 }
 
 #book li {
@@ -98,8 +99,8 @@
 
 #book {
     padding: 30px 130px; /* Adds padding to the start and end of the grid container */
-}
 
+}
 /* Style for book title */
 
  .book-title {
@@ -119,13 +120,13 @@
     margin: 0; /* Remove default margin to reduce white space */
 }
 
-#book ul {
+/* #book ul {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
+  grid-template-columns: repeat(4, 1fr); /* 4 books per row 
   gap: 30px;
   list-style-type: none;
   padding: 0;
-}
+*/
 
 /* ... existing styles ... */
 

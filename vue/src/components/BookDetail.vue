@@ -1,17 +1,18 @@
 <template>
     <div class="book-container">
       <div class="book-details">
-        <h1>{{ book.title }} {{ book.sku }}</h1>
-        <p><strong>Author:</strong> {{ book.author }}</p>
-        <p><strong>Notes:</strong> {{ book.notes }}</p>
+        <p><strong>{{ book.author }}</strong> </p>
+        <p>{{ book.title }} {{ book.sku }}</p>
+        
+        <p>{{ book.notes }}</p>
         <!-- Other details here -->
       </div>
       <div class="book-image">
-        <img v-bind:src="book.image" alt="Book Image"/>
+        <img v-bind:src="book.image" />
       </div>
       <div class="book-actions">
-        <button @click="saveBook">Save the Book</button>
-        <button @click="addToCart">Add to Cart</button>
+        <!-- <button @click="saveBook">Save the Book</button>
+        <button @click="addToCart">Add to Cart</button> -->
       </div>
     </div>
   </template>
@@ -44,28 +45,43 @@ export default {
 </script>
 
 <style scoped>
+
 .book-container {
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: row;
+  font-family:'PT Sans',sans-serif;
+  padding: 40px 40px;
 }
 
 .book-details {
-  flex: 1;
+  flex: 3; /* Allocate more space to the details */
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px; /* Add some spacing between the details and the image */
 }
 
 .book-image {
-  flex: 1;
-  /* Adjust width as necessary */
+  flex: 1; /* Adjust the flex ratio as needed */
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  padding: 10px; /* Add padding around the image */
+}
+
+.book-image img {
+  max-width: 100px; /* Control the max width of the image */
+  max-height: 150px; /* Control the max height of the image */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  border: 1px solid #ddd; /* Add a border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
 .book-actions {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
+  /* Your existing styles for book-actions */
 }
 
-button {
-  /* Button styling */
-}
+
 </style>

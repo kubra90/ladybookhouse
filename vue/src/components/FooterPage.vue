@@ -98,7 +98,7 @@
   }
 
   .footer-account {
-    padding-right: 8em;
+    padding-right: 6em;
   }
 
 
