@@ -54,5 +54,6 @@ export default new Vuex.Store({
         commit('SET_BOOK_COUNT', payload)
       }
     }
+
   }
 )

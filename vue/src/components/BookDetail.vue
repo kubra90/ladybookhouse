@@ -9,10 +9,9 @@
         <p> {{ book.usedBook }}</p>
         <!-- Other details here -->
         <div class="book-actions">
-            <!-- <button @click="saveBook">Save the Book</button> -->
+        <!-- <button @click="saveBook">Save the Book</button>-->
             <button @click="addToBasket" class="add-to-cart"><strong>Add To Cart</strong></button>
             <button class="save-book"><strong>Save the book</strong></button>
-            <button class="remove-book"><strong>Remove the book</strong></button>
          </div>
       </div>
       <div class="book-image">
@@ -56,6 +55,7 @@ export default {
         //     })
         // }
     },
+    
     created() {
         const {sku} = this.$route.params;
     // console.log("Received SKU:", this.sku);
@@ -119,6 +119,7 @@ export default {
 
 
 .book-actions .add-to-cart, .book-actions .save-book, .remove-book {
+
   position: relative;
   display: inline-block;
   /* background: $button; */

@@ -4,7 +4,10 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
+import Book from '../views/Book.vue'
 import store from '../store/index'
+import Detail from '../views/Detail.vue'
+import About from '../views/About.vue'
 
 Vue.use(Router)
 
@@ -21,12 +24,13 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // this home page is the main page
     {
       path: '/',
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -52,7 +56,37 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/books",
+      name: "book",
+      component: Book,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/books/:sku",
+      name: "detail",
+      component: Detail,
+      props: true
+    },
+    {
+      path: "/about-us",
+      name: "about",
+      component: About,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    // {
+    //   path: "/sale-shipping-policies",
+    //   name: "policy",
+    //   component: Policy,
+    //   meta: {
+    //     requiresAuth: false
+    //   }
+    // },
   ]
 })
 
