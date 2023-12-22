@@ -2,6 +2,8 @@ package com.ladybookhouse.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 public class Book {
 
     private String title;
@@ -25,7 +27,12 @@ public class Book {
 
     private String category;
 
-   private String conditionAsText; //like new, very good
+    @JsonProperty("listed_date")
+    private Date listedDate;
+
+
+
+    private String conditionAsText; //like new, very good
 
     private String usedBook; // used or new
 
@@ -36,6 +43,14 @@ public class Book {
 
     public void setUsedBook(String usedBook) {
         this.usedBook = usedBook;
+    }
+
+    public Date getListedDate() {
+        return listedDate;
+    }
+
+    public void setListedDate(Date listedDate) {
+        this.listedDate = listedDate;
     }
 
     public String getConditionAsText() {
