@@ -2,6 +2,7 @@ package com.ladybookhouse.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Book {
@@ -28,7 +29,7 @@ public class Book {
     private String category;
 
     @JsonProperty("listed_date")
-    private Date listedDate;
+    private LocalDate listedDate;
 
 
 
@@ -45,11 +46,11 @@ public class Book {
         this.usedBook = usedBook;
     }
 
-    public Date getListedDate() {
+    public LocalDate getListedDate() {
         return listedDate;
     }
 
-    public void setListedDate(Date listedDate) {
+    public void setListedDate(LocalDate listedDate) {
         this.listedDate = listedDate;
     }
 

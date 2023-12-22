@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -59,8 +61,12 @@ public class RestAobApiService implements AobApiService{
             String isbn =root.path(0).path("isbn").asText("");
             int quantity = root.path(0).path("qty").asInt(0);
             String skuNumber =root.path(0).path("sku").asText("");
+            String listedDateString = root.path(0).path("listed_date").asText("");
+            LocalDate listedDate = listedDateString.isEmpty() ? null : LocalDate.parse(listedDateString);
 
-            String publisher =root.path(0).path("publisher").asText("");
+
+
+        String publisher =root.path(0).path("publisher").asText("");
             int condition =root.path(0).path("condition").asInt(0);
 
 
@@ -75,9 +81,9 @@ public class RestAobApiService implements AobApiService{
             String typeBook =type.getBookTypes(temp.getInventoryCode());
             temp.setCategory(typeBook);
             temp.setPublisher(publisher);
+            temp.setListedDate(listedDate);
        temp.setCondition(condition);
         String conditionText = temp.getConditionAsText(); // Get the textual description
-//        temp.setCondition(conditionText);
 
             String conditionUsed = type.getCondition(temp);
             temp.setUsedBook(conditionUsed);
@@ -112,6 +118,8 @@ public class RestAobApiService implements AobApiService{
                 String skuNumber = root.path(i).path("sku").asText("");
                 String publisher = root.path(i).path("publisher").asText("");
                 int condition = root.path(i).path("condition").asInt(0);
+                String listedDateString = root.path(i).path("listed_date").asText("");
+                LocalDate listedDate = listedDateString.isEmpty() ? null : LocalDate.parse(listedDateString);
 
                 Book temp = new Book();
                 temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
@@ -125,8 +133,8 @@ public class RestAobApiService implements AobApiService{
                 temp.setCategory(typeBook);
                 temp.setPublisher(publisher);
                 temp.setCondition(condition);
+                temp.setListedDate(listedDate);
                 String conditionText = temp.getConditionAsText(); // Get the textual description
-//        temp.setCondition(conditionText);
 
                 String conditionUsed = type.getCondition(temp);
                 temp.setUsedBook(conditionUsed);
@@ -140,6 +148,21 @@ public class RestAobApiService implements AobApiService{
 
     }
 
+    @Override
+    public List<Book> getNewArrivals(List<Book> Books) throws NullPointerException, JsonProcessingException {
+        Books = getInventoryList();
+
+        LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
+        List<Book> newArrival = new ArrayList<>();
+
+        for (Book book : Books) {
+            LocalDate listedDate = book.getListedDate();
+            if (listedDate != null && listedDate.isAfter(threeMonthsAgo)) {
+                newArrival.add(book);
+            }
+        }
+        return newArrival;
+    }
     }
 
 
