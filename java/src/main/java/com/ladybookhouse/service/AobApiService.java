@@ -12,5 +12,5 @@ public interface AobApiService {
 
     List<Book> getInventoryList() throws NullPointerException, JsonProcessingException;
 
-    List<Book> getNewArrivals(List<Book> Books) throws NullPointerException, JsonProcessingException;
+    List<Book> getNewArrivals() throws NullPointerException, JsonProcessingException;
 }

@@ -149,19 +149,21 @@ public class RestAobApiService implements AobApiService{
     }
 
     @Override
-    public List<Book> getNewArrivals(List<Book> Books) throws NullPointerException, JsonProcessingException {
-        Books = getInventoryList();
+    public List<Book> getNewArrivals() throws NullPointerException, JsonProcessingException {
+        List<Book> books = getInventoryList();
 
         LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
         List<Book> newArrival = new ArrayList<>();
 
-        for (Book book : Books) {
+        for (Book book : books) {
             LocalDate listedDate = book.getListedDate();
             if (listedDate != null && listedDate.isAfter(threeMonthsAgo)) {
                 newArrival.add(book);
             }
         }
+        System.out.println(newArrival.size());
         return newArrival;
+
     }
     }
 

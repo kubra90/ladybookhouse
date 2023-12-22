@@ -29,4 +29,8 @@ public class InventoryController {
         return service.getInventoryList();
     }
 
+    @RequestMapping(path= "/new-arrivals", method=RequestMethod.GET)
+    public List<Book> getNewArrivals() throws JsonProcessingException{
+        return service.getNewArrivals();
+    }
 }
