@@ -10,7 +10,7 @@
         <!-- Other details here -->
         <div class="book-actions">
         <!-- <button @click="saveBook">Save the Book</button>-->
-            <button class="add-to-cart"><strong>Add To Cart</strong></button>
+            <button @click="addToBasket" class="add-to-cart"><strong>Add To Cart</strong></button>
             <button class="save-book"><strong>Save the book</strong></button>
          </div>
       </div>
@@ -24,31 +24,29 @@
 
 <script>
 import bookService from '../services/BookService.js';
+import { mapActions } from 'vuex'
 
 export default {
     name: "book-detail",
-
     data() {
         return {
-            book: {},
+            numOfBooks: 0,
+            book: {}
         }
     },
-    // methods() {
-    //      saveBook() {
-    //         let bookToSave = {
-    //             book= this.book;
-    //         }
-    //      }
-    // },
-
-    
-        // savePokemon() { 
-        //     let pokemonToSave = {
-        //         id :this.id,
-        //         name: this.name,
-        //         url : this.$route.params.url
-        //     }
-        //     pokemonService.saveFavorite(pokemonToSave)
+    methods: {
+      ...mapActions(['addToCart']),
+      addToBasket() {
+                this.numOfBooks++
+                this.addToCart(this.numOfBooks);
+            }
+      // addToCart() { 
+      //       let bookToSave = {
+      //           id :this.id,
+      //           name: this.name,
+      //           url : this.$route.params.url
+      //       }
+        //     bookService.addToCart(bookToSave)
         //     .then(() => {
         //         alert(`${this.name} has been saved to Favorites`);
         //         //this push the route name pokemon
@@ -56,6 +54,7 @@ export default {
         //         // this.$store.commit("GET_NEXT_PREVIOUS_POKEMON");
         //     })
         // }
+    },
     
     created() {
         const {sku} = this.$route.params;
@@ -119,7 +118,8 @@ export default {
 }
 
 
-.book-actions .add-to-cart, .book-actions .save-book {
+.book-actions .add-to-cart, .book-actions .save-book, .remove-book {
+
   position: relative;
   display: inline-block;
   /* background: $button; */

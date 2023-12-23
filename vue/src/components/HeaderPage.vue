@@ -4,6 +4,8 @@
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
         <a href="/account">My Account</a>
+        <i class="fa fa-shopping-cart" style="font-size:24px"></i>
+        <span class="cart-count">{{ basketCount }}</span>
         <a href="/cart">My Cart</a>
       </div>
 
@@ -29,10 +31,14 @@
 
   
   <script>
+  import { mapState } from 'vuex'
   export default {
-    name: "header-page"
+    name: "header-page",
     // Your script here
-  };
+    computed: {
+      ...mapState(['basketCount'])
+    }
+  }
   </script>
 <style scoped>
 
