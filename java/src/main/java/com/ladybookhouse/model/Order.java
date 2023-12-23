@@ -1,7 +1,7 @@
 package com.ladybookhouse.model;
 
 public class Order {
-
+    private int orderId;
     private String firstName;
     private String lastName;
     private String addressLine;
@@ -10,8 +10,35 @@ public class Order {
     private String state;
     private String city;
     private String email;
-    private long phoneNumber;
+    private String phoneNumber;
     private String inventoryCode;
+
+    public Order() {
+    }
+
+    public Order(int orderId, String firstName, String lastName, String addressLine,
+                 String zipCode, String country, String state, String city, String
+                         email, String phoneNumber, String inventoryCode) {
+        this.orderId = orderId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.addressLine = addressLine;
+        this.zipCode = zipCode;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.inventoryCode = inventoryCode;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -77,11 +104,11 @@ public class Order {
         this.email = email;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
