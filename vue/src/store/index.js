@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
 Vue.use(Vuex)
 
 /*
@@ -21,7 +20,9 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     startingVal: 0,
-    endingVal: 10
+    endingVal: 10,
+    basketCount: 0,
+    cartBooks: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -43,7 +44,16 @@ export default new Vuex.Store({
     GET_NEXT_BOOKS(state, values){
       state.startingVal = values.startingVal;
       state.endingVal = values.endingVal;
+    },
+    SET_BOOK_COUNT(state, data) {
+      this.state.basketCount = data
+    },
+  },
+    actions: {
+      addToCart({commit}, payload) {
+        commit('SET_BOOK_COUNT', payload)
+      }
     }
 
   }
-})
+)
