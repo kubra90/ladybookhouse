@@ -15,9 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Component
@@ -161,11 +159,37 @@ public class RestAobApiService implements AobApiService{
                 newArrival.add(book);
             }
         }
+
+
+        // Sort the newArrival list by listedDate in descending order
+        newArrival.sort(new Comparator<Book>() {
+            @Override
+            public int compare(Book b1, Book b2) {
+                return b2.getListedDate().compareTo(b1.getListedDate());
+            }
+        });
         System.out.println(newArrival.size());
         return newArrival;
 
     }
+
+    @Override
+    public List<Book> getFeaturedItems() throws NullPointerException, JsonProcessingException {
+       List<Book> books =getInventoryList();
+
+       List<Book> featuredBooks = new ArrayList<>();
+
+       for(Book book: books){
+           String code = book.getInventoryCode();
+           if(code.contains("SSL") || code.contains("SS") || code.contains("NS") ||
+                   code.contains("AM") || code.contains("D")){
+               featuredBooks.add(book);
+           }
+       }
+        System.out.println(featuredBooks.size());
+       return featuredBooks;
     }
+}
 
 
 

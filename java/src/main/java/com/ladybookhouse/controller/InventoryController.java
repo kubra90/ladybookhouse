@@ -33,4 +33,9 @@ public class InventoryController {
     public List<Book> getNewArrivals() throws JsonProcessingException{
         return service.getNewArrivals();
     }
+
+    @RequestMapping(path= "/featured-items", method=RequestMethod.GET)
+    public List<Book> getFetauredList() throws JsonProcessingException{
+        return service.getFeaturedItems();
+    }
 }
