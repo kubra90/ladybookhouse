@@ -3,14 +3,15 @@ import axios from 'axios';
 const http = axios.create({
     baseURL: 'http://localhost:9000'
 })
-export default {
 
-  getBooks() {
-    return http.get('/books')
-  },
-
-  getBookById(sku) {
-    return http.get(`/books/${sku}`)
+async function getBooks() {
+    const books = await http.get('/books')
+    return books;
   }
-}
+async function getBookById(sku) {
+    const book = await http.get(`/books/${sku}`)
+    return book;
+  }
+  
+export { getBooks, getBookById }
 
