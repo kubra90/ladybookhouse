@@ -18,6 +18,22 @@
         maintaining the quality of our books.
         </p>
         <p><strong>Explore Our Online Stores</strong></p>
+        <div class="store-links">
+    <div class="store">
+        <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
+            <img class="img-icon" src="public/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
+            <span>Abebooks</span>
+        </a>
+    </div>
+    <!-- Add more stores as needed -->
+    <div class="store">
+        <a href="https://www.ebay.com/str/ladybookhouse" target="_blank">
+            <img class="img-icon" src="public/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 1 Icon">
+            <span>Ebay</span>
+        </a>
+    </div>
+</div>
+
 
     </div>
 </template>
@@ -32,5 +48,10 @@
     display:flex;
     flex-direction: column;
     padding-right:180px;
+}
+
+.img-icon {
+    width: 50px; /* Adjust as needed */
+    height: 10px; /* Keeps the aspect ratio */
 }
 </style>
