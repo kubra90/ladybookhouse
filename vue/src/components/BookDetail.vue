@@ -17,25 +17,24 @@
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
-     
     </div>
-  </template>
+</template>
   
-
 <script>
-import bookService from '../services/BookService.js';
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "book-detail",
     data() {
-        return {
-            numOfBooks: 0,
-            book: {}
+      return {
+          numOfBooks: 0,
         }
     },
+    computed: {
+      ...mapState(['book'])
+    },
     methods: {
-      ...mapActions(['addToCart']),
+      ...mapActions(['addToCart', 'fetchBookById']),
       addToBasket() {
                 this.numOfBooks++
                 this.addToCart(this.numOfBooks);
@@ -55,19 +54,9 @@ export default {
         //     })
         // }
     },
-    
     created() {
-        const {sku} = this.$route.params;
-    // console.log("Received SKU:", this.sku);
-    bookService.getBookById(sku)
-    .then(response => {
-        console.log("API Response:", response.data);
-        this.book = response.data;
-    })
-    .catch(error => {
-        console.error("Error fetching book details:", error);
-    });
-}
+      this.fetchBookById(this.$route.params.sku);
+    }
 }
 </script>
 
@@ -136,8 +125,5 @@ export default {
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem;
   font-family:'PT Sans',sans-serif;
-  
 }
-
-
 </style>

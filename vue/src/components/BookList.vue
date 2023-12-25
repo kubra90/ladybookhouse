@@ -1,77 +1,72 @@
 <template>
     <div id="book">
     <ul>
-        <div id="body-container" v-for="book in paginatedBooks" v-bind:key="book.isbn">
-          
-          <router-link v-bind:to="{
-            name: 'detail',
-            params: {
-                sku: book.sku
-            }
-          }"><img v-bind:src="book.image"/>
-          <VClamp :line-clamp="1" class="book-title">{{ book.title }}</VClamp>
+      <div id="body-container" v-for="book in paginatedBooks" v-bind:key="book.isbn">
+        <router-link v-bind:to="{
+          name: 'detail',
+          params: {
+            sku: book.sku
+          }}">
+            <img v-bind:src="book.image"/>
+            <VClamp :line-clamp="1" class="book-title">{{ book.title }}</VClamp>
          </router-link>
+
          <p class="book-author"><b>{{ book.author }}</b></p>
-         <!-- <h4 id="book-publisher">{{ book.publisher }}</h4> -->
-         <!-- <h4 id="book-media">{{ book.media }}</h4>-->
-        
-         <div class="book-detail">
-            <p>{{ book.publisher }}, {{ book.media }}</p>
-         </div>
-         <div  class="book-price">
-            <p><b>Price:</b> ${{ book.price }}</p>
-         </div>
-         <router-link v-bind:to="{
-            name: 'detail',
-            params: {
-                sku: book.sku
-            }
-          }"><p class="read-more">READ MORE</p>
-         </router-link>
+
+        <div class="book-detail">
+          <p>{{ book.publisher }}, {{ book.media }}</p>
         </div>
+        <div class="book-price">
+          <p><b>Price:</b> ${{ book.price }}</p>
+        </div>
+        <router-link v-bind:to="{
+          name: 'detail',
+          params: {
+            sku: book.sku
+          }
+          }">
+          <p class="read-more">READ MORE</p>
+        </router-link>
+      </div>
     </ul>
     <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
     <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
-      
-    </div>
+  </div>
  </template>
  
  <script>
- import bookService from "../services/BookService";
  import VClamp from 'vue-clamp';
- export default {
-     name: "book-list",
-     components: {
-        VClamp
-     },
-     
-     data(){
-         return {
-             bookArray:[],
-             image: "",
-             currentPage : 1,
-             booksPerPage: 24,
+ import { mapState, mapActions } from 'vuex';
 
-     }
- },
+ export default {
+  name: "book-list",
+  components: {
+    VClamp
+  },
+  data(){
+    return {
+      image: "",
+      currentPage : 1,
+      booksPerPage: 24,
+    }
+  },
   computed: {
     totalPages() {
-        return Math.ceil(this.bookArray.length / this.booksPerPage);
+        return Math.ceil(this.books.length / this.booksPerPage);
     },
     paginatedBooks() {
         const start =  (this.currentPage - 1) * this.booksPerPage;
         const end = start + this.booksPerPage;
-        return this.bookArray.slice(start, end);
-    }
+        return this.books.slice(start, end);
+    },
+    ...mapState(['books'])
+  },
+  methods: {
+    ...mapActions(['fetchBooks'])
   },
   created() {
-         bookService.getBooks()
-         .then(response => {
-             if(response.status == 200){
-                this.bookArray = response.data;
-             }
-         })
-     }
+      this.fetchBooks();
+    }
   }
  
  </script>

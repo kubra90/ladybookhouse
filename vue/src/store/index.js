@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { getBooks, getBookById } from '../services/BookService'
 Vue.use(Vuex)
-
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
  * the page is refreshed. When that happens you need to check for the token in local storage and if it
@@ -21,6 +21,8 @@ export default new Vuex.Store({
     user: currentUser || {},
     startingVal: 0,
     endingVal: 10,
+    books: [],
+    book: {},
     basketCount: 0,
     cartBooks: []
   },
@@ -41,19 +43,32 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
+    SET_BOOKS(state, data) {
+      state.books = data
+    },
+    SET_BOOK(state, data) {
+      state.book = data
+    },
     GET_NEXT_BOOKS(state, values){
       state.startingVal = values.startingVal;
       state.endingVal = values.endingVal;
     },
     SET_BOOK_COUNT(state, data) {
-      this.state.basketCount = data
+      state.basketCount = data
     },
   },
-    actions: {
-      addToCart({commit}, payload) {
+  actions: {
+    addToCart({commit}, payload) {
         commit('SET_BOOK_COUNT', payload)
+      },
+    async fetchBooks({commit}) {
+        const response = await getBooks()
+        commit('SET_BOOKS', response.data)
+      },
+    async fetchBookById({commit}, sku) {
+        const response = await getBookById(sku)
+        commit('SET_BOOK', response.data)
       }
     }
-
   }
 )
