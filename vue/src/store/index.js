@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { getBooks, getBookById } from '../services/BookService'
+import { getBooks, getBookById, getNewArrivals, getFeaturedItems } from '../services/BookService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -23,6 +23,8 @@ export default new Vuex.Store({
     endingVal: 10,
     books: [],
     book: {},
+    newArrivals: [],
+    featuredItems: [],
     basketCount: 0,
     cartBooks: []
   },
@@ -49,6 +51,12 @@ export default new Vuex.Store({
     SET_BOOK(state, data) {
       state.book = data
     },
+    SET_NEW_ARRIVALS(state, data) {
+      state.newArrivals = data
+    },
+    SET_FEATURED_ITEMS(state, data) {
+      state.featuredItems = data
+    },
     GET_NEXT_BOOKS(state, values){
       state.startingVal = values.startingVal;
       state.endingVal = values.endingVal;
@@ -68,7 +76,15 @@ export default new Vuex.Store({
     async fetchBookById({commit}, sku) {
         const response = await getBookById(sku)
         commit('SET_BOOK', response.data)
-      }
+      },
+    async fetchNewArrivals({commit}) {
+        const response = await getNewArrivals()
+        commit('SET_NEW_ARRIVALS', response.data)
+      },
+    async fetchFeaturedItems({commit}) {
+        const response = await getFeaturedItems()
+        commit('SET_FEATURED_ITEMS', response.data)
+      },      
     }
   }
 )
