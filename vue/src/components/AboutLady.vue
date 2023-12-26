@@ -1,19 +1,57 @@
 <template>
-    <div>
-        <h4>Terms Of Sale</h4>
-        <p>We guarantee the condition of every book as it's described on the LadyBookhouse web site. 
-            If you're dissatisfied with your purchase (Incorrect Book/Not as Described/Damaged) 
-            or if the order hasn't arrived, you're eligible for a refund within 30 days of the estimated delivery date. 
-            If you've changed your mind about a book that you've ordered, please use the Ask bookseller a question link 
-            to contact us and we'll respond within 2 business days. </p>
-        <h4>Shipping</h4>
+    <div class="about-us-container">
+        <h4 class="title-lb">Welcome Lady Bookhouse</h4>
         <p>
-            Orders usually ship within 2 business days [M-F]. Items shipped via USPS Standard 
-            Mail should arrive within 3-10 business days [M-F]. Should your order not arrive 
-            within 10 business days [M-F], please contact us promptly for resolution.
+         A sanctuary for book lovers of all ages. Our vast collection caters to a multitude of tastes, 
+         from young readers and teenagers to adults and older readers, each book carefully chosen 
+         to inspire, educate, and entertain.</p>
+         <p>
+         Our selections cover an extensive array of genres, from social sciences and psychology 
+         to natural sciences, literature, art, design, and cooking, not forgetting our delightful 
+         range of children's books. We also take pride in offering best-selling books from renowned 
+         authors around the globe, providing our customers with the chance to delve into popular 
+         narratives loved by millions.
+         </p>
+         <p>
+        Our commitment to you extends beyond the breadth of our book collection. We highly 
+        value customer satisfaction, which is why we are dedicated to fast shipping and 
+        maintaining the quality of our books.
         </p>
+        <p><strong>Explore Our Online Stores</strong></p>
+        <div class="store-links">
+    <div class="store">
+        <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
+            <img class="img-icon" src="public/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
+            <span>Abebooks</span>
+        </a>
+    </div>
+    <!-- Add more stores as needed -->
+    <div class="store">
+        <a href="https://www.ebay.com/str/ladybookhouse" target="_blank">
+            <img class="img-icon" src="public/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 1 Icon">
+            <span>Ebay</span>
+        </a>
+    </div>
+</div>
+
+
     </div>
 </template>
 
 <script>
 </script>
+
+<style scoped>
+.about-us-container {
+    padding-top: 30px;
+    padding-left: 130px;
+    display:flex;
+    flex-direction: column;
+    padding-right:180px;
+}
+
+.img-icon {
+    width: 50px; /* Adjust as needed */
+    height: 10px; /* Keeps the aspect ratio */
+}
+</style>

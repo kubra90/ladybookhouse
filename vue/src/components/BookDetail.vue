@@ -5,11 +5,10 @@
         <p>{{ book.title }} {{ book.isbn }}</p>
         <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
         <p>{{ book.notes }}. {{ book.sku }}</p>
-        <p><strong>Price:</strong> ${{ book.price }}</p>
+        <p><strong>Price: ${{ book.price }} </strong> </p>
         <p> {{ book.usedBook }}</p>
         <!-- Other details here -->
         <div class="book-actions">
-        <!-- <button @click="saveBook">Save the Book</button>-->
             <button @click="addToBasket" class="add-to-cart"><strong>Add To Cart</strong></button>
             <button class="save-book"><strong>Save the book</strong></button>
          </div>
@@ -39,20 +38,6 @@ export default {
                 this.numOfBooks++
                 this.addToCart(this.numOfBooks);
             }
-      // addToCart() { 
-      //       let bookToSave = {
-      //           id :this.id,
-      //           name: this.name,
-      //           url : this.$route.params.url
-      //       }
-        //     bookService.addToCart(bookToSave)
-        //     .then(() => {
-        //         alert(`${this.name} has been saved to Favorites`);
-        //         //this push the route name pokemon
-        //         this.$router.push({ name : 'pokemon'});
-        //         // this.$store.commit("GET_NEXT_PREVIOUS_POKEMON");
-        //     })
-        // }
     },
     created() {
       this.fetchBookById(this.$route.params.sku);
