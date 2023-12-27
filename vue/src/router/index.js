@@ -72,7 +72,7 @@ const router = new Router({
       props: true
     },
     {
-      path: "/about-us",
+      path: "/about",
       name: "about",
       component: About,
       meta: {
