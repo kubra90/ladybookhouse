@@ -12,6 +12,14 @@ async function getBookById(sku) {
     const book = await http.get(`/books/${sku}`)
     return book;
   }
+async function getNewArrivals() {
+    const newArrivals = await http.get('/new-arrivals')
+    return newArrivals;
+  }
+async function getFeaturedItems() {
+    const featuredItems = await http.get('/featured-items')
+    return featuredItems;
+  }
   
-export { getBooks, getBookById }
+export { getBooks, getBookById, getNewArrivals, getFeaturedItems }
 
