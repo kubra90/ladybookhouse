@@ -28,6 +28,11 @@ public class RestAobApiService implements AobApiService{
     @Autowired
     private Environment environment;
 
+    public RestAobApiService(RestTemplate restTemplate, Environment environment) {
+        this.restTemplate = restTemplate;
+        this.environment = environment;
+    }
+
     //create headers method
     private HttpHeaders createHeaders() {
         String username = environment.getProperty("username");
