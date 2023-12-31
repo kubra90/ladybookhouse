@@ -68,12 +68,17 @@ export default {
 
 <style scoped>
 
+#new-arrivals h3 {
+  padding-left: 45px;
+}
+
 #new-arrivals ul {
     margin-top:50px;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 books per row */
     gap: 10px;
     list-style-type: none;
+    padding-left: 45px;
  
 }
 
@@ -91,7 +96,7 @@ export default {
 #new-arrivals {
     /*padding: 30px 130px; Adds padding to the start and end of the grid container*/
    
-  padding: 30px 90px; /* Reduced left and right padding */
+  padding: 45px 90px; /* Reduced left and right padding */
 }
 
 
