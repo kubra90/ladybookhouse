@@ -9,6 +9,7 @@ import store from '../store/index'
 import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
 import NewArrivalsView  from '../views/NewArrivalsView.vue'
+import FeaturedBookView from '../views/FeaturedBookView'
 
 Vue.use(Router)
 
@@ -94,7 +95,14 @@ const router = new Router({
       component: NewArrivalsView,
       meta: {
         requiresAuth: false
-      }}
+      }},
+      {
+        path: "/featured-books",
+        name: "featuredBookView",
+        component: FeaturedBookView,
+        meta: {
+          requiresAuth: false
+        }}
   ]
 })
 

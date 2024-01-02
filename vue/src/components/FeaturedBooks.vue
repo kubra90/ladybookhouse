@@ -1,6 +1,7 @@
 <template>
   <div id="featured-books">
     <h3><strong>Featured Books</strong></h3>
+    <button class="btn primary"><router-link :to="{ name: 'featuredBookView' }" class="title-link">See All Featured Books</router-link></button>
     <ul>
       <div id="body-container" v-for="featuredBook in paginatedList" v-bind:key="featuredBook.isbn">
         <router-link v-bind:to="{
@@ -70,6 +71,19 @@ export default {
 #featured-books h3 {
   padding-left: 45px;
 }
+
+.title-link {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+    right: 0;
+    bottom: 0;
+    flex-direction:row;
+}
+
 
 #featured-books ul {
     margin-top:50px;
