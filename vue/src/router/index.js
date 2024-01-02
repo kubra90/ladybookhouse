@@ -8,6 +8,7 @@ import Book from '../views/Book.vue'
 import store from '../store/index'
 import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
+import NewArrivalsView  from '../views/NewArrivalsView.vue'
 
 Vue.use(Router)
 
@@ -26,8 +27,8 @@ const router = new Router({
   routes: [
     // this home page is the main page
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: Home,
       meta: {
         requiresAuth: false
@@ -87,6 +88,13 @@ const router = new Router({
     //     requiresAuth: false
     //   }
     // },
+    {
+      path: "/new-arrivals",
+      name: "NewArrivalsView",
+      component: NewArrivalsView,
+      meta: {
+        requiresAuth: false
+      }}
   ]
 })
 
