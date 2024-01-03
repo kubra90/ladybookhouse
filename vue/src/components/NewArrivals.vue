@@ -1,7 +1,7 @@
 <template>
   <div id="new-arrivals">
     <h3><strong>New Arrivals</strong></h3>
-    <button class="btn primary"><router-link :to="{ name: 'NewArrivalsView' }" class="title-link">See All New Arrivals</router-link></button>
+    <button class="btn primary"><router-link :to="{ name: 'new-arrivals-view' }" class="title-link">See All New Arrivals</router-link></button>
     <ul>
       <div id="body-container" v-for="newArrival in paginatedList" v-bind:key="newArrival.isbn">
         <router-link v-bind:to="{
@@ -42,7 +42,7 @@ import VClamp from "vue-clamp"
 import {mapState, mapActions} from "vuex"
 
 export default {
-    name: "newArrivals",
+    name: "new-arrivals",
 
     components: {
       VClamp

@@ -42,7 +42,7 @@
   import {mapState, mapActions} from "vuex"
   
   export default {
-    name: "newArrivalList",
+    name: "new-arrival-list",
 
     data() {
       return {

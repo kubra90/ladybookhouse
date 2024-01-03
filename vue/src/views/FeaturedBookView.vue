@@ -1,23 +1,23 @@
 <template>
     <div>
-        <div><headerPage/></div>    
-        <div><featuredBookList/></div>
-        <div><footerPage /></div> 
+        <div><header-page/></div>    
+        <div><featured-book-list/></div>
+        <div><footer-page/></div> 
     </div>    
     </template>
 
 <script>
 
-import headerPage from "../components/HeaderPage.vue"
-import footerPage from "../components/FooterPage.vue"
-import featuredBookList from "../components/FeaturedBookList.vue"
+import HeaderPage from "../components/HeaderPage.vue"
+import FooterPage from "../components/FooterPage.vue"
+import FeaturedBookList from "../components/FeaturedBookList.vue"
 
 export default {
     
-    name: "featuredBookView",
+    name: "featured-book-view",
 
     components: {
-        headerPage, footerPage, featuredBookList
+        HeaderPage, FooterPage, FeaturedBookList
     }
 }
 

@@ -1,23 +1,23 @@
 <template>
     <div>
-        <div><headerPage/></div>    
-        <div><newArrivalList/></div>
-        <div><footerPage /></div> 
+        <div><header-page/></div>    
+        <div><new-arrival-list/></div>
+        <div><footer-page /></div> 
     </div>    
     </template>
 
 <script>
 
-import headerPage from "../components/HeaderPage.vue"
-import footerPage from "../components/FooterPage.vue"
-import newArrivalList from "../components/NewArrivalList.vue"
+import HeaderPage from "../components/HeaderPage.vue"
+import FooterPage from "../components/FooterPage.vue"
+import NewArrivalList from "../components/NewArrivalList.vue"
 
 export default {
     
-    name: "NewArrivalsView",
+    name: "new-arrivals-view",
 
     components: {
-        headerPage, footerPage, newArrivalList
+        HeaderPage, FooterPage, NewArrivalList
     }
 }
 

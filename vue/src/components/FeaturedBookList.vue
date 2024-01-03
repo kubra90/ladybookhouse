@@ -42,7 +42,7 @@
   import {mapState, mapActions} from "vuex"
   
   export default {
-    name: "featuredBookList",
+    name: "featured-book-list",
 
     data() {
       return {

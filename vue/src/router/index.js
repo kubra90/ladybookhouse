@@ -91,14 +91,14 @@ const router = new Router({
     // },
     {
       path: "/new-arrivals",
-      name: "NewArrivalsView",
+      name: "new-arrivals-view",
       component: NewArrivalsView,
       meta: {
         requiresAuth: false
       }},
       {
         path: "/featured-books",
-        name: "featuredBookView",
+        name: "featured-book-view",
         component: FeaturedBookView,
         meta: {
           requiresAuth: false
