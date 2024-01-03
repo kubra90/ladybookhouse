@@ -24,9 +24,13 @@ public class RestAobApiService implements AobApiService{
     Category type = new Category();
 
     RestTemplate restTemplate = new RestTemplate();
+
     private final String API_URL = "https://www.theartofbooks.com/api/2.0/item/";
     @Autowired
     private Environment environment;
+
+    public RestAobApiService() {
+    }
 
     //create headers method
     private HttpHeaders createHeaders() {

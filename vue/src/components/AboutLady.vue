@@ -21,15 +21,25 @@
         <div class="store-links">
     <div class="store">
         <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
-            <img class="img-icon" src="/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
+            <img class="img-icon-first" src="/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
             <span>Abebooks</span>
         </a>
     </div>
     <!-- Add more stores as needed -->
     <div class="store">
         <a href="https://www.ebay.com/str/ladybookhouse" target="_blank">
-            <img class="img-icon" src="/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 1 Icon}">
+            <img class="img-icon-second" src="/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 2 Icon">
             <span>Ebay</span>
+        </a>
+    </div>
+    <div class="store">
+        <a href="https://www.biblio.com/bookstore/lady-bookhouse-belmont" target="_blank">
+           <span>Biblio</span>
+        </a>
+    </div>
+    <div class="store">
+        <a href="https://www.alibris.com/stores/lady0520" target="_blank">
+           <span>Alibris</span>
         </a>
     </div>
 </div>
@@ -50,9 +60,16 @@
     padding-right:180px;
 }
 
-.img-icon {
-    width: 50px; /* Adjust as needed */
-    height: 40px; /* Keeps the aspect ratio */
-    margin: 0.25em;
+.img-icon-first {
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Keeps the aspect ratio */
+    /* margin: 0.05em; */
+}
+
+.img-icon-second {
+    width: 55px; /* Adjust as needed */
+    height: 48px; /* Keeps the aspect ratio */
+    /* margin-right: 0.25em; */
+   
 }
 </style>
