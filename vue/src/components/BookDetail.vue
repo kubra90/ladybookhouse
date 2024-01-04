@@ -10,12 +10,16 @@
         <!-- Other details here -->
         <div class="book-actions">
             <button @click="addToBasket" class="add-to-cart"><strong>Add To Cart</strong></button>
+
             <button class="save-book"><strong>Save the book</strong></button>
          </div>
       </div>
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
+      <div v-if="showAddedToCart" class="added-to-cart-popup">
+       Added to Cart
+    </div>
     </div>
 </template>
   
@@ -27,6 +31,7 @@ export default {
     data() {
       return {
           numOfBooks: 0,
+          showAddedToCart: false
         }
     },
     computed: {
@@ -41,6 +46,9 @@ export default {
       addToBasket() {
                 this.numOfBooks++
                 this.addToCart(this.numOfBooks);
+                 //show the popup
+                 this.showAddedToCart = true;
+                
             }
     },
     created() {
@@ -115,4 +123,18 @@ export default {
   letter-spacing: 0.0625rem;
   font-family:'PT Sans',sans-serif;
 }
+
+/* popup design */
+.added-to-cart-popup {
+        position: fixed;
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust for the element's own size */
+        padding: 10px 20px;
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+        z-index: 1000;
+        text-align: center; /* Optional: for text alignment inside the popup */
+    }
 </style>

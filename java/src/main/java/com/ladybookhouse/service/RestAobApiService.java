@@ -131,8 +131,6 @@ public class RestAobApiService implements AobApiService{
                 temp.setIsbn(isbn);
                 BigDecimal currentPrice = new BigDecimal(priceStr).setScale(2, BigDecimal.ROUND_HALF_UP);
                 temp.setPrice(currentPrice);
-                System.out.println("Price String: " + priceStr); // Debugging line
-                System.out.println("Current Price: " + currentPrice); // Debugging line
                 temp.setMedia(media);
                 temp.setNotes(notes);
                 temp.setQuantity(quantity);
