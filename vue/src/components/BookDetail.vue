@@ -131,10 +131,12 @@ export default {
         left: 50%; /* Center horizontally */
         transform: translate(-50%, -50%); /* Adjust for the element's own size */
         padding: 10px 20px;
-        background-color: green;
-        color: white;
+        background-color:oldlace ;
+        color: #FA8072;
         border-radius: 5px;
         z-index: 1000;
         text-align: center; /* Optional: for text alignment inside the popup */
+        width: 350px;
+        height: 250px;
     }
 </style>
