@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -56,7 +57,8 @@ public class RestAobApiService implements AobApiService{
 
             String title = root.path(0).path("title").asText("");
             String author = root.path(0).path("author").asText("");
-            double price = root.path(0).path("price").asDouble(0);
+//            double price = root.path(0).path("price").asDouble(0.00);
+        String priceStr = root.path(0).path("price").asText("0.00");
             String media = root.path(0).path("media").asText("");
             String image = root.path(0).path("image").asText("");
             String notes = root.path(0).path("notes").asText("");
@@ -75,7 +77,8 @@ public class RestAobApiService implements AobApiService{
             Book temp = new Book();
             temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
             temp.setIsbn(isbn);
-            temp.setPrice(price);
+        BigDecimal currentPrice = new BigDecimal(priceStr).setScale(2, BigDecimal.ROUND_HALF_UP);
+        temp.setPrice(currentPrice);
             temp.setMedia(media);
             temp.setNotes(notes);
             temp.setQuantity(quantity);
@@ -111,7 +114,7 @@ public class RestAobApiService implements AobApiService{
                 String title = root.path(i).path("title").asText("");
 //                System.out.println(title);
                 String author = root.path(i).path("author").asText("");
-                double price = root.path(i).path("price").asDouble(0);
+                String priceStr = root.path(i).path("price").asText("0.00");
                 String media = root.path(i).path("media").asText("");
                 String image = root.path(i).path("image").asText("");
                 String notes = root.path(i).path("notes").asText("");
@@ -126,7 +129,10 @@ public class RestAobApiService implements AobApiService{
                 Book temp = new Book();
                 temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
                 temp.setIsbn(isbn);
-                temp.setPrice(price);
+                BigDecimal currentPrice = new BigDecimal(priceStr).setScale(2, BigDecimal.ROUND_HALF_UP);
+                temp.setPrice(currentPrice);
+                System.out.println("Price String: " + priceStr); // Debugging line
+                System.out.println("Current Price: " + currentPrice); // Debugging line
                 temp.setMedia(media);
                 temp.setNotes(notes);
                 temp.setQuantity(quantity);

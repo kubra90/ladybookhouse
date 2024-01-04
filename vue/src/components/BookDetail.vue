@@ -5,7 +5,7 @@
         <p>{{ book.title }} {{ book.isbn }}</p>
         <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
         <p>{{ book.notes }}. {{ book.sku }}</p>
-        <p><strong>Price: ${{ book.price }} </strong> </p>
+        <p><strong>Price: ${{formatPrice(book.price) }} </strong> </p>
         <p> {{ book.usedBook }}</p>
         <!-- Other details here -->
         <div class="book-actions">
@@ -34,6 +34,10 @@ export default {
     },
     methods: {
       ...mapActions(['addToCart', 'fetchBookById']),
+      formatPrice(value) {
+    const formattedPrice = Number(value).toFixed(2);
+    return formattedPrice;
+  },
       addToBasket() {
                 this.numOfBooks++
                 this.addToCart(this.numOfBooks);

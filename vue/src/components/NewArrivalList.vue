@@ -17,7 +17,7 @@
             <p>{{ newArrival.publisher }}, {{ newArrival.media }}</p>
           </div>
           <div class="book-price">
-            <p><b>Price:</b> ${{ newArrival.price }}</p>
+            <p><b>Price:</b> ${{ formatPrice(newArrival.price) }}</p>
           </div>
           <router-link v-bind:to="{
             name: 'detail',
@@ -69,7 +69,11 @@
   },
     
     methods: {
-      ...mapActions(["fetchNewArrivals"])
+      ...mapActions(["fetchNewArrivals"]),
+      formatPrice(value) {
+    const formattedPrice = Number(value).toFixed(2);
+    return formattedPrice;
+  },
     },
     
     created() {

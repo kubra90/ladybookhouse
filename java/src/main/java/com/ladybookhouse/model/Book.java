@@ -2,6 +2,7 @@ package com.ladybookhouse.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class Book {
     private String title;
 
     private String image;
-    private Double price;
+    private BigDecimal price;
     //paperback or hardcover
     private String media;
     private String publisher;
@@ -89,9 +90,6 @@ public class Book {
         return image;
     }
 
-    public Double getPrice() {
-        return price;
-    }
 
     public String getMedia() {
         return media;
@@ -177,7 +175,11 @@ public class Book {
         this.image = image;
     }
 
-    public void setPrice(Double price) {
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
