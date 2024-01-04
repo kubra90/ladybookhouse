@@ -1,6 +1,7 @@
 <template>
   <div id="featured-books">
     <h3><strong>Featured Books</strong></h3>
+    <button class="btn primary"><router-link :to="{ name: 'featured-book-view' }" class="title-link">See All Featured Books</router-link></button>
     <ul>
       <div id="body-container" v-for="featuredBook in paginatedList" v-bind:key="featuredBook.isbn">
         <router-link v-bind:to="{
@@ -40,7 +41,7 @@ import VClamp from "vue-clamp"
 import {mapState, mapActions} from "vuex"
 
 export default {
-    name: "featuredBooks",
+    name: "featured-books",
 
     components: {
       VClamp
@@ -49,7 +50,7 @@ export default {
     computed: {
     
     paginatedList() {
-        return this.featuredItems.slice(0, 4);
+        return this.featuredItems.slice(0, 16);
     },
     ...mapState(["featuredItems"])
   },
@@ -67,12 +68,30 @@ export default {
 
 <style scoped>
 
+#featured-books h3 {
+  padding-left: 45px;
+}
+
+.title-link {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+    right: 0;
+    bottom: 0;
+    flex-direction:row;
+}
+
+
 #featured-books ul {
     margin-top:50px;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 books per row */
     gap: 10px;
     list-style-type: none;
+    padding-left: 45px;
  
 }
 
@@ -90,7 +109,7 @@ export default {
 #featured-books {
     /*padding: 30px 130px; Adds padding to the start and end of the grid container*/
    
-  padding: 30px 90px; /* Reduced left and right padding */
+  padding: 45px 90px; /* Reduced left and right padding */
 }
 
 
