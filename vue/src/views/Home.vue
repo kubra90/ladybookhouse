@@ -5,26 +5,26 @@
   
       <!-- decide top right items -->
     <div><header-page/></div>
-    <div><newArrivals/></div>
-    <div><featuredBooks/></div>
+    <div><new-arrivals/></div>
+    <div><featured-books/></div>
     <div><footer-page/></div>
   </div>
   
 </template>
 
 <script>
-// import book from "../views/Book.vue"
-// import bookList from "../components/BookList.vue"
-import newArrivals from "../components/NewArrivals.vue"
-import featuredBooks from "../components/FeaturedBooks.vue"
-import headerPage from "../components/HeaderPage.vue"
-import footerPage from "../components/FooterPage.vue"
+
+import NewArrivals from "../components/NewArrivals.vue"
+import FeaturedBooks from "../components/FeaturedBooks.vue"
+import HeaderPage from "../components/HeaderPage.vue"
+import FooterPage from "../components/FooterPage.vue"
+
 export default {
   name: "home",
   components: {
-   headerPage, footerPage, newArrivals, featuredBooks
+   HeaderPage, FooterPage, NewArrivals, FeaturedBooks
   }
-};
+}
 </script>
 
 <style scoped>

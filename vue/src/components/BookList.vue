@@ -17,7 +17,7 @@
           <p>{{ book.publisher }}, {{ book.media }}</p>
         </div>
         <div class="book-price">
-          <p><b>Price:</b> ${{ book.price }}</p>
+          <p><b>Price:</b> ${{ formatPrice(book.price) }}</p>
         </div>
         <router-link v-bind:to="{
           name: 'detail',
@@ -62,7 +62,13 @@
     ...mapState(['books'])
   },
   methods: {
-    ...mapActions(['fetchBooks'])
+    ...mapActions(['fetchBooks']),
+    formatPrice(value) {
+    console.log("Original Price:", value); // Debugging line
+    const formattedPrice = Number(value).toFixed(2);
+    console.log("Formatted Price:", formattedPrice); // Debugging line
+    return formattedPrice;
+  },
   },
   created() {
       this.fetchBooks();
