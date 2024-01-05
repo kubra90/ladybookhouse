@@ -17,6 +17,7 @@
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
+      <div v-if="showAddedToCart" class="overlay"></div>
       <div v-if="showAddedToCart" class="added-to-cart-popup">
        Added to Cart
     </div>
@@ -138,5 +139,15 @@ export default {
         text-align: center; /* Optional: for text alignment inside the popup */
         width: 30%;
         height: 250px;
+    }
+  
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        z-index: 999; /* Ensure it's below the popup but above other content */
     }
 </style>
