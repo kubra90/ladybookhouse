@@ -20,6 +20,15 @@
       <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
       <div v-if="showAddedToCart" class="added-to-cart-popup">
        Added to Cart
+       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
+       <div class="popup-content">
+        <img :src="book.image" class="popup-book-image"/>
+        <div class="popup=detail">
+        <h4 class="popup-book-title">{{ book.title }}</h4>
+        <h5 class="popup-book-author">{{ book.author }}</h5>
+        <h5 class="popup-book-price"><strong>Price: ${{ formatPrice(book.price) }}</strong></h5>
+      </div>
+       </div>
     </div>
     </div>
 </template>
@@ -136,12 +145,12 @@ export default {
         transform: translate(-50%, -50%); /* Adjust for the element's own size */
         padding: 10px 20px;
         background-color:#e4e4e4 ;
-        color:black;
+        color:#6B3630;
         border-radius: 5px;
         z-index: 1000;
         text-align: left; /* Optional: for text alignment inside the popup */
-        width: 30%;
-        height: 250px;
+        width: 35%;
+        height: 280px;
         font-size: 20px;
     }
   
@@ -153,5 +162,34 @@ export default {
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
         z-index: 999; /* Ensure it's below the popup but above other content */
+    }
+
+    .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: none;
+        background: none;
+        color: gray; /* Or any color that matches your design */
+        font-size: 0.7em; /* Adjust size as needed */
+        cursor: pointer;
+
+    }
+
+    /* Optional: Add a hover effect for the close button */
+    .close-popup:hover {
+        color: #555; /* Darken the color on hover */
+    }
+
+    .popup-book-image {
+        /* max-width: 70px; Adjust as per your design */
+        height: auto;
+        margin: 10px 0;
+        width: 120px;
+    }
+
+    .popup-content {
+      display: flex;
+      flex-direction: row;
     }
 </style>
