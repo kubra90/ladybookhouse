@@ -17,7 +17,7 @@
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
-      <div v-if="showAddedToCart" class="overlay"></div>
+      <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
       <div v-if="showAddedToCart" class="added-to-cart-popup">
        Added to Cart
     </div>
@@ -50,7 +50,10 @@ export default {
                  //show the popup
                  this.showAddedToCart = true;
                 
-            }
+            },
+      hidePopup() {
+        this.showAddedToCart = false;
+      }
     },
     created() {
       this.fetchBookById(this.$route.params.sku);
@@ -136,9 +139,10 @@ export default {
         color:black;
         border-radius: 5px;
         z-index: 1000;
-        text-align: center; /* Optional: for text alignment inside the popup */
+        text-align: left; /* Optional: for text alignment inside the popup */
         width: 30%;
         height: 250px;
+        font-size: 20px;
     }
   
     .overlay {
