@@ -64,11 +64,20 @@ export default new Vuex.Store({
     SET_BOOK_COUNT(state, data) {
       state.basketCount = data
     },
+    //add the book to cart
+    ADD_TO_CART(state, book){
+      state.cartBooks.push(book);
+      state.basketCount++;
+    }
   },
   actions: {
-    addToCart({commit}, payload) {
-        commit('SET_BOOK_COUNT', payload)
-      },
+    // addToCart({commit}, payload) {
+    //     commit('SET_BOOK_COUNT', payload)
+      
+    //   },
+    addToCart({commit}, book){
+      commit('ADD_TO_CART', book);
+    },
     async fetchBooks({commit}) {
         const response = await getBooks()
         commit('SET_BOOKS', response.data)

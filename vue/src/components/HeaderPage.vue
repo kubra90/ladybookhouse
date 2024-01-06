@@ -4,7 +4,7 @@
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
         <a href="/account">My Account  |</a>
-        <i class="fa fa-shopping-cart" style="font-size:16px"></i>
+        <i class="fa fa-shopping-cart"></i>
         <!-- <span class="cart-count">{{ basketCount }}</span> -->
         <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a>
       </div>
@@ -75,7 +75,10 @@
   padding-right:70px;
 }
 
-
+.fa-shopping-cart{
+  margin-top: 8px;
+  font-size: 16px;
+}
 
 
 .app-name {

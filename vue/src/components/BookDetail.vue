@@ -28,10 +28,11 @@
       Added to Cart
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
       <div class="popup-content">
+        <!-- check the book is already in the basket or not! -->
         <img :src="book.image" class="popup-book-image" />
         <div class="popup-detail">
           <h4 class="popup-book-title">{{ book.title }}</h4>
-          <h5 class="popup-book-author">{{ book.author }}</h5>
+          <h5 class="popup-book-author">{{ book.author }} </h5>
           <h5 class="popup-book-price">
             <strong>Price: ${{ formatPrice(book.price) }}</strong>
           </h5>
@@ -39,7 +40,7 @@
        
       </div>
       <div class="popup-navbar">
-          <button class="continue-shopping-bar">CONTINUE SHOPPING</button>
+          <button class="continue-shopping-bar" @click="hidePopup">CONTINUE SHOPPING</button>
           <button class="go-to-cart-bar">GO TO CART</button>
       </div>
     </div>
@@ -67,10 +68,19 @@ export default {
       return formattedPrice;
     },
     addToBasket() {
-      this.numOfBooks++;
-      this.addToCart(this.numOfBooks);
+      // this.numOfBooks++;
+      // this.addToCart(this.numOfBooks);
       //show the popup
+      // this.showAddedToCart = true;
+      if(this.book.qty> 0) {
+        this.addToCart(this.book);
+        this.numOfBooks++;
+        // show the popup
       this.showAddedToCart = true;
+      this.book.qty--;
+      }else {
+        console.error("you have already added this book to the cart!");
+      }
     },
     hidePopup() {
       this.showAddedToCart = false;
