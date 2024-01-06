@@ -29,6 +29,7 @@
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
+        <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
         <img :src="book.image" class="popup-book-image" />
         <div class="popup-detail">
           <h4 class="popup-book-title">{{ book.title }}</h4>
@@ -56,6 +57,7 @@ export default {
     return {
       numOfBooks: 0,
       showAddedToCart: false,
+      showErrorMessage: false
     };
   },
   computed: {
@@ -79,7 +81,9 @@ export default {
       this.showAddedToCart = true;
       this.book.qty--;
       }else {
-        console.error("you have already added this book to the cart!");
+        // console.error("you have already added this book to the cart!");
+        this.showErrorMessage = true;
+        this.showAddedToCart = true;
       }
     },
     hidePopup() {
