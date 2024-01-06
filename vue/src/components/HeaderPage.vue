@@ -3,10 +3,10 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <a href="/account">My Account</a>
-        <i class="fa fa-shopping-cart" style="font-size:24px"></i>
-        <span class="cart-count">{{ basketCount }}</span>
-        <a href="/cart">My Cart</a>
+        <a href="/account">My Account  |</a>
+        <i class="fa fa-shopping-cart" style="font-size:16px"></i>
+        <!-- <span class="cart-count">{{ basketCount }}</span> -->
+        <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a>
       </div>
 
       <!-- Second Box: Search Bar -->
@@ -71,9 +71,10 @@
 
 .account-cart, .search-bar{
   justify-content: right;
-  padding-top:0px;
+  padding-top:7px;
   padding-right:70px;
 }
+
 
 
 
