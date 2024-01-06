@@ -2,7 +2,7 @@
   <main>
     <header-page/>
     <div id="login">
-      <form @submit.prevent="login">
+      <form @submit.prevent="handleLogin">
         <h1>Login</h1>
         <div role="alert" v-if="invalidCredentials">
           Invalid username and password!
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import authService from "../services/AuthService";
 import HeaderPage from "../components/HeaderPage.vue"
 import FooterPage from "../components/FooterPage.vue"
+import { mapActions } from "vuex"
 
 export default {
   name: "login",
@@ -48,19 +48,16 @@ export default {
     };
   },
   methods: {
-    login() {
-      authService
-        .login(this.user)
+    ...mapActions(["loginUser"]),
+    handleLogin() {
+      this.loginUser(this.user)
         .then(response => {
           if (response.status == 200) {
-            this.$store.commit("SET_AUTH_TOKEN", response.data.token);
-            this.$store.commit("SET_USER", response.data.user);
             this.$router.push("/");
           }
         })
         .catch(error => {
           const response = error.response;
-
           if (response.status === 401) {
             this.invalidCredentials = true;
           }

@@ -2,7 +2,7 @@
   <main>
     <header-page/>
     <div id="register">
-      <form @submit.prevent="register">
+      <form @submit.prevent="handleRegister">
         <h1>Create Account</h1>
         <div role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import authService from '../services/AuthService';
 import HeaderPage from "../components/HeaderPage.vue"
 import FooterPage from "../components/FooterPage.vue"
+import { mapActions } from "vuex"
 
 export default {
   name: 'register',
@@ -51,13 +51,13 @@ export default {
     };
   },
   methods: {
-    register() {
+    ...mapActions(["registerUser"]),
+    handleRegister() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
       } else {
-        authService
-          .register(this.user)
+          this.registerUser(this.user)
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
