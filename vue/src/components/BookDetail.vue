@@ -27,9 +27,10 @@
     <div v-if="showAddedToCart" class="added-to-cart-popup">
       Added to Cart
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
+      <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
-        <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
+        
         <img :src="book.image" class="popup-book-image" />
         <div class="popup-detail">
           <h4 class="popup-book-title">{{ book.title }}</h4>
@@ -168,14 +169,21 @@ export default {
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Adjust for the element's own size */
   padding: 10px 20px;
-  background-color: #e4e4e4;
+  background-color: white;
   color: #6b3630;
   border-radius: 5px;
   z-index: 1000;
   text-align: left; /* Optional: for text alignment inside the popup */
   width: 35%;
-  height: 280px;
+  height: 320px;
+  /* max-height: 350px; */
   font-size: 20px;
+  /* new properties */
+  display: flex;
+  flex-direction: column;
+  max-height: none; /* Remove max height or make it larger */
+  overflow: hidden; /* Hide overflow or use 'auto' to allow scrolling */
+
 }
 
 .overlay {
@@ -208,12 +216,15 @@ export default {
   /* max-width: 70px; Adjust as per your design */
   height: auto;
   margin: 10px 0;
-  width: 120px;
+  width: 140px;
+  max-height: 200px;
 }
 
 .popup-content {
   display: flex;
   flex-direction: row;
+  flex: 3;
+  overflow: auto;
 }
 
 .popup-navbar {
@@ -221,9 +232,19 @@ export default {
   flex-direction :row;
   /* align-items: right; */
   justify-content: right;
+  max-height:30px;
+  flex:0;
+
 }
 
 .go-to-cart-bar {
   background-color: antiquewhite;
+}
+
+.added-book-error {
+  box-sizing: border-box;
+  border-style :solid;
+  background-color: rgb(226, 144, 144);
+
 }
 </style>
