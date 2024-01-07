@@ -43,7 +43,7 @@
       </div>
       <div class="popup-navbar">
           <button class="continue-shopping-bar" @click="hidePopup">CONTINUE SHOPPING</button>
-          <button class="go-to-cart-bar">GO TO CART</button>
+          <button class="go-to-cart-bar" @click="goToCart">GO TO CART</button>
       </div>
     </div>
   </div>
@@ -90,6 +90,9 @@ export default {
     hidePopup() {
       this.showAddedToCart = false;
     },
+    goToCart() {
+      this.$router.push({name: "cart"});
+    }
   },
   created() {
     this.fetchBookById(this.$route.params.sku);
