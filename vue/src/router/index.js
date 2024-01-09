@@ -10,6 +10,7 @@ import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
 import NewArrivalsView  from '../views/NewArrivalsView.vue'
 import FeaturedBookView from '../views/FeaturedBookView'
+import Cart from '../views/Cart.vue'
 
 Vue.use(Router)
 
@@ -102,7 +103,14 @@ const router = new Router({
         component: FeaturedBookView,
         meta: {
           requiresAuth: false
-        }}
+        }},
+        {
+          path: "/shopping-cart",
+          name: "cart",
+          component: Cart,
+          meta: {
+            requiresAuth: false
+          }}
   ]
 })
 
