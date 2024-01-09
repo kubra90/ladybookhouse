@@ -15,7 +15,7 @@
                 <p>{{ book.author }}</p>
           </div>
           <div class="book-remove">Remove item</div>
-          <div class="book-price">{{ book.price }}</div>
+          <div class="book-price">${{ book.price }}</div>
           </div>
        </div>
     </div>
@@ -54,6 +54,9 @@ export default {
     flex-direction: column;
     /* align-items: center; */
     margin-bottom: 20px; /* Space between book items */
+    border-bottom: 0.2px solid black; 
+    margin-left:9%;
+    padding-bottom:20px;
 }
 
 .cart-header {
@@ -100,7 +103,7 @@ flex-direction: row;
   width: 120px; /* Increase width for smaller screens */
   height: 170px; /* Maintain aspect ratio */
   margin-right:1%;
-  margin-left:9%;
+
 
   /* max-width: 300px;
   max-height: 400px; */
