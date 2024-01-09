@@ -8,11 +8,14 @@
         </div>
         
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
+          <div class="book-detail">
          <img :src="book.image" alt="Book Image" class="book-image"/>
          <div class="book-info">
                 <h3>{{ book.title }}</h3>
                 <p>Author: {{ book.author }}</p>
-                <p>Price: ${{ book.price }}</p>
+          </div>
+          <div class="book-remove">Remove item</div>
+          <div class="book-price">{{ book.price }}</div>
           </div>
        </div>
     </div>
@@ -75,6 +78,25 @@ flex-direction: row;
     display:flex;
     flex-direction:row;
     margin-left:10px;
+}
+
+.book-detail {
+    display:flex;
+    flex-direction: row;
+}
+
+.book-image {
+  /* Control the max width of the image */
+  /* Control the max height of the image */
+  /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  border: 1px solid #ddd; /* Add a border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  width: 200px; /* Increase width for smaller screens */
+  height: 300px; /* Maintain aspect ratio */
+  max-width: 300px;
+  max-height: 400px;
 }
 
 </style>
