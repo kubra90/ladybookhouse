@@ -3,7 +3,8 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <a href="/account">My Account  |</a>
+        <a v-if="user.username" href="/account">Welcome, {{user.username}}  |</a>
+        <a v-else href="/account">Your account  |</a>
         <i class="fa fa-shopping-cart"></i>
         <!-- <span class="cart-count">{{ basketCount }}</span> -->
         <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a>
@@ -36,7 +37,7 @@
     name: "header-page",
     // Your script here
     computed: {
-      ...mapState(['basketCount'])
+      ...mapState(['basketCount', 'user'])
     }
   }
   </script>
