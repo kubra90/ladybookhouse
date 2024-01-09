@@ -65,11 +65,13 @@ export default new Vuex.Store({
     SET_BOOK_COUNT(state, data) {
       state.basketCount = data
     },
+    //add the book to cart
+    ADD_TO_CART(state, book){
+      state.cartBooks.push(book);
+      state.basketCount++;
+    }
   },
   actions: {
-    addToCart({commit}, payload) {
-      commit('SET_BOOK_COUNT', payload)
-      },
     async registerUser({commit}, user) {
       const response = await register(user)
       commit('SET_USER', response.data.user)
@@ -79,6 +81,9 @@ export default new Vuex.Store({
       const response = await login(user)
       commit('SET_USER', response.data.user)
       return response
+    },
+    addToCart({commit}, book){
+      commit('ADD_TO_CART', book);
     },
     async fetchBooks({commit}) {
         const response = await getBooks()
