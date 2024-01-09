@@ -11,8 +11,8 @@
           <div class="book-detail">
          <img :src="book.image" alt="Book Image" class="book-image"/>
          <div class="book-info">
-                <h3>{{ book.title }}</h3>
-                <p>Author: {{ book.author }}</p>
+                <p><strong>{{ book.title }}</strong></p>
+                <p>{{ book.author }}</p>
           </div>
           <div class="book-remove">Remove item</div>
           <div class="book-price">{{ book.price }}</div>
@@ -52,7 +52,7 @@ export default {
 .book-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 20px; /* Space between book items */
 }
 
@@ -83,6 +83,10 @@ flex-direction: row;
 .book-detail {
     display:flex;
     flex-direction: row;
+    /* justify-items: left; */
+    align-content: flex-start;
+    /* margin-left:2%; */
+    margin-top:2%;
 }
 
 .book-image {
@@ -93,10 +97,15 @@ flex-direction: row;
   border: 1px solid #ddd; /* Add a border */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-  width: 200px; /* Increase width for smaller screens */
-  height: 300px; /* Maintain aspect ratio */
-  max-width: 300px;
-  max-height: 400px;
+  width: 120px; /* Increase width for smaller screens */
+  height: 170px; /* Maintain aspect ratio */
+  margin-right:1%;
+  margin-left:9%;
+
+  /* max-width: 300px;
+  max-height: 400px; */
 }
+
+
 
 </style>
