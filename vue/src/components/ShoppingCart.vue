@@ -18,8 +18,9 @@
           <div class="book-price">${{ book.price }}</div>
           </div>
        </div>
-       <div>
-        <p class="total-amount">totalPrice</p>
+       <div class="price-tab">
+        <p class="subtotal-price">Subtotal <span>${{totalPrice}}</span> </p>
+        <p class="total-price">Order Total <span class="order-total"> ${{totalPrice}}</span></p>
        </div>
     </div>
 </template>
@@ -30,11 +31,13 @@ export default {
     name: "shopping-cart",
     data() {
        return {
-          totalPrice:0,
        } 
     },
     computed: {
-        ...mapState(['cartBooks'])
+        ...mapState(['cartBooks']),
+        totalPrice(){
+            return this.cartBooks.reduce((total, book) => total + book.price, 0);
+        }
     },
     methods: {
         goToHomePage() {
@@ -132,6 +135,16 @@ flex-direction: row;
     margin-right: 15%; /* Fixed gap to the next element */
     flex-grow: 0; /* Prevent it from growing */
     white-space: nowrap; /* Prevent wrapping of text */
+}
+
+/* .order-total {
+    color: chocolate;
+    margin-left:13px;
+} */
+
+.total-price span{
+    color: chocolate;
+    margin-left:20px;
 }
 
 
