@@ -87,18 +87,10 @@ flex-direction: row;
 .book-detail {
     display:flex;
     flex-direction: row;
-    /* justify-items: left; */
-    /* align-content: flex-start; */
-    /* align-items: center; */
-    /* margin-left:2%; */
     margin-top:2%;
-    /* justify-content:space-between; */
 }
 
 .book-image {
-  /* Control the max width of the image */
-  /* Control the max height of the image */
-  /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   border: 1px solid #ddd; /* Add a border */
   border-radius: 8px; /* Rounded corners */
@@ -107,16 +99,9 @@ flex-direction: row;
   height: 170px; /* Maintain aspect ratio */
   margin-right:1%;
   
-
-
-  /* max-width: 300px;
-  max-height: 400px; */
 }
 
 .book-price {
-    /* justify-content: flex-end;
-    display:flex;
-  flex-grow:1;*/
   margin-right:15%;
   display: flex;
     align-items: flex-start; /* Center align vertically */
@@ -131,9 +116,6 @@ flex-direction: row;
 }
 
 .book-remove {
-    /* display:flex;
-    justify-content:flex-end;
-    flex-grow:1; */
     display: flex;
     /* Center align vertically */
     align-items: flex-start; 
