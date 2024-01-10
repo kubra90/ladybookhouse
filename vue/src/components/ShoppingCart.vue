@@ -43,12 +43,6 @@ export default {
         goToHomePage() {
             this.$router.push({name: "home" });
         },
-        getTotalPrice() {
-            
-           for( const book in this.cartBooks){
-            this.totalPrice+=book.price;
-           }
-        }
     }
    
 }
@@ -142,11 +136,48 @@ flex-direction: row;
     margin-left:13px;
 } */
 
-.total-price span{
+/* .total-price span{
     color: chocolate;
     margin-left:20px;
 }
 
+.subtotal-price span{
+    margin-left:20px;
+} */
 
+/* .price-tab {
+    border-bottom: 0.2px solid black; 
+    margin-left:9%;
+} */
+
+/* .subtotal-price {
+    margin-left: 76%;
+} */
+
+/* .total-price{
+    margin-left:74.8%;
+} */
+
+.price-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right */
+    border-bottom: 0.2px solid black; 
+    margin-left: 9%;
+    margin-right: 13%; /* Add right margin for symmetry */
+    padding: 10px 0; /* Add some padding */
+}
+
+.subtotal-price, .total-price {
+    margin-bottom: 0px; /* Reduce space between subtotal and total */
+}
+.total-price span, .subtotal-price span {
+    
+    margin-left: 20px;
+}
+.total-price span{
+    color:chocolate;
+}
 
 </style>
+
