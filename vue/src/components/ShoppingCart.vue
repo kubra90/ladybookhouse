@@ -18,6 +18,9 @@
           <div class="book-price">${{ book.price }}</div>
           </div>
        </div>
+       <div>
+        <p class="total-amount">totalPrice</p>
+       </div>
     </div>
 </template>
 
@@ -27,7 +30,7 @@ export default {
     name: "shopping-cart",
     data() {
        return {
-          
+          totalPrice:0,
        } 
     },
     computed: {
@@ -36,6 +39,12 @@ export default {
     methods: {
         goToHomePage() {
             this.$router.push({name: "home" });
+        },
+        getTotalPrice() {
+            
+           for( const book in this.cartBooks){
+            this.totalPrice+=book.price;
+           }
         }
     }
    
