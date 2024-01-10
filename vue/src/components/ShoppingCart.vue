@@ -57,6 +57,7 @@ export default {
     border-bottom: 0.2px solid black; 
     margin-left:9%;
     padding-bottom:20px;
+    /* justify-content:space-between; */
 }
 
 .cart-header {
@@ -87,10 +88,11 @@ flex-direction: row;
     display:flex;
     flex-direction: row;
     /* justify-items: left; */
-    align-content: flex-start;
+    /* align-content: flex-start; */
     /* align-items: center; */
     /* margin-left:2%; */
     margin-top:2%;
+    /* justify-content:space-between; */
 }
 
 .book-image {
@@ -112,13 +114,33 @@ flex-direction: row;
 }
 
 .book-price {
-    justify-content: flex-end;
+    /* justify-content: flex-end;
     display:flex;
-  margin-left:3px;
-  /* align-items: center; */
-  flex-grow:1;
+  flex-grow:1;*/
   margin-right:15%;
+  display: flex;
+    align-items: flex-start; /* Center align vertically */
+    flex-grow: 0; /* Prevent it from growing */
+    white-space: nowrap; /* Prevent wrapping of text */
   
+}
+
+.book-info {
+    flex-grow:1;
+    margin-right: 10%;
+}
+
+.book-remove {
+    /* display:flex;
+    justify-content:flex-end;
+    flex-grow:1; */
+    display: flex;
+    /* Center align vertically */
+    align-items: flex-start; 
+    justify-content: flex-end; /* Align to the end */
+    margin-right: 15%; /* Fixed gap to the next element */
+    flex-grow: 0; /* Prevent it from growing */
+    white-space: nowrap; /* Prevent wrapping of text */
 }
 
 
