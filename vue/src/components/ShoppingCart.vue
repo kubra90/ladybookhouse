@@ -88,6 +88,7 @@ flex-direction: row;
     flex-direction: row;
     /* justify-items: left; */
     align-content: flex-start;
+    /* align-items: center; */
     /* margin-left:2%; */
     margin-top:2%;
 }
@@ -103,10 +104,21 @@ flex-direction: row;
   width: 120px; /* Increase width for smaller screens */
   height: 170px; /* Maintain aspect ratio */
   margin-right:1%;
+  
 
 
   /* max-width: 300px;
   max-height: 400px; */
+}
+
+.book-price {
+    justify-content: flex-end;
+    display:flex;
+  margin-left:3px;
+  /* align-items: center; */
+  flex-grow:1;
+  margin-right:15%;
+  
 }
 
 
