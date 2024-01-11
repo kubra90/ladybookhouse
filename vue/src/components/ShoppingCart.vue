@@ -80,16 +80,21 @@ flex-direction: row;
 }
 
 .continue-shopping {
-    justify-content: flex-end;
+    justify-content: center;
     display:flex;
-    margin-left:60%;
+    margin-left:63%;
+    align-items:center;
+    flex-direction: row;
+    flex:1;
 }
 
 .checkout {
-    justify-content: flex-end;
+    justify-content: center;
     display:flex;
     flex-direction:row;
     margin-left:10px;
+    align-items: center;
+    background-color:#FA8072;
 }
 
 .book-detail {
