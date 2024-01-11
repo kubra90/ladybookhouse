@@ -63,6 +63,7 @@ export default {
     border-bottom: 0.2px solid black; 
     margin-left:9%;
     padding-bottom:20px;
+    margin-right: 13%;
     /* justify-content:space-between; */
 }
 
@@ -108,7 +109,7 @@ flex-direction: row;
 }
 
 .book-price {
-  margin-right:15%;
+  /* margin-right:2%; */
   display: flex;
     align-items: flex-start; /* Center align vertically */
     flex-grow: 0; /* Prevent it from growing */
