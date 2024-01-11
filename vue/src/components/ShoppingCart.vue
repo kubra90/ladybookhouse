@@ -2,9 +2,9 @@
     <div class="cart-container">
         <div class="cart-header">
             <h4>Shopping Cart</h4>
-            <button class="continue-shopping" @click="goToHomePage">CONTINUE SHOPPING</button>
+            <button class="continue-shopping" @click="goToHomePage"><strong>CONTINUE SHOPPING</strong> </button>
             <!-- this goes the checkout page! -->
-            <button class="checkout">CHECKOUT</button>
+            <button class="checkout"><strong>CHECKOUT</strong></button>
         </div>
         
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
@@ -14,13 +14,13 @@
                 <p><strong>{{ book.title }}</strong></p>
                 <p>{{ book.author }}</p>
           </div>
-          <div class="book-remove">Remove item</div>
-          <div class="book-price">${{ book.price }}</div>
+          <div class="book-remove" @click="removeBookFromCart">Remove Item</div>
+          <div class="book-price">${{ formatPrice(book.price) }}</div>
           </div>
        </div>
        <div class="price-tab">
-        <p class="subtotal-price">Subtotal <span>${{totalPrice}}</span> </p>
-        <p class="total-price">Order Total <span class="order-total"> ${{totalPrice}}</span></p>
+        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
+        <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
     </div>
 </template>
@@ -43,6 +43,13 @@ export default {
         goToHomePage() {
             this.$router.push({name: "home" });
         },
+        formatPrice(value) {
+      const formattedPrice = Number(value).toFixed(2);
+      return formattedPrice;
+    },
+    removeBookFromCart() {
+        
+    }
     }
    
 }
@@ -82,10 +89,28 @@ flex-direction: row;
 .continue-shopping {
     justify-content: center;
     display:flex;
-    margin-left:63%;
+    margin-left:60%;
     align-items:center;
     flex-direction: row;
     flex:1;
+
+    /* properties from book detail */
+    position: relative;
+  display: inline-block;
+  /* background: $button; */
+  /* color: $white; */
+  color: #6b3630;
+  background-color: oldlace;
+  border: none;
+  border-radius: 0;
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: color 0.3s ease;
+  letter-spacing: 0.0625rem;
+  /* font-family: "PT Sans", sans-serif; */
 }
 
 .checkout {
@@ -94,7 +119,24 @@ flex-direction: row;
     flex-direction:row;
     margin-left:10px;
     align-items: center;
-    background-color:#FA8072;
+
+    /* properties from book detail */
+    position: relative;
+  display: inline-block;
+  /* background: $button; */
+  /* color: $white; */
+  color: #6b3630;
+  background-color: oldlace;
+  border: none;
+  border-radius: 0;
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: color 0.3s ease;
+  letter-spacing: 0.0625rem;
+  /* font-family: "PT Sans", sans-serif; */
 }
 
 .book-detail {
@@ -133,7 +175,7 @@ flex-direction: row;
     /* Center align vertically */
     align-items: flex-start; 
     justify-content: flex-end; /* Align to the end */
-    margin-right: 15%; /* Fixed gap to the next element */
+    margin-right: 10%; /* Fixed gap to the next element */
     flex-grow: 0; /* Prevent it from growing */
     white-space: nowrap; /* Prevent wrapping of text */
 }
