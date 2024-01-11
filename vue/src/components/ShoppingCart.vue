@@ -69,8 +69,9 @@ export default {
 
 .cart-header {
 /* this is for the white line under the text */
-border-bottom: 0.7px solid black; 
+border-bottom: 0.2px solid black; 
 padding-bottom: 5px;
+margin-right:13%;
 /* padding-left: 100px; */
 margin-left:9%;
 margin-top:2%;
@@ -81,7 +82,7 @@ flex-direction: row;
 .continue-shopping {
     justify-content: flex-end;
     display:flex;
-    margin-left:55%;
+    margin-left:60%;
 }
 
 .checkout {
