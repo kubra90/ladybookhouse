@@ -14,7 +14,7 @@
                 <p><strong>{{ book.title }}</strong></p>
                 <p>{{ book.author }}</p>
           </div>
-          <div class="book-remove" @click="removeBookFromCart">Remove Item</div>
+          <div class="book-remove" @click="confirmRemoveBook(index)">Remove Item</div>
           <div class="book-price">${{ formatPrice(book.price) }}</div>
           </div>
        </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     name: "shopping-cart",
     data() {
@@ -47,9 +47,15 @@ export default {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
-    removeBookFromCart() {
-        
-    }
+    confirmRemoveBook(index) {
+        if (confirm("Are you sure to remove this book from the cart?")) {
+             this.removeBookFromCart(index);
+            }
+    },
+    removeBookFromCart(index){
+        this.removeBook(index)
+    },
+    ...mapActions(['removeBook']),
     }
    
 }
@@ -178,34 +184,11 @@ flex-direction: row;
     margin-right: 10%; /* Fixed gap to the next element */
     flex-grow: 0; /* Prevent it from growing */
     white-space: nowrap; /* Prevent wrapping of text */
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 11px;;
 }
 
-/* .order-total {
-    color: chocolate;
-    margin-left:13px;
-} */
-
-/* .total-price span{
-    color: chocolate;
-    margin-left:20px;
-}
-
-.subtotal-price span{
-    margin-left:20px;
-} */
-
-/* .price-tab {
-    border-bottom: 0.2px solid black; 
-    margin-left:9%;
-} */
-
-/* .subtotal-price {
-    margin-left: 76%;
-} */
-
-/* .total-price{
-    margin-left:74.8%;
-} */
 
 .price-tab {
     display: flex;
