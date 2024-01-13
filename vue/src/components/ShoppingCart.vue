@@ -11,7 +11,13 @@
         
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
           <div class="book-detail">
+            <router-link v-bind:to="{
+          name: 'detail',
+          params: {
+            sku: book.sku
+          }}">
          <img :src="book.image" alt="Book Image" class="book-image"/>
+         </router-link>
          <div class="book-info">
                 <p><strong>{{ book.title }}</strong></p>
                 <p>{{ book.author }}</p>
@@ -180,7 +186,8 @@ flex-direction: row;
 
 .book-info {
     flex-grow:1;
-    margin-right: 10%;
+    margin-right: 15%;
+    margin-left:2%;
 }
 
 .book-remove {
