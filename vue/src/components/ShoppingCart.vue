@@ -22,6 +22,9 @@
         <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
         <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
+       <div>
+        <button class="checkout-btn"><strong>CHECKOUT</strong></button>
+       </div>
     </div>
 </template>
 
@@ -74,7 +77,7 @@ export default {
     /* align-items: center; */
     margin-bottom: 20px; /* Space between book items */
     border-bottom: 0.2px solid black; 
-    margin-left:9%;
+    margin-left:9.5%;
     padding-bottom:20px;
     margin-right: 13%;
     /* justify-content:space-between; */
@@ -86,7 +89,7 @@ border-bottom: 0.2px solid black;
 padding-bottom: 5px;
 margin-right:13%;
 /* padding-left: 100px; */
-margin-left:9%;
+margin-left:9.5%;
 margin-top:2%;
 display: flex;
 flex-direction: row;
@@ -119,7 +122,7 @@ flex-direction: row;
   /* font-family: "PT Sans", sans-serif; */
 }
 
-.checkout {
+.checkout, .checkout-btn {
     justify-content: center;
     display:flex;
     flex-direction:row;
@@ -197,7 +200,7 @@ flex-direction: row;
     border-bottom: 0.2px solid black; 
     margin-left: 9%;
     margin-right: 13%; /* Add right margin for symmetry */
-    padding: 10px 0; /* Add some padding */
+    padding: 0px 0; /* Add some padding */
 }
 
 .subtotal-price, .total-price {
@@ -209,6 +212,29 @@ flex-direction: row;
 }
 .total-price span{
     color:chocolate;
+}
+
+.checkout-btn{
+    margin-left:79%;
+    position: relative;
+  display: inline-block;
+  /* background: $button; */
+  /* color: $white; */
+  color: white;
+  background-color: chocolate;
+  border:none;
+  border-radius: 0;
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: color 0.3s ease;
+  letter-spacing: 0.0625rem;
+  margin-top:0.8rem;
+  margin-bottom: 2rem;;
+  /* font-family: "PT Sans", sans-serif; */
+  
 }
 
 </style>
