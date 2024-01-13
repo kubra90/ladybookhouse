@@ -4,7 +4,9 @@
             <h4>Shopping Cart</h4>
             <button class="continue-shopping" @click="goToHomePage"><strong>CONTINUE SHOPPING</strong> </button>
             <!-- this goes the checkout page! -->
+            <router-link v-bind:to="{name: 'checkout'}">
             <button class="checkout"><strong>CHECKOUT</strong></button>
+        </router-link>
         </div>
         
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">

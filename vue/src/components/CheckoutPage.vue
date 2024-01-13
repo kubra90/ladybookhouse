@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+    <div>
+        checkout page
+    </div>
 </template>
 <script>
 </script>
