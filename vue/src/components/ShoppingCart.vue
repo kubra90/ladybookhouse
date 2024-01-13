@@ -23,7 +23,9 @@
         <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
        <div>
+        <router-link v-bind:to="{name: 'checkout'}">
         <button class="checkout-btn"><strong>CHECKOUT</strong></button>
+    </router-link>
        </div>
     </div>
 </template>
