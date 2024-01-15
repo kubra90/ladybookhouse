@@ -24,7 +24,7 @@
             <router-link v-bind:to="{name: 'about'}">About us</router-link>
             <!-- create contact us link -->
             <router-link v-bind:to="{name: 'contact'}">Contact us</router-link>
-            <router-link v-bind:to="{name: 'policies'}">Terms of Sale</router-link>
+            <router-link v-bind:to="{name: 'terms-of-sale'}">Terms of Sale</router-link>
         </div>
   
         <!-- Fourth Box: account info-->
