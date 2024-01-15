@@ -13,6 +13,7 @@ import FeaturedBookView from '../views/FeaturedBookView'
 import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
 import Contact from '../views/Contact.vue'
+import TermsOfSale from '../views/Terms.vue'
 
 Vue.use(Router)
 
@@ -120,6 +121,14 @@ const router = new Router({
       path: "/contact",
       name: "contact",
       component: Contact,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/terms",
+      name: "terms-of-sale",
+      component: TermsOfSale,
       meta: {
         requiresAuth: false
       }
