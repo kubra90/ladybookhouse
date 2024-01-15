@@ -65,6 +65,7 @@ public class RestAobApiService implements AobApiService{
             String isbn =root.path(0).path("isbn").asText("");
             int quantity = root.path(0).path("qty").asInt(0);
             String skuNumber =root.path(0).path("sku").asText("");
+            Integer weight = root.path(0).path("weight").asInt(0);
             String listedDateString = root.path(0).path("listed_date").asText("");
             LocalDate listedDate = listedDateString.isEmpty() ? null : LocalDate.parse(listedDateString);
 
@@ -82,6 +83,7 @@ public class RestAobApiService implements AobApiService{
             temp.setMedia(media);
             temp.setNotes(notes);
             temp.setQuantity(quantity);
+            temp.setWeight(weight);
             temp.setInventoryCode(skuNumber);
             String typeBook =type.getBookTypes(temp.getInventoryCode());
             temp.setCategory(typeBook);
@@ -119,7 +121,7 @@ public class RestAobApiService implements AobApiService{
                 String image = root.path(i).path("image").asText("");
                 String notes = root.path(i).path("notes").asText("");
                 String isbn = root.path(i).path("isbn").asText("");
-
+                Integer weight = root.path(i).path("weight").asInt(0);
                 String skuNumber = root.path(i).path("sku").asText("");
                 String publisher = root.path(i).path("publisher").asText("");
                 int condition = root.path(i).path("condition").asInt(0);
@@ -133,6 +135,7 @@ public class RestAobApiService implements AobApiService{
                 temp.setPrice(currentPrice);
                 temp.setMedia(media);
                 temp.setNotes(notes);
+                temp.setWeight(weight);
                 temp.setQuantity(quantity);
                 temp.setInventoryCode(skuNumber);
                 String typeBook =type.getBookTypes(temp.getInventoryCode());

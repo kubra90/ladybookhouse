@@ -27,7 +27,15 @@
           </div>
        </div>
        <div class="price-tab">
+<<<<<<< HEAD
         <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
+        <p class="shipping-price">Shipping <span>{{ totalShippingCost }}</span></p>
+||||||| bc774ba
+        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
+=======
+        <p class="subtotal-price">Subtotal <span>${{formatPrice(subTotalPrice)}}</span> </p>
+        <p class="shipping-price">Shipping <span>${{formatPrice(totalShippingCost) }}</span> </p>
+>>>>>>> kubratpn
         <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
        <div>
@@ -44,12 +52,35 @@ export default {
     name: "shopping-cart",
     data() {
        return {
+        
        } 
     },
     computed: {
         ...mapState(['cartBooks']),
         totalPrice(){
+         return this.cartBooks.reduce((total, book) => total + book.price, 0) + this.totalShippingCost;
+         
+        },
+        subTotalPrice(){
             return this.cartBooks.reduce((total, book) => total + book.price, 0);
+        },
+        totalShippingCost(){
+            let totalWeight=0;
+            let shippingCost=0;
+            for(const book of this.cartBooks){
+                  totalWeight+=book.weight;
+            }
+            if(totalWeight>0 && totalWeight<17){
+                shippingCost = 4.15;
+            }else if(totalWeight>16 && totalWeight<33){
+                shippingCost = 4.90;
+            }else if(totalWeight>32 && totalWeight<=48){
+                shippingCost =5.65;
+            }else if(totalWeight>48 && totalWeight<=64){
+                shippingCost =6.40;
+            }
+            //implement more shopping cost here.
+            return shippingCost;
         }
     },
     methods: {
