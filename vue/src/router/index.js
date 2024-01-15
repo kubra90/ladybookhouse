@@ -12,6 +12,7 @@ import NewArrivalsView from '../views/NewArrivalsView.vue'
 import FeaturedBookView from '../views/FeaturedBookView'
 import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
+import Contact from '../views/Contact.vue'
 
 Vue.use(Router)
 
@@ -83,14 +84,6 @@ const router = new Router({
         requiresAuth: false
       }
     },
-    // {
-    //   path: "/sale-shipping-policies",
-    //   name: "policy",
-    //   component: Policy,
-    //   meta: {
-    //     requiresAuth: false
-    //   }
-    // },
     {
       path: "/new-arrivals",
       name: "new-arrivals-view",
@@ -122,7 +115,16 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: Contact,
+      meta: {
+        requiresAuth: false
+      }
+    },
+
   ]
 })
 

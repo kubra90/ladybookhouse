@@ -63,10 +63,9 @@
   },
   methods: {
     ...mapActions(['fetchBooks']),
+    // to display price with 2 decimal
     formatPrice(value) {
-    console.log("Original Price:", value); // Debugging line
     const formattedPrice = Number(value).toFixed(2);
-    console.log("Formatted Price:", formattedPrice); // Debugging line
     return formattedPrice;
   },
   },

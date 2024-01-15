@@ -27,7 +27,8 @@
         <a href="/browse">Browse</a>
         <a href="/category">Category</a>
         <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <!-- <a href="/contact">Contact</a> -->
+        <router-link v-bind:to="{name : 'contact'}">Contact</router-link>
       </nav>
     </div>
   </header>
