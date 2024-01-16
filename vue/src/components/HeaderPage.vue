@@ -3,8 +3,9 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <a v-if="user.username" href="/account">Welcome, {{user.username}}  |</a>
-        <a v-else href="/account">Your account  |</a>
+        <router-link v-if="isAuthenticated" to="/account"> Welcome, {{user.username}}  |</router-link>
+        <router-link v-else to="/login">Your account  |</router-link>
+        <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
         <i class="fa fa-shopping-cart"></i>
         <!-- <span class="cart-count">{{ basketCount }}</span> -->
         <!-- <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a> -->
@@ -36,12 +37,13 @@
 
   
   <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   export default {
     name: "header-page",
     // Your script here
     computed: {
-      ...mapState(['basketCount', 'user'])
+      ...mapState(['basketCount', 'user']),
+      ...mapGetters(['isAuthenticated'])
     }
   }
   </script>
