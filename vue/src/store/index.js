@@ -29,6 +29,9 @@ export default new Vuex.Store({
     basketCount: 0,
     cartBooks: []
   },
+  getters: {
+    isAuthenticated: state => state.user.username
+  },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
@@ -80,6 +83,7 @@ export default new Vuex.Store({
     async registerUser({commit}, user) {
       const response = await register(user)
       commit('SET_USER', response.data.user)
+      commit('LOGOUT')
       return response
     },
     async loginUser({commit}, user) {
