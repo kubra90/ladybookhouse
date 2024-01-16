@@ -2,22 +2,22 @@
   <main>
     <header-page/>
     <div id="register">
-      <form @submit.prevent="register">
+      <form @submit.prevent="handleRegister">
         <h1>Create Account</h1>
         <div role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
         </div>
         <div class="form-input-group">
           <label for="username">Username</label>
-          <input type="text" id="username" v-model="user.username" required autofocus />
+          <input type="text" id="username" v-model="user.username" size="35" required autofocus />
         </div>
         <div class="form-input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" v-model="user.password" required autocomplete="on" />
+          <input type="password" id="password" v-model="user.password" size="35" required autocomplete="on" />
         </div>
         <div class="form-input-group">
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" v-model="user.confirmPassword" required autocomplete="on" />
+          <input type="password" id="confirmPassword" v-model="user.confirmPassword" size="35" required autocomplete="on" />
         </div>
         <button type="submit">Create Account</button>
         <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import authService from '../services/AuthService';
 import HeaderPage from "../components/HeaderPage.vue"
 import FooterPage from "../components/FooterPage.vue"
+import { mapActions } from "vuex"
 
 export default {
   name: 'register',
@@ -51,13 +51,13 @@ export default {
     };
   },
   methods: {
-    register() {
+    ...mapActions(["registerUser"]),
+    handleRegister() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
       } else {
-        authService
-          .register(this.user)
+          this.registerUser(this.user)
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
@@ -84,25 +84,23 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 768px) {
 #register {
-  margin: 0;
+  padding: 0.75em 2.5em 1.25em 6.25em;
+  margin: 1.5em 1em;
   position: absolute;
   top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 form h1 {
   font-family: 'PT Sans', sans-serif;
   font-size: 30px;
   font-style: normal;
   line-height: 1.25;
-  text-align: center;
 }
-.form-input-group {
+.form-input-group, h1, button, .router {
   margin: 1rem;
-  padding: 0.75rem;
 }
 label {
   margin-right: 0.75rem;
@@ -116,8 +114,7 @@ button {
   border-radius: 4px;
   font-weight: 600;
   width: 120px;
-  padding: 5px 0;
-  margin-bottom: 5px;
+  height: 30px;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
   transition: 0.4s;
   color: #337ab7;
@@ -132,5 +129,6 @@ button:hover {
 .footer {
   position:absolute;
   bottom: 0;
+}
 }
 </style>

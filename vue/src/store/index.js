@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { getBooks, getBookById, getNewArrivals, getFeaturedItems } from '../services/BookService'
+import { register, login } from '../services/AuthService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -28,15 +29,18 @@ export default new Vuex.Store({
     basketCount: 0,
     cartBooks: []
   },
+  getters: {
+    isAuthenticated: state => state.user.username
+  },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     },
-    SET_USER(state, user) {
-      state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
+    SET_USER(state, data) {
+      state.user = data;
+      localStorage.setItem('user',JSON.stringify(data));
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -76,10 +80,17 @@ export default new Vuex.Store({
 
   },
   actions: {
-    // addToCart({commit}, payload) {
-    //     commit('SET_BOOK_COUNT', payload)
-      
-    //   },
+    async registerUser({commit}, user) {
+      const response = await register(user)
+      commit('SET_USER', response.data.user)
+      commit('LOGOUT')
+      return response
+    },
+    async loginUser({commit}, user) {
+      const response = await login(user)
+      commit('SET_USER', response.data.user)
+      return response
+    },
     addToCart({commit}, book){
       commit('ADD_TO_CART', book);
     },

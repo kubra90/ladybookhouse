@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-export default {
-
-  login(user) {
-    return axios.post('/login', user)
-  },
-
-  register(user) {
-    return axios.post('/register', user)
-  }
-
+async function login(user) {
+  return await axios.post('/login', user)
 }
+async function register(user) {
+  return await axios.post('/register', user)
+}
+
+export { register, login }
