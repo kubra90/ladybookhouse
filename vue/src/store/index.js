@@ -69,7 +69,12 @@ export default new Vuex.Store({
     ADD_TO_CART(state, book){
       state.cartBooks.push(book);
       state.basketCount++;
-    }
+    },
+    UPDATE_CART(state, newCart) {
+      state.basketCount--;
+      state.cartBooks = newCart;
+  },
+
   },
   actions: {
     async registerUser({commit}, user) {
@@ -84,6 +89,11 @@ export default new Vuex.Store({
     },
     addToCart({commit}, book){
       commit('ADD_TO_CART', book);
+    },
+    removeBook({commit, state}, index){
+       let updatedCart = [...state.cartBooks];
+       updatedCart.splice(index, 1);
+       commit('UPDATE_CART', updatedCart)
     },
     async fetchBooks({commit}) {
         const response = await getBooks()

@@ -7,7 +7,11 @@
         <a v-else href="/account">Your account  |</a>
         <i class="fa fa-shopping-cart"></i>
         <!-- <span class="cart-count">{{ basketCount }}</span> -->
-        <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a>
+        <!-- <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a> -->
+        <router-link v-bind:to="{
+          name:'cart' }">
+          <span class="cart-count">({{ basketCount }} items)</span>
+          </router-link>
       </div>
 
       <!-- Second Box: Search Bar -->

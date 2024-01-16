@@ -1,7 +1,8 @@
 <template>
   <div id="new-arrivals">
-    <h3><strong>New Arrivals</strong></h3>
-    <button class="btn primary"><router-link :to="{ name: 'new-arrivals-view' }" class="title-link">See All New Arrivals</router-link></button>
+    <div class="title-link">
+        <div><h3><strong>New Arrivals</strong></h3></div>
+        <div><router-link :to="{ name: 'new-arrivals-view' }" class="link">See All New Arrivals</router-link></div></div>
     <ul>
       <div id="body-container" v-for="newArrival in paginatedList" v-bind:key="newArrival.isbn">
         <router-link v-bind:to="{
@@ -71,19 +72,28 @@ export default {
 
 #new-arrivals h3 {
   padding-left: 45px;
+  color: rgb(232, 89, 49);
+  /* text-transform: uppercase; */
 }
 
 .title-link {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
     position: relative;
     display: block;
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 10px;
-    right: 0;
-    bottom: 0;
     flex-direction:row;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-right: 100px;
+    color: rgb(232, 89, 49);
 }
+
 
 #new-arrivals ul {
     margin-top:50px;

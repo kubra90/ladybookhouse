@@ -8,9 +8,10 @@ import Book from '../views/Book.vue'
 import store from '../store/index'
 import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
-import NewArrivalsView  from '../views/NewArrivalsView.vue'
+import NewArrivalsView from '../views/NewArrivalsView.vue'
 import FeaturedBookView from '../views/FeaturedBookView'
 import Cart from '../views/Cart.vue'
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(Router)
 
@@ -96,21 +97,32 @@ const router = new Router({
       component: NewArrivalsView,
       meta: {
         requiresAuth: false
-      }},
-      {
-        path: "/featured-books",
-        name: "featured-book-view",
-        component: FeaturedBookView,
-        meta: {
-          requiresAuth: false
-        }},
-        {
-          path: "/shopping-cart",
-          name: "cart",
-          component: Cart,
-          meta: {
-            requiresAuth: false
-          }}
+      }
+    },
+    {
+      path: "/featured-books",
+      name: "featured-book-view",
+      component: FeaturedBookView,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/shopping-cart",
+      name: "cart",
+      component: Cart,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/checkout-page",
+      name: "checkout",
+      component: Checkout,
+      meta: {
+        requiresAuth: false
+      }
+    }
   ]
 })
 

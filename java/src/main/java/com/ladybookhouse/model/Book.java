@@ -18,6 +18,10 @@ public class Book {
     private String author;
     private String isbn;
 
+    private Integer weight;
+
+
+
     //notes about the condition. Some item includes "" only without note.
     private String notes;
     @JsonProperty("qty")
@@ -45,6 +49,14 @@ public class Book {
 
     public void setUsedBook(String usedBook) {
         this.usedBook = usedBook;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public LocalDate getListedDate() {
