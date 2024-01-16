@@ -6,7 +6,7 @@
         <p>375 Acorn Park Dr. 1310</p>
         <p>Belmont, MA 02478</p>
          </div>
-        <p class="mail-address"><strong>Mail: </strong><a href="mailto:ladybookhouse@gmail.com">ladybookhouse@gmail.com</a></p>
+        <p class="mail-address"><strong>Mail: </strong><a class="mail-address-link" href="mailto:ladybookhouse@gmail.com">ladybookhouse@gmail.com</a></p>
     </div>
 </template>
 <script>
@@ -40,5 +40,8 @@
     margin-bottom:4%;
 }
 
+.mail-address-link{
+    color:brown;
+}
 
 </style>

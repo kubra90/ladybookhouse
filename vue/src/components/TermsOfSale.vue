@@ -19,7 +19,7 @@
     flex-direction: column;
     margin-left:9%;
     margin-right:14%;
-    font-family: "PT Sans", sans-serif;
+    /* font-family: "PT Sans", sans-serif; */
     margin-top:3%;
     margin-bottom:3%;
 }
