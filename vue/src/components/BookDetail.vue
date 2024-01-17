@@ -4,8 +4,10 @@
       <p>
         <strong>{{ book.author }}</strong>
       </p>
-      <p>{{ book.title }} {{ book.isbn }}</p>
+      <p>{{ book.title }}</p>
+      
       <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
+      <p> ISBN: {{ book.isbn }}</p>
       <p>{{ book.notes }}. {{ book.sku }}</p>
       <p>
         <strong>Price: ${{ formatPrice(book.price) }} </strong>
@@ -16,8 +18,11 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-
-        <button class="save-book"><strong>Save the book</strong></button>
+        <button class="save-book"><strong>Add to Bookshelf</strong>
+          <div v-if="isAuthenticated" @click="addBookshelf"></div>
+          <router-link v-else to="/login"></router-link>
+        </button>
+  
       </div>
     </div>
     <div class="book-image">
@@ -50,7 +55,7 @@
 </template>
   
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "book-detail",
@@ -58,23 +63,26 @@ export default {
     return {
       numOfBooks: 0,
       showAddedToCart: false,
-      showErrorMessage: false
+      showErrorMessage: false,
     };
   },
   computed: {
-    ...mapState(["book"]),
+    ...mapState(["book", "user"]),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
-    ...mapActions(["addToCart", "fetchBookById"]),
+    ...mapActions(["addToCart", "fetchBookById", "addToBookshelf"]),
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
+    addBookshelf(){
+        if(this.book.qty >0){
+          this.addToBookshelf(this.book);
+        }
+        console.log(this.addToBookshelf);
+    },
     addToBasket() {
-      // this.numOfBooks++;
-      // this.addToCart(this.numOfBooks);
-      //show the popup
-      // this.showAddedToCart = true;
       if(this.book.qty> 0) {
         this.addToCart(this.book);
         this.numOfBooks++;

@@ -27,7 +27,9 @@ export default new Vuex.Store({
     newArrivals: [],
     featuredItems: [],
     basketCount: 0,
-    cartBooks: []
+    cartBooks: [],
+    // bookshelf
+    savedBooks: []
   },
   getters: {
     isAuthenticated: state => state.user.username
@@ -77,6 +79,10 @@ export default new Vuex.Store({
       state.basketCount--;
       state.cartBooks = newCart;
   },
+    // add to bookshelf
+    ADD_TO_BOOKSHELF(state, book){
+      state.savedBooks.push(book);
+    }
 
   },
   actions: {
@@ -89,11 +95,14 @@ export default new Vuex.Store({
     async loginUser({commit}, user) {
       const response = await login(user)
       commit('SET_USER', response.data.user)
-      console.log(response);
       return response
     },
     addToCart({commit}, book){
       commit('ADD_TO_CART', book);
+    },
+    // add the book to the bookshelf
+    addToBookshelf({commit}, book){
+    commit('ADD_TO_BOOKSHELF', book)
     },
     removeBook({commit, state}, index){
        let updatedCart = [...state.cartBooks];

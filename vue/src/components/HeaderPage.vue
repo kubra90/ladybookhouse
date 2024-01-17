@@ -108,6 +108,7 @@
 
 .cart-count {
   margin-left:3px;
+  font-size:12px;
 }
 
 

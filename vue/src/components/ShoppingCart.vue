@@ -28,9 +28,9 @@
           </div>
        </div>
        <div v-if=checkBook class="price-tab">
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(subTotalPrice)}}</span> </p>
-        <p class="shipping-price">Shipping <span>${{formatPrice(totalShippingCost) }}</span> </p>
-        <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
+        <p class="subtotal-price">Subtotal: <span>${{formatPrice(subTotalPrice)}}</span> </p>
+        <p class="shipping-price">Shipping: <span>${{formatPrice(totalShippingCost) }}</span> </p>
+        <p class="total-price"> <strong>Order Total: </strong> <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
        <div>
         <router-link v-bind:to="{name: 'checkout'}">
