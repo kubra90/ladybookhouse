@@ -17,7 +17,9 @@
 
       <!-- Second Box: Search Bar -->
       <div class="search-bar">
-        <input type="text" placeholder="Search...">
+        
+        <input class="search-box" type="text" placeholder="author, title, or keyword">
+        <i class="fa fa-search search-icon"></i>
       </div>
 
       <!-- Third Box: App Name -->
@@ -76,10 +78,15 @@
  /* Padding for spacing between rows */
 }
 
+
 .account-cart, .search-bar{
   justify-content: right;
   padding-top:7px;
   padding-right:70px;
+}
+
+.search-box {
+  width:17%;
 }
 
 .fa-shopping-cart{
