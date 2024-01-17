@@ -12,15 +12,10 @@ import NewArrivalsView from '../views/NewArrivalsView.vue'
 import FeaturedBookView from '../views/FeaturedBookView'
 import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
-<<<<<<< HEAD
 import MyAccount from '../views/MyAccount.vue'
-||||||| 4fa317f
-
-=======
 import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
 
->>>>>>> kubratpn
 Vue.use(Router)
 
 /**
@@ -91,7 +86,6 @@ const router = new Router({
         requiresAuth: false
       }
     },
-<<<<<<< HEAD
     {
       path: "/account",
       name: "account",
@@ -100,17 +94,6 @@ const router = new Router({
         requiresAuth: false
       }
     },
-||||||| 4fa317f
-    // {
-    //   path: "/sale-shipping-policies",
-    //   name: "policy",
-    //   component: Policy,
-    //   meta: {
-    //     requiresAuth: false
-    //   }
-    // },
-=======
->>>>>>> kubratpn
     {
       path: "/new-arrivals",
       name: "new-arrivals-view",

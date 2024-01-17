@@ -8,7 +8,8 @@
             <button class="checkout"><strong>CHECKOUT</strong></button>
         </router-link>
         </div>
-        
+        <!-- if statement if there is specific items  -->
+        <div v-if=!checkBook>There is no book in your cart</div>
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
           <div class="book-detail">
             <router-link v-bind:to="{
@@ -26,29 +27,10 @@
           <div class="book-price">${{ formatPrice(book.price) }}</div>
           </div>
        </div>
-       <div class="price-tab">
-<<<<<<< HEAD
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
-        <p class="shipping-price">Shipping <span>{{ totalShippingCost }}</span></p>
-||||||| 4fa317f
-<<<<<<< HEAD
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
-        <p class="shipping-price">Shipping <span>{{ totalShippingCost }}</span></p>
-||||||| bc774ba
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
-=======
-=======
->>>>>>> kubratpn
+       <div v-if=checkBook class="price-tab">
         <p class="subtotal-price">Subtotal <span>${{formatPrice(subTotalPrice)}}</span> </p>
         <p class="shipping-price">Shipping <span>${{formatPrice(totalShippingCost) }}</span> </p>
-<<<<<<< HEAD
         <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
-||||||| 4fa317f
->>>>>>> kubratpn
-        <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
-=======
-        <p class="total-price">Order Total <span> ${{ formatPrice(totalPrice)}}</span></p>
->>>>>>> kubratpn
        </div>
        <div>
         <router-link v-bind:to="{name: 'checkout'}">
@@ -68,7 +50,15 @@ export default {
        } 
     },
     computed: {
+        
         ...mapState(['cartBooks']),
+        checkBook(){
+            let checkBookCart = false;
+        if(this.cartBooks.length > 0){
+            checkBookCart = true;
+         }
+         return checkBookCart;
+        },
         totalPrice(){
          return this.cartBooks.reduce((total, book) => total + book.price, 0) + this.totalShippingCost;
          
