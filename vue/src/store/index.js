@@ -89,6 +89,7 @@ export default new Vuex.Store({
     async loginUser({commit}, user) {
       const response = await login(user)
       commit('SET_USER', response.data.user)
+      console.log(response);
       return response
     },
     addToCart({commit}, book){
