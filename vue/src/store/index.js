@@ -108,7 +108,8 @@ export default new Vuex.Store({
         if (state.user && state.user.username) {
           commit('ADD_TO_BOOKSHELF', book)
         } else {
-          console.error('you need to')
+          // need to check this one!!!
+          console.error('you need to login or create an account!')
         }
 
       },

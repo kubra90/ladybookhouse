@@ -32,7 +32,9 @@
          <!-- pop up page show the message the book added into the cart -->
          <div v-if="showBookshelfPopup" class="bookshelf-popup">
             This book added to your Bookshelf
-            <button @click="showBookshelfPopup = false">Close</button>
+            <button @click="showBookshelfPopup = false">x</button>
+            <!-- link go to the bookshelf -->
+            <button>Go to Bookshelf</button>
          </div>
          
       </div>
@@ -80,8 +82,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["book", "user"]),
+    ...mapState(["book", "user", "savedBooks"]),
     ...mapGetters(['isAuthenticated'])
+
+    // consider computed method to preserve book across navigation
   },
   methods: {
     ...mapActions(["addToCart", "fetchBookById", "addToBookshelf"]),
@@ -92,8 +96,8 @@ export default {
     addBookshelf(){
         if(this.isAuthenticated){
           this.addToBookshelf(this.book);
-          console.log(this.addToBookshelf);
           this.showBookshelfPopup= true;
+          console.log(this.savedBooks.book);
         }else {
           this.$router.push({name: 'login'});
         }
