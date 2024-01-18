@@ -18,11 +18,23 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-        <button class="save-book"><strong>Add to Bookshelf</strong>
+        <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
           <div v-if="isAuthenticated" @click="addBookshelf"></div>
           <router-link v-else to="/login"></router-link>
+        </button> -->
+        <button v-if="isAuthenticated" @click="addBookshelf" class="save-book">
+          <strong>Add to Bookshelf</strong>
         </button>
-  
+       
+        <router-link v-else to="/login" class="save-book">
+          <strong>Add to Bookshelf</strong>
+        </router-link>
+         <!-- pop up page show the message the book added into the cart -->
+         <div v-if="showBookshelfPopup" class="bookshelf-popup">
+            This book added to your Bookshelf
+            <button @click="showBookshelfPopup = false">Close</button>
+         </div>
+         
       </div>
     </div>
     <div class="book-image">
@@ -64,6 +76,7 @@ export default {
       numOfBooks: 0,
       showAddedToCart: false,
       showErrorMessage: false,
+      showBookshelfPopup: false
     };
   },
   computed: {
@@ -77,10 +90,14 @@ export default {
       return formattedPrice;
     },
     addBookshelf(){
-        if(this.book.qty >0){
+        if(this.isAuthenticated){
           this.addToBookshelf(this.book);
+          console.log(this.addToBookshelf);
+          this.showBookshelfPopup= true;
+        }else {
+          this.$router.push({name: 'login'});
         }
-        console.log(this.addToBookshelf);
+        
     },
     addToBasket() {
       if(this.book.qty> 0) {
