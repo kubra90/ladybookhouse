@@ -15,7 +15,7 @@
       <p>{{ book.usedBook }}</p>
       <!-- Other details here -->
       <div class="book-actions">
-        <button @click="addToBasket" class="add-to-cart">
+        <button @click="addToBasket" class="add-to-cart" :disabled="isBookInCart">
           <strong>Add To Cart</strong>
         </button>
         <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
@@ -78,14 +78,17 @@ export default {
       numOfBooks: 0,
       showAddedToCart: false,
       showErrorMessage: false,
-      showBookshelfPopup: false
+      showBookshelfPopup: false,
     };
   },
   computed: {
-    ...mapState(["book", "user", "savedBooks"]),
-    ...mapGetters(['isAuthenticated'])
+    ...mapState(["book", "user", "savedBooks", "cartBooks"]),
+    ...mapGetters(['isAuthenticated']),
 
     // consider computed method to preserve book across navigation
+    isBookInCart(){
+      return this.cartBooks.some(book=> book.isbn === this.book.isbn);
+    }
   },
   methods: {
     ...mapActions(["addToCart", "fetchBookById", "addToBookshelf"]),
