@@ -2,9 +2,9 @@
   <div class="book-container">
     <div class="book-details">
       <p>
-        <strong>{{ book.author }}</strong>
+        <strong style="font-size:medium">{{ book.title}}</strong>
       </p>
-      <p>{{ book.title }}</p>
+      <p>{{ book.author }}</p>
       
       <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
       <p> ISBN: {{ book.isbn }}</p>
@@ -146,7 +146,7 @@ export default {
   flex: 2; /* Allocate more space to the details */
   display: flex;
   flex-direction: column;
-  padding-right: 20px; /* Add some spacing between the details and the image */
+  padding-right: 6.25rem; /* Add some spacing between the details and the image */
 }
 
 .book-image {
@@ -154,7 +154,7 @@ export default {
   display: flex;
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
-  padding: 10px; /* Add padding around the image */
+  padding:0.625rem; /* Add padding around the image */
 }
 
 .book-image img {
@@ -163,12 +163,12 @@ export default {
   /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   border: 1px solid #ddd; /* Add a border */
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 1rem; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-  width: 200px; /* Increase width for smaller screens */
-  height: 300px; /* Maintain aspect ratio */
-  max-width: 300px;
-  max-height: 400px;
+  width: 18.5rem; /* Increase width for smaller screens */
+  height: 25.75rem; /* Maintain aspect ratio */
+  /* max-width: 300px; */
+  /* max-height: 400px; */
 }
 
 .book-actions {
