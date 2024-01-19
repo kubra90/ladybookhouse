@@ -18,10 +18,6 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-        <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
-          <div v-if="isAuthenticated" @click="addBookshelf"></div>
-          <router-link v-else to="/login"></router-link>
-        </button> -->
         <button v-if="isAuthenticated" @click="addBookshelf" class="save-book">
           <strong>Add to Bookshelf</strong>
         </button>
@@ -39,9 +35,20 @@
          
       </div>
     </div>
-    <div class="book-image">
+    <!-- <div class="book-image">
       <img v-bind:src="book.image" />
+      
+      <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
+      
+    </div> -->
+    <div class="new-image">
+      <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
+      <div class="book-image">
+        <img v-bind:src="book.image" />
+      </div>
+      
     </div>
+    
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
     <div v-if="showAddedToCart" class="added-to-cart-popup">
       <!-- Added to Cart -->
@@ -170,6 +177,20 @@ export default {
   /* max-width: 300px; */
   /* max-height: 400px; */
 }
+
+.enlarger-icon {
+  width:4rem;
+  padding:0;
+}
+
+.new-image{
+  flex: 1; /* Adjust the flex ratio as needed */
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  padding:0.625rem; /* Add padding around the image */
+}
+
 
 .book-actions {
   display: flex;
