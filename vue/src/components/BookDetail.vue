@@ -15,7 +15,7 @@
       <p>{{ book.usedBook }}</p>
       <!-- Other details here -->
       <div class="book-actions">
-        <button @click="addToBasket" class="add-to-cart" :disabled="isBookInCart">
+        <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
         <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
@@ -44,9 +44,11 @@
     </div>
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
     <div v-if="showAddedToCart" class="added-to-cart-popup">
-      Added to Cart
+      <!-- Added to Cart -->
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
       <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
+      <!-- this is error message for the added page -->
+      <div v-else><h3>Added to Cart</h3> </div>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
         
@@ -107,16 +109,15 @@ export default {
         
     },
     addToBasket() {
-      if(this.book.qty> 0) {
+      this.showAddedToCart = true;
+      if((this.book.qty> 0) && (!this.isBookInCart)){
         this.addToCart(this.book);
         this.numOfBooks++;
-        // show the popup
-      this.showAddedToCart = true;
       this.book.qty--;
+      this.showErrorMessage= false;
       }else {
         // console.error("you have already added this book to the cart!");
         this.showErrorMessage = true;
-        this.showAddedToCart = true;
       }
     },
     hidePopup() {
@@ -233,12 +234,12 @@ export default {
 
 .close-popup {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 0.6rem;
   border: none;
   background: none;
   color: gray; /* Or any color that matches your design */
-  font-size: 0.7em; /* Adjust size as needed */
+  font-size: 0.8em; /* Adjust size as needed */
   cursor: pointer;
 }
 
@@ -280,6 +281,8 @@ export default {
   box-sizing: border-box;
   border-style :solid;
   background-color: rgb(226, 144, 144);
+  border-color: rgb(226, 144, 144);
+  margin-right:0.7rem;
 
 }
 </style>
