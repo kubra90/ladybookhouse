@@ -42,10 +42,15 @@
       
     </div> -->
     <div class="new-image">
-      <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
+      <div class="icon-background">
+       <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
+      </div>
+      
+     
+      
       
     </div>
     
@@ -161,7 +166,11 @@ export default {
   display: flex;
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
-  padding:0.625rem; /* Add padding around the image */
+  /* padding:0.625rem;  */
+  padding:0;
+
+  /* new styles */
+  position : relative;
 }
 
 .book-image img {
@@ -178,17 +187,42 @@ export default {
   /* max-height: 400px; */
 }
 
-.enlarger-icon {
-  width:4rem;
-  padding:0;
+.icon-background {
+  width:4.5rem;
+  /* justify-content:flex-end; */
+  margin-left:25rem;
+  margin-bottom:0;
+
+  /* new styles */
+  position: absolute;
+  top:27rem;
+  /* z-index is to position the icon above the book */
+  z-index:1; 
+  cursor:pointer;
+  height: auto;
+  border: 10px;
+  border-radius:5px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#6b3630;
 }
 
+.enlarger-icon {
+  width: 80%; /* Adjust based on your needs */
+  height: auto;
+  cursor: pointer;
+  background-color: #6b3630;
+}
+
+
 .new-image{
-  flex: 1; /* Adjust the flex ratio as needed */
+  flex:1;/* Adjust the flex ratio as needed */
   display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center; /* Center the image vertically */
-  padding:0.625rem; /* Add padding around the image */
+  flex-direction: column;
+  /* justify-content: center; Center the image horizontally */
+  /* align-items: center; Center the image vertically  */
+  /* padding:0.625rem;  */
 }
 
 
