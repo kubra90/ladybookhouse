@@ -55,7 +55,7 @@
   box-sizing:border-box;
   display: flex;
   flex-direction: column;
-  background-color: oldlace;
+  background-color: #fdf5e6;
   padding-right: 0px;
   width: 100%;
   top:0;

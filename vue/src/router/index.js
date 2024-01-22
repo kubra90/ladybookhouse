@@ -15,6 +15,7 @@ import Checkout from '../views/Checkout.vue'
 import MyAccount from '../views/MyAccount.vue'
 import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
+import SavedBooks from '../views/SavedBooks.vue'
 
 Vue.use(Router)
 
@@ -140,6 +141,14 @@ const router = new Router({
       component: TermsOfSale,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/saved_books",
+      name: "saved-books",
+      component: SavedBooks,
+      meta: {
+        requiresAuth: true
       }
     },
 

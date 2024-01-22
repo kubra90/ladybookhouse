@@ -28,11 +28,13 @@
          <!-- pop up page show the message the book added into the cart -->
          <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
          <div v-if="showBookshelfPopup" class="bookshelf-popup">
-             <p>This book added to your Bookshelf</p>
+             <div><p>This book added to your Bookshelf</p></div>
              <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
             <!-- <button @click="showBookshelfPopup = false">x</button> -->
             <!-- link go to the bookshelf -->
-            <button>Go to Bookshelf</button>
+          
+            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button>
+          
          </div>
          
       </div>
@@ -140,6 +142,13 @@ export default {
     },
     goToCart() {
       this.$router.push({name: "cart"});
+    },
+    goToBookshelf() {
+      if(this.isAuthenticated){
+      this.$router.push({name: "saved-books"});
+      }else {
+        this.$router.push({name: "login"});
+      }
     }
   },
   created() {
@@ -289,12 +298,21 @@ export default {
   color:#6b3630;
   text-align:left;
   z-index: 1000;
-  width:35%;
+  width:19%;
   transform: translate(-50%, -50%);
   overflow: hidden;
   max-height:none;
   display:flex;
   flex-direction:column;
+  background-color: white;
+  font-size:14px;
+}
+
+.bookshelf-btn {
+  display:flex;
+  justify-content: center;
+  margin-left:5rem;
+  margin-right:5rem;
 }
 
 .overlay {
