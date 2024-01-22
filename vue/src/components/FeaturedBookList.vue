@@ -33,13 +33,14 @@ import {mapState, mapActions} from "vuex"
       totalPages() {
         return Math.ceil(this.featuredItems.length / this.booksPerPage)
     },
+      ...mapState(["featuredItems"]),
     
       paginatedBooks() {
-        const start =  (this.currentPage - 1) * this.booksPerPag
+        const start =  (this.currentPage - 1) * this.booksPerPage
         const end = start + this.booksPerPage
         return this.featuredItems.slice(start, end)
-    },
-      ...mapState(["featuredItems"])
+    }
+     
   },
     
     methods: {

@@ -36,7 +36,7 @@ import {mapState, mapActions} from "vuex"
     
       paginatedBooks() {
         const start =  (this.currentPage - 1) * this.booksPerPage
-        const end = start + this.booksPerPag
+        const end = start + this.booksPerPage
         return this.newArrivals.slice(start, end)
     },
       ...mapState(["newArrivals"])
