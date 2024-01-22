@@ -46,7 +46,7 @@
         <img v-bind:src="book.image" />
       </div>
       <div class="icon-background">
-       <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
+       <img class="enlarger-icon" src="/assets/icons/updated.enlarger.png" alt="Image in big size">
       </div>
       
      
@@ -151,7 +151,10 @@ export default {
   display: flex;
   flex-direction: row;
   font-family: "PT Sans", sans-serif;
-  padding: 40px 130px;
+  padding-top: 5.5rem;
+  padding-right: 10rem;
+  padding-left:13rem;
+  padding-bottom: 2rem;
 }
 
 .book-details {
@@ -189,30 +192,25 @@ export default {
 
 .icon-background {
   width:4.5rem;
-  /* justify-content:flex-end; */
-  margin-left:25rem;
-  margin-bottom:0;
-
-  /* new styles */
-  position: absolute;
-  top:27rem;
+  height:3rem;
+  position:absolute;
+  top:38%;
+  right:12%;
+  /* left:83%; */
   /* z-index is to position the icon above the book */
   z-index:1; 
-  cursor:pointer;
-  height: auto;
-  border: 10px;
-  border-radius:5px;
+  /* border: 10px; */
   display:flex;
   justify-content:center;
   align-items:center;
   color:#6b3630;
+  
 }
 
 .enlarger-icon {
-  width: 80%; /* Adjust based on your needs */
+  width: 100%;
   height: auto;
   cursor: pointer;
-  background-color: #6b3630;
 }
 
 
@@ -339,5 +337,11 @@ export default {
   border-color: rgb(226, 144, 144);
   margin-right:0.7rem;
 
+}
+
+@media (max-height: 600px) {
+  .icon-background {
+    bottom: 3%; /* Adjust for shorter screens */
+  }
 }
 </style>
