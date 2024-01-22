@@ -27,13 +27,22 @@ export default {
     computed: {
     
     paginatedList() {
-        return this.featuredItems.slice(0, 16)
+        return this.shuffledBooks(this.featuredItems).slice(0, 16)
     },
     ...mapState(["featuredItems"])
   },
   
     methods: {
-    ...mapActions(["fetchFeaturedItems"])
+    ...mapActions(["fetchFeaturedItems"]),
+
+    // Fisher-Yates Sorting Algorithm to shuffle items of an array
+    shuffledBooks(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
   },
   
   created() {
@@ -56,30 +65,30 @@ export default {
 }
 
 .link {
-    position: relative;
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    flex-direction:row;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding-right: 100px;
-    color: rgb(232, 89, 49);
+  position: relative;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  flex-direction:row;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-right: 100px;
+  color: rgb(232, 89, 49);
 }
 
 #featured-books ul {
-    margin-top:50px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-    gap: 10px;
-    list-style-type: none;
-    padding-left: 45px;
+  margin-top:50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
+  gap: 10px;
+  list-style-type: none;
+  padding-left: 45px;
  
 }
 
 #featured-books li {
-    text-align: center;
+  text-align: center;
     
 }
 
