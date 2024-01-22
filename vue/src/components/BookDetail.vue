@@ -26,9 +26,11 @@
           <strong>Add to Bookshelf</strong>
         </router-link>
          <!-- pop up page show the message the book added into the cart -->
+         <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
          <div v-if="showBookshelfPopup" class="bookshelf-popup">
-            This book added to your Bookshelf
-            <button @click="showBookshelfPopup = false">x</button>
+             <p>This book added to your Bookshelf</p>
+             <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
+            <!-- <button @click="showBookshelfPopup = false">x</button> -->
             <!-- link go to the bookshelf -->
             <button>Go to Bookshelf</button>
          </div>
@@ -134,6 +136,7 @@ export default {
     },
     hidePopup() {
       this.showAddedToCart = false;
+      this.showBookshelfPopup = false;
     },
     goToCart() {
       this.$router.push({name: "cart"});
@@ -214,6 +217,8 @@ export default {
 }
 
 
+
+
 .new-image{
   flex:1;/* Adjust the flex ratio as needed */
   display: flex;
@@ -265,6 +270,7 @@ export default {
   text-align: left; /* Optional: for text alignment inside the popup */
   width: 35%;
   height: 320px;
+  
   /* max-height: 350px; */
   font-size: 20px;
   /* new properties */
@@ -273,6 +279,22 @@ export default {
   max-height: none; /* Remove max height or make it larger */
   overflow: hidden; /* Hide overflow or use 'auto' to allow scrolling */
 
+}
+
+.bookshelf-popup {
+  position: fixed;
+  top:50%;
+  left:50%;
+  padding:10px 20px;
+  color:#6b3630;
+  text-align:left;
+  z-index: 1000;
+  width:35%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  max-height:none;
+  display:flex;
+  flex-direction:column;
 }
 
 .overlay {
