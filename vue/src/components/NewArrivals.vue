@@ -1,36 +1,11 @@
 <template>
   <div id="new-arrivals">
     <div class="title-link">
-        <div><h3><strong>New Arrivals</strong></h3></div>
-        <div><router-link :to="{ name: 'new-arrivals-view' }" class="link">See All New Arrivals</router-link></div></div>
+      <h3><strong>New Arrivals</strong></h3>
+      <router-link :to="{ name: 'new-arrivals-view' }" class="link">See All New Arrivals</router-link>
+    </div>
     <ul>
-      <div id="body-container" v-for="newArrival in paginatedList" v-bind:key="newArrival.isbn">
-        <router-link v-bind:to="{
-          name: 'detail',
-          params: {
-            sku: newArrival.sku
-          }}">
-            <img v-bind:src="newArrival.image"/>
-            <VClamp :line-clamp="1" class="book-title">{{ newArrival.title }}</VClamp>
-         </router-link>
-  
-         <p class="book-author"><b>{{ newArrival.author }}</b></p>
-  
-        <div class="book-detail">
-          <p>{{ newArrival.publisher }}, {{ newArrival.media }}</p>
-        </div>
-        <div class="book-price">
-          <p><b>Price:</b> ${{ newArrival.price }}</p>
-        </div>
-        <router-link v-bind:to="{
-          name: 'detail',
-          params: {
-            sku: newArrival.sku
-          }
-          }">
-          <p class="read-more">READ MORE</p>
-        </router-link>
-      </div>
+     <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
     </ul>
   </div>
 </template>
@@ -38,7 +13,7 @@
 
 <script>
 
-import VClamp from "vue-clamp"
+import BookCard from "../components/BookCard.vue"
 
 import {mapState, mapActions} from "vuex"
 
@@ -46,13 +21,13 @@ export default {
     name: "new-arrivals",
 
     components: {
-      VClamp
+      BookCard
     },
   
   computed: {
     
     paginatedList() {
-        return this.newArrivals.slice(0, 4);
+        return this.newArrivals.slice(0, 4)
     },
     ...mapState(["newArrivals"])
   },
@@ -62,18 +37,16 @@ export default {
   },
   
   created() {
-      this.fetchNewArrivals();
+      this.fetchNewArrivals()
     }
 }
 
 </script>
 
 <style scoped>
-
-#new-arrivals h3 {
+.title-link h3 {
   padding-left: 45px;
   color: rgb(232, 89, 49);
-  /* text-transform: uppercase; */
 }
 
 .title-link {
@@ -94,7 +67,6 @@ export default {
     color: rgb(232, 89, 49);
 }
 
-
 #new-arrivals ul {
     margin-top:50px;
     display: grid;
@@ -110,90 +82,34 @@ export default {
     
 }
 
-#new-arrivals img {
-    width: 70%; /* Adjust width as needed */
-    height: 70%; /* Adjust height as needed */
-    object-fit: cover;
-}
-
 #new-arrivals {
-    /*padding: 30px 130px; Adds padding to the start and end of the grid container*/
-   
-  padding: 45px 90px; /* Reduced left and right padding */
+  padding: 45px 90px;
+
 }
-
-
-/* Style for book title */
-
- .book-title {
-  white-space: nowrap; /* Keeps the text in a single line */
-  overflow: hidden; /* Ensures that overflow text is hidden */
-  text-overflow: ellipsis; /* Adds an ellipsis to indicate text overflow */
-  width: 160px; /*Set a width that suits your layout */
-  text-transform: uppercase
-}
-
-
-#new-arrivals .book-author {
-    margin: 0; /* Adjust top and bottom margin to reduce white space */
-}
-
-.book-detail p, .book-price p {
-    margin: 0; /* Remove default margin to reduce white space */
-}
-
-/* #book ul {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row 
-  gap: 30px;
-  list-style-type: none;
-  padding: 0;
-*/
-
-/* ... existing styles ... */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   #new-arrivals ul {
-    grid-template-columns: repeat(2, 1fr); /* 2 books per row for tablets */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
   }
 
-  #new-arrivals img {
-    width: 80%; /* Increase width for smaller screens */
-    height: auto; /* Maintain aspect ratio */
-  }
-
   #new-arrivals {
-    padding: 20px; /* Reduce padding */
+    padding: 20px;
   }
-
-  .book-title {
-    width: 120px; /* Adjust width for smaller screens */
-    font-size: 0.9em; /* Reduce font size */
-  }
-
-  /* Adjust other elements as needed */
+ 
 }
 
 @media (max-width: 480px) {
   #new-arrivals ul {
     grid-template-columns: 1fr; /* 1 book per row for mobiles */
   }
-
-  #new-arrivals img {
-    width: 100%; /* Full width on mobile */
-  }
-
-  .book-title {
-    width: auto; /* Allow title to take full width */
-    font-size: 0.8em; /* Further reduce font size */
-  }
-
-  /* Additional mobile adjustments */
 }
 
 </style>
+
+
+
 
 
 
