@@ -43,7 +43,11 @@ import {mapState, mapActions} from "vuex"
   },
     
     methods: {
-      ...mapActions(["fetchFeaturedItems"])
+      ...mapActions(["fetchFeaturedItems"]),
+      formatPrice(value) {
+    const formattedPrice = Number(value).toFixed(2);
+    return formattedPrice;
+  },
     },
     
     created() {

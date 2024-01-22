@@ -2,10 +2,12 @@
   <div class="book-container">
     <div class="book-details">
       <p>
-        <strong>{{ book.author }}</strong>
+        <strong style="font-size:medium">{{ book.title}}</strong>
       </p>
-      <p>{{ book.title }} {{ book.isbn }}</p>
+      <p>{{ book.author }}</p>
+      
       <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
+      <p> ISBN: {{ book.isbn }}</p>
       <p>{{ book.notes }}. {{ book.sku }}</p>
       <p>
         <strong>Price: ${{ formatPrice(book.price) }} </strong>
@@ -16,8 +18,25 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-
-        <button class="save-book"><strong>Save the book</strong></button>
+        <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
+          <div v-if="isAuthenticated" @click="addBookshelf"></div>
+          <router-link v-else to="/login"></router-link>
+        </button> -->
+        <button v-if="isAuthenticated" @click="addBookshelf" class="save-book">
+          <strong>Add to Bookshelf</strong>
+        </button>
+       
+        <router-link v-else to="/login" class="save-book">
+          <strong>Add to Bookshelf</strong>
+        </router-link>
+         <!-- pop up page show the message the book added into the cart -->
+         <div v-if="showBookshelfPopup" class="bookshelf-popup">
+            This book added to your Bookshelf
+            <button @click="showBookshelfPopup = false">x</button>
+            <!-- link go to the bookshelf -->
+            <button>Go to Bookshelf</button>
+         </div>
+         
       </div>
     </div>
     <div class="book-image">
@@ -25,9 +44,11 @@
     </div>
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
     <div v-if="showAddedToCart" class="added-to-cart-popup">
-      Added to Cart
+      <!-- Added to Cart -->
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
       <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
+      <!-- this is error message for the added page -->
+      <div v-else><h3>Added to Cart</h3> </div>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
         
@@ -50,7 +71,7 @@
 </template>
   
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "book-detail",
@@ -58,33 +79,45 @@ export default {
     return {
       numOfBooks: 0,
       showAddedToCart: false,
-      showErrorMessage: false
+      showErrorMessage: false,
+      showBookshelfPopup: false,
     };
   },
   computed: {
-    ...mapState(["book"]),
+    ...mapState(["book", "user", "savedBooks", "cartBooks"]),
+    ...mapGetters(['isAuthenticated']),
+
+    // consider computed method to preserve book across navigation
+    isBookInCart(){
+      return this.cartBooks.some(book=> book.isbn === this.book.isbn);
+    }
   },
   methods: {
-    ...mapActions(["addToCart", "fetchBookById"]),
+    ...mapActions(["addToCart", "fetchBookById", "addToBookshelf"]),
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
+    addBookshelf(){
+        if(this.isAuthenticated){
+          this.addToBookshelf(this.book);
+          this.showBookshelfPopup= true;
+          console.log(this.savedBooks.book);
+        }else {
+          this.$router.push({name: 'login'});
+        }
+        
+    },
     addToBasket() {
-      // this.numOfBooks++;
-      // this.addToCart(this.numOfBooks);
-      //show the popup
-      // this.showAddedToCart = true;
-      if(this.book.qty> 0) {
+      this.showAddedToCart = true;
+      if((this.book.qty> 0) && (!this.isBookInCart)){
         this.addToCart(this.book);
         this.numOfBooks++;
-        // show the popup
-      this.showAddedToCart = true;
       this.book.qty--;
+      this.showErrorMessage= false;
       }else {
         // console.error("you have already added this book to the cart!");
         this.showErrorMessage = true;
-        this.showAddedToCart = true;
       }
     },
     hidePopup() {
@@ -113,7 +146,7 @@ export default {
   flex: 2; /* Allocate more space to the details */
   display: flex;
   flex-direction: column;
-  padding-right: 20px; /* Add some spacing between the details and the image */
+  padding-right: 6.25rem; /* Add some spacing between the details and the image */
 }
 
 .book-image {
@@ -121,7 +154,7 @@ export default {
   display: flex;
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
-  padding: 10px; /* Add padding around the image */
+  padding:0.625rem; /* Add padding around the image */
 }
 
 .book-image img {
@@ -130,12 +163,12 @@ export default {
   /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   border: 1px solid #ddd; /* Add a border */
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 1rem; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-  width: 200px; /* Increase width for smaller screens */
-  height: 300px; /* Maintain aspect ratio */
-  max-width: 300px;
-  max-height: 400px;
+  width: 18.5rem; /* Increase width for smaller screens */
+  height: 25.75rem; /* Maintain aspect ratio */
+  /* max-width: 300px; */
+  /* max-height: 400px; */
 }
 
 .book-actions {
@@ -201,12 +234,12 @@ export default {
 
 .close-popup {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 0.6rem;
   border: none;
   background: none;
   color: gray; /* Or any color that matches your design */
-  font-size: 0.7em; /* Adjust size as needed */
+  font-size: 0.8em; /* Adjust size as needed */
   cursor: pointer;
 }
 
@@ -248,6 +281,8 @@ export default {
   box-sizing: border-box;
   border-style :solid;
   background-color: rgb(226, 144, 144);
+  border-color: rgb(226, 144, 144);
+  margin-right:0.7rem;
 
 }
 </style>

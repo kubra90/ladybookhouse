@@ -8,7 +8,8 @@
             <button class="checkout"><strong>CHECKOUT</strong></button>
         </router-link>
         </div>
-        
+        <!-- if statement if there is specific items  -->
+        <div v-if=!checkBook>There is no book in your cart</div>
        <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
           <div class="book-detail">
             <router-link v-bind:to="{
@@ -26,12 +27,10 @@
           <div class="book-price">${{ formatPrice(book.price) }}</div>
           </div>
        </div>
-       <div class="price-tab">
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(totalPrice)}}</span> </p>
-        <p class="shipping-price">Shipping <span>{{ totalShippingCost }}</span></p>
-        <p class="subtotal-price">Subtotal <span>${{formatPrice(subTotalPrice)}}</span> </p>
-        <p class="shipping-price">Shipping <span>${{formatPrice(totalShippingCost) }}</span> </p>
-        <p class="total-price">Order Total <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
+       <div v-if=checkBook class="price-tab">
+        <p class="subtotal-price">Subtotal: <span>${{formatPrice(subTotalPrice)}}</span> </p>
+        <p class="shipping-price">Shipping: <span>${{formatPrice(totalShippingCost) }}</span> </p>
+        <p class="total-price"> <strong>Order Total: </strong> <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
        </div>
        <div>
         <router-link v-bind:to="{name: 'checkout'}">
@@ -51,7 +50,15 @@ export default {
        } 
     },
     computed: {
+        
         ...mapState(['cartBooks']),
+        checkBook(){
+            let checkBookCart = false;
+        if(this.cartBooks.length > 0){
+            checkBookCart = true;
+         }
+         return checkBookCart;
+        },
         totalPrice(){
          return this.cartBooks.reduce((total, book) => total + book.price, 0) + this.totalShippingCost;
          
@@ -73,6 +80,14 @@ export default {
                 shippingCost =5.65;
             }else if(totalWeight>48 && totalWeight<=64){
                 shippingCost =6.40;
+            }else if(totalWeight>64 && totalWeight<=80){
+                shippingCost =7.15;
+            }else if(totalWeight>80 && totalWeight <=96){
+                shippingCost = 7.90;
+            }else if(totalWeight>96 && totalWeight<=112){
+                shippingCost = 8.65;
+            }else{
+                shippingCost =9.99;
             }
             //implement more shopping cost here.
             return shippingCost;
@@ -240,12 +255,16 @@ flex-direction: row;
     padding: 0px 0; /* Add some padding */
 }
 
-.subtotal-price, .total-price {
+.subtotal-price, .total-price, .shipping-price {
     margin-bottom: 0px; /* Reduce space between subtotal and total */
 }
-.total-price span, .subtotal-price span {
+.total-price span, .subtotal-price span{
     
     margin-left: 20px;
+}
+
+.shipping-price span{
+    margin-left:27px;
 }
 .total-price span{
     color:chocolate;

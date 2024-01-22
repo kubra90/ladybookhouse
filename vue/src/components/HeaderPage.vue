@@ -3,19 +3,22 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <a href="/account">My Account  |</a>
-        <i class="fa fa-shopping-cart"></i>
-        <!-- <span class="cart-count">{{ basketCount }}</span> -->
-        <!-- <a href="/cart">Cart <span class="cart-count">({{ basketCount }} items)</span></a> -->
+        <router-link v-if="isAuthenticated" to="/account"> Welcome, {{user.username}}  |</router-link>
+        <router-link v-else to="/login">Your account  |</router-link>
+        <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
+        <!-- <i class="fa fa-shopping-cart"></i> -->
         <router-link v-bind:to="{
           name:'cart' }">
+          <i class="fa fa-shopping-cart"></i>
           <span class="cart-count">({{ basketCount }} items)</span>
           </router-link>
       </div>
 
       <!-- Second Box: Search Bar -->
       <div class="search-bar">
-        <input type="text" placeholder="Search...">
+        
+        <input class="search-box" type="text" placeholder="author, title, or keyword">
+        <i class="fa fa-search search-icon"></i>
       </div>
 
       <!-- Third Box: App Name -->
@@ -27,7 +30,7 @@
         <a href="/browse">Browse</a>
         <a href="/category">Category</a>
         <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <router-link v-bind:to="{name : 'contact'}">Contact</router-link>
       </nav>
     </div>
   </header>
@@ -35,12 +38,13 @@
 
   
   <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   export default {
     name: "header-page",
     // Your script here
     computed: {
-      ...mapState(['basketCount'])
+      ...mapState(['basketCount', 'user']),
+      ...mapGetters(['isAuthenticated'])
     }
   }
   </script>
@@ -73,15 +77,38 @@
  /* Padding for spacing between rows */
 }
 
+
 .account-cart, .search-bar{
   justify-content: right;
   padding-top:7px;
   padding-right:70px;
 }
 
+.search-box {
+  width:17%;
+}
+
+.search-bar {
+  position:relative;
+}
+
+.search-icon {
+    position: absolute;
+    top: 57%;  /* Center vertically */
+    left: 93%; /* Distance from the left */
+    transform: translateY(-50%); /* Ensures vertical centering */
+    color: #6B3630; /* Icon color */
+    /* Additional styling as needed */
+}
+
 .fa-shopping-cart{
-  margin-top: 8px;
+  margin-top: 2px;
   font-size: 16px;
+}
+
+.cart-count {
+  margin-left:3px;
+  font-size:12px;
 }
 
 
