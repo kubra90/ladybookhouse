@@ -84,22 +84,39 @@
   padding-right:70px;
 }
 
+/* search icon updated responsive css */
 .search-box {
-  width:17%;
+  max-width: 200px; /* Maximum width */
+  width: 100%; /* Make it flexible */
 }
 
 .search-bar {
-  position:relative;
+  position: relative;
+  display: flex;
+  align-items: center;
+  
 }
 
 .search-icon {
-    position: absolute;
-    top: 57%;  /* Center vertically */
-    left: 93%; /* Distance from the left */
-    transform: translateY(-50%); /* Ensures vertical centering */
-    color: #6B3630; /* Icon color */
-    /* Additional styling as needed */
+  position: absolute;
+  right: 8rem; 
+  color: #6B3630;
+  margin-left:auto;
 }
+/* responsive design for the smaller screen */
+@media screen and (max-width: 600px) {
+  .search-box {
+    max-width: 100%; /* Allow it to expand */
+    width: 40%; /* Take more width on smaller screens */
+  }
+
+  .search-icon {
+    /* Adjust icon size or position if needed */
+    margin-left:auto;
+  }
+}
+
+/* until here the search bar css */
 
 .fa-shopping-cart{
   margin-top: 2px;
@@ -176,7 +193,7 @@
     margin-right: 0;
   }
 
-  .account-cart, .search-bar {
+  .account-cart{
     padding-right: 20px; /* Adjust padding */
     justify-content: space-between; /* Adjust alignment */
   }
@@ -200,7 +217,7 @@
     gap: 10px; /* Adjust gap between items */
   }
 
-  .account-cart, .search-bar {
+  .account-cart{
     padding: 0; /* Remove padding */
     width: 100%; /* Full width */
   }
