@@ -33,7 +33,7 @@
             <!-- <button @click="showBookshelfPopup = false">x</button> -->
             <!-- link go to the bookshelf -->
           
-            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button>
+            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf {{ $store.state.token }}</button>
           
          </div>
          
@@ -146,8 +146,6 @@ export default {
     goToBookshelf() {
       if(this.isAuthenticated){
       this.$router.push({name: "saved-books"});
-      }else {
-        this.$router.push({name: "login"});
       }
     }
   },

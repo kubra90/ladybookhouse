@@ -33,6 +33,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.user.username
+    
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

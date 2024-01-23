@@ -148,7 +148,7 @@ const router = new Router({
       name: "saved-books",
       component: SavedBooks,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
 
@@ -164,6 +164,7 @@ router.beforeEach((to, from, next) => {
     next("/login");
   } else {
     // Else let them go to their next destination
+  
     next();
   }
 });
