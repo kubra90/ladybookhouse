@@ -1,7 +1,7 @@
 <template>
     <div>
         here is the saved books
-        <p>Token : {{ this.$store.state.token }} {{ this.$store.state.localStorage }}</p>
+        <p></p>
     </div>
 </template>
 <script>

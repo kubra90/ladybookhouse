@@ -32,7 +32,7 @@
             <!-- <button @click="showBookshelfPopup = false">x</button> -->
             <!-- link go to the bookshelf -->
           
-            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf {{ $store.state.token }}</button>
+            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button>
           
          </div>
         </div>

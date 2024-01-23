@@ -158,13 +158,12 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-   // If it does and they are not logged in, send the user to "/login"
-  // I changed this logic from token to checking the username. Is it secure or appropriate way?
-  if(requiresAuth && store.state.user.username === ''){
+  // If it does and they are not logged in, send the user to "/login"
+  if (requiresAuth && store.state.token === '') {
     next("/login");
-  }
-  else {
-    // else let them go to their next destination
+  } else {
+    // Else let them go to their next destination
+  
     next();
   }
 });
