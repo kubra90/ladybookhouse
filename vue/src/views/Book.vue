@@ -10,12 +10,11 @@
 
 
 <script>
-import BookList from '../components/BookList.vue';
 import HeaderPage from '../components/HeaderPage.vue';
 import FooterPage from '../components/FooterPage.vue';
 export default {
     name: "book",
-    components: {BookList, HeaderPage, FooterPage}
+    components: {HeaderPage, FooterPage}
 }
 </script>
 
