@@ -18,10 +18,6 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-        <!-- <button class="save-book"><strong>Add to Bookshelf</strong>
-          <div v-if="isAuthenticated" @click="addBookshelf"></div>
-          <router-link v-else to="/login"></router-link>
-        </button> -->
         <button v-if="isAuthenticated" @click="addBookshelf" class="save-book">
           <strong>Add to Bookshelf</strong>
         </button>
@@ -39,9 +35,25 @@
          
       </div>
     </div>
-    <div class="book-image">
+    <!-- <div class="book-image">
       <img v-bind:src="book.image" />
+      
+      <img class="enlarger-icon" src="/assets/icons/enlarger.updated.png" alt="Image in big size">
+      
+    </div> -->
+    <div class="new-image">
+      <div class="book-image">
+        <img v-bind:src="book.image" />
+      </div>
+      <div class="icon-background">
+       <img class="enlarger-icon" src="/assets/icons/updated.enlarger.png" alt="Image in big size">
+      </div>
+      
+     
+      
+      
     </div>
+    
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
     <div v-if="showAddedToCart" class="added-to-cart-popup">
       <!-- Added to Cart -->
@@ -139,7 +151,10 @@ export default {
   display: flex;
   flex-direction: row;
   font-family: "PT Sans", sans-serif;
-  padding: 40px 130px;
+  padding-top: 5.5rem;
+  padding-right: 10rem;
+  padding-left:13rem;
+  padding-bottom: 2rem;
 }
 
 .book-details {
@@ -154,7 +169,11 @@ export default {
   display: flex;
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
-  padding:0.625rem; /* Add padding around the image */
+  /* padding:0.625rem;  */
+  padding:0;
+
+  /* new styles */
+  position : relative;
 }
 
 .book-image img {
@@ -170,6 +189,40 @@ export default {
   /* max-width: 300px; */
   /* max-height: 400px; */
 }
+
+.icon-background {
+  width:4.5rem;
+  height:3rem;
+  position:absolute;
+  top:38%;
+  right:12%;
+  /* left:83%; */
+  /* z-index is to position the icon above the book */
+  z-index:1; 
+  /* border: 10px; */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#6b3630;
+  
+}
+
+.enlarger-icon {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+
+.new-image{
+  flex:1;/* Adjust the flex ratio as needed */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; Center the image horizontally */
+  /* align-items: center; Center the image vertically  */
+  /* padding:0.625rem;  */
+}
+
 
 .book-actions {
   display: flex;
@@ -284,5 +337,11 @@ export default {
   border-color: rgb(226, 144, 144);
   margin-right:0.7rem;
 
+}
+
+@media (max-height: 600px) {
+  .icon-background {
+    bottom: 3%; /* Adjust for shorter screens */
+  }
 }
 </style>
