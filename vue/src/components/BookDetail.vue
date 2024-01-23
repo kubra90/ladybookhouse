@@ -213,14 +213,6 @@ export default {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-
-
-
-||||||| d8c2a80
-
-=======
->>>>>>> main
 .new-image{
   flex:1;/* Adjust the flex ratio as needed */
   display: flex;
