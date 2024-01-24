@@ -15,6 +15,7 @@ import Checkout from '../views/Checkout.vue'
 import MyAccount from '../views/MyAccount.vue'
 import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
+import SavedBooks from '../views/SavedBooks.vue'
 
 Vue.use(Router)
 
@@ -91,7 +92,7 @@ const router = new Router({
       name: "account",
       component: MyAccount,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -142,6 +143,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/saved_books",
+      name: "saved-books",
+      component: SavedBooks,
+      meta: {
+        requiresAuth: false
+      }
+    },
 
   ]
 })
@@ -149,12 +158,12 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
     next("/login");
   } else {
     // Else let them go to their next destination
+  
     next();
   }
 });
