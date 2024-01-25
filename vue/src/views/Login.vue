@@ -1,7 +1,11 @@
 <template>
   <main>
     <header-page/>
+    
     <div id="login">
+      <div v-if="loginRequired" class="error-box">
+      <p>You must be logged in to add books to your bookshelf.</p>
+    </div>
       <form @submit.prevent="handleLogin">
         <h1>Login</h1>
         <div role="alert" v-if="invalidCredentials">
@@ -42,9 +46,11 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
+        loginRequired: false
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+  
     };
   },
   methods: {
@@ -63,6 +69,9 @@ export default {
           }
         });
     }
+  },
+  created(){
+    this.loginRequired = this.$route.query.loginRequired || false
   }
 };
 </script>

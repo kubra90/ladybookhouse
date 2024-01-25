@@ -1,5 +1,9 @@
 <template>
+
   <div class="book-container">
+    <div v-if="loginRequiredMessage" class="alert-message">
+      Please log in to add books to your bookshelf.
+    </div>
     <div class="book-details">
       <p>
         <strong style="font-size:medium">{{ book.title}}</strong>
@@ -42,9 +46,6 @@
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
-      <!-- <div class="icon-background">
-       <img class="enlarger-icon" src="/assets/icons/updated.enlarger.png" alt="Image in big size">
-      </div> -->
     </div>
     
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
@@ -86,6 +87,7 @@ export default {
       showAddedToCart: false,
       showErrorMessage: false,
       showBookshelfPopup: false,
+      loginRequiredMessage: false
     };
   },
   computed: {
@@ -108,7 +110,10 @@ export default {
         this.showBookshelfPopup= true;
         console.log(this.savedBooks.book);
       }else {
-        this.$router.push({name: 'login'});
+        this.$router.push(
+          {name: 'login',
+          query: {loginRequired: true}
+        });
       }
     },
     addToBasket() {
@@ -137,7 +142,11 @@ export default {
   },
   created() {
     this.fetchBookById(this.$route.params.sku);
+    if(this.$route.query.loginRequired){
+      this.loginRequiredMessage = true
+    }
   },
+
 };
 </script>
 
