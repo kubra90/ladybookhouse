@@ -16,6 +16,7 @@ import MyAccount from '../views/MyAccount.vue'
 import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
 import SavedBooks from '../views/SavedBooks.vue'
+import Browse from '../views/Browse.vue'
 
 Vue.use(Router)
 
@@ -151,7 +152,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
-
+    {
+      path: "/browse",
+      name: "browse",
+      component: Browse,
+      meta: {
+        requiresAuth: false
+      }
+    }
   ]
 })
 
