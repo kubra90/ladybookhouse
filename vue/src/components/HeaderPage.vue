@@ -3,7 +3,7 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <router-link v-if="isAuthenticated" to="/account"> Welcome, {{user.username}}  |</router-link>
+        <router-link v-if="isAuthenticated" to="/account"> My Account  |</router-link>
         <router-link v-else to="/login">Your account  |</router-link>
         <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
         <!-- <i class="fa fa-shopping-cart"></i> -->
