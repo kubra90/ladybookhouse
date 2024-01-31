@@ -34,7 +34,10 @@
         <a href="/about">About</a>
         <router-link v-bind:to="{name : 'contact'}">Contact</router-link>
         <!-- instagram icon -->
-        <i class="fa fa-instagram"></i>
+        <!-- <i class="fa fa-instagram"></i> -->
+        <a href="https://www.instagram.com/ladybookhouse/" class="account-instagram" target="_blank" rel="noopener noreferrer">
+    <i class="fa fa-instagram"></i>
+</a>
       </nav>
     </div>
   </header>
@@ -130,6 +133,8 @@
     align-items: center;
     justify-content: center; /* Horizontally center the content */
 }
+
+
 
 .search-bar .search-box.clicked {
   /* border-color: #6B3630; */
