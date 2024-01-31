@@ -3,7 +3,6 @@
     here is saved books
 
     <div v-for="(book, index) in savedBooks" :key="index">
-      here is the saved books
       <p>{{ book.author }}</p>
       <p>{{ book.title }}</p>
       <div class="detail">
