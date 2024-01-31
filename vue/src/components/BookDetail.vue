@@ -1,9 +1,6 @@
 <template>
 
   <div class="book-container">
-    <div v-if="loginRequiredMessage" class="alert-message">
-      Please log in to add books to your bookshelf.
-    </div>
     <div class="book-details">
       <p>
         <strong style="font-size:medium">{{ book.title}}</strong>
@@ -142,9 +139,6 @@ export default {
   },
   created() {
     this.fetchBookById(this.$route.params.sku);
-    if(this.$route.query.loginRequired){
-      this.loginRequiredMessage = true
-    }
   },
 
 };

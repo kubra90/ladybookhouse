@@ -15,9 +15,9 @@
       </div>
 
       <!-- Second Box: Search Bar -->
-      <div class="search-bar">
+      <div class="search-bar" >
         
-        <input class="search-box" type="text" placeholder="author, title, or keyword">
+        <input class="search-box" :class="{ clicked: isClicked }" @click="toggleClick" type="text" placeholder="author, title, or keyword">
         <i class="fa fa-search search-icon"></i>
       </div>
 
@@ -41,6 +41,17 @@
   import { mapState, mapGetters } from 'vuex'
   export default {
     name: "header-page",
+   data() {
+    return {
+       isClicked : false
+    }
+   },
+   methods: {
+    toggleClick() {
+      this.isClicked = !this.isClicked;
+    }
+   },
+    
     // Your script here
     computed: {
       ...mapState(['basketCount', 'user']),
@@ -88,6 +99,8 @@
 .search-box {
   max-width: 200px; /* Maximum width */
   width: 100%; /* Make it flexible */
+  border: 2px solid  #6B3630;
+  cursor:pointer
 }
 
 .search-bar {
@@ -95,6 +108,11 @@
   display: flex;
   align-items: center;
   
+}
+
+.search-bar .search-box.clicked {
+  /* border-color: #6B3630; */
+  border: 2px solid  #6B3630;
 }
 
 .search-icon {
