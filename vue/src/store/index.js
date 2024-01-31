@@ -29,10 +29,13 @@ export default new Vuex.Store({
     basketCount: 0,
     cartBooks: [],
     // bookshelf
-    savedBooks: []
+    userSavedBooks: {}
   },
   getters: {
-    isAuthenticated: state => state.user.username
+    isAuthenticated: state => state.user.username,
+    getSavedBooks: state => (username) => {
+      return state.userSavedBooks[username] || []
+    }
     
   },
   mutations: {
@@ -81,11 +84,15 @@ export default new Vuex.Store({
       state.cartBooks = newCart;
     },
     // add to bookshelf
-    ADD_TO_BOOKSHELF(state, book) {
+    ADD_TO_BOOKSHELF(state, {user, book}) {
+      // initialize a savedBooks array for the user if it doesn't exist
+      if(!state.userSavedBooks[user]){
+        Vue.set(state.userSavedBooks, user, [])
+      }
       //check if the books already exist in the savedBooks array
-      const existingBook = state.savedBooks.find(item => item.isbn === book.isbn);
+      const existingBook = state.userSavedBooks[user].find(item => item.isbn === book.isbn);
       if (!existingBook) {
-        state.savedBooks.push(book);
+        state.userSavedBooks[user].push(book);
       }
     }
     },
@@ -108,7 +115,7 @@ export default new Vuex.Store({
       // add the book to the bookshelf
       addToBookshelf({ commit, state }, book) {
         if (state.user && state.user.username) {
-          commit('ADD_TO_BOOKSHELF', book)
+          commit('ADD_TO_BOOKSHELF', {user: state.user.username, book})
         } else {
           // need to check this one!!!
           console.error('you need to login or create an account!')
