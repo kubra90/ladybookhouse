@@ -15,7 +15,6 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 export default {
-<<<<<<< HEAD
   name: "saved-books-page",
   components: {},
   computed: {
@@ -28,23 +27,6 @@ export default {
     }
   },
 };
-||||||| 8240584
-    name: "saved-books-page",
-    components: {
-        
-    }
-}
-=======
-  name: "saved-books-page",
-}
->>>>>>> main
 </script>
-<<<<<<< HEAD
 <style scoped>
 </style>
-||||||| 8240584
-<style scoped>
-
-</style>
-=======
->>>>>>> main

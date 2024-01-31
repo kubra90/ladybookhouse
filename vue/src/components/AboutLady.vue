@@ -23,23 +23,23 @@
       <div class="store">
         <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
           <img class="img-icon-first" src="/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
-          <span>Abebooks</span>
         </a>
       </div>
       <div class="store">
         <a href="https://www.ebay.com/str/ladybookhouse" target="_blank">
           <img class="img-icon-second" src="/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 2 Icon">
-          <span>Ebay</span>
         </a>
       </div>
       <div class="store">
         <a href="https://www.biblio.com/bookstore/lady-bookhouse-belmont" target="_blank">
-          <span>Biblio</span>
+          <img class="img-icon-third" src="/assets/icons/Biblio-seal-logo.svg.png" alt="">
+          <span></span>
         </a>
       </div>
       <div class="store">
         <a href="https://www.alibris.com/stores/lady0520" target="_blank">
-          <span>Alibris</span>
+          <img class="img-icon-forth" src="/assets/icons/alibris.jpeg" alt="">
+          <span></span>
         </a>
       </div>
     </div>
@@ -61,6 +61,16 @@
 }
 
 .img-icon-second {
+  width: 55px; 
+  height: 48px; 
+}
+
+.img-icon-third {
+  width: 55px; 
+  height: 48px; 
+}
+
+.img-icon-forth {
   width: 55px; 
   height: 48px; 
 }
