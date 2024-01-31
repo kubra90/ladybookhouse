@@ -2,7 +2,7 @@
   <div>
     here is saved books
 
-    <div v-for="(book, index) in savedBooks" :key="index">
+    <div v-for="book in userSavedBooks(user.username)" :key="book.sku">
       <p>{{ book.author }}</p>
       <p>{{ book.title }}</p>
       <div class="detail">
@@ -12,12 +12,18 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "saved-books-page",
   components: {},
   computed: {
-    ...mapState(["savedBooks"]),
+    ...mapGetters([]),
+    ...mapState(['user']),
+    userSavedBooks(){
+        return (username)=> {
+            return this.$store.getters.getSavedBooks(username);
+        }
+    }
   },
 };
 </script>
