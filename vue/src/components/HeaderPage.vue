@@ -114,16 +114,21 @@
 }
 
 .fa-instagram {
-  /* margin-top:0.45em; */
-  font-size:1.2em;
-  color:#6B3630;
-  margin-left:auto;
-  margin-right:14em;
-  background:white;
-  background-size: 8em;
-  border-radius: 1em;
-  display:flex;
-  align-items:center
+    font-size: 1.2em;
+    color: #6B3630;
+    margin-left: auto;
+    margin-right: 14em;
+
+    /* Circle background */
+    background: white;
+    border-radius: 50%; 
+    width: 1.6em; 
+    height: 1.6em; 
+    /* padding: 0.5em;  */
+    margin-top:0.18em;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horizontally center the content */
 }
 
 .search-bar .search-box.clicked {
