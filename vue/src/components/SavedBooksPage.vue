@@ -4,14 +4,9 @@
         <p></p>
     </div>
 </template>
+
 <script>
 export default {
-    name: "saved-books-page",
-    components: {
-        
-    }
+  name: "saved-books-page",
 }
 </script>
-<style scoped>
-
-</style>

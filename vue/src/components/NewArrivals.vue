@@ -23,7 +23,6 @@ export default {
   },
   
   computed: {
-    
     paginatedList() {
       return this.newArrivals.slice(0, 4)
     },

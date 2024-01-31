@@ -27,14 +27,10 @@
          <!-- pop up page show the message the book added into the cart -->
          <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
          <div v-if="showBookshelfPopup" class="bookshelf-popup">
-             <div><p>This book added to your Bookshelf</p></div>
-             <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
-            <!-- <button @click="showBookshelfPopup = false">x</button> -->
-            <!-- link go to the bookshelf -->
-          
+            <div><p>This book added to your Bookshelf</p></div>
+            <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
             <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button>
-          
-         </div>
+          </div>
         </div>
     </div>
 
@@ -42,9 +38,6 @@
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
-      <!-- <div class="icon-background">
-       <img class="enlarger-icon" src="/assets/icons/updated.enlarger.png" alt="Image in big size">
-      </div> -->
     </div>
     
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
@@ -56,7 +49,6 @@
       <div v-else><h3>Added to Cart</h3> </div>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
-        
         <img :src="book.image" class="popup-book-image" />
         <div class="popup-detail">
           <h4 class="popup-book-title">{{ book.title }}</h4>
@@ -65,7 +57,6 @@
             <strong>Price: ${{ formatPrice(book.price) }}</strong>
           </h5>
         </div>
-       
       </div>
       <div class="popup-navbar">
         <button class="continue-shopping-bar" @click="hidePopup">CONTINUE SHOPPING</button>

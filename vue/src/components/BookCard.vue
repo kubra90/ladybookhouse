@@ -37,19 +37,15 @@
 import VClamp from "vue-clamp"
 
 export default {
-    
-    name:"book-card",
-
-    components: {
-        VClamp
-    },
-
-    props: ["book"],
-
-    computed: {
-      formattedPrice: function () {
-        return Number(this.book.price).toFixed(2)
-   }
+  name:"book-card",
+  components: {
+    VClamp
+  },
+  props: ["book"],
+  computed: {
+    formattedPrice: function () {
+      return Number(this.book.price).toFixed(2)
+    }
   }
 }
 
@@ -64,42 +60,41 @@ export default {
 }
 
 .book-title {
-  white-space: nowrap; /* Keeps the text in a single line */
-  overflow: hidden; /* Ensures that overflow text is hidden */
-  text-overflow: ellipsis; /* Adds an ellipsis to indicate text overflow */
-  width: 160px; /*Set a width that suits your layout */
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  width: 160px; 
   text-transform: uppercase
 }
 
 .book-author {
-  margin: 0; /* Adjust top and bottom margin to reduce white space */
+  margin: 0; 
 }
 
 .book-detail p, .book-price p {
-  margin: 0; /* Remove default margin to reduce white space */
+  margin: 0;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   #books img {
-   width: 80%; /* Increase width for smaller screens */
-   height: auto; /* Maintain aspect ratio */
+   width: 80%; 
+   height: auto; 
   }
 
   .book-title {
-    width: 120px; /* Adjust width for smaller screens */
-    font-size: 0.9em; /* Reduce font size */
+    width: 120px; 
+    font-size: 0.9em; 
   }
 }
 
 @media (max-width: 480px) {
   #books img {
-   width: 100%; /* Full width on mobile */
+    width: 100%; 
   }
 
   .book-title {
-    width: auto; /* Allow title to take full width */
-    font-size: 0.8em; /* Further reduce font size */
+    width: auto; 
+    font-size: 0.8em; 
   }
 }
 
