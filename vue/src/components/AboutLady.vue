@@ -18,7 +18,7 @@
       value customer satisfaction, which is why we are dedicated to fast shipping and 
       maintaining the quality of our books.
     </p>
-    <p><strong>Explore Our Online Stores</strong></p>
+    <p class="subtitle"><strong>Explore Our Online Stores</strong></p>
     <div class="store-links">
       <div class="store">
         <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
@@ -55,23 +55,18 @@
   padding-right:180px;
 }
 
-.img-icon-first {
-  width: 30px; 
-  height: 30px; 
+.img-icon-first, .img-icon-second, .img-icon-third, .img-icon-forth {
+  width: 4.5em; 
+  height: 3.8em; 
 }
 
-.img-icon-second {
-  width: 55px; 
-  height: 48px; 
+.subtitle {
+  margin-bottom: 2em;
 }
 
-.img-icon-third {
-  width: 55px; 
-  height: 48px; 
-}
-
-.img-icon-forth {
-  width: 55px; 
-  height: 48px; 
+.store-links {
+  display: flex;
+  flex-direction: row;
+  gap:1.6rem;
 }
 </style>
