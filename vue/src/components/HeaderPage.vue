@@ -27,8 +27,10 @@
       <!-- Fourth Box: Navigation Links -->
       <nav class="header-nav">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+        <a href="/search">Search</a>
         <a href="/browse">Browse</a>
-        <a href="/category">Category</a>
+        <router-link v-bind:to="{name: 'new-arrivals-view' }">New Arrivals</router-link>
+        <a href="/rare-books">Rare Books</a>
         <a href="/about">About</a>
         <router-link v-bind:to="{name : 'contact'}">Contact</router-link>
       </nav>

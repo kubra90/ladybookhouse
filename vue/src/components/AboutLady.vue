@@ -6,7 +6,6 @@
       from young readers and teenagers to adults and older readers, each book carefully chosen 
       to inspire, educate, and entertain.</p>
     <p>
-    <p>
       Our selections cover an extensive array of genres, from social sciences and psychology 
       to natural sciences, literature, art, design, and cooking, not forgetting our delightful 
       range of children's books. We also take pride in offering best-selling books from renowned 
