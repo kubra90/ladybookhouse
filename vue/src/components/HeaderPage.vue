@@ -33,6 +33,8 @@
         <a href="/rare-books">Rare Books</a>
         <a href="/about">About</a>
         <router-link v-bind:to="{name : 'contact'}">Contact</router-link>
+        <!-- instagram icon -->
+        <i class="fa fa-instagram"></i>
       </nav>
     </div>
   </header>
@@ -109,6 +111,19 @@
   display: flex;
   align-items: center;
   
+}
+
+.fa-instagram {
+  /* margin-top:0.45em; */
+  font-size:1.2em;
+  color:#6B3630;
+  margin-left:auto;
+  margin-right:14em;
+  background:white;
+  background-size: 8em;
+  border-radius: 1em;
+  display:flex;
+  align-items:center
 }
 
 .search-bar .search-box.clicked {
