@@ -3,7 +3,7 @@
     <div class="header-top">
       <!-- First Box: Account and Cart -->
       <div class="account-cart">
-        <router-link v-if="isAuthenticated" to="/account"> Welcome, {{user.username}}  |</router-link>
+        <router-link v-if="isAuthenticated" to="/account"> My Account  |</router-link>
         <router-link v-else to="/login">Your account  |</router-link>
         <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
         <!-- <i class="fa fa-shopping-cart"></i> -->
@@ -58,10 +58,9 @@
       ...mapGetters(['isAuthenticated'])
     }
   }
-  </script>
+</script>
+
 <style scoped>
-
-
 .header-container {
   box-sizing:border-box;
   display: flex;
@@ -192,8 +191,6 @@
   color: #6B3630;
 }
 
-
-/* Responsive adjustments for tablets and smaller desktops */
 @media (max-width: 768px) {
   .header-container {
     padding: 10px; /* Reduce padding */
@@ -217,7 +214,6 @@
   }
 }
 
-/* Responsive adjustments for mobile devices */
 @media (max-width: 480px) {
   .header-top {
     flex-direction: column; /* Stack all items vertically */
@@ -239,13 +235,6 @@
     padding: 0; /* Remove padding */
     width: 100%; /* Full width */
   }
-
-  /* Additional mobile adjustments */
 }
-
-
-
-
-
 </style>
 
