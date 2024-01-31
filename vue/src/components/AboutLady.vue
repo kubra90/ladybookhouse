@@ -5,27 +5,27 @@
       A sanctuary for book lovers of all ages. Our vast collection caters to a multitude of tastes, 
       from young readers and teenagers to adults and older readers, each book carefully chosen 
       to inspire, educate, and entertain.</p>
-      <p>
+    <p>
+    <p>
       Our selections cover an extensive array of genres, from social sciences and psychology 
       to natural sciences, literature, art, design, and cooking, not forgetting our delightful 
       range of children's books. We also take pride in offering best-selling books from renowned 
       authors around the globe, providing our customers with the chance to delve into popular 
       narratives loved by millions.
-      </p>
-      <p>
-    Our commitment to you extends beyond the breadth of our book collection. We highly 
-    value customer satisfaction, which is why we are dedicated to fast shipping and 
-    maintaining the quality of our books.
+    </p>
+    <p>
+      Our commitment to you extends beyond the breadth of our book collection. We highly 
+      value customer satisfaction, which is why we are dedicated to fast shipping and 
+      maintaining the quality of our books.
     </p>
     <p><strong>Explore Our Online Stores</strong></p>
-      <div class="store-links">
-        <div class="store">
+    <div class="store-links">
+      <div class="store">
         <a href="https://www.abebooks.com/servlet/StoreFrontDisplay?cid=86527136" target="_blank">
           <img class="img-icon-first" src="/assets/icons/Abebooks-Icon-Logo-Vector.svg-1-1.png" alt="Store 1 Icon">
           <span>Abebooks</span>
         </a>
       </div>
-  <!-- Add more stores as needed -->
       <div class="store">
         <a href="https://www.ebay.com/str/ladybookhouse" target="_blank">
           <img class="img-icon-second" src="/assets/icons/free-ebay-credit-debit-card-bank-transaction-32281.webp" alt="Store 2 Icon">
