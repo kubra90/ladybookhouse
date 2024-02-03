@@ -4,8 +4,6 @@ DROP TABLE IF EXISTS users, orders;
 
 CREATE TABLE users (
 	user_id SERIAL,
---	there may be different users using same username
---	username varchar(50) NOT NULL,
     firstName varchar(255) NOT NULL,
     lastName varchar(255) NOT NULL,
     email varchar(255) NOT NULL UNIQUE,
@@ -28,6 +26,6 @@ CREATE TABLE orders (
    email varchar(50),
    bookNo varchar(10) NOT NULL UNIQUE,
    CONSTRAINT PK_order PRIMARY KEY(order_id)
-)
+);
 
 COMMIT TRANSACTION;
