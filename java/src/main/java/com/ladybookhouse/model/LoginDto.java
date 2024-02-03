@@ -7,15 +7,16 @@ package com.ladybookhouse.model;
  */
 public class LoginDto {
 
-   private String username;
+//   private String username;
+   private String email;
    private String password;
 
-   public String getUsername() {
-      return username;
+   public String getEmail() {
+      return email;
    }
 
-   public void setUsername(String username) {
-      this.username = username;
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    public String getPassword() {
@@ -28,8 +29,8 @@ public class LoginDto {
 
    @Override
    public String toString() {
-      return "LoginDTO{" +
-              "username='" + username + '\'' +
+      return "LoginDto{" +
+              "email='" + email + '\'' +
               ", password='" + password + '\'' +
               '}';
    }

@@ -5,7 +5,10 @@ DROP TABLE IF EXISTS users, orders;
 CREATE TABLE users (
 	user_id SERIAL,
 --	there may be different users using same username
-	username varchar(50) NOT NULL,
+--	username varchar(50) NOT NULL,
+    firstName varchar(255) NOT NULL,
+    lastName varchar(255) NOT NULL,
+    email varchar(255) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
