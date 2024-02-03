@@ -19,7 +19,7 @@ public class MyUserDetail implements UserDetails {
     private boolean credentialsNonExpired = true;
     private boolean accountNonLocked = true;
     private Collection<? extends GrantedAuthority> authorities;
-    
+
     public String getFirstName() {
         return firstName;
     }
