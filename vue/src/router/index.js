@@ -17,6 +17,7 @@ import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
 import SavedBooks from '../views/SavedBooks.vue'
 import Browse from '../views/Browse.vue'
+import CategoryDetail from '../views/CategoryDetail.vue'
 
 Vue.use(Router)
 
@@ -156,6 +157,14 @@ const router = new Router({
       path: "/browse",
       name: "browse",
       component: Browse,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/:category",
+      name: "category-detail",
+      component: CategoryDetail,
       meta: {
         requiresAuth: false
       }

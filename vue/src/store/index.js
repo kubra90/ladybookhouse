@@ -33,7 +33,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.user.username,
-    filterBooksByCat: (state) => (bookCat) => {
+    filteredBooksByCat: (state) => (bookCat) => {
       return state.books.filter((book => book.category === bookCat))
   }
 },
