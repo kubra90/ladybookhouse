@@ -48,12 +48,6 @@ export default {
   },
   data() {
     return {
-      // user: {
-      //   username: '',
-      //   password: '',
-      //   confirmPassword: '',
-      //   role: 'user',
-      // },
       user: {
         firstName: '',
         lastName: '',

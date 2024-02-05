@@ -117,10 +117,10 @@
 }
 
 .fa-instagram {
-    font-size: 1.2em;
+    font-size: 1em;
     color: #6B3630;
-    margin-left: auto;
-    margin-right: 14em;
+    margin-left: 33em;
+    margin-right: 3em;
 
     /* Circle background */
     background: white;
@@ -133,6 +133,7 @@
     align-items: center;
     justify-content: center; /* Horizontally center the content */
 }
+
 
 
 
