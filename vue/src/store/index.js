@@ -35,8 +35,10 @@ export default new Vuex.Store({
     isAuthenticated: state => state.user.username,
     getSavedBooks: state => (username) => {
       return state.userSavedBooks[username] || []
+    },
+    filteredBooksByCateg: state => (bookCateg) => {
+      return state.books.filter(book => book.category === bookCateg)
     }
-    
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
