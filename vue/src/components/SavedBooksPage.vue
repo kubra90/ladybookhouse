@@ -2,7 +2,7 @@
   <div>
     here is saved books
 
-    <div v-for="book in userSavedBooks(user.username)" :key="book.sku">
+    <div v-for="book in userSavedBooks(user.email)" :key="book.sku">
       <p>{{ book.author }}</p>
       <p>{{ book.title }}</p>
       <div class="detail">
@@ -21,8 +21,8 @@ export default {
     ...mapGetters([]),
     ...mapState(['user']),
     userSavedBooks(){
-        return (username)=> {
-            return this.$store.getters.getSavedBooks(username);
+        return (email)=> {
+            return this.$store.getters.getSavedBooks(email);
         }
     }
   },

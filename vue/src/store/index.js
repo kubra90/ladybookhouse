@@ -32,9 +32,9 @@ export default new Vuex.Store({
     userSavedBooks: {}
   },
   getters: {
-    isAuthenticated: state => state.user.username,
-    getSavedBooks: state => (username) => {
-      return state.userSavedBooks[username] || []
+    isAuthenticated: state => state.user.email,
+    getSavedBooks: state => (email) => {
+      return state.userSavedBooks[email] || []
     },
     filteredBooksByCateg: state => (bookCateg) => {
       return state.books.filter(book => book.category === bookCateg)
@@ -116,8 +116,8 @@ export default new Vuex.Store({
       },
       // add the book to the bookshelf
       addToBookshelf({ commit, state }, book) {
-        if (state.user && state.user.username) {
-          commit('ADD_TO_BOOKSHELF', {user: state.user.username, book})
+        if (state.user && state.user.email) {
+          commit('ADD_TO_BOOKSHELF', {user: state.user.email, book})
         } else {
           // need to check this one!!!
           console.error('you need to login or create an account!')

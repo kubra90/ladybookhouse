@@ -5,7 +5,7 @@
       <div class="flex-container">
         <h1>Your account</h1>
         <div class="welcome">
-          Welcome, {{ user.username }}. 
+          Welcome, {{ user.firstName}} {{ user.lastName }}. 
           <router-link to="/logout">Logout</router-link>
         </div>
       </div>
@@ -13,7 +13,7 @@
         <span class="personal-info-header">Personal Information</span>
         <hr>
         <div class="personal-info-body">
-          <span>Name: {{ user.username }} </span><br>
+          <span>Name: {{ user.firstName}} {{ user.lastName }}</span><br>
         </div>
         <div class="orders">
           <strong>Orders</strong>
