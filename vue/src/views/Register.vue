@@ -8,8 +8,16 @@
           {{ registrationErrorMsg }}
         </div>
         <div class="form-input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="user.username" size="35" required autofocus />
+          <label for="username">First Name</label>
+          <input type="text" id="username" v-model="user.firstName" size="35" required autofocus />
+        </div>
+        <div class="form-input-group">
+          <label for="username">Last Name</label>
+          <input type="text" id="username" v-model="user.lastName" size="35" required autofocus />
+        </div>
+        <div class="form-input-group">
+          <label for="username">Email</label>
+          <input type="text" id="username" v-model="user.email" size="35" required autofocus />
         </div>
         <div class="form-input-group">
           <label for="password">Password</label>
@@ -41,10 +49,12 @@ export default {
   data() {
     return {
       user: {
-        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        role: 'user'
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',

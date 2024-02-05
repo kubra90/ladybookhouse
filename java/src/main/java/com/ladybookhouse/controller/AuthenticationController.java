@@ -36,13 +36,13 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginDto) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication, false);
         
-        User user = userDao.findByUsername(loginDto.getUsername());
+        User user = userDao.findByEmail(loginDto.getEmail());
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
@@ -53,10 +53,10 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@Valid @RequestBody RegisterUserDto newUser) {
         try {
-            User user = userDao.findByUsername(newUser.getUsername());
+            User user = userDao.findByEmail(newUser.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists.");
         } catch (UsernameNotFoundException e) {
-            userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
+            userDao.create(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(),newUser.getPassword(), newUser.getRole());
         }
     }
 

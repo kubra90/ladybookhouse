@@ -32,19 +32,31 @@ public class UserModelDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating user '{}'", login);
         String lowercaseLogin = login.toLowerCase();
-        return createSpringSecurityUser(lowercaseLogin, userDao.findByUsername(lowercaseLogin));
+        return createSpringSecurityUser(lowercaseLogin, userDao.findByEmail(lowercaseLogin));
     }
 
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) {
+    private MyUserDetail createSpringSecurityUser(String lowercaseLogin, User user) {
         if (!user.isActivated()) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
         List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(),
-                grantedAuthorities);
+//        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+//                user.getPassword(),
+//                grantedAuthorities);
+
+        MyUserDetail userDetails = new MyUserDetail();
+        userDetails.setEmail(user.getEmail()); // Assuming you have a setter for email
+        userDetails.setPassword(user.getPassword()); // Assuming you have a setter for password
+        userDetails.setAuthorities(grantedAuthorities); // Assuming you have a setter for authorities
+        // Set additional properties as needed
+        userDetails.setFirstName(user.getFirstName()); // Assuming user model has a firstName field
+        userDetails.setLastName(user.getLastName()); // Assuming user model has a lastName field
+        userDetails.setEnabled(user.isActivated()); // Assuming you have a setter for enabled status
+        // Set accountNonExpired, credentialsNonExpired, accountNonLocked as needed
+
+        return userDetails;
     }
 }
 

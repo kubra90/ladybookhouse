@@ -97,6 +97,35 @@
   
 }
 
+<<<<<<< HEAD
+=======
+.fa-instagram {
+    font-size: 1em;
+    color: #6B3630;
+    margin-left: 33em;
+    margin-right: 3em;
+
+    /* Circle background */
+    background: white;
+    border-radius: 50%; 
+    width: 1.6em; 
+    height: 1.6em; 
+    /* padding: 0.5em;  */
+    margin-top:0.18em;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horizontally center the content */
+}
+
+
+
+
+.search-bar .search-box.clicked {
+  /* border-color: #6B3630; */
+  border: 2px solid  #6B3630;
+}
+
+>>>>>>> main
 .search-icon {
   position: absolute;
   right: 8rem; 

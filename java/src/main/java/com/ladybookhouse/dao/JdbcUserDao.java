@@ -22,19 +22,19 @@ public class JdbcUserDao implements UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public int findIdByUsername(String username) {
-        if (username == null) throw new IllegalArgumentException("Username cannot be null");
-
-        int userId;
-        try {
-            userId = jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
-        } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("User " + username + " was not found.");
-        }
-
-        return userId;
-    }
+//    @Override
+//    public int findIdByUsername(String username) {
+//        if (username == null) throw new IllegalArgumentException("Username cannot be null");
+//
+//        int userId;
+//        try {
+//            userId = jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
+//        } catch (EmptyResultDataAccessException e) {
+//            throw new UsernameNotFoundException("User " + username + " was not found.");
+//        }
+//
+//        return userId;
+//    }
 
 	@Override
 	public User getUserById(int userId) {
@@ -46,6 +46,42 @@ public class JdbcUserDao implements UserDao {
 			return null;
 		}
 	}
+
+    @Override
+    public User findByEmail(String email) {
+
+              if (email== null) throw new IllegalArgumentException("Email cannot be null");
+
+     for (User user : this.findAll()) {
+         if (user.getEmail().equalsIgnoreCase(email)) {
+                return user;
+            }
+        }
+        throw new UsernameNotFoundException("User with this" + email+ " was not found.");
+    }
+
+    @Override
+    public int findIdByEmail(String email) {
+        if(email == null) throw new IllegalArgumentException("Email cannot be null");
+
+        int userId;
+            try {
+                userId = jdbcTemplate.queryForObject("select user_id from users where email= ?", int.class, email);
+            } catch (EmptyResultDataAccessException e) {
+                throw new UsernameNotFoundException("User with this email" + email + "not found");
+
+            }
+        return userId;
+    }
+
+    @Override
+    public boolean create(String name, String lastName, String email, String password, String role) {
+        String insertUserSql = "insert into users (firstName, lastName, email, password_hash,role) values (?,?,?,?,?)";
+        String password_hash = new BCryptPasswordEncoder().encode(password);
+        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
+
+        return jdbcTemplate.update(insertUserSql, name, lastName, email, password_hash, ssRole) == 1;
+    }
 
     @Override
     public List<User> findAll() {
@@ -61,31 +97,33 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
-    @Override
-    public User findByUsername(String username) {
-        if (username == null) throw new IllegalArgumentException("Username cannot be null");
+//    @Override
+//    public User findByUsername(String username) {
+//        if (username == null) throw new IllegalArgumentException("Username cannot be null");
+//
+//        for (User user : this.findAll()) {
+//            if (user.getUsername().equalsIgnoreCase(username)) {
+//                return user;
+//            }
+//        }
+//        throw new UsernameNotFoundException("User " + username + " was not found.");
+//    }
 
-        for (User user : this.findAll()) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
-                return user;
-            }
-        }
-        throw new UsernameNotFoundException("User " + username + " was not found.");
-    }
-
-    @Override
-    public boolean create(String username, String password, String role) {
-        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
-        String password_hash = new BCryptPasswordEncoder().encode(password);
-        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
-
-        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
-    }
+//    @Override
+//    public boolean create(String username, String password, String role) {
+//        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
+//        String password_hash = new BCryptPasswordEncoder().encode(password);
+//        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
+//
+//        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+//    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
-        user.setUsername(rs.getString("username"));
+        user.setFirstName(rs.getString("firstName"));
+        user.setLastName(rs.getString("lastName"));
+        user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);

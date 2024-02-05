@@ -90,17 +90,100 @@
     padding-left: 20px;
   }
 
+<<<<<<< HEAD
   .contact-info p {
     margin:0;
   }
   .address {
     padding-top: 15px;
   }
+=======
+      <nav class="footer-account">
+        <router-link v-bind:to="{ name: 'cart' }">Shopping Cart</router-link>
+        <router-link v-bind:to="{name: 'login'}">My account</router-link>
+        <router-link v-bind:to="{name: 'register'}">Create Account</router-link>
+        <a href="https://www.instagram.com/ladybookhouse/" class="account-instagram" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-instagram"></i>
+         </a>
+      </nav>
+    </div>
+  </footer>
+</template>
+>>>>>>> main
 
   .footer-account {
     padding-right: 6em;
   }
 
+<<<<<<< HEAD
+=======
+<style scoped>
+.footer-container {
+  box-sizing:border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: oldlace;
+  padding: 30px 0;
+  width: 100%;
+  height: 200px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  position: absolute;
+  transform: translateY(100%);
+}
+
+.footer-top {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content:space-around;
+}
+.contact-info, .footer-items, .footer-policies, .footer-account {
+  width: 90%;
+  display: flex;
+  flex-direction: column;  
+  flex-grow: 1;
+  margin:0;
+  padding:0;
+}
+
+.fa-instagram {
+    font-size: 1em;
+    color: #6B3630;
+    /* margin-left: 33em;
+    margin-right: 3em; */
+
+    /* Circle background */
+    /* background: white;
+    border-radius: 50%; 
+    width: 1.6em; 
+    height: 1.6em; 
+    padding: 0.5em; 
+     margin-top:0.18em; */
+    /* display: flex;
+    align-items: center; */
+    /* justify-content: center; 
+    Horizontally center the content */
+}
+
+.contact-info  {
+  padding-left:100px;
+}
+
+.footer-items {
+  padding-left: 20px;
+}
+
+.contact-info p {
+  margin:0;
+}
+.address {
+  padding-top: 15px;
+}
+
+.footer-account {
+  padding-right: 6em;
+}
+>>>>>>> main
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
