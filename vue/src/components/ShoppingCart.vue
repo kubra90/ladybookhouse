@@ -260,7 +260,7 @@ export default {
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem;
   margin-top:0.8rem;
-  margin-bottom: 2rem;;
+  /* margin-bottom: 2rem; */
 
 }
 </style>

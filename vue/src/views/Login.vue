@@ -6,7 +6,7 @@
       <form @submit.prevent="handleLogin">
         <h1>Login</h1>
         <div role="alert" v-if="invalidCredentials">
-          Invalid username and password!
+          Invalid email and password!
         </div>
         <div role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
@@ -119,4 +119,4 @@ button:hover {
   margin: 10px 0;
 }
 }
-</style>
+</style> 

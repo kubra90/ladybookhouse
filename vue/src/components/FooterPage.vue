@@ -40,16 +40,17 @@ export default {
 
 <style scoped>
 .footer-container {
-  box-sizing:border-box;
+  /* box-sizing:border-box; */
   display: flex;
   flex-direction: column;
   background-color: oldlace;
   padding: 30px 0;
   width: 100%;
   height: 200px;
+
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  position: absolute;
-  transform: translateY(100%);
+  /* position: absolute;  this is main cause of unwanted space */
+  /* transform: translateY(100%);  check why does it cause*/
 }
 
 .footer-top {
@@ -109,6 +110,8 @@ export default {
 @media (max-width: 768px) {
   .footer-container {
     padding: 20px; 
+    transform: translateY(30%);
+    height:350px;
   }
 
   .footer-top {
@@ -130,7 +133,7 @@ export default {
 
 @media (max-width: 480px) {
   .footer-container {
-    padding: 15px; 
+    padding: 20px; 
   }
 
   .contact-info p, .footer-items a, .footer-policies a, .footer-account a {

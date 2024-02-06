@@ -50,6 +50,8 @@ export default {
 
 </script>
 
+
+
 <style scoped>
 
 .title-link h3 {
@@ -96,22 +98,24 @@ export default {
 #featured-books ul {
   margin-top:50px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  /* gap: 10px; */
   list-style-type: none;
   padding-left: 45px;
- }
+ } 
 
 #featured-books li {
   text-align: center;
 }
 
 #featured-books {
-  padding: 45px 90px; 
+ 
+  padding: 45px 90px;
+
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Responsive adjustments */ 
+ @media (max-width: 768px) {
   #featured-books ul {
     grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
@@ -124,8 +128,8 @@ export default {
 
 @media (max-width: 480px) {
   #featured-books ul {
-    grid-template-columns: 1fr; /* 1 book per row for mobiles */
+   grid-template-columns: 1fr;/* 1 book per row for mobiles  */
   }
-}
+} 
 
 </style>

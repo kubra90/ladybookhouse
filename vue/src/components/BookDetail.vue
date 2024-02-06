@@ -148,6 +148,7 @@ export default {
   padding-right: 10rem;
   padding-left:13rem;
   padding-bottom: 2rem;
+  min-height: calc(10vh - 10px - 2px);
 }
 
 .book-details {

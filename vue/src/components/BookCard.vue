@@ -51,7 +51,8 @@ export default {
 
 </script>
 
-<style scoped>
+ <style scoped>
+
 
 #books img {
   width: 70%; 
@@ -66,6 +67,7 @@ export default {
   width: 160px; 
   text-transform: uppercase
 }
+
 
 .book-author {
   margin: 0; 
@@ -98,4 +100,4 @@ export default {
   }
 }
 
-</style>
+</style> 

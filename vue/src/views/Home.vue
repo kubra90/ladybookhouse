@@ -16,7 +16,7 @@ import FooterPage from "../components/FooterPage.vue"
 export default {
   name: "home",
   components: {
-   HeaderPage, FooterPage, NewArrivals, FeaturedBooks
+   HeaderPage, NewArrivals, FeaturedBooks,FooterPage
   }
 }
 </script>
@@ -26,4 +26,6 @@ export default {
   box-sizing: border-box;
   padding: 0px;
 }
+
+
 </style>
