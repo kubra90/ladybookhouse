@@ -17,7 +17,7 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
-                          String addressLine, String email, Long phoneNumber,
+                          String addressLine, String email, String phoneNumber,
                           String sku) {
         String orderSql = "insert into orders (firstname, lastname, country, city, " +
                 "state, zipcode, address, phoneNumber, email, bookNo) " +

@@ -1,5 +1,8 @@
 package com.ladybookhouse.controller;
 
+import com.ladybookhouse.dao.JdbcOrderDao;
+import com.ladybookhouse.dao.OrderDao;
+import com.ladybookhouse.model.Order;
 import com.ladybookhouse.model.RegisterUserDto;
 import com.ladybookhouse.model.User;
 import org.springframework.http.HttpStatus;
@@ -14,17 +17,18 @@ import javax.validation.Valid;
 @CrossOrigin
 public class OrderController {
 
+private OrderDao orderDao;
 
+public OrderController(OrderDao orderDao){
+    this.orderDao = orderDao;
+}
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    public void placeOrder(@Valid @RequestBody Order newOrder) {
+             orderDao.create(newOrder.getFirstName(),newOrder.getLastName(),
+                     newOrder.getCountry(), newOrder.getZipCode(), newOrder.getCity(),
+                     newOrder.getState(), newOrder.getAddressLine(), newOrder.getPhoneNumber(),
+                     newOrder.getEmail(), newOrder.getInventoryCode());
+          }
 
-
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public void register(@Valid @RequestBody RegisterUserDto newUser) {
-//        try {
-//            User user = userDao.findByUsername(newUser.getUsername());
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists.");
-//        } catch (UsernameNotFoundException e) {
-//            userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
-//        }
-//    }
 }

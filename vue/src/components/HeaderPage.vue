@@ -68,6 +68,9 @@
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .header-container {
   box-sizing:border-box;
   display: flex;
@@ -75,6 +78,8 @@
   background-color: #fdf5e6;
   padding-right: 0px;
   width: 100%;
+  /* width: 100vw;
+  height: 15vw; */
   top:0;
   margin-top:0px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -90,9 +95,9 @@
 .account-cart, .search-bar, .app-name, .header-nav {
   width: 90%; /* Full width for each row */
   display: flex;
-  /* justify-content: center; Center items horizontally */
- /* Padding for spacing between rows */
+
 }
+
 
 
 .account-cart, .search-bar{
@@ -181,7 +186,7 @@
   /* Center the text if desired */
   padding-top: 15px;
   padding-right:40px;
-  padding-left:100px;
+  padding-left:130px;
   padding-bottom:20px;
   width: 100%; /* Ensures it spans the full width of the row */
   line-height: 1;
@@ -190,13 +195,14 @@
   font-weight: 400; /* Try a bolder weight */
   font-size:60px;
   height:50px;
-  margin: 30px;
+  margin-bottom: 30px;
   color: #FA8072;
   
 }
 
 .header-nav {
-  width: calc(100% - 130px - 2px);
+  width: calc(100% - 110px - 20px);
+
   box-sizing:border-box;
   justify-content: left;
   background-color:#FA8072;
@@ -204,7 +210,6 @@
   /* padding-right:40px; */
   /* Match the width of .app-name, considering its padding */
   margin-left: 130px; /* Align with .app-name */
-  margin-right:80px;
   display:flex;
   flex-direction:row;
   gap:20px;
