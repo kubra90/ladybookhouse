@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="contact-page">
     <HeaderPage/>
-    <ContactPage/>
-    <FooterPage/>
+    <ContactPage class="contact"/>
+    <FooterPage class="footer"/>
   </div>
 </template>
 <script>
@@ -17,3 +17,22 @@
   }
   }
 </script>
+
+<style scoped>
+.contact{
+  flex:1;
+}
+
+.contact-page{
+  display:flex;
+  flex-direction: column;
+  height:100%;
+  margin:0;
+}
+
+.footer{
+  display:flex;
+  
+}
+
+</style>  

@@ -136,9 +136,9 @@ button:hover {
   box-shadow: 0 0 5px #337ab7;
   background-color: #337ab7;
 }
-/* .footer {
+.footer {
   position:absolute;
   bottom: 0;
-} */
+}
 }
 </style>

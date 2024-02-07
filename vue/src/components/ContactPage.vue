@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contact-container">
     <p class="contact-header">Contact Us</p>
     <div class="contact-address">
     <p><strong>Lady Bookhouse</strong></p>
@@ -38,6 +38,12 @@
 .mail-address{
   margin-left: 9%;
   margin-bottom:4%;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  position:relative;
 }
 
 .mail-address-link{

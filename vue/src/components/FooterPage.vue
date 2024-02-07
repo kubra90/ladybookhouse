@@ -46,7 +46,7 @@ export default {
   background-color: oldlace;
   padding: 30px 0;
   
-  height: 60%;
+  /* height: 60%; */
   width:100%;
   
 
