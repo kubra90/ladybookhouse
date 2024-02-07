@@ -16,19 +16,20 @@ import FooterPage from './components/FooterPage.vue';
 <template>
   <div id="app" class="flex-container">
     <router-view class="flex-content" />
-    <FooterPage />
+    <!-- <FooterPage /> -->
   </div>
 </template>
 
 <style scoped>
-#app {
+ #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+  /* position:relative; */
+} 
 
 .flex-content {
-  flex:1;
-}
+  /* flex:0; */
+} 
 </style>
 

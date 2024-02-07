@@ -1,51 +1,57 @@
 <template>
-  <div id="login">
-    <form @submit.prevent="handleLogin">
-      <h1>Login</h1>
-      <div role="alert" v-if="invalidCredentials">
-        Invalid email and password!
-      </div>
-      <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Email</label>
-        <input
-          type="text"
-          id="username"
-          v-model="user.email"
-          size="35"
-          required
-          autofocus
-        />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          v-model="user.password"
-          size="35"
-          required
-          autocomplete="on"
-        />
-      </div>
-      <button type="submit">Login</button>
-      <p>
-        <router-link class="router" :to="{ name: 'register' }"
-          >Need an account? Sign up.</router-link
-        >
-      </p>
-    </form>
-  </div>
+  <main>
+    <header-page class="header"></header-page>
+    <div id="login">
+      <form @submit.prevent="handleLogin">
+        <h1>Login</h1>
+        <div role="alert" v-if="invalidCredentials">
+          Invalid email and password!
+        </div>
+        <div role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="form-input-group">
+          <label for="username">Email</label>
+          <input
+            type="text"
+            id="username"
+            v-model="user.email"
+            size="35"
+            required
+            autofocus
+          />
+        </div>
+        <div class="form-input-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            v-model="user.password"
+            size="35"
+            required
+            autocomplete="on"
+          />
+        </div>
+        <button type="submit">Login</button>
+        <p>
+          <router-link class="router" :to="{ name: 'register' }"
+            >Need an account? Sign up.</router-link
+          >
+        </p>
+      </form>
+    </div>
+    <footer-page class="footer"></footer-page>
+  </main>
 </template>
   
   <script>
 import { mapActions } from "vuex";
+import HeaderPage from "../components/HeaderPage.vue";
+import FooterPage from "../components/FooterPage.vue";
 
 export default {
   name: "login",
-  components: {},
+  components: { HeaderPage, FooterPage },
   data() {
     return {
       user: {
@@ -76,15 +82,24 @@ export default {
 </script>
   
   <style scoped>
+
+ 
 @media only screen and (min-width: 768px) {
+  main {
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:start;
+  }
   #login {
     padding: 0.75em 2.5em 1.25em 6.25em;
     margin: 1.5em 1em;
-    position: relative;
-    /* position:absolute; */
-    /* top: 50%; */
-    /* -ms-transform: translateY(-50%);
-    transform: translateY(-50%); */
+    position: absolute;
+  
+    /* position:relative; */
+     top: 50%; 
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%); 
   }
   form h1 {
     font-family: "PT Sans", sans-serif;
@@ -122,11 +137,14 @@ export default {
   .footer {
     position: absolute;
     bottom: 0;
+  
   }
+
 
   .error-box {
     color: red;
     margin: 10px 0;
   }
 }
-</style> 
+
+</style>

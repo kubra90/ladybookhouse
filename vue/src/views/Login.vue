@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <div class="login-page">
   <header-page></header-page>
   <login-page class="login"></login-page>
@@ -22,7 +22,7 @@ export default {
   
 </script>
  <style scoped>
-.login {
+/* .login {
   flex:1;
 }
 
@@ -31,11 +31,29 @@ export default {
   flex-direction: column;
   height:100%;
   margin:0;
-}
+} */
 
-.footer{
-  display:flex;
+ .footer {
+  /* display:flex; */
+  position:absolute; 
+   bottom:0;
   
+} 
+
+</style>   -->
+
+<template>
+  <div>
+    <login-page/>
+  </div>
+</template>
+<script>
+import LoginPage from "../components/LoginPage.vue"
+export default {
+  name: "login",
+  components: {
+    LoginPage
+  }
 }
 
-</style>  
+</script>

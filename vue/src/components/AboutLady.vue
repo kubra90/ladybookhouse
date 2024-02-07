@@ -1,4 +1,6 @@
 <template>
+  <main>
+    <header-page></header-page>
   <div class="about-us-container">
     <h4 class="title-lb">Welcome Lady Bookhouse</h4>
     <p>
@@ -43,15 +45,34 @@
       </div>
     </div>
   </div>
+  <footer-page class="footer"></footer-page>
+</main>
 </template>
+<script>
+import HeaderPage from "../components/HeaderPage.vue";
+import FooterPage from "../components/FooterPage.vue";
+
+export default {
+  name: "about-lady",
+  components: { HeaderPage, FooterPage }
+}
+</script>
 
 <style scoped>
+@media only screen and (min-width: 768px) {
+
 .about-us-container {
-  padding-top: 30px;
+  /* padding-top: 30px;
   padding-left: 130px;
   display:flex;
   flex-direction: column;
-  padding-right:180px;
+  padding-right:180px; */
+  padding: 0.75em 2.5em 1.25em 6.25em;
+  margin: 1.5em 1em;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .img-icon-first, .img-icon-second, .img-icon-third, .img-icon-forth {
@@ -68,4 +89,11 @@
   flex-direction: row;
   gap:1.6rem;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
 </style>

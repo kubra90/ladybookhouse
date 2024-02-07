@@ -44,6 +44,7 @@
   display: flex;
   flex-direction: column;
   position:relative;
+
 }
 
 .mail-address-link{
