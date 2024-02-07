@@ -1,8 +1,8 @@
 <template>
   <div class="contact-page">
-    <HeaderPage/>
+    <header-page/>
     <ContactPage class="contact"/>
-    <FooterPage class="footer"/>
+    <footer-page class="footer"/>
   </div>
 </template>
 <script>
@@ -20,7 +20,7 @@
 
 <style scoped>
 .contact{
-  flex:1;
+  flex:2;
 }
 
 .contact-page{
@@ -32,6 +32,9 @@
 
 .footer{
   display:flex;
+  bottom:0;
+  /* position:absolute;
+  bottom:0; */
   
 }
 

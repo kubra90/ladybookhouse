@@ -68,9 +68,9 @@
 </script>
 
 <style scoped>
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 .header-container {
   box-sizing:border-box;
   display: flex;
@@ -78,6 +78,7 @@
   background-color: #fdf5e6;
   padding-right: 0px;
   width: 100%;
+  position: relative;
   /* width: 100vw;
   height: 15vw; */
   top:0;
@@ -154,7 +155,8 @@
   margin-left:auto;
 }
 /* responsive design for the smaller screen */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) { */
+  @media screen and (max-width: 768px) {
   .search-box {
     max-width: 100%; /* Allow it to expand */
     width: 40%; /* Take more width on smaller screens */

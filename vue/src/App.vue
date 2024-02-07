@@ -29,7 +29,7 @@ import FooterPage from './components/FooterPage.vue';
 } 
 
 .flex-content {
-  /* flex:0; */
+  flex:2;
 } 
 </style>
 
