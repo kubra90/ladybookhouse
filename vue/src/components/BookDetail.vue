@@ -1,5 +1,4 @@
 <template>
-
   <div class="book-container">
     <div class="book-details">
       <p>
@@ -139,6 +138,13 @@ export default {
 </script>
 
 <style scoped>
+
+/* new css for main container*/
+/* .main-container {
+  flex-direction: column;
+  display:flex;
+
+} */
 .book-container {
   box-sizing: border-box;
   display: flex;

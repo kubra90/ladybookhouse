@@ -78,7 +78,7 @@
   background-color: #fdf5e6;
   padding-right: 0px;
   width: 100%;
-  position: relative;
+
   /* width: 100vw;
   height: 15vw; */
   top:0;
