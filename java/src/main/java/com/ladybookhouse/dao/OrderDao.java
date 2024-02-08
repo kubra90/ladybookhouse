@@ -10,7 +10,7 @@ public interface OrderDao {
                    zipcode, String city, String state, String addressLine,
                    String email, String phoneNumber, String sku);
 
-    List<Order> findAll();
+    List<Order> findAllOrders();
 
     Order getOrderByOrderId(int orderId);
 

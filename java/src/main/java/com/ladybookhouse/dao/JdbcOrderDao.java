@@ -3,8 +3,10 @@ package com.ladybookhouse.dao;
 import com.ladybookhouse.model.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,8 +31,16 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public List<Order> findAll() {
-        return null;
+    public List<Order> findAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        String sql= "select * from orders";
+
+        SqlRowSet results= jdbcTemplate.queryForRowSet(sql);
+        while(results.next()){
+            Order order=mapRowToOrder(results);
+            orders.add(order);
+        }
+        return orders;
     }
 
     @Override
@@ -47,6 +57,14 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public Order getOrderByEmail(String email) {
         if(email == null) throw new IllegalArgumentException("Email cannot be null");
+
+        for(Order order: this.findAllOrders()){
+            if(order.getEmail().equalsIgnoreCase(email)){
+                return order;
+            }
+        }
+//        please change this exception
+        throw new UsernameNotFoundException("Order with this" + email + "was not found!");
     }
 
     private Order mapRowToOrder(SqlRowSet rs){
