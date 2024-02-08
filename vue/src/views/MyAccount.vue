@@ -14,12 +14,18 @@
         <hr>
         <div class="personal-info-body">
           <span>Name: {{ user.firstName}} {{ user.lastName }}</span><br>
+          <span>Email: {{ user.email }}</span>
         </div>
         <div class="orders">
           <strong>Orders</strong>
           <hr>
           <span>You currently have no recent orders</span>
         </div>  
+        <div class="bookshelf">
+          <strong>My Bookshelf</strong>
+          <hr>
+          <span>You currently have no saved books</span>
+        </div>
       </div>
     </main>
     <Footer-page/>

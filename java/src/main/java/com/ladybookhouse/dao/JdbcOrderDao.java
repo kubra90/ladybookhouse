@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public class JdbcOrderDao implements OrderDao {
@@ -24,6 +26,27 @@ public class JdbcOrderDao implements OrderDao {
                 " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(orderSql, firstname, lastName, country,
                 city, state, zipcode, addressLine, email, phoneNumber, sku) == 1;
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return null;
+    }
+
+    @Override
+    public Order getOrderByOrderId(int orderId) {
+        String sql= "SELECT * from orders WHERE order_id= ?";
+        SqlRowSet results= jdbcTemplate.queryForRowSet(sql, orderId);
+        if(results.next()){
+            return mapRowToOrder(results);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public Order getOrderByEmail(String email) {
+        if(email == null) throw new IllegalArgumentException("Email cannot be null");
     }
 
     private Order mapRowToOrder(SqlRowSet rs){
