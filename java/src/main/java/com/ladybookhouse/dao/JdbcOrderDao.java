@@ -55,16 +55,19 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public Order getOrderByEmail(String email) {
+    public List<Order> getOrderByEmail(String email) {
         if(email == null) throw new IllegalArgumentException("Email cannot be null");
-
+        List<Order> orders= new ArrayList<>();
         for(Order order: this.findAllOrders()){
             if(order.getEmail().equalsIgnoreCase(email)){
-                return order;
+                orders.add(order);
             }
         }
-//        please change this exception
-        throw new UsernameNotFoundException("Order with this" + email + "was not found!");
+        if (orders.isEmpty()) {
+            // create new customized exception here
+            throw new UsernameNotFoundException("Order with this email " + email + " was not found!");
+        }
+        return orders;
     }
 
     private Order mapRowToOrder(SqlRowSet rs){

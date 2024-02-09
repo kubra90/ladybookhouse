@@ -14,7 +14,7 @@ public interface OrderDao {
 
     Order getOrderByOrderId(int orderId);
 
-    Order getOrderByEmail(String email);
+    List<Order> getOrderByEmail(String email);
 
 
 }

@@ -1,5 +1,6 @@
 package com.ladybookhouse.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.dao.JdbcOrderDao;
 import com.ladybookhouse.dao.OrderDao;
 import com.ladybookhouse.model.Order;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -30,5 +32,12 @@ public OrderController(OrderDao orderDao){
                      newOrder.getState(), newOrder.getAddressLine(), newOrder.getPhoneNumber(),
                      newOrder.getEmail(), newOrder.getInventoryCode());
           }
+    @RequestMapping(path="/orders", method= RequestMethod.GET)
+    public List<Order> getOrders(String email) throws JsonProcessingException{
+    return orderDao.getOrderByEmail(email);
+    }
+
+
+
 
 }
