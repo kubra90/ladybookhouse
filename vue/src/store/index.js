@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import { getBooks, getBookById, getNewArrivals, getFeaturedItems } from '../services/BookService'
 import { register, login } from '../services/AuthService'
+import { getOrders } from '../services/OrderService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -29,7 +30,9 @@ export default new Vuex.Store({
     basketCount: 0,
     cartBooks: [],
     // bookshelf
-    userSavedBooks: {}
+    userSavedBooks: {},
+    // orders
+    orders: [],
   },
   getters: {
     isAuthenticated: state => state.user.email,
@@ -85,10 +88,13 @@ export default new Vuex.Store({
       state.basketCount--;
       state.cartBooks = newCart;
     },
+    SET_ORDERS(state, data) {
+      state.orders = data
+    },
     // add to bookshelf
-    ADD_TO_BOOKSHELF(state, {user, book}) {
+    ADD_TO_BOOKSHELF(state, { user, book }) {
       // initialize a savedBooks array for the user if it doesn't exist
-      if(!state.userSavedBooks[user]){
+      if (!state.userSavedBooks[user]) {
         Vue.set(state.userSavedBooks, user, [])
       }
       //check if the books already exist in the savedBooks array
@@ -97,54 +103,58 @@ export default new Vuex.Store({
         state.userSavedBooks[user].push(book);
       }
     }
+  },
+  actions: {
+    async registerUser({ commit }, user) {
+      const response = await register(user)
+      commit('SET_USER', response.data.user)
+      commit('LOGOUT')
+      return response
     },
-    actions: {
-      async registerUser({ commit }, user) {
-        const response = await register(user)
-        commit('SET_USER', response.data.user)
-        commit('LOGOUT')
-        return response
-      },
-      async loginUser({ commit }, user) {
-        const response = await login(user)
-        commit('SET_USER', response.data.user)
-        commit('SET_AUTH_TOKEN', response.data.token);
-        return response
-      },
-      addToCart({ commit }, book) {
-        commit('ADD_TO_CART', book);
-      },
-      // add the book to the bookshelf
-      addToBookshelf({ commit, state }, book) {
-        if (state.user && state.user.email) {
-          commit('ADD_TO_BOOKSHELF', {user: state.user.email, book})
-        } else {
-          // need to check this one!!!
-          console.error('you need to login or create an account!')
-        }
+    async loginUser({ commit }, user) {
+      const response = await login(user)
+      commit('SET_USER', response.data.user)
+      commit('SET_AUTH_TOKEN', response.data.token);
+      return response
+    },
+    addToCart({ commit }, book) {
+      commit('ADD_TO_CART', book);
+    },
+    // add the book to the bookshelf
+    addToBookshelf({ commit, state }, book) {
+      if (state.user && state.user.email) {
+        commit('ADD_TO_BOOKSHELF', { user: state.user.email, book })
+      } else {
+        // need to check this one!!!
+        console.error('you need to login or create an account!')
+      }
 
-      },
-      removeBook({ commit, state }, index) {
-        let updatedCart = [...state.cartBooks];
-        updatedCart.splice(index, 1);
-        commit('UPDATE_CART', updatedCart)
-      },
-      async fetchBooks({ commit }) {
-        const response = await getBooks()
-        commit('SET_BOOKS', response.data)
-      },
-      async fetchBookById({ commit }, sku) {
-        const response = await getBookById(sku)
-        commit('SET_BOOK', response.data)
-      },
-      async fetchNewArrivals({ commit }) {
-        const response = await getNewArrivals()
-        commit('SET_NEW_ARRIVALS', response.data)
-      },
-      async fetchFeaturedItems({ commit }) {
-        const response = await getFeaturedItems()
-        commit('SET_FEATURED_ITEMS', response.data)
-      },
-    }
+    },
+    async fetchOrders({ commit }, email) {
+      const response = await getOrders(email)
+      commit('SET_ORDERS', response.data)
+    },
+    removeBook({ commit, state }, index) {
+      let updatedCart = [...state.cartBooks];
+      updatedCart.splice(index, 1);
+      commit('UPDATE_CART', updatedCart)
+    },
+    async fetchBooks({ commit }) {
+      const response = await getBooks()
+      commit('SET_BOOKS', response.data)
+    },
+    async fetchBookById({ commit }, sku) {
+      const response = await getBookById(sku)
+      commit('SET_BOOK', response.data)
+    },
+    async fetchNewArrivals({ commit }) {
+      const response = await getNewArrivals()
+      commit('SET_NEW_ARRIVALS', response.data)
+    },
+    async fetchFeaturedItems({ commit }) {
+      const response = await getFeaturedItems()
+      commit('SET_FEATURED_ITEMS', response.data)
+    },
   }
+}
 )

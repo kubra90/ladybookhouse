@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import CheckoutPage from "../components/CheckoutPage.vue"
-import HeaderPage from "../components/HeaderPage.vue"
-import FooterPage from "../components/FooterPage.vue"
+import CheckoutPage from "@/components/CheckoutPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue"
+import FooterPage from "@/components/FooterPage.vue"
 
 export default {
   name: "checkout",

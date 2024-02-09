@@ -18,6 +18,7 @@ import TermsOfSale from '../views/Terms.vue'
 import SavedBooks from '../views/SavedBooks.vue'
 import Browse from '../views/Browse.vue'
 import CategoryDetail from '../views/CategoryDetail.vue'
+import Order from '../views/Order.vue'
 
 Vue.use(Router)
 
@@ -129,6 +130,15 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/checkOrders",
+      name: "order",
+      component: Order,
+      meta: {
+        requiresAuth: false
+      }
+    },
+
     {
       path: "/contact",
       name: "contact",

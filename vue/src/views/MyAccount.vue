@@ -16,11 +16,12 @@
           <span>Name: {{ user.firstName}} {{ user.lastName }}</span><br>
           <span>Email: {{ user.email }}</span>
         </div>
-        <div class="orders">
+        <!-- <div class="orders">
           <strong>Orders</strong>
           <hr>
           <span>You currently have no recent orders</span>
-        </div>  
+        </div>   -->
+        <router-link v-bind:to="{name: 'order'}">Orders</router-link>
         <div class="bookshelf">
           <strong>My Bookshelf</strong>
           <hr>

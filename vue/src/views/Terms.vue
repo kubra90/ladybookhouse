@@ -8,7 +8,7 @@
 <script>
 import HeaderPage from '../components/HeaderPage.vue'
 import FooterPage from '../components/FooterPage.vue'
-import TermsOfSale from '../components/TermsOfSale.vue'
+import TermsOfSale from '@/components/TermsOfSale.vue'
 
 export default {
   name: "terms",

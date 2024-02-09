@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import NewArrivals from "../components/NewArrivals.vue"
-import FeaturedBooks from "../components/FeaturedBooks.vue"
-import HeaderPage from "../components/HeaderPage.vue"
-import FooterPage from "../components/FooterPage.vue"
+import NewArrivals from "@/components/NewArrivals.vue"
+import FeaturedBooks from "@/components/FeaturedBooks.vue"
+import HeaderPage from "@/components/HeaderPage.vue"
+import FooterPage from "@/components/FooterPage.vue"
 
 export default {
   name: "home",

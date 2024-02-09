@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import LoginPage from "../components/LoginPage.vue";
-import HeaderPage from "../components/HeaderPage.vue";
-import FooterPage from "../components/FooterPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
+import HeaderPage from "@/components/HeaderPage.vue";
+import FooterPage from "@/components/FooterPage.vue";
 
 export default {
   name: "login",
