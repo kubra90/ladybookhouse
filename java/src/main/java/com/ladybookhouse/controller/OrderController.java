@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -33,7 +34,8 @@ public OrderController(OrderDao orderDao){
                      newOrder.getEmail(), newOrder.getInventoryCode());
           }
     @RequestMapping(path="/orders", method= RequestMethod.GET)
-    public List<Order> getOrders(String email) throws JsonProcessingException{
+    public List<Order> getOrders(Principal principal) throws JsonProcessingException{
+    String email= principal.getName();
     return orderDao.getOrderByEmail(email);
     }
 
