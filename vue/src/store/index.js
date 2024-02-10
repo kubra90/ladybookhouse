@@ -132,30 +132,12 @@ export default new Vuex.Store({
       }
 
     },
-    // async fetchOrders({ commit }, email) {
-    //   const response = await getOrders(email)
-    //   commit('SET_ORDERS', response.data)
-    // },
-    // async fetchOrders({ commit, state}) {
-    //    // Debugging line
-    //   try {
-    //     commit('SET_AUTH_TOKEN', state.token)
-    //     const response = await getOrders();
-    //     console.log("Orders fetched:", response.data); 
-    //     commit('SET_ORDERS', response.data);
-    //   } catch (error) {
-    //     console.error('Failed to fetch orders:', error);
-    //   }
-    // },
     async fetchOrders({commit}) {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const response = await getOrders( { headers });
+      const response = await getOrders( { headers});
       commit('SET_ORDERS', response.data)
   },
-  
-    
-    
     removeBook({ commit, state }, index) {
       let updatedCart = [...state.cartBooks];
       updatedCart.splice(index, 1);

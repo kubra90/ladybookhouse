@@ -3,6 +3,14 @@
     <ul>
      <book-card v-for="book in paginatedBooks" :book="book" :key="book.isbn" />
     </ul>
+    <hr>
+    <div class="page-number">
+      <p> Results: {{ newArrivals.length }}</p>
+      <p>Showing: {{ bookStart }} - {{ bookEnd }} of {{ newArrivals.length }} books</p>
+      <p>Results :  {{currentPage}} of {{ totalPages  }} pages</p>
+    </div>
+    <!-- <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
+    <button v-if="currentPage < totalPages" @click="currentPage++">Next</button> -->
     <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
     <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
   </div>
@@ -21,7 +29,7 @@ import {mapState, mapActions} from "vuex"
     data() {
       return {
         currentPage: 1,
-        booksPerPage:24
+        booksPerPage:24,
         }
       }, 
       
@@ -33,6 +41,14 @@ import {mapState, mapActions} from "vuex"
       totalPages() {
         return Math.ceil(this.newArrivals.length / this.booksPerPage)
     },
+
+    bookStart() {
+      return ((this.currentPage - 1) * this.booksPerPage) + 1;
+    },
+    bookEnd(){
+      let end = this.currentPage * this.booksPerPage;
+      return end > this.newArrivals.length ? this.newArrivals.length : end;
+    },
     
       paginatedBooks() {
         const start =  (this.currentPage - 1) * this.booksPerPage
@@ -43,7 +59,8 @@ import {mapState, mapActions} from "vuex"
   },
     
     methods: {
-      ...mapActions(["fetchNewArrivals"])
+      ...mapActions(["fetchNewArrivals"]),
+
     },
     
     created() {
