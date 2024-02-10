@@ -33,6 +33,7 @@ export default new Vuex.Store({
     userSavedBooks: {},
     // orders
     orders: [],
+    order: {}
   },
   getters: {
     isAuthenticated: state => state.user.email,
@@ -91,6 +92,7 @@ export default new Vuex.Store({
     SET_ORDERS(state, data) {
       state.orders = data
     },
+  
     // add to bookshelf
     ADD_TO_BOOKSHELF(state, { user, book }) {
       // initialize a savedBooks array for the user if it doesn't exist
@@ -130,10 +132,30 @@ export default new Vuex.Store({
       }
 
     },
-    async fetchOrders({ commit }, email) {
-      const response = await getOrders(email)
+    // async fetchOrders({ commit }, email) {
+    //   const response = await getOrders(email)
+    //   commit('SET_ORDERS', response.data)
+    // },
+    // async fetchOrders({ commit, state}) {
+    //    // Debugging line
+    //   try {
+    //     commit('SET_AUTH_TOKEN', state.token)
+    //     const response = await getOrders();
+    //     console.log("Orders fetched:", response.data); 
+    //     commit('SET_ORDERS', response.data);
+    //   } catch (error) {
+    //     console.error('Failed to fetch orders:', error);
+    //   }
+    // },
+    async fetchOrders({commit}) {
+      const token = localStorage.getItem('token');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const response = await getOrders( { headers });
       commit('SET_ORDERS', response.data)
-    },
+  },
+  
+    
+    
     removeBook({ commit, state }, index) {
       let updatedCart = [...state.cartBooks];
       updatedCart.splice(index, 1);

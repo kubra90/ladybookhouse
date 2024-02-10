@@ -1,8 +1,16 @@
 <template>
     <div >
-<div v-for="order in this.orders" :order="order" :key="order.id">
-   <ul>{{ order.email}}</ul>
-   <ul>{{ order.bookNo }}</ul>
+        <p>order page</p>
+        {{ user.email }}
+        
+        {{ orders }}
+        <!-- {{ this.fetchOrders }} -->
+<div v-for="order in orders" :key="order.orderId">
+   <ul>
+    <li>{{ order.email}}</li>
+    <!-- <li>{{ user.email }}</li> -->
+    <li>{{ order.inventoryCode }}</li>
+   </ul>
 </div>
     </div>
 </template>
@@ -14,23 +22,26 @@ export default {
     name: 'order-page',
     data() {
         return {
-        user: {
-            email: "",
-            password: "",
-        }
     }
     },
     computed: {
-        ...mapState(['orders'])
+        ...mapState(['orders', 'user'])
     },
-    
     methods: {
-        ...mapActions(["fetchOrders"]),
-        checkOrder(){
-            console.log(this.orders);
-        }
-      }
+      
+    ...mapActions(['fetchOrders']), // Moved mapActions to methods
+    },
+    created() {
+  this.$store.dispatch('fetchOrders');
+}
+
+//     fetchOrder(){
+//     if (this.user && this.user.email) {
+//         this.fetchOrders();
+//     }
+// }
     }
+
 </script>
 
 <style scoped>
