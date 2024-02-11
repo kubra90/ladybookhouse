@@ -4,15 +4,25 @@
      <book-card v-for="book in paginatedBooks" :book="book" :key="book.isbn" />
     </ul>
     <hr>
-    <div class="page-number">
-      <p> Results: {{ newArrivals.length }}</p>
-      <p>Showing: {{ bookStart }} - {{ bookEnd }} of {{ newArrivals.length }} books</p>
-      <p>Results :  {{currentPage}} of {{ totalPages  }} pages</p>
+    <div class="page-nav">
+      <div class="book-number">
+      <p>Results {{ bookStart }} - {{ bookEnd }} ( of {{ newArrivals.length }} )</p>
+      </div>
+      <div class="page-detail">
+      <p>Page {{currentPage}} of {{ totalPages  }}</p>
+    </div>
+
+     <!-- Page buttons -->
+     <div class="pagination-buttons">
+        <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
+        <button v-for="page in totalPages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
+          {{ page }}
+        </button>
+        <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
+      </div>
     </div>
     <!-- <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
     <button v-if="currentPage < totalPages" @click="currentPage++">Next</button> -->
-    <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
-    <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
   </div>
 </template>
   
@@ -60,6 +70,9 @@ import {mapState, mapActions} from "vuex"
     
     methods: {
       ...mapActions(["fetchNewArrivals"]),
+      gotoPage(page){
+        this.currentPage = page
+      }
 
     },
     
