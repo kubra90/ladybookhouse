@@ -15,9 +15,9 @@
      <!-- Page buttons -->
      <div class="pagination-buttons">
         <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
-        <button v-for="page in totalPages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
+        <span v-for="page in totalPages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
           {{ page }}
-        </button>
+        </span>
         <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
       </div>
     </div>
@@ -100,6 +100,15 @@ import {mapState, mapActions} from "vuex"
 
 #new-arrivals {
   padding: 30px 90px; 
+}
+
+.page-nav{
+  display:flex;
+  flex-direction: row;
+}
+
+.pagination-buttons{
+  flex-direction:flex-end;
 }
 
 /* Responsive adjustments */
