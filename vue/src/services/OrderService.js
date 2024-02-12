@@ -4,8 +4,8 @@ const http = axios.create({
     baseURL: 'http://localhost:9000'
 })
 
-async function getOrders(email) {
-    const orders = await http.get('/orders', email);
+async function getOrders() {
+    const orders = await http.get('/orders');
     return orders;
 }
 
