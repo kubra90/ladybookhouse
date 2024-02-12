@@ -15,11 +15,11 @@
      <!-- Page buttons -->
      <div class="pagination-buttons">
         <button v-if="currentPage > 1" @click="currentPage--">&lt;</button>
-        <button v-if="currentPage > 10" @click="currentPage-=10">&lt;&lt;</button>
-        <span v-for="page in totalPages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
+        <span v-if="currentPage > 10" @click="currentPage-=10">&lt;&lt;</span>
+        <span v-for="page in visiblePages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
           {{ page }}
         </span>
-        <button v-if="currentPage < totalPages && currentPage+ 10<= totalPages" @click="currentPage+=10">&gt;&gt;</button>
+        <span v-if="currentPage < totalPages && currentPage+ 10<= totalPages" @click="currentPage+=10">&gt;&gt;</span>
         <button v-if="currentPage < totalPages"  @click="currentPage++">&gt;</button>
       </div>
     </div>
@@ -51,6 +51,18 @@ import {mapState, mapActions} from "vuex"
       totalPages() {
         return Math.ceil(this.newArrivals.length / this.booksPerPage)
     },
+
+    visiblePages() {
+    let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+    let endPage = startPage + 9;
+    endPage = endPage > this.totalPages ? this.totalPages : endPage;
+
+    let pages = [];
+    for (let page = startPage; page <= endPage; page++) {
+      pages.push(page);
+    }
+    return pages;
+  },
 
     bookStart() {
       return ((this.currentPage - 1) * this.booksPerPage) + 1;
@@ -111,12 +123,13 @@ import {mapState, mapActions} from "vuex"
 }
 
 .page-detail {
-  margin-left:71rem;
+  margin-left:65rem;
   margin-right:2rem;
 }
 
-.pagination-buttons{
-  flex-direction:flex-end;
+.pagination-buttons span{
+ padding-right:0.75rem;
+ color:brown;
 }
 
 /* Responsive adjustments */
