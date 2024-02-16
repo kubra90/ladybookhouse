@@ -134,25 +134,18 @@ import {mapState, mapActions} from "vuex"
 
 .pagination-buttons button{
  
-  /* position: relative;
-  display: inline-block; */
-  /* background: $button; */
-  /* color: $white; */
   color: #6b3630;
   border:none;
-  /* background-color: oldlace; */
   background-color:orange;
   border-radius: 0.3rem;
-  /* padding: 0.35rem 1.25rem; */
   padding-right:0.50rem;
   font-size: 1.20rem;
-  /* text-transform: uppercase; */
   cursor: pointer;
-  /* transform: translateZ(0); */
-  /* transition: color 0.3s ease; */
-  /* letter-spacing: 0.0625rem; */
-  /* font-family: "PT Sans", sans-serif; */
 
+}
+
+.pagination-buttons span {
+  cursor: pointer;
 }
 
 /* Responsive adjustments */
