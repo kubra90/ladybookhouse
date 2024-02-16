@@ -16,7 +16,7 @@
      <div class="pagination-buttons">
         <button v-if="currentPage > 1" @click="currentPage--">&lt;</button>
         <span v-if="currentPage > 10" @click="currentPage-=10">&lt;&lt;</span>
-        <span v-for="page in visiblePages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
+        <span id="page-num" v-for="page in visiblePages" :key="page" @click="gotoPage(page)" :class="{'active': currentPage === page}">
           {{ page }}
         </span>
         <span v-if="currentPage < totalPages && currentPage+ 10<= totalPages" @click="currentPage+=10">&gt;&gt;</span>
@@ -129,7 +129,9 @@ import {mapState, mapActions} from "vuex"
 
 .pagination-buttons span{
  padding-right:0.75rem;
+ padding-left:0.25rem;
  color:brown;
+ cursor:pointer;
 }
 
 .pagination-buttons button{
@@ -139,14 +141,16 @@ import {mapState, mapActions} from "vuex"
   background-color:orange;
   border-radius: 0.3rem;
   padding-right:0.50rem;
-  font-size: 1.20rem;
+  font-size: 1.25rem;
   cursor: pointer;
 
 }
 
-.pagination-buttons span {
-  cursor: pointer;
-}
+
+
+
+
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
