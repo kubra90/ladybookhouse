@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="account-page">
     <Header-page/>
     <main class="account-content">
       <div class="flex-container">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </main>
-    <Footer-page/>
+    <Footer-page class="footer"/>
   </div>
 </template>
 
@@ -59,6 +59,17 @@ export default {
 .personal-info {
   margin: 1em;
 }
+
+.account-page {
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  margin:0
+}
+
+.footer{
+  display:flex;
+}
 .personal-info-header {
   font-weight: 700;
 }
@@ -74,6 +85,7 @@ hr {
   display: block;
   margin-left: 130px;
   padding: 1em;
+  flex:1
 }
 .flex-container {
   display: flex;
