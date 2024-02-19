@@ -12,5 +12,5 @@ public interface savedBookDao {
     List<savedBook> findAllSavedBooks();
 
     List<savedBook> getSavedBooksByEmail(String email);
-    
+
 }

@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, orders;
+DROP TABLE IF EXISTS users, orders, bookshelf;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -27,5 +27,12 @@ CREATE TABLE orders (
    bookNo varchar(10) NOT NULL UNIQUE,
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );
+
+CREATE TABLE bookshelf (
+  bookshelf_id SERIAL,
+  email varchar(50),
+  bookNo varchar(10) NOT NULL UNIQUE,
+  CONSTRAINT PK_bookshelf PRIMARY KEY(bookshelf_id)
+)
 
 COMMIT TRANSACTION;
