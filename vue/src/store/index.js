@@ -117,6 +117,7 @@ export default new Vuex.Store({
       const response = await login(user)
       commit('SET_USER', response.data.user)
       commit('SET_AUTH_TOKEN', response.data.token);
+      console.log(response.data.token);
       return response
     },
     addToCart({ commit }, book) {
@@ -133,9 +134,10 @@ export default new Vuex.Store({
 
     },
     async fetchOrders({commit}) {
-      const token = localStorage.getItem('token');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const response = await getOrders( { headers});
+      // const token = localStorage.getItem('token');
+      // const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      // console.log(headers);
+      const response = await getOrders();
       commit('SET_ORDERS', response.data)
   },
     removeBook({ commit, state }, index) {

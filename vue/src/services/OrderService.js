@@ -1,12 +1,7 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: 'http://localhost:9000'
-})
-
-async function getOrders() {
-    const orders = await http.get('/orders');
-    return orders;
+async function getOrders(headers) {
+    return axios.get('/orders', { headers });
 }
 
 export {getOrders}

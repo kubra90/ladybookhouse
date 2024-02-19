@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import {mapActions,  mapState } from 'vuex'
 
 export default {
     name: 'order-page',
@@ -32,14 +32,9 @@ export default {
     ...mapActions(['fetchOrders']), // Moved mapActions to methods
     },
     created() {
-  this.$store.dispatch('fetchOrders');
-}
+this.fetchOrders();
 
-//     fetchOrder(){
-//     if (this.user && this.user.email) {
-//         this.fetchOrders();
-//     }
-// }
+    }
     }
 
 </script>

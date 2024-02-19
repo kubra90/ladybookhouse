@@ -6,7 +6,10 @@ import com.ladybookhouse.dao.OrderDao;
 import com.ladybookhouse.model.Order;
 import com.ladybookhouse.model.RegisterUserDto;
 import com.ladybookhouse.model.User;
+import com.ladybookhouse.security.MyUserDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,6 +25,9 @@ public class OrderController {
 
 private OrderDao orderDao;
 
+
+private MyUserDetail userDetail;
+
 public OrderController(OrderDao orderDao){
     this.orderDao = orderDao;
 }
@@ -34,10 +40,16 @@ public OrderController(OrderDao orderDao){
                      newOrder.getEmail(), newOrder.getInventoryCode());
           }
     @RequestMapping(path="/orders", method= RequestMethod.GET)
-    public List<Order> getOrders(Principal principal) throws JsonProcessingException{
+    public List<Order> getOrders(Principal principal) {
     String email= principal.getName();
+        System.out.println(principal);
+        System.out.println(email);
     return orderDao.getOrderByEmail(email);
     }
+
+
+
+
 
 
 

@@ -28,6 +28,7 @@ public class UserModelDetailsService implements UserDetailsService {
         this.userDao = userDao;
     }
 
+
     @Override
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating user '{}'", login);

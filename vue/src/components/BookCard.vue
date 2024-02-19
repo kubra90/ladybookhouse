@@ -64,13 +64,19 @@ export default {
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis; 
-  width: 160px; 
+  width: 200px; 
   text-transform: uppercase
 }
 
 
 .book-author {
   margin: 0; 
+  /* new css for wrapping the author */
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  width: 200px; 
+  white-space:nowrap;
+
 }
 
 .book-detail p, .book-price p {
