@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface savedBookDao {
 
-    boolean create(Book book, String email);
+    boolean create(String bookNo, String email);
 
     List<savedBook> findAllSavedBooks();
 

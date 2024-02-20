@@ -2,16 +2,19 @@ package com.ladybookhouse.model;
 
 public class savedBook {
 
-    private Book book;
+    private String bookNo;
 
     private String email;
 
-    public Book getBook() {
-        return book;
+
+
+
+    public String getBookNo() {
+        return bookNo;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookNo(String bookNo) {
+        this.bookNo = bookNo;
     }
 
     public String getEmail() {
