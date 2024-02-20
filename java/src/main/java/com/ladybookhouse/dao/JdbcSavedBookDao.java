@@ -63,7 +63,7 @@ public class JdbcSavedBookDao implements savedBookDao{
 
     private savedBook mapRowToSavedBook(SqlRowSet rs){
         savedBook book = new savedBook();
-        book.setBookNo(rs.getString("sku"));
+        book.setSku(rs.getString("sku"));
         book.setEmail(rs.getString("email"));
         return book;
     }

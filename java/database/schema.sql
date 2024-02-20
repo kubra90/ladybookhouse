@@ -34,6 +34,6 @@ CREATE TABLE bookshelf (
   sku varchar(10) NOT NULL UNIQUE,
 --  title varchar(100) NOT NULL,
   CONSTRAINT PK_bookshelf PRIMARY KEY(bookshelf_id)
-)
+);
 
 COMMIT TRANSACTION;
