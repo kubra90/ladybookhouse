@@ -29,9 +29,9 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE bookshelf (
-  bookshelf_id SERIAL,
+  bookshelf_id SERIAL UNIQUE,
   email varchar(50),
-  sku varchar(10) NOT NULL UNIQUE,
+  sku varchar(10) NOT NULL,
 --  title varchar(100) NOT NULL,
   CONSTRAINT PK_bookshelf PRIMARY KEY(bookshelf_id)
 );
