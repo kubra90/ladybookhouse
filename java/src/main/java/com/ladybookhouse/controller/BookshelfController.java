@@ -1,0 +1,36 @@
+package com.ladybookhouse.controller;
+
+
+import com.ladybookhouse.dao.savedBookDao;
+import com.ladybookhouse.model.Book;
+import com.ladybookhouse.model.savedBook;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@CrossOrigin
+public class BookshelfController {
+
+    private savedBookDao bookDao;
+
+    public BookshelfController(savedBookDao bookDao){
+        this.bookDao = bookDao;
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value="/bookshelf", method= RequestMethod.POST)
+    public void createBookshelf(@Valid @RequestBody savedBook book){
+        bookDao.create(book.getSku(), book.getEmail());
+    }
+
+    @RequestMapping(path= "/your-books", method=RequestMethod.GET)
+    public List<savedBook> getBookshelf(Principal principal){
+        String email = principal.getName();
+        return bookDao.getSavedBooksByEmail(email);
+    }
+
+}
