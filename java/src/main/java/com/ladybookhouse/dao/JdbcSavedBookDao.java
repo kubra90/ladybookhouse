@@ -32,9 +32,6 @@ public class JdbcSavedBookDao implements savedBookDao{
                 // If the update is successful, return true
                 return jdbcTemplate.update(bookSql, sku, email) == 1;
             }
-
-            // If the book already exists, return false to indicate no new insertion was made
-//            return false;
         throw new UsernameNotFoundException("this book added");
 
         }
