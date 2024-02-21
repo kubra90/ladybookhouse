@@ -23,10 +23,22 @@ public class JdbcSavedBookDao implements savedBookDao{
     @Override
     public boolean create(String sku, String email) {
 
-        String bookSql = "insert into bookshelf (sku, email) values (?, ?)";
+        List<savedBook> books = this.getSavedBooksByEmail(email);
+            boolean bookExists = books.stream().anyMatch(book -> book.getSku().equalsIgnoreCase(sku));
 
-        return jdbcTemplate.update(bookSql, sku, email) == 1;
-    }
+            // If the book doesn't exist, proceed to insert
+            if (!bookExists) {
+                String bookSql = "insert into bookshelf (sku, email) values (?, ?)";
+                // If the update is successful, return true
+                return jdbcTemplate.update(bookSql, sku, email) == 1;
+            }
+
+            // If the book already exists, return false to indicate no new insertion was made
+//            return false;
+        throw new UsernameNotFoundException("this book added");
+
+        }
+
 
     @Override
     public List<savedBook> findAllSavedBooks() {
@@ -53,11 +65,11 @@ public class JdbcSavedBookDao implements savedBookDao{
                books.add(book);
            }
        }
-
-       if(books.isEmpty()){
-//           create new customized exception
-           throw new UsernameNotFoundException("bookshelf with this email cannot be found!");
-       }
+//
+//       if(books.isEmpty()){
+////           create new customized exception
+//           throw new UsernameNotFoundException("bookshelf with this email cannot be found!");
+//       }
        return books;
     }
 

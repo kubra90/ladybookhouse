@@ -5,6 +5,7 @@ import com.ladybookhouse.dao.savedBookDao;
 import com.ladybookhouse.model.Book;
 import com.ladybookhouse.model.savedBook;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ public class BookshelfController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value="/bookshelf", method= RequestMethod.POST)
     public void createBookshelf(@Valid @RequestBody savedBook book){
         bookDao.create(book.getSku(), book.getEmail());

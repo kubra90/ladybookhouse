@@ -1,9 +1,7 @@
 BEGIN TRANSACTION;
 
 INSERT INTO users (firstName, lastName, email, password_hash,role) VALUES ('user','user', 'example@gmail.com','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (firstName, lastName, email, password_hash,role) VALUES ('inno','inno', 'inno@gmail.com','eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbm5vQGdtYWlsLmNvbSIsImF1dGgiOi','ROLE_USER');
-INSERT INTO users (firstName, lastName, email, password_hash,role) VALUES ('kubra','tapan', 'tapan@gmail.com','eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbm5vQGdtYWlsLmNvbSIsImF1dGgiOi','ROLE_USER');
-INSERT INTO users (firstName, lastName, email, password_hash,role) VALUES ('nunu','nunu', 'nunu@gmail.com','eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbm5vQGdtYWlsLmNvbSIsImF1dGgiOi','ROLE_USER');
+
 
 
 INSERT INTO bookshelf(sku, email) VALUES ('D00927', 'tapan@gmail.com');
