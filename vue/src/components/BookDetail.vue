@@ -17,7 +17,7 @@
         <button @click="addToBasket" class="add-to-cart">
           <strong>Add To Cart</strong>
         </button>
-        <button v-if="isAuthenticated" @click="addBookshelf" class="save-book">
+        <button v-if="isAuthenticated" @click="addSavedBook" class="save-book">
           <strong>Add to Bookshelf</strong>
         </button>
        
@@ -81,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["book", "user", "savedBooks", "cartBooks"]),
+    ...mapState(["book", "user", "savedBooks", "cartBooks", "savedBook"]),
     ...mapGetters(['isAuthenticated']),
     // consider computed method to preserve book across navigation
     isBookInCart(){
@@ -89,23 +89,40 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["addToCart", "fetchBookById", "addToBookshelf"]),
+    ...mapActions(['addToCart', 'fetchBookById', 'addBookToBookshelf']),
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
-    addBookshelf(){
-      if(this.isAuthenticated){
-        this.addToBookshelf(this.book);
-        this.showBookshelfPopup= true;
-        console.log(this.savedBooks.book);
-      }else {
-        this.$router.push(
-          {name: 'login',
-          query: {loginRequired: true}
-        });
-      }
-    },
+    // addBookshelf(){
+    //   if(this.isAuthenticated){
+    //     this.addToBookshelf(this.book);
+    //     this.showBookshelfPopup= true;
+    //     console.log(this.savedBooks.book);
+    //   }else {
+    //     this.$router.push(
+    //       {name: 'login',
+    //       query: {loginRequired: true}
+    //     });
+    //   }
+    // },
+    addSavedBook(){
+  if(this.isAuthenticated){
+   
+    const bookToSave = {
+      sku: this.book.sku,
+      email: this.user.email
+    };
+    this.addBookToBookshelf(bookToSave);
+    this.showBookshelfPopup = true;
+  } else {
+    this.$router.push({
+      name: 'login',
+      query: {loginRequired: true}
+    });
+  }
+},
+
     addToBasket() {
       this.showAddedToCart = true;
       if((this.book.qty> 0) && (!this.isBookInCart)){

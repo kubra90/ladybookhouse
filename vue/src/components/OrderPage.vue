@@ -3,7 +3,7 @@
         <p>order page</p>
         {{ user.email }}
         
-        {{ orders }}
+        <!-- {{ orders }} -->
         <!-- {{ this.fetchOrders }} -->
 <div v-for="order in orders" :key="order.orderId">
    <ul>

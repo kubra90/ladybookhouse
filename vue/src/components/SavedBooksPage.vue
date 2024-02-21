@@ -1,31 +1,31 @@
 <template>
   <div>
     here is saved books
-
-    <div v-for="book in userSavedBooks(user.email)" :key="book.sku">
-      <p>{{ book.author }}</p>
-      <p>{{ book.title }}</p>
-      <div class="detail">
-        <img v-bind:src="book.image" alt="Book image" />
-      </div>
-    </div>
+    {{ savedBooks }}
+    <!-- {{ user.email }} -->
+    <div v-for="savedBook in savedBooks" :key="savedBook.sku">
+      <p>{{ savedBook.sku}}</p>
+ 
+  </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
   name: "saved-books-page",
   components: {},
   computed: {
-    ...mapGetters([]),
-    ...mapState(['user']),
-    userSavedBooks(){
-        return (email)=> {
-            return this.$store.getters.getSavedBooks(email);
-        }
-    }
+    ...mapState(['savedBooks', 'user'])
   },
+
+  methods: {
+    ...mapActions(['fetchBookshelf'])
+  },
+  created() {
+  this.fetchBookshelf();
+}
+
 };
 </script>
 <style scoped>

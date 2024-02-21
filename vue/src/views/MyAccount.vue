@@ -82,7 +82,7 @@ hr {
 }
 @media (min-width: 768px) {
   main.account-content {
-  display: block;
+  /* display: block; */
   margin-left: 130px;
   padding: 1em;
   flex:1

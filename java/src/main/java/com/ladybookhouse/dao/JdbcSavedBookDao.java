@@ -24,10 +24,10 @@ public class JdbcSavedBookDao implements savedBookDao{
     public boolean create(String sku, String email) {
 
         List<savedBook> books = this.getSavedBooksByEmail(email);
-            boolean bookExists = books.stream().anyMatch(book -> book.getSku().equalsIgnoreCase(sku));
+            boolean bookExistsInBookshelf = books.stream().anyMatch(book -> book.getSku().equalsIgnoreCase(sku));
 
             // If the book doesn't exist, proceed to insert
-            if (!bookExists) {
+            if (!bookExistsInBookshelf) {
                 String bookSql = "insert into bookshelf (sku, email) values (?, ?)";
                 // If the update is successful, return true
                 return jdbcTemplate.update(bookSql, sku, email) == 1;

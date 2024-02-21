@@ -4,6 +4,7 @@ import axios from 'axios'
 import { getBooks, getBookById, getNewArrivals, getFeaturedItems } from '../services/BookService'
 import { register, login } from '../services/AuthService'
 import { getOrders } from '../services/OrderService'
+import { addBookshelf, getBookshelf } from '../services/BookshelfService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -30,16 +31,18 @@ export default new Vuex.Store({
     basketCount: 0,
     cartBooks: [],
     // bookshelf
-    userSavedBooks: {},
+    savedBooks: [],
+    // one saved book
+    savedBook: {},
     // orders
     orders: [],
     order: {}
   },
   getters: {
     isAuthenticated: state => state.user.email,
-    getSavedBooks: state => (email) => {
-      return state.userSavedBooks[email] || []
-    },
+    // getSavedBooks: state => (email) => {
+    //   return state.userSavedBooks[email] || []
+    // },
     filteredBooksByCateg: state => (bookCateg) => {
       return state.books.filter(book => book.category === bookCateg)
     }
@@ -92,18 +95,14 @@ export default new Vuex.Store({
     SET_ORDERS(state, data) {
       state.orders = data
     },
-  
-    // add to bookshelf
-    ADD_TO_BOOKSHELF(state, { user, book }) {
-      // initialize a savedBooks array for the user if it doesn't exist
-      if (!state.userSavedBooks[user]) {
-        Vue.set(state.userSavedBooks, user, [])
-      }
-      //check if the books already exist in the savedBooks array
-      const existingBook = state.userSavedBooks[user].find(item => item.isbn === book.isbn);
-      if (!existingBook) {
-        state.userSavedBooks[user].push(book);
-      }
+
+    // new code for modifying bookshelf logic
+    SET_BOOKSHELF(state, data){
+      state.savedBooks = data
+    },
+
+    SET_SAVED_BOOK(state, data){
+      state.savedBook = data
     }
   },
   actions: {
@@ -124,23 +123,32 @@ export default new Vuex.Store({
       commit('ADD_TO_CART', book);
     },
     // add the book to the bookshelf
-    addToBookshelf({ commit, state }, book) {
-      if (state.user && state.user.email) {
-        commit('ADD_TO_BOOKSHELF', { user: state.user.email, book })
-      } else {
-        // need to check this one!!!
-        console.error('you need to login or create an account!')
-      }
+    // addToBookshelf({ commit, state }, book) {
+    //   if (state.user && state.user.email) {
+    //     commit('ADD_TO_BOOKSHELF', { user: state.user.email, book })
+    //   } else {
+    //     // need to check this one!!!
+    //     console.error('you need to login or create an account!')
+    //   }
 
-    },
+    // },
     async fetchOrders({commit}) {
-      // const token = localStorage.getItem('token');
-      // const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      // console.log(headers);
       const response = await getOrders();
       commit('SET_ORDERS', response.data)
   },
-    removeBook({ commit, state }, index) {
+
+    async fetchBookshelf({commit}) {
+      const response = await getBookshelf();
+      // console.log(response.data);
+      commit('SET_BOOKSHELF', response.data)
+    },
+
+  async addBookToBookshelf({commit}, savedBook) {
+     const response = await addBookshelf(savedBook);
+    //  console.log(response.data);
+     commit('SET_SAVED_BOOK', response.data)
+  },
+    removeBook({ commit,state }, index) {
       let updatedCart = [...state.cartBooks];
       updatedCart.splice(index, 1);
       commit('UPDATE_CART', updatedCart)
