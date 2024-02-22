@@ -6,26 +6,25 @@ import com.ladybookhouse.dao.BookDao;
 import com.ladybookhouse.dao.SavedBookDao;
 import com.ladybookhouse.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SavedBooksService implements BooksService{
 
 
-    private final BooksService booksService;
-
-    private final BookDao bookDao;
-
-    private final RestAobApiService bookApiService;
-
+    private  BooksService booksService;
 
 
     @Autowired
-    public SavedBooksService(BooksService booksService, BookDao bookDao, RestAobApiService bookApiService){
-        this.booksService = booksService;
-        this.bookDao = bookDao;
-        this.bookApiService = bookApiService;
-    }
+    private BookDao bookDao;
+
+
+    @Autowired
+    private  RestAobApiService bookApiService;
+
+
+  public SavedBooksService(){}
 
     @Override
     public boolean fetchAndStoreBookDetailsIfNotExists(String sku) throws JsonProcessingException {

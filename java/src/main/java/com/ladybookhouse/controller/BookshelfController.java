@@ -2,10 +2,12 @@ package com.ladybookhouse.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ladybookhouse.dao.BookDao;
 import com.ladybookhouse.dao.SavedBookDao;
 import com.ladybookhouse.model.Book;
 import com.ladybookhouse.model.savedBook;
 import com.ladybookhouse.service.SavedBooksService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +20,22 @@ import java.util.List;
 @CrossOrigin
 public class BookshelfController {
 
-    private SavedBookDao bookDao;
 
+
+    private SavedBookDao savedBookDao;
+
+
+    private BookDao bookDao;
+
+    @Autowired
     private SavedBooksService savedBooksService;
 
-    public BookshelfController(SavedBookDao bookDao, SavedBooksService savedBooksService){
-        this.bookDao = bookDao;
-        this.savedBooksService = savedBooksService;
+
+
+@Autowired
+    public BookshelfController(SavedBookDao savedBookDao, BookDao bookDao){
+        this.savedBookDao = savedBookDao;
+        this.bookDao =bookDao;
     }
 
 //    @ResponseStatus(HttpStatus.CREATED)
@@ -40,9 +51,9 @@ public class BookshelfController {
         String email = principal.getName();
         boolean isBookFetchedAndSaved = savedBooksService.fetchAndStoreBookDetailsIfNotExists(sku);
         if (isBookFetchedAndSaved) {
-            bookDao.create(sku, email);
+            savedBookDao.create(sku, email);
         }else{
-            bookDao.create(sku, email);
+            savedBookDao.create(sku, email);
         }
     }
 
@@ -55,6 +66,7 @@ public class BookshelfController {
     @RequestMapping(path= "/your-books", method= RequestMethod.GET)
     public List<Book> getBookshelf(Principal principal){
         String email = principal.getName();
+        return bookDao.findSavedBooksDetailByEMail(email);
 
     }
 }

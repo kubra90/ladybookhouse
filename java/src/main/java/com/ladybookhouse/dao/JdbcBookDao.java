@@ -33,7 +33,7 @@ public class JdbcBookDao implements  BookDao{
 
     @Override
     public boolean existsBySku(String sku) {
-        String sql = "SELECT COUNT(*) from books where sku= ?";
+        String sql = "SELECT COUNT(*) from books where inventory_code= ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, sku);
         return count != null && count>0;
     }
@@ -41,8 +41,14 @@ public class JdbcBookDao implements  BookDao{
     @Override
     public List<Book> findSavedBooksDetailByEMail(String email) {
         List<Book> books = new ArrayList<>();
-        String sql= "SELECT 
-        return books;
+        String sql= "SELECT b.* from books b " +
+                "INNER JOIN bookshelf bs ON b.inventory_code = bs.sku "+
+                "WHERE bs.email =? ";
+       SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, email);
+       while(rowSet.next()) {
+           books.add(mapRowToSaveBook(rowSet));
+       }
+       return books;
     }
 
 
@@ -61,7 +67,7 @@ public class JdbcBookDao implements  BookDao{
         book.setInventoryCode(rs.getString("inventory_code"));
         book.setCondition(rs.getInt("condition"));
         book.setCategory(rs.getString("category"));
-        book.setListedDate(rs.getDate("listed_date");
+        book.setListedDate(rs.getDate("listed_date").toLocalDate());
         book.setConditionAsText(rs.getString("condition_as_text"));
         book.setUsedBook(rs.getString("used_book"));
         return book;
