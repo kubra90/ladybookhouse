@@ -1,7 +1,10 @@
 package com.ladybookhouse.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ladybookhouse.dao.BookDao;
 import com.ladybookhouse.dao.SavedBookDao;
+import com.ladybookhouse.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,33 +12,32 @@ import org.springframework.stereotype.Service;
 public class SavedBooksService implements BooksService{
 
 
-    private final SavedBookDao savedBookDao;
     private final BooksService booksService;
+
+    private final BookDao bookDao;
+
+    private final RestAobApiService bookApiService;
 
 
 
     @Autowired
-    public SavedBooksService(SavedBookDao savedBookDao, BooksService booksService){
+    public SavedBooksService(BooksService booksService, BookDao bookDao, RestAobApiService bookApiService){
         this.booksService = booksService;
-        this.savedBookDao = savedBookDao;
+        this.bookDao = bookDao;
+        this.bookApiService = bookApiService;
     }
-//    @Override
-//    public boolean addBookToUserShelf(String sku, String email) {
-//
-//
-//
-//        return savedBookDao.create(sku, email);
-//    }
-
-//    @Override
-//    public void fetchAndStoreBookDetailsIfNotExists(String sku, String email) {
-//        booksService.fetchAndStoreBookDetailsIfNotExists(sku);
-//
-//        return savedBookDao.create(sku, email);
-//    }
 
     @Override
-    public boolean fetchAndStoreBookDetailsIfNotExists(String sku) {
+    public boolean fetchAndStoreBookDetailsIfNotExists(String sku) throws JsonProcessingException {
+       if(!bookDao.existsBySku(sku)){
+           Book book = bookApiService.getBookInfo(sku);
+           if(book != null){
+               bookDao.save(book);
+               return true;
+           }
 
+           return false;  //book details could not be fetched
+       }
+       return false; //Indicates that book already exists, no fetch needed.
     }
 }

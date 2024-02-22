@@ -10,7 +10,7 @@ public interface BookDao {
 
     boolean existsBySku(String sku);
 
-    List<Book> findAll();
+    List<Book> findSavedBooksDetailByEMail(String email);
 
 
 }

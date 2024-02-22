@@ -2,8 +2,10 @@ package com.ladybookhouse.dao;
 
 import com.ladybookhouse.model.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,7 +39,32 @@ public class JdbcBookDao implements  BookDao{
     }
 
     @Override
-    public List<Book> findAll() {
-        return null;
+    public List<Book> findSavedBooksDetailByEMail(String email) {
+        List<Book> books = new ArrayList<>();
+        String sql= "SELECT 
+        return books;
+    }
+
+
+    private Book mapRowToSaveBook(SqlRowSet rs){
+        Book book = new Book();
+        book.setIsbn(rs.getString("isbn"));
+        book.setTitle(rs.getString("title"));
+        book.setImage(rs.getString("image"));
+        book.setPrice(rs.getBigDecimal("price"));
+        book.setMedia(rs.getString("media"));
+        book.setPublisher(rs.getString("publisher"));
+        book.setAuthor(rs.getString("author"));
+        book.setWeight(rs.getInt("weight"));
+        book.setNotes(rs.getString("notes"));
+        book.setQuantity(rs.getInt("quantity"));
+        book.setInventoryCode(rs.getString("inventory_code"));
+        book.setCondition(rs.getInt("condition"));
+        book.setCategory(rs.getString("category"));
+        book.setListedDate(rs.getDate("listed_date");
+        book.setConditionAsText(rs.getString("condition_as_text"));
+        book.setUsedBook(rs.getString("used_book"));
+        return book;
+
     }
 }
