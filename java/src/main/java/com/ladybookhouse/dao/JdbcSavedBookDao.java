@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcSavedBookDao implements savedBookDao{
+public class JdbcSavedBookDao implements SavedBookDao {
 
 
     private final JdbcTemplate jdbcTemplate;
@@ -68,6 +68,15 @@ public class JdbcSavedBookDao implements savedBookDao{
 //           throw new UsernameNotFoundException("bookshelf with this email cannot be found!");
 //       }
        return books;
+    }
+
+    @Override
+    public boolean BookExistsBySku(String sku) {
+        String sql = "SELECT COUNT(*) from bookshelf WHERE sku= ?";
+
+        Integer count =jdbcTemplate.queryForObject(sql, Integer.class, sku);
+        return count != null && count> 0;
+
     }
 
     private savedBook mapRowToSavedBook(SqlRowSet rs){

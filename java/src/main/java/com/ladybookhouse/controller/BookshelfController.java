@@ -1,8 +1,7 @@
 package com.ladybookhouse.controller;
 
 
-import com.ladybookhouse.dao.savedBookDao;
-import com.ladybookhouse.model.Book;
+import com.ladybookhouse.dao.SavedBookDao;
 import com.ladybookhouse.model.savedBook;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,9 +15,9 @@ import java.util.List;
 @CrossOrigin
 public class BookshelfController {
 
-    private savedBookDao bookDao;
+    private SavedBookDao bookDao;
 
-    public BookshelfController(savedBookDao bookDao){
+    public BookshelfController(SavedBookDao bookDao){
         this.bookDao = bookDao;
     }
 
