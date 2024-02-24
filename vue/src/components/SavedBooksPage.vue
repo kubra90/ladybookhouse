@@ -1,10 +1,12 @@
 <template>
   <div>
     here is saved books
-    {{ savedBooks }}
     <!-- {{ user.email }} -->
     <div v-for="savedBook in savedBooks" :key="savedBook.sku">
       <p>{{ savedBook.sku}}</p>
+      <p>{{ savedBook.title }}</p>
+      <p>{{ savedBook.conditionAsText }}</p>
+      <p>{{ savedBook.price }}</p>
  
   </div>
   </div>
