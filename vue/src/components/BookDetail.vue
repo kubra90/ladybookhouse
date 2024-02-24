@@ -106,14 +106,11 @@ export default {
     //     });
     //   }
     // },
-    addSavedBook(){
+    addSavedBook(sku){
   if(this.isAuthenticated){
-   
-    const bookToSave = {
-      sku: this.book.sku,
-      email: this.user.email
-    };
-    this.addBookToBookshelf(bookToSave);
+    sku = this.book.sku;
+    console.log(sku);
+    this.addBookToBookshelf(sku);
     this.showBookshelfPopup = true;
   } else {
     this.$router.push({

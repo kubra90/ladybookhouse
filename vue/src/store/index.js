@@ -133,6 +133,7 @@ export default new Vuex.Store({
 
     // },
     async fetchOrders({commit}) {
+      console.log(Headers);
       const response = await getOrders();
       commit('SET_ORDERS', response.data)
   },
@@ -143,8 +144,8 @@ export default new Vuex.Store({
       commit('SET_BOOKSHELF', response.data)
     },
 
-  async addBookToBookshelf({commit}, savedBook) {
-     const response = await addBookshelf(savedBook);
+  async addBookToBookshelf({commit}, sku) {
+     const response = await addBookshelf(sku);
     //  console.log(response.data);
      commit('SET_SAVED_BOOK', response.data)
   },

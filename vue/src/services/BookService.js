@@ -6,6 +6,8 @@ const http = axios.create({
 
 async function getBooks() {
     const books = await http.get('/books')
+    console.log('API Base URL:', process.env.VUE_APP_REMOTE_API); // Debugging line
+
     return books;
   }
 async function getBookById(sku) {
