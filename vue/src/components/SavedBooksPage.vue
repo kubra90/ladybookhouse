@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="saved-books-container">
     <div class="saved-book-nav">
 
     <router-link v-bind:to="{name: 'account'}" >My Account</router-link>
-    <span>&gt;</span>
+    <span class="greater-sign">&gt;</span>
     <p> My Bookshelf</p>
     </div>
     <!-- {{ user.email }} -->
@@ -40,5 +40,20 @@ export default {
 .saved-book-nav {
   display: flex;
   flex-direction:row;
+  font-size:11.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.saved-books-container{
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  padding-left:13rem;
+  /* margin-top:2rem; */
+}
+
+.greater-sign {
+  font-size:10px;
+  padding:0.3rem;
 }
 </style>
