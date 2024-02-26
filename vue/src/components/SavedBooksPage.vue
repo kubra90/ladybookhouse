@@ -12,10 +12,10 @@
     <div class="book-card-container">
     <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="book-card">
       <img v-bind:src="savedBook.image" alt="book image">
-      <p>{{ savedBook.title }}</p>
+      <p><strong>{{ savedBook.title }}</strong></p>
       <p>{{ savedBook.author }}</p>
-      <p>{{ savedBook.conditionAsText }}</p>
-      <p>{{ savedBook.price }}</p>
+      
+      <p class="price">${{ savedBook.price }}</p>
     </div>
  
   </div>
@@ -54,18 +54,20 @@ export default {
   flex-direction: column;
   padding-top: 2rem;
   padding-left:13rem;
+  padding-right:9rem;
   /* margin-top:2rem; */
 }
 
 .greater-sign {
   font-size:10px;
-  padding:0.3rem;
+  padding:0.2rem;
+  padding-left:0.6rem;
 }
 
 img {
  
   height: auto; /* Maintain aspect ratio */
- 
+  width:100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
   width: 23.5rem; /* Increase width for smaller screens */
   height: 33.75rem; /* Maintain aspect ratio */
@@ -78,20 +80,53 @@ img {
   color:brown;
 }
 
+.price{
+
+ text-align:right;
+ padding-right:1rem;
+
+}
+
 .book-card {
-  /* display:flex; */
-  /* flex-direction:row; */
+  
+  display:flex;
+  flex-direction:column;
   box-sizing: border-box;
   border-style:ridge;
+  width: 24rem;
+  height:auto;  /*consider setting a min-height */
+  /* padding:1rem; */
 }
 
 .book-card-container{
-  flex-direction:row;
+  /* flex-direction:row; */
+  flex-wrap: wrap;   /*this allows the child elements to wrap within the container   */
   display:flex;
   box-sizing: border-box;
   border-style:hidden;
-  width:140rem;
+  width: 100%;
+  max-width:140rem;
   height:auto;
+  gap:0.5rem;
   
+}
+
+@media (min-width: 768px) {
+  .book-card-container {
+    width: 100%; 
+  }
+}
+
+@media (min-width: 1024px) {
+  .book-card-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .book-card-container {
+    width: 100%; /* You can adjust this or keep it at 100% */
+    max-width: 180rem; /* adjust this to fit your design needs */
+  }
 }
 </style>
