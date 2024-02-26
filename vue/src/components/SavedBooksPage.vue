@@ -7,11 +7,16 @@
     <p> My Bookshelf</p>
     </div>
     <!-- {{ user.email }} -->
-    <div v-for="savedBook in savedBooks" :key="savedBook.sku">
-      <p>{{ savedBook.sku}}</p>
+    <p class="title"><strong>My Bookshelf</strong></p>
+    
+    <div class="book-card-container">
+    <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="book-card">
+      <img v-bind:src="savedBook.image" alt="book image">
       <p>{{ savedBook.title }}</p>
+      <p>{{ savedBook.author }}</p>
       <p>{{ savedBook.conditionAsText }}</p>
       <p>{{ savedBook.price }}</p>
+    </div>
  
   </div>
   </div>
@@ -55,5 +60,38 @@ export default {
 .greater-sign {
   font-size:10px;
   padding:0.3rem;
+}
+
+img {
+ 
+  height: auto; /* Maintain aspect ratio */
+ 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  width: 23.5rem; /* Increase width for smaller screens */
+  height: 33.75rem; /* Maintain aspect ratio */
+
+}
+
+.title {
+  font-size: 18px;
+  padding-top:2rem;
+  color:brown;
+}
+
+.book-card {
+  /* display:flex; */
+  /* flex-direction:row; */
+  box-sizing: border-box;
+  border-style:ridge;
+}
+
+.book-card-container{
+  flex-direction:row;
+  display:flex;
+  box-sizing: border-box;
+  border-style:hidden;
+  width:140rem;
+  height:auto;
+  
 }
 </style>
