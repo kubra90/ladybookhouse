@@ -21,12 +21,10 @@
           <hr>
           <span>You currently have no recent orders</span>
         </div>   -->
-        <router-link v-bind:to="{name: 'order'}">Orders</router-link>
-        <div class="bookshelf">
-          <strong>My Bookshelf</strong>
-          <hr>
-          <span>You currently have no saved books</span>
-        </div>
+        <hr>
+        <router-link v-bind:to="{name: 'order'}" class="purchase-link">View My Purchases</router-link>
+        <hr>
+        <router-link v-bind:to="{name: 'saved-books'}" class="bookshelf-link">View My Bookshelf</router-link>
       </div>
     </main>
     <Footer-page class="footer"/>
@@ -58,6 +56,9 @@ export default {
 }
 .personal-info {
   margin: 1em;
+}
+
+.purchase-link, .bookshelf-link{
 }
 
 .account-page {

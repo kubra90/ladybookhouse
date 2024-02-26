@@ -1,6 +1,11 @@
 <template>
   <div>
-    here is saved books
+    <div class="saved-book-nav">
+
+    <router-link v-bind:to="{name: 'account'}" >My Account</router-link>
+    <span>&gt;</span>
+    <p> My Bookshelf</p>
+    </div>
     <!-- {{ user.email }} -->
     <div v-for="savedBook in savedBooks" :key="savedBook.sku">
       <p>{{ savedBook.sku}}</p>
@@ -31,4 +36,9 @@ export default {
 };
 </script>
 <style scoped>
+
+.saved-book-nav {
+  display: flex;
+  flex-direction:row;
+}
 </style>
