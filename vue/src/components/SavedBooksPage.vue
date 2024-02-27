@@ -11,7 +11,15 @@
     
     <div class="book-card-container">
     <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="book-card">
-      <img v-bind:src="savedBook.image" alt="book image">
+      <!-- <img v-bind:src="savedBook.image" alt="book image"> -->
+      <router-link :to="{
+       name: 'detail',
+       params: {
+         sku: savedBook.sku
+           }
+     }">
+       <img v-bind:src="savedBook.image" alt="book image">
+     </router-link> 
       <p><strong>{{ savedBook.title }}</strong></p>
       <p class="author">{{ savedBook.author }}</p>
       
@@ -91,7 +99,7 @@ img {
 
 .author {
   display:flex;
-  flex:5;
+  flex:5;  /*to fix price at the bottom of the card, think about more appropriate way*/
 }
 
 .book-card {
