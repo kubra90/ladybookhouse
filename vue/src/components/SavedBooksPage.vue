@@ -13,7 +13,7 @@
     <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="book-card">
       <img v-bind:src="savedBook.image" alt="book image">
       <p><strong>{{ savedBook.title }}</strong></p>
-      <p>{{ savedBook.author }}</p>
+      <p class="author">{{ savedBook.author }}</p>
       
       <p class="price">${{ savedBook.price }}</p>
     </div>
@@ -81,14 +81,20 @@ img {
 }
 
 .price{
-
- text-align:right;
+  
+  flex:1;
+ text-align:end;
  padding-right:1rem;
+ flex:1;
+  margin-bottom:2rem;
+}
 
+.author {
+  display:flex;
+  flex:5;
 }
 
 .book-card {
-  
   display:flex;
   flex-direction:column;
   box-sizing: border-box;
