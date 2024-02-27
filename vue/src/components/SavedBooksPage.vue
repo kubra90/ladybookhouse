@@ -24,7 +24,7 @@
       <p class="author">{{ savedBook.author }}</p>
       
       <div book-card-footer>
-        <button style="font-size:10px;color:orange;background-color:white;border:hidden"><i class="fa fa-heart"></i></button>
+        <button class="footer-btn" ><i class="fa fa-heart"></i></button>
       <p class="price">${{ savedBook.price }}</p>
     </div>
     </div>
@@ -83,6 +83,10 @@ img {
   width: 23.5rem; /* Increase width for smaller screens */
   height: 33.75rem; /* Maintain aspect ratio */
 
+}
+
+.footer-btn {
+  font-size:10px;color:orange;background-color:white;border:hidden;
 }
 
 .title {
