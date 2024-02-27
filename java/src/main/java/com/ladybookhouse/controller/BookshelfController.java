@@ -69,4 +69,10 @@ public class BookshelfController {
         return bookDao.findSavedBooksDetailByEMail(email);
 
     }
+
+    @RequestMapping(path = "/removeBook", method=RequestMethod.DELETE)
+    public boolean deleteBook(Principal principal, @RequestParam String sku){
+    String email = principal.getName();
+    return savedBookDao.deleteBook(sku, email);
+    }
 }

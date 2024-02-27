@@ -79,6 +79,13 @@ public class JdbcSavedBookDao implements SavedBookDao {
 
     }
 
+    @Override
+    public boolean deleteBook(String sku, String email) {
+        String sql = "DELETE from bookshelf where email = ? and sku =?";
+        int rowsEffected = jdbcTemplate.update(sql, sku, email);
+        return rowsEffected > 0;
+    }
+
     private savedBook mapRowToSavedBook(SqlRowSet rs){
         savedBook book = new savedBook();
         book.setSku(rs.getString("sku"));
