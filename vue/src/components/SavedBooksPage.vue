@@ -24,7 +24,10 @@
       <p class="author">{{ savedBook.author }}</p>
       
       <div class="book-card-footer">
-      <button @click="addToBasket(savedBook)"><i class="fa fa-shopping-cart"></i></button>  
+        <div class="cart">
+     <i class="fa fa-shopping-cart"  @click="addToBasket(savedBook)"></i>
+     <div class="hide">Add to shopping cart</div>
+    </div>
       <button class="footer-btn" @click="removeBook(savedBook.sku)" ><i class="fa fa-heart"></i></button>
       <span class="price">${{ formattedPrice(savedBook.price)}}</span>
     </div>
@@ -47,19 +50,6 @@ export default {
   computed: {
     ...mapState(['savedBooks', 'user', 'savedBook', 'cartBooks', 'book']),
     ...mapGetters(['isAuthenticated']),
-    // isBookInBasket(){
-    //   return this.cartBooks.some(book => {
-    //   for(let bookSaved in this.savedBooks) {
-    //     return  book.isbn === bookSaved.isbn
-    //   }
-    // }
-    //   )
-    // }
-    // isBookInBasket(savedBook){
-    //   return this.cartBooks.some(book=> book.isbn === savedBook.isbn);
-    // }
-  
-   
   
   },
 
@@ -118,6 +108,33 @@ export default {
   padding-left:0.6rem;
 }
 
+.fa-shopping-cart {
+   background-color: white;
+   color:orange;
+   cursor:pointer;
+   margin-left:1rem;
+}
+
+/* .fa-shopping-cart:hover + .hide{
+  display:block;
+  color:red;
+} */
+
+/* .cart:hover .hide{
+  display: block;
+  color:red;
+  text-align:center;
+} */
+
+
+
+
+
+
+.fa-heart{
+  margin-right:13rem;
+}
+
 img {
  
   height: auto; /* Maintain aspect ratio */
@@ -153,6 +170,7 @@ img {
 /* display:flex; */
 text-align:end;
 justify-content: end;
+margin-right:1rem;
 
 }
 
