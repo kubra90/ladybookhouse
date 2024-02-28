@@ -24,6 +24,7 @@
       <p class="author">{{ savedBook.author }}</p>
       
       <div class="book-card-footer">
+      <button @click="addToBasket(savedBook)"><i class="fa fa-shopping-cart"></i></button>  
       <button class="footer-btn" @click="removeBook(savedBook.sku)" ><i class="fa fa-heart"></i></button>
       <span class="price">${{ formattedPrice(savedBook.price)}}</span>
     </div>
@@ -37,17 +38,33 @@
 import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
   name: "saved-books-page",
+  data() {
+    return {
+      showAddedToCart : false,
+    }
+  },
   components: {},
   computed: {
-    ...mapState(['savedBooks', 'user', 'savedBook']),
-    ...mapGetters(['isAuthenticated'])
+    ...mapState(['savedBooks', 'user', 'savedBook', 'cartBooks', 'book']),
+    ...mapGetters(['isAuthenticated']),
+    // isBookInBasket(){
+    //   return this.cartBooks.some(book => {
+    //   for(let bookSaved in this.savedBooks) {
+    //     return  book.isbn === bookSaved.isbn
+    //   }
+    // }
+    //   )
+    // }
+    // isBookInBasket(savedBook){
+    //   return this.cartBooks.some(book=> book.isbn === savedBook.isbn);
+    // }
   
    
   
   },
 
   methods: {
-    ...mapActions(['fetchBookshelf', 'deleteBookFromBookshelf']),
+    ...mapActions(['fetchBookshelf', 'deleteBookFromBookshelf', 'addToCart']),
     formattedPrice(price){
        return Number(price).toFixed(2);
     },
@@ -57,6 +74,17 @@ export default {
         this.deleteBookFromBookshelf(sku);
         this.fetchBookshelf();
       }
+    },
+    addToBasket(book){
+      
+      if(!this.isBookInBasket(book)){
+         this.addToCart(book)
+         console.log(this.book)
+       
+      }
+    },
+    isBookInBasket(savedBook){
+      return this.cartBooks.some(book=> book.isbn === savedBook.isbn);
     }
   },
   created() {
