@@ -23,9 +23,9 @@
       <p><strong>{{ savedBook.title }}</strong></p>
       <p class="author">{{ savedBook.author }}</p>
       
-      <div book-card-footer>
-        <button class="footer-btn" ><i class="fa fa-heart"></i></button>
-      <p class="price">${{ savedBook.price }}</p>
+      <div class="book-card-footer">
+      <button class="footer-btn" ><i class="fa fa-heart"></i></button>
+      <span class="price">${{ formattedPrice(savedBook.price)}}</span>
     </div>
     </div>
  
@@ -39,11 +39,17 @@ export default {
   name: "saved-books-page",
   components: {},
   computed: {
-    ...mapState(['savedBooks', 'user'])
+    ...mapState(['savedBooks', 'user']),
+  
+   
+  
   },
 
   methods: {
-    ...mapActions(['fetchBookshelf'])
+    ...mapActions(['fetchBookshelf']),
+    formattedPrice(price){
+       return Number(price).toFixed(2);
+    }
   },
   created() {
   this.fetchBookshelf();
@@ -86,7 +92,17 @@ img {
 }
 
 .footer-btn {
-  font-size:10px;color:orange;background-color:white;border:hidden;
+  font-size:12px;
+  color:orange;
+  background-color:white;
+  border:hidden;
+  display:flex;
+  padding-top:0.3rem;
+  
+  /* flex:1;
+ text-align:start;
+ padding-right:1rem;
+  margin-bottom:2rem; */
 }
 
 .title {
@@ -95,12 +111,21 @@ img {
   color:brown;
 }
 
-.price{
+.price  {
   
+/* display:flex; */
+text-align:end;
+justify-content: end;
+
+}
+
+.book-card-footer {
+  flex-direction:row;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   flex:1;
- text-align:end;
- padding-right:1rem;
- flex:1;
+ /* padding-right:1rem; */
   margin-bottom:2rem;
 }
 
