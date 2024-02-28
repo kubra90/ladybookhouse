@@ -142,7 +142,6 @@ export default new Vuex.Store({
           const index = state.savedBooks.findIndex(book => book.sku === sku);
           if(index !== -1){
             commit('REMOVE_BOOK_FROM_BOOKSHELF', index)
-            // commit('SET_BOOKSHELF', state.savedBooks)
           }
         }
     },
