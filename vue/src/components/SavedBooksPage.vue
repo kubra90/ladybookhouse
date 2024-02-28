@@ -24,7 +24,7 @@
       <p class="author">{{ savedBook.author }}</p>
       
       <div class="book-card-footer">
-      <button class="footer-btn" ><i class="fa fa-heart"></i></button>
+      <button class="footer-btn" @click="removeBook(savedBook.sku)" ><i class="fa fa-heart"></i></button>
       <span class="price">${{ formattedPrice(savedBook.price)}}</span>
     </div>
     </div>
@@ -34,25 +34,34 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
   name: "saved-books-page",
   components: {},
   computed: {
-    ...mapState(['savedBooks', 'user']),
+    ...mapState(['savedBooks', 'user', 'savedBook']),
+    ...mapGetters(['isAuthenticated'])
   
    
   
   },
 
   methods: {
-    ...mapActions(['fetchBookshelf']),
+    ...mapActions(['fetchBookshelf', 'deleteBookFromBookshelf']),
     formattedPrice(price){
        return Number(price).toFixed(2);
+    },
+    removeBook(sku){
+      if(this.isAuthenticated){
+        console.log(sku);
+        this.deleteBookFromBookshelf(sku);
+        this.fetchBookshelf();
+      }
     }
   },
   created() {
   this.fetchBookshelf();
+  // this.deleteBookFromBookshelf();
 }
 
 };
