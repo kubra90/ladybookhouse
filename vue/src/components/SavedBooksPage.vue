@@ -31,15 +31,14 @@
         <p class="author">{{ savedBook.author }}</p>
 
         <div class="book-card-footer">
-          <!-- <div class="cart">
-            <i class="fa fa-shopping-cart" @click="addToBasket(savedBook)"></i>
-  
-          </div> -->
-          <div class="fa fa-shopping-cart" @click="addToBasket(savedBook)">
-             <span class="tooltip-text">Add to shopping cart</span>
+      
+          <div class="fa fa-shopping-cart" :class="{'in-cart': isBookInBasket(savedBook)}" @click="addToBasket(savedBook)">
+             <span class="tooltip-text" v-if="!isBookInBasket(savedBook)">Add to shopping cart</span>
           </div>
           <button class="footer-btn" @click="removeBook(savedBook.sku)">
-            <i class="fa fa-heart"></i>
+            <div class="fa fa-heart">
+              <span class="remove-tooltip-text">Remove book</span>
+            </div>
           </button>
           <span class="price">${{ formattedPrice(savedBook.price) }}</span>
         </div>
@@ -108,6 +107,11 @@ export default {
   /* margin-top:2rem; */
 }
 
+.fa-shopping-cart.in-cart {
+  color:#228B22;
+  
+}
+
 .greater-sign {
   font-size: 10px;
   padding: 0.2rem;
@@ -126,15 +130,14 @@ export default {
 }
 
 /* new css */
-.fa-shopping-cart {
+.fa-shopping-cart, .fa-heart {
   position: relative;
   display: inline-block;
-  /* border-bottom: 1px dotted black; */
 }
 
-.fa-shopping-cart .tooltip-text {
+.fa-shopping-cart .tooltip-text, .fa-heart .remove-tooltip-text {
   visibility: hidden;
-  width: 120px;
+  width: 140px;
   background-color: #555;
   color: #fff;
   text-align: center;
@@ -149,7 +152,7 @@ export default {
   transition: opacity 0.3s;
 }
 
-.fa-shopping-cart .tooltip-text::after {
+.fa-shopping-cart .tooltip-text::after, .fa-heart .remove-tooltip-text::after {
   /* content: ""; */
   position: absolute;
   top: 100%;
@@ -160,7 +163,7 @@ export default {
   border-color: #555 transparent transparent transparent;
 }
 
-.fa-shopping-cart:hover .tooltip-text {
+.fa-shopping-cart:hover .tooltip-text, .fa-heart:hover .remove-tooltip-text {
   visibility: visible;
   opacity: 1;
 }
