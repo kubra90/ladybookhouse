@@ -30,11 +30,28 @@
             </div>
         </div>
 
-        <!-- Price Option -->
+        <!-- Keywords Option -->
         <div class="form-group">
             <label for="priceOption" class="col-sm-1 control-label">Keywords:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="priceOption" placeholder="Price Range">
+                <input type="text" class="form-control" id="keywordOption" placeholder="Keywords">
+            </div>
+        </div>
+
+         <!-- Price Option -->
+         <div class="form-group">
+            <label for="minPrice" class="col-sm-1 control-label">Price:</label>
+            <div class="col-sm-2">
+                <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" id="priceOption" placeholder="Min Range">
+            </div>
+        </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" id="priceOption" placeholder="Max Range">
+            </div>
             </div>
         </div>
 
