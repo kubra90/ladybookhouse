@@ -12,7 +12,7 @@ async function addBookshelf(sku, headers){
     return axios.post(`/bookshelf?sku=${sku}`, { headers })
 }
 
-async function deleteBook(sku){
-    return axios.delete(`/removeBook?sku=${sku}`)
+async function deleteBook(sku, headers){
+    return axios.delete(`/removeBook?sku=${sku}`, { headers })
 }
 export {getBookshelf, addBookshelf, deleteBook}
