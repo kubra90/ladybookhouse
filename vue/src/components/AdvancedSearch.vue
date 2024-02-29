@@ -9,6 +9,9 @@
             <div class="col-sm-4">
                 <select class="form-control" id="categorySelect">
                     <option value="">All Categories</option>
+                    <option v-for="category in categories" :key="category.value">
+                    {{ category.text }}
+                    </option>
                     <!-- Populate categories here -->
                 </select>
             </div>
@@ -68,6 +71,26 @@
 </template>
 
 <script>
+export default {
+    data() {
+        return {
+            categories: [
+                {value: 'Literature', text: 'Literature'},
+                {value: 'Science', text: 'Science'},
+                {value: 'Social Science', text: 'Social Science'},
+                {value: 'Art', text: 'Art'},
+                {value: 'Bestseller', text: 'Bestseller'},
+                {value: 'Technology', text: 'Technology'},
+                {value: 'Language', text: 'Language'},
+                {value: 'Religion&Philosophy', text: 'Religion&Philosophy'},
+                {value: 'History&Memory', text: 'History&Memory'},
+                {value: 'Design', text: 'Design'},
+                {value: 'Kids', text: 'Kids'},
+                {value: 'Other', text: 'Other'}
+            ]
+        }
+    }
+}
 </script>
 
 <style scoped>
