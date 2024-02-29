@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="categorySelect" class="col-sm-1 control-label">Search in:</label>
             <div class="col-sm-4">
-                <select class="form-control" id="categorySelect">
+                <select v-model="searchForm.category" class="form-control" id="categorySelect">
                     <option value="">All Categories</option>
                     <option v-for="category in categories" :key="category.value">
                     {{ category.text }}
@@ -21,7 +21,7 @@
         <div class="form-group">
             <label for="authorInput" class="col-sm-1 control-label">Author:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="authorInput" placeholder="Author Name">
+                <input v-model="searchForm.author" type="text"  class="form-control" id="authorInput" placeholder="Author Name">
             </div>
         </div>
 
@@ -29,31 +29,31 @@
         <div class="form-group">
             <label for="titleInput" class="col-sm-1 control-label">Title:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="titleInput" placeholder="Book Title">
+                <input v-model="searchForm.title" type="text" class="form-control" id="titleInput" placeholder="Book Title">
             </div>
         </div>
 
         <!-- Keywords Option -->
         <div class="form-group">
-            <label for="priceOption" class="col-sm-1 control-label">Keywords:</label>
+            <label for="keywordInput" class="col-sm-1 control-label">Keywords:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="keywordOption" placeholder="Keywords">
+                <input v-model="searchForm.keywords" type="text" class="form-control" id="keywordOption" placeholder="Keywords">
             </div>
         </div>
 
          <!-- Price Option -->
          <div class="form-group">
-            <label for="minPrice" class="col-sm-1 control-label">Price:</label>
+            <label for="priceInput" class="col-sm-1 control-label">Price:</label>
             <div class="col-sm-2">
                 <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" id="priceOption" placeholder="Min Range">
+                <input v-model="searchForm.minPrice" type="text" class="form-control" id="priceOption" placeholder="Min Range">
             </div>
         </div>
             <div class="col-sm-2">
                 <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" id="priceOption" placeholder="Max Range">
+                <input v-model="searchForm.maxPrice" type="text" class="form-control" id="priceOption" placeholder="Max Range">
             </div>
             </div>
         </div>
@@ -74,6 +74,14 @@
 export default {
     data() {
         return {
+            searchForm: {
+                category: '',
+                author: '',
+                title: '',
+                keywords: '',
+                minPrice: '',
+                maxPrice: ''
+            },
             categories: [
                 {value: 'Literature', text: 'Literature'},
                 {value: 'Science', text: 'Science'},
