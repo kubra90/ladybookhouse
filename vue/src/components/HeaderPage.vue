@@ -96,17 +96,34 @@ export default {
 <style scoped>
 
 .custom-search-form {
-  max-width: 350px; /* Or any other width */
+  max-width: 340px; /* Or any other width */
   margin-left: auto; /* Align to the right */
   margin-right: 22rem; /* Adjust as per your layout */
- 
+  width:15%;
 }
 
 .custom-search-form .form-control, .custom-search-form .btn {
-  height: 26px; /* Decrease height */
+  height: 30px; /* Decrease height */
   
-  padding: 0 12px; /* Adjust padding to reduce size while maintaining usability */
+  padding: 0 10px; /* Adjust padding to reduce size while maintaining usability */
   font-size: 12px; /* Smaller text */
+}
+
+.custom-search-form .form-control {
+
+  padding: 6px 12px; /* Adjust padding to ensure text fits */
+  
+}
+
+
+.custom-search-form .form-control {
+  width: 100%; /* Ensure it takes the full width of its parent */
+}
+
+
+
+.form-control {
+
 }
 
 .custom-search-form .input-group-btn .btn {
@@ -120,6 +137,7 @@ export default {
   font-size: 12px; 
 }
 
+/* this is to remove the blue color of the button when user clicks on it */
 .custom-search-form .btn:focus {
   outline: none;
   box-shadow: #6b3630;
