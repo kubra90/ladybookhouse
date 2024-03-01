@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <div class="container">
-    <h1>Advanced Search</h1>
+    <h2>Advanced Search</h2>
     <form class="form-horizontal">
         <!-- Categories -->
         <div class="form-group">
@@ -9,10 +9,11 @@
             <div class="col-sm-4">
                 <select v-model="searchForm.category" class="form-control" id="categorySelect">
                     <option value="">All Categories</option>
+                    <!-- Populate categories here -->
                     <option v-for="category in categories" :key="category.value">
                     {{ category.text }}
                     </option>
-                    <!-- Populate categories here -->
+                    
                 </select>
             </div>
         </div>
@@ -61,7 +62,7 @@
         <!-- Search Button -->
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="searchBookDetails">Search</button>
             </div>
         </div>
     </form>
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+import { mapState} from 'vuex'
 export default {
     data() {
         return {
@@ -97,6 +99,40 @@ export default {
                 {value: 'Other', text: 'Other'}
             ]
         }
+    },
+
+    computed: {
+        ...mapState(['books', 'book']),
+    },
+    methods: {
+        // ...mapActions(['fetchBooks']),
+        searchBookDetails(){
+          const filteredBooks = this.books.filter(book => {
+
+            // category filter
+            const categoryMatch = this.searchForm.category ? book.category === this.searchForm.category : true;
+            console.log(categoryMatch);
+            // author filter
+            const authorMatch = this.searchForm.author ? book.author.toLowerCase().includes(this.searchForm.author.toLowerCase()) : true;
+            console.log(authorMatch);
+            // Title filter
+            const titleMatch = this.searchForm.title ? book.title.toLowerCase().includes(this.searchForm.title.toLowerCase()): true;
+
+            // keywords filter
+            const keywordsMatch = this.searchForm.keywords ? book.isbn === this.searchForm.keywords || book.publisher.toLowerCase().includes(this.searchForm.keywords.toLowerCase()) 
+            || book.media.toLowerCase().includes(this.searchForm.keywords.toLowerCase()) : true;
+
+            const minPriceMatch = this.searchForm.minPrice ? book.price >= Number(this.searchForm.minPrice) : true;
+            const maxPriceMatch = this.searchForm.maxPrice ? book.price <= Number(this.searchForm.maxPrice): true;
+
+            return categoryMatch && authorMatch && titleMatch && keywordsMatch && minPriceMatch && maxPriceMatch;
+          });
+
+          console.log(filteredBooks);
+          for(let book of filteredBooks){
+            console.log(book.title);
+          }
+        }
     }
 }
 </script>
@@ -105,4 +141,6 @@ export default {
 .main-container{
     margin-left:12rem;
 }
+
+
 </style>
