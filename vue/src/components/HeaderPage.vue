@@ -120,6 +120,11 @@ export default {
   font-size: 12px; 
 }
 
+.custom-search-form .btn:focus {
+  outline: none;
+  box-shadow: #6b3630;
+}
+
 
 
 .main {
