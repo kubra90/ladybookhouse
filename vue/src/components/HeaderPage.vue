@@ -24,14 +24,14 @@
 
       <div class="form-group custom-search-form">
         <div class="input-group">
-          <input
+          <input v-model="searchText"
             type="text"
             class="form-control"
             placeholder="Author, title, or keyword"
             aria-label="Search"
           />
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">
+            <button class="btn btn-default" type="submit" @click.prevent="searchAllBookDetails">
               <i class="fas fa-search"></i>
             
             </button>
@@ -81,17 +81,35 @@ export default {
   data() {
     return {
       isClicked: false,
+      searchText: '',
     };
   },
   methods: {
     toggleClick() {
       this.isClicked = !this.isClicked;
     },
+
+    // searchAllBookDetails(){
+    //   const filteredDetails = this.books.filter(book=> {
+    //     const filteredMatch = this.searchText ? book.author.toLowerCase().includes(this.searchText.toLowerCase())
+    //     || book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    //     book.isbn === this.searchText || book.publisher.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    //     book.category.toLowerCase().includes(this.searchText.toLowerCase()) : true;
+
+    //     if(filteredMatch){
+    //       return filteredDetails;
+    //     }
+    //     console.log(filteredDetails);
+    //     for(let book of filteredDetails){
+    //       console.log(book);
+    //     }
+    //   })
+    // }
   },
 
   // Your script here
   computed: {
-    ...mapState(["basketCount", "user"]),
+    ...mapState(["basketCount", "user", "books"]),
     ...mapGetters(["isAuthenticated"]),
   },
 };
