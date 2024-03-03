@@ -104,9 +104,15 @@ export default {
     computed: {
         ...mapState(['books', 'book']),
     },
+    mounted() {
+  this.$store.dispatch('fetchBooks');
+},
+
     methods: {
         // ...mapActions(['fetchBooks']),
+        
         searchBookDetails(){
+        
           const filteredBooks = this.books.filter(book => {
 
             // category filter
@@ -127,7 +133,6 @@ export default {
 
             return categoryMatch && authorMatch && titleMatch && keywordsMatch && minPriceMatch && maxPriceMatch;
           });
-
           console.log(filteredBooks);
           for(let book of filteredBooks){
             console.log(book.title);

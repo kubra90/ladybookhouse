@@ -89,22 +89,22 @@ export default {
       this.isClicked = !this.isClicked;
     },
 
-    // searchAllBookDetails(){
-    //   const filteredDetails = this.books.filter(book=> {
-    //     const filteredMatch = this.searchText ? book.author.toLowerCase().includes(this.searchText.toLowerCase())
-    //     || book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    //     book.isbn === this.searchText || book.publisher.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    //     book.category.toLowerCase().includes(this.searchText.toLowerCase()) : true;
+     searchAllBookDetails(){
+     const filteredDetails = this.books.filter(book=> {
+      const filteredMatch = this.searchText ? book.author.toLowerCase().includes(this.searchText.toLowerCase())
+     || book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+     book.isbn === this.searchText || book.publisher.toLowerCase().includes(this.searchText.toLowerCase()) ||
+       book.category.toLowerCase().includes(this.searchText.toLowerCase()) : true;
 
-    //     if(filteredMatch){
-    //       return filteredDetails;
-    //     }
-    //     console.log(filteredDetails);
-    //     for(let book of filteredDetails){
-    //       console.log(book);
-    //     }
-    //   })
-    // }
+        if(filteredMatch){
+          return filteredDetails;
+      }
+      // console.log(filteredDetails);
+      //  for(let book of filteredDetails){
+      //   console.log(book);
+        
+     })
+     }
   },
 
   // Your script here
