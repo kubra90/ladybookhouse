@@ -104,7 +104,7 @@ export default {
     computed: {
         ...mapState(['books', 'book']),
     },
-    mounted() {
+    created() {
   this.$store.dispatch('fetchBooks');
 },
 

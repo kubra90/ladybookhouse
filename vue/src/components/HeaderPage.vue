@@ -4,7 +4,6 @@
       <!-- First Box: Account and Cart -->
 
       <div class="account-cart">
-<<<<<<< HEAD
         <div class="dropdown" v-if="isAuthenticated">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             My Account  |
@@ -16,12 +15,6 @@
           </ul>
         </div>
         <router-link v-else to="/login">Your account  |</router-link>
-=======
-        <router-link v-if="isAuthenticated" to="/account">
-          My Account |</router-link
-        >
-        <router-link v-else to="/login">Your account |</router-link>
->>>>>>> main
         <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
         <!-- <i class="fa fa-shopping-cart"></i> -->
         <router-link
@@ -110,15 +103,21 @@ export default {
      book.isbn === this.searchText || book.publisher.toLowerCase().includes(this.searchText.toLowerCase()) ||
        book.category.toLowerCase().includes(this.searchText.toLowerCase()) : true;
 
-        if(filteredMatch){
-          return filteredDetails;
+       return filteredMatch;
+    
+       })
+
+       console.log(filteredDetails);
+       for(let book of filteredDetails){
+        console.log(book.title);
+        console.log(book.author);
+       }
       }
-      // console.log(filteredDetails);
-      //  for(let book of filteredDetails){
-      //   console.log(book);
-        
-     })
-     }
+    
+  },
+
+  created(){
+    this.$store.dispatch('fetchBooks');
   },
 
   // Your script here
