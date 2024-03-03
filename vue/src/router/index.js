@@ -19,6 +19,7 @@ import SavedBooks from '../views/SavedBooks.vue'
 import Browse from '../views/Browse.vue'
 import CategoryDetail from '../views/CategoryDetail.vue'
 import Order from '../views/Order.vue'
+import AdvancedSearch from '../views/AdvancedSearch.vue'
 
 Vue.use(Router)
 
@@ -175,6 +176,14 @@ const router = new Router({
       path: "/:category",
       name: "category-detail",
       component: CategoryDetail,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/advSearch",
+      name: "advanced-search",
+      component: AdvancedSearch,
       meta: {
         requiresAuth: false
       }

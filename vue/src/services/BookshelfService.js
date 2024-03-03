@@ -11,4 +11,8 @@ async function getBookshelf(headers){
 async function addBookshelf(sku, headers){
     return axios.post(`/bookshelf?sku=${sku}`, { headers })
 }
-export {getBookshelf, addBookshelf}
+
+async function deleteBook(sku, headers){
+    return axios.delete(`/removeBook?sku=${sku}`, { headers })
+}
+export {getBookshelf, addBookshelf, deleteBook}
