@@ -4,24 +4,10 @@
       <!-- First Box: Account and Cart -->
 
       <div class="account-cart">
-<<<<<<< HEAD
-        <div class="dropdown" v-if="isAuthenticated">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            My Account  |
-          </button>
-          <ul class="dropdown-menu">
-            <li><router-link to="/account"> My Account </router-link></li>
-            <li><router-link to="/checkOrders"> My purchases </router-link></li>
-            <li><router-link to="/saved_books"> My bookshelf </router-link></li>
-          </ul>
-        </div>
-        <router-link v-else to="/login">Your account  |</router-link>
-=======
         <router-link v-if="isAuthenticated" to="/account">
           My Account |</router-link
         >
         <router-link v-else to="/login">Your account |</router-link>
->>>>>>> main
         <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
         <!-- <i class="fa fa-shopping-cart"></i> -->
         <router-link
