@@ -14,4 +14,6 @@ public interface SavedBookDao {
 
     boolean BookExistsBySku(String sku);
 
+    boolean deleteBook(String sku, String email);
+
 }

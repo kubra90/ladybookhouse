@@ -94,18 +94,7 @@ export default {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
-    // addBookshelf(){
-    //   if(this.isAuthenticated){
-    //     this.addToBookshelf(this.book);
-    //     this.showBookshelfPopup= true;
-    //     console.log(this.savedBooks.book);
-    //   }else {
-    //     this.$router.push(
-    //       {name: 'login',
-    //       query: {loginRequired: true}
-    //     });
-    //   }
-    // },
+
     addSavedBook(sku){
   if(this.isAuthenticated){
     sku = this.book.sku;

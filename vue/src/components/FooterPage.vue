@@ -25,7 +25,7 @@
         <router-link v-bind:to="{name: 'login'}">My account</router-link>
         <router-link v-bind:to="{name: 'register'}">Create Account</router-link>
         <a href="https://www.instagram.com/ladybookhouse/" class="account-instagram" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-instagram"></i>
+        <i class="fab fa-instagram"></i>
          </a>
       </nav>
     </div>
