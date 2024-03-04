@@ -13,7 +13,7 @@
 <script>
 
 import BookCard from "@/components/BookCard.vue"
-import {mapState, mapActions} from "vuex"
+import {mapState, mapGetters, mapActions} from "vuex"
 
 export default {
   name: "new-arrivals",
@@ -24,17 +24,22 @@ export default {
   
   computed: {
     paginatedList() {
-      return this.newArrivals.slice(0, 4)
+      return this.newBookArrivals.slice(0, 4)
     },
-    ...mapState(["newArrivals"])
+    // ...mapState(["newArrivals"]),
+     ...mapState(['books']),
+     ...mapGetters(['newBookArrivals'])
   },
   
   methods: {
-    ...mapActions(["fetchNewArrivals"])
+    // ...mapActions(["fetchNewArrivals"])
+    ...mapActions(['fetchBooks'])
+
   },
   
   created() {
-    this.fetchNewArrivals()
+    // this.fetchNewArrivals()
+    this.fetchBooks()
   }
 }
 

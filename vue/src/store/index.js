@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { getBooks, getBookById, getNewArrivals, getFeaturedItems } from '../services/BookService'
+import { getBooks, getBookById, getFeaturedItems } from '../services/BookService'
 import { register, login } from '../services/AuthService'
 import { getOrders } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
@@ -40,9 +40,20 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.user.email,
-    // getSavedBooks: state => (email) => {
-    //   return state.userSavedBooks[email] || []
-    // },
+    newBookArrivals(state){
+       const threeMonthsAgo = new Date();
+       threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+       return state.books.filter(book=> {
+         const bookDate = new Date(book.listed_date)
+         return bookDate >= threeMonthsAgo;
+       })
+       .sort((a, b) => {
+        const dateA = new Date(a.listed_date);
+        const dateB =new Date(b.listed_date);
+
+        return dateB - dateA;
+       })
+    },
     filteredBooksByCateg: state => (bookCateg) => {
       return state.books.filter(book => book.category === bookCateg)
     }
@@ -163,10 +174,10 @@ export default new Vuex.Store({
       const response = await getBookById(sku)
       commit('SET_BOOK', response.data)
     },
-    async fetchNewArrivals({ commit }) {
-      const response = await getNewArrivals()
-      commit('SET_NEW_ARRIVALS', response.data)
-    },
+    // async fetchNewArrivals({ commit }) {
+    //   const response = await getNewArrivals()
+    //   commit('SET_NEW_ARRIVALS', response.data)
+    // },
     async fetchFeaturedItems({ commit }) {
       const response = await getFeaturedItems()
       commit('SET_FEATURED_ITEMS', response.data)

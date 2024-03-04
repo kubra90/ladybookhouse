@@ -6,7 +6,7 @@
     <hr>
     <div class="page-nav">
       <div class="book-number">
-      <p>Results {{ bookStart }} - {{ bookEnd }} ( of {{ newArrivals.length }} )</p>
+      <p>Results {{ bookStart }} - {{ bookEnd }} ( of {{ newBookArrivals.length }} )</p>
       </div>
       <div class="page-detail">
       <p>Page {{currentPage}} of {{ totalPages  }}</p>
@@ -31,7 +31,7 @@
   
 import BookCard from "@/components/BookCard.vue"
   
-import {mapState, mapActions} from "vuex"
+import {mapState, mapGetters} from "vuex"
   
   export default {
     name: "new-arrival-list",
@@ -49,7 +49,7 @@ import {mapState, mapActions} from "vuex"
     
     computed: {
       totalPages() {
-        return Math.ceil(this.newArrivals.length / this.booksPerPage)
+        return Math.ceil(this.newBookArrivals.length / this.booksPerPage)
     },
 
     visiblePages() {
@@ -69,19 +69,22 @@ import {mapState, mapActions} from "vuex"
     },
     bookEnd(){
       let end = this.currentPage * this.booksPerPage;
-      return end > this.newArrivals.length ? this.newArrivals.length : end;
+      return end > this.newBookArrivals.length ? this.newBookArrivals.length : end;
     },
     
       paginatedBooks() {
+        console.log(this.newBookArrivals);
         const start =  (this.currentPage - 1) * this.booksPerPage
         const end = start + this.booksPerPage
-        return this.newArrivals.slice(start, end)
+        return this.newBookArrivals.slice(start, end)
     },
-      ...mapState(["newArrivals"])
+    ...mapGetters(['newBookArrivals']),
+      // ...mapState(["newArrivals"])
+      ...mapState(['books'])
   },
     
     methods: {
-      ...mapActions(["fetchNewArrivals"]),
+      // ...mapActions(["fetchNewArrivals"]),
       gotoPage(page){
       
        this.currentPage = page
@@ -92,7 +95,12 @@ import {mapState, mapActions} from "vuex"
     },
     
     created() {
-        this.fetchNewArrivals()
+        // this.fetchNewArrivals()
+        this.$store.dispatch('fetchBooks').then(()=>{
+          console.log(this.books);
+          console.log(this.newBookArrivals);
+         
+        })
       }
   }
   
