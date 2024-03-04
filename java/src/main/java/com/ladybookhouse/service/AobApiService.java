@@ -2,6 +2,7 @@ package com.ladybookhouse.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.model.Book;
+import com.ladybookhouse.model.BookListDTO;
 
 import java.util.List;
 

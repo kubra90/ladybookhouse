@@ -19,19 +19,19 @@ public class RestAobApiServiceTest {
     private Environment environment;
     private RestAobApiService service;
 
-    @Before
-    public void setUp() throws Exception {
-        // Create mocks
-        restTemplate = mock(RestTemplate.class);
-        environment = mock(Environment.class);
-
-        // Instantiate the service class
-        service = new RestAobApiService();
-
-        // Use reflection to inject mocks
-        setField(service, "restTemplate", restTemplate);
-        setField(service, "environment", environment);
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        // Create mocks
+//        restTemplate = mock(RestTemplate.class);
+//        environment = mock(Environment.class);
+//
+//        // Instantiate the service class
+//        service = new RestAobApiService();
+//
+//        // Use reflection to inject mocks
+//        setField(service, "restTemplate", restTemplate);
+//        setField(service, "environment", environment);
+//    }
 
     @Test
     public void testGetBookInfo() throws Exception {

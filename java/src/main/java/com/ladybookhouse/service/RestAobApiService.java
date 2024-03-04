@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ladybookhouse.model.Book;
+import com.ladybookhouse.model.BookListDTO;
 import com.ladybookhouse.model.Category;
 import com.sun.jdi.IntegerValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ import java.util.*;
 @Component
 public class RestAobApiService implements AobApiService{
 
+
+//    new codes that include AppConfig
+//    private final RestTemplate restTemplate;
+//    private final ObjectMapper objectMapper;
+
+//    till here
     Category type = new Category();
 
     RestTemplate restTemplate = new RestTemplate();
@@ -30,7 +37,8 @@ public class RestAobApiService implements AobApiService{
     @Autowired
     private Environment environment;
 
-    public RestAobApiService() {
+    public RestAobApiService(){
+
     }
 
     //create headers method
@@ -58,7 +66,7 @@ public class RestAobApiService implements AobApiService{
             String title = root.path(0).path("title").asText("");
             String author = root.path(0).path("author").asText("");
 //            double price = root.path(0).path("price").asDouble(0.00);
-        String priceStr = root.path(0).path("price").asText("0.00");
+            String priceStr = root.path(0).path("price").asText("0.00");
             String media = root.path(0).path("media").asText("");
             String image = root.path(0).path("image").asText("");
             String notes = root.path(0).path("notes").asText("");
@@ -172,7 +180,7 @@ public class RestAobApiService implements AobApiService{
         }
 
 
-        // Sort the newArrival list by listedDate in descending order
+//         Sort the newArrival list by listedDate in descending order
         newArrival.sort(new Comparator<Book>() {
             @Override
             public int compare(Book b1, Book b2) {
@@ -200,6 +208,7 @@ public class RestAobApiService implements AobApiService{
         System.out.println(featuredBooks.size());
        return featuredBooks;
     }
+
 }
 
 
