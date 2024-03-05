@@ -30,10 +30,10 @@ public class InventoryController {
         return service.getInventoryList();
     }
 
-    @RequestMapping(path= "/new-arrivals", method=RequestMethod.GET)
-    public List<Book> getNewArrivals() throws JsonProcessingException{
-        return service.getNewArrivals();
-    }
+//    @RequestMapping(path= "/new-arrivals", method=RequestMethod.GET)
+//    public List<Book> getNewArrivals() throws JsonProcessingException{
+//        return service.getNewArrivals();
+//    }
 
     @RequestMapping(path= "/featured-items", method=RequestMethod.GET)
     public List<Book> getFetauredList() throws JsonProcessingException{

@@ -12,7 +12,7 @@
 <script>
   
 import BookCard from "../components/BookCard.vue"
-import {mapState, mapActions} from "vuex"
+import {mapGetters, mapState} from "vuex"
   
   export default {
     name: "featured-book-list",
@@ -32,7 +32,9 @@ import {mapState, mapActions} from "vuex"
       totalPages() {
         return Math.ceil(this.featuredItems.length / this.booksPerPage)
       },
-      ...mapState(["featuredItems"]),
+      // ...mapState(["featuredItems"]),
+      ...mapGetters(['featuredItems']),
+      ...mapState(['books']),
       paginatedBooks() {
         const start =  (this.currentPage - 1) * this.booksPerPage
         const end = start + this.booksPerPage
@@ -41,7 +43,7 @@ import {mapState, mapActions} from "vuex"
     },
     
     methods: {
-      ...mapActions(["fetchFeaturedItems"]),
+      // ...mapActions(["fetchFeaturedItems"]),
       formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
@@ -49,7 +51,8 @@ import {mapState, mapActions} from "vuex"
     },
     
     created() {
-      this.fetchFeaturedItems()
+      // this.fetchFeaturedItems()
+      this.$store.dispatch('fetchBooks')
       }
   }
   

@@ -54,6 +54,13 @@ export default new Vuex.Store({
         return dateB - dateA;
        })
     },
+    featuredItems(state){
+      return state.books.filter(book=> {
+       return book.sku.includes('SS') || book.sku.includes('NS') ||
+       book.sku.includes('SSL') || book.sku.includes('D') ||
+       book.sku.includes('AM') || book.sku.includes('CS')
+      })
+    },
     filteredBooksByCateg: state => (bookCateg) => {
       return state.books.filter(book => book.category === bookCateg)
     }

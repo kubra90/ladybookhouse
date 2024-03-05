@@ -13,7 +13,7 @@
 <script>
 
 import BookCard from "../components/BookCard.vue"
-import {mapState, mapActions} from "vuex"
+import {mapState, mapGetters} from "vuex"
 
 export default {
   name: "featured-books",
@@ -27,11 +27,13 @@ export default {
   paginatedList() {
     return this.shuffledBooks(this.featuredItems).slice(0, 16)
   },
-  ...mapState(["featuredItems"])
+  // ...mapState(["featuredItems"])
+  ...mapState(['books']),
+  ...mapGetters(['featuredItems'])
 },
   
   methods: {
-  ...mapActions(["fetchFeaturedItems"]),
+  // ...mapActions(["fetchFeaturedItems"]),
 
   // Fisher-Yates Sorting Algorithm to shuffle items of an array
   shuffledBooks(array) {
@@ -44,7 +46,8 @@ export default {
   },
   
   created() {
-    this.fetchFeaturedItems()
+    // this.fetchFeaturedItems()
+    this.$store.dispatch("fetchBooks");
   }
 }
 
