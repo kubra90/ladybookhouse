@@ -35,20 +35,13 @@ export default {
         ? this.shuffledBooks(this.featuredItems).slice(0, 4)
         : this.shuffledBooks(this.featuredItems).slice(0, 16)
     },
-    ...mapState(["featuredItems"]),
-
-  // ...mapState(["featuredItems"])
   ...mapState(['books']),
   ...mapGetters(['featuredItems'])
 },
-  
-  methods: {
-  // ...mapActions(["fetchFeaturedItems"]),
+
 
   methods: {
-    // ...mapActions(["fetchFeaturedItems"]),
-
-    // Fisher-Yates Sorting Algorithm to shuffle items of an array
+   // Fisher-Yates Sorting Algorithm to shuffle items of an array
     shuffledBooks(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -59,9 +52,9 @@ export default {
   },
 
   created() {
-    // this.fetchFeaturedItems()
     this.$store.dispatch("fetchBooks");
-    this.fetchFeaturedItems(),
+    // this.featuredItems;
+   
     this.isBrowseCateg = this.$route.name === "browse"
   },
 
@@ -70,7 +63,6 @@ export default {
       this.isBrowseCateg = to.name === "browse"
     }
   }
-}
 }
 </script>
 

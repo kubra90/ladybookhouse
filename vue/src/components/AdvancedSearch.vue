@@ -144,7 +144,20 @@ export default {
 
 <style scoped>
 .main-container{
-    margin-left:12rem;
+}
+
+h2 {
+  color: #e2907a;
+  font-weight: 500;
+  margin-top: 6rem;
+  font-family: "PT Sans", sans-serif;
+}
+
+.form-horizontal {
+    display:flex;
+    flex-direction: column;
+max-width: 100%;
+  color: #dc8a73;
 }
 
 
