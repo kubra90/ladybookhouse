@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="checkout-container">
     <HeaderPage/>
-    <CheckoutPage/>
-    <FooterPage/>
+    <CheckoutPage class="checkout-page"/>
+    <FooterPage class="footer"/>
   </div>
 </template>
 
@@ -18,3 +18,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.checkout-container {
+  display:flex;
+  flex-direction:column;
+  height: 100%;
+  margin:0;
+}
+
+.checkout-page {
+  flex:1;
+}
+
+.footer {
+  display:flex;
+  bottom:0;
+}
+</style>

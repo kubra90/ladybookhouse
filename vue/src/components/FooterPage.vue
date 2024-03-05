@@ -9,9 +9,9 @@
       </div>
 
       <div class="footer-items">
-        <router-link v-bind:to="{name: 'book'}">Search our Inventory</router-link>
-        <router-link v-bind:to="{name: 'book'}">New Arrivals</router-link>
-        <router-link v-bind:to="{name: 'book'}">Featured Items</router-link>
+        <router-link v-bind:to="{name: 'advanced-search'}">Search our Inventory</router-link>
+        <router-link v-bind:to="{name: 'new-arrivals-view'}">New Arrivals</router-link>
+        <router-link v-bind:to="{name: 'featured-book-view'}">Featured Items</router-link>
       </div>
 
       <div class="footer-policies">

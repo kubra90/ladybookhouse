@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="order">
       <HeaderPage/>
-      <OrderPage/>
-      <FooterPage/>
+      <OrderPage class="order-page"/>
+      <FooterPage class="footer"/>
     </div>
 </template>
 
@@ -18,3 +18,22 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.order {
+    display:flex;
+    flex-direction: column;
+    height:100%;
+    margin:0;
+}
+
+.order-page {
+    flex:1;
+}
+
+.footer {
+    display:flex;
+    bottom:0;
+}
+</style>
