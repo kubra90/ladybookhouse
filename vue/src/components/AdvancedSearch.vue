@@ -5,8 +5,8 @@
     <form class="form-horizontal">
         <!-- Categories -->
         <div class="mb-4 row"> <!-- Categories -->
-          <label for="categorySelect" class="col-form-label col-sm-2">Search in:</label>
-          <div class="col-sm-8">
+          <label for="categorySelect" class="col-form-label col-sm-1">Search in:</label>
+          <div class="col-sm-4">
             <select v-model="searchForm.category" class="form-select" id="categorySelect">
               <option value="">All Categories</option>
               <option v-for="category in categories" :key="category.value" :value="category.value">
@@ -17,35 +17,35 @@
         </div>
         
         <div class="mb-4 row"> <!-- Author -->
-          <label for="authorInput" class="col-form-label col-sm-2">Author:</label>
-          <div class="col-sm-8">
+          <label for="authorInput" class="col-form-label col-sm-1">Author:</label>
+          <div class="col-sm-4">
             <input v-model="searchForm.author" type="text" class="form-control" id="authorInput" placeholder="Author Name">
           </div>
         </div>
 
         <div class="mb-4 row"> <!-- Title -->
-          <label for="titleInput" class="col-form-label col-sm-2">Title:</label>
-          <div class="col-sm-8">
+          <label for="titleInput" class="col-form-label col-sm-1">Title:</label>
+          <div class="col-sm-4">
             <input v-model="searchForm.title" type="text" class="form-control" id="titleInput" placeholder="Book Title">
           </div>
         </div>
 
         <div class="mb-4 row"> <!-- Keywords Option -->
-          <label for="keywordInput" class="col-form-label col-sm-2">Keywords:</label>
-          <div class="col-sm-8">
+          <label for="keywordInput" class="col-form-label col-sm-1">Keywords:</label>
+          <div class="col-sm-4">
             <input v-model="searchForm.keywords" type="text" class="form-control" id="keywordInput" placeholder="Keywords">
           </div>
         </div>
 
         <div class="mb-3 row"> <!-- Price Option -->
-          <label for="minPriceInput" class="col-form-label col-sm-2">Price:</label>
-          <div class="col-sm-4">
+          <label for="minPriceInput" class="col-form-label col-sm-1">Price:</label>
+          <div class="col-sm-2">
             <div class="input-group">
               <span class="input-group-text">$</span>
               <input v-model="searchForm.minPrice" type="text" class="form-control" id="minPriceInput" placeholder="Min Range">
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-2">
             <div class="input-group">
               <span class="input-group-text">$</span>
               <input v-model="searchForm.maxPrice" type="text" class="form-control" id="maxPriceInput" placeholder="Max Range">
@@ -54,7 +54,7 @@
         </div>
 
         <div class="mb-5 row"> <!-- Search Button -->
-          <div class="offset-sm-2 col-sm-10">
+          <div class="offset-sm-1 col-sm-10">
             <button type="submit" class="btn btn-primary" @click.prevent="searchBookDetails">Search</button>
           </div>
         </div>
@@ -148,9 +148,9 @@ h2 {
 }
 
 .form-horizontal {
-    display:flex;
-    flex-direction: column;
-max-width: 100%;
+    /* display:flex;
+    flex-direction: column; */
+/* max-width: 100%; */
   color: #dc8a73;
 }
 

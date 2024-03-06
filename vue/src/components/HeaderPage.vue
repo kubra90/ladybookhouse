@@ -2,52 +2,66 @@
   <header class="header-container">
     <div class="header-top">
       <!-- First Box: Account and Cart -->
-
-      <div class="account-cart">
-        <div class="dropdown" v-if="isAuthenticated">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            My Account  |
-          </button>
-          <ul class="dropdown-menu">
-            <li><router-link to="/account"> My Account </router-link></li>
-            <li><router-link to="/checkOrders"> My purchases </router-link></li>
-            <li><router-link to="/saved_books"> My bookshelf </router-link></li>
-          </ul>
-        </div>
-
-        <router-link v-else to="/login">Your account |</router-link>
-        <router-link v-show="isAuthenticated" to="/logout">Logout</router-link>
-        <!-- <i class="fa fa-shopping-cart"></i> -->
-        <router-link
-          v-bind:to="{
-            name: 'cart',
-          }"
-        >
-          <i class="fa fa-shopping-cart"></i>
-          <span class="cart-count">({{ basketCount }} items)</span>
-        </router-link>
-      </div>
-
-      <!-- Second Box: Search Bar -->
-
-      <div class="form-group custom-search-form">
-        <div class="input-group">
-          <input v-model="searchText"
-            type="text"
-            class="form-control"
-            placeholder="Author, title, or keyword"
-            aria-label="Search"
-          />
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="submit" @click.prevent="searchAllBookDetails">
-              <i class="fas fa-search"></i>
-            
+      <div class="top-right-container">
+        <div class="account-cart">
+          <div class="dropdown" v-if="isAuthenticated">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              My Account |
             </button>
-          </span>
+            <ul class="dropdown-menu">
+              <li><router-link to="/account"> My Account </router-link></li>
+              <li>
+                <router-link to="/checkOrders"> My purchases </router-link>
+              </li>
+              <li>
+                <router-link to="/saved_books"> My bookshelf </router-link>
+              </li>
+            </ul>
+          </div>
+
+          <router-link v-else to="/login">Your account |</router-link>
+          <router-link v-show="isAuthenticated" to="/logout"
+            >Logout</router-link
+          >
+          <!-- <i class="fa fa-shopping-cart"></i> -->
+          <router-link
+            v-bind:to="{
+              name: 'cart',
+            }"
+          >
+            <i class="fa fa-shopping-cart"></i>
+            <span class="cart-count">({{ basketCount }} items)</span>
+          </router-link>
         </div>
-      </div>
+
       
 
+        <div class="mb-3 custom-search-form">
+          <!-- Bootstrap 5 no longer uses .form-group; .mb-3 is for margin -->
+          <div class="input-group">
+            <input
+              v-model="searchText"
+              type="text"
+              class="form-control"
+              placeholder="Author, title, or keyword"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="submit"
+              @click.prevent="searchAllBookDetails"
+            >
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
 
       <!-- Third Box: App Name -->
       <div class="app-name"><p>Lady Bookhouse</p></div>
@@ -89,7 +103,7 @@ export default {
   data() {
     return {
       isClicked: false,
-      searchText: '',
+      searchText: "",
     };
   },
   methods: {
@@ -97,28 +111,31 @@ export default {
       this.isClicked = !this.isClicked;
     },
 
-     searchAllBookDetails(){
-     const filteredDetails = this.books.filter(book=> {
-      const filteredMatch = this.searchText ? book.author.toLowerCase().includes(this.searchText.toLowerCase())
-     || book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-     book.isbn === this.searchText || book.publisher.toLowerCase().includes(this.searchText.toLowerCase()) ||
-       book.category.toLowerCase().includes(this.searchText.toLowerCase()) : true;
+    searchAllBookDetails() {
+      const filteredDetails = this.books.filter((book) => {
+        const filteredMatch = this.searchText
+          ? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            book.isbn === this.searchText ||
+            book.publisher
+              .toLowerCase()
+              .includes(this.searchText.toLowerCase()) ||
+            book.category.toLowerCase().includes(this.searchText.toLowerCase())
+          : true;
 
-       return filteredMatch;
-    
-       })
+        return filteredMatch;
+      });
 
-       console.log(filteredDetails);
-       for(let book of filteredDetails){
+      console.log(filteredDetails);
+      for (let book of filteredDetails) {
         console.log(book.title);
         console.log(book.author);
-       }
       }
-    
+    },
   },
 
-  created(){
-    this.$store.dispatch('fetchBooks');
+  created() {
+    this.$store.dispatch("fetchBooks");
   },
 
   // Your script here
@@ -130,58 +147,56 @@ export default {
 </script>
 
 <style scoped>
+/* Adjusted Styles */
+
+.btn-outline-secondary{
+  border: none;
+  color: orange;
+  background-color:brown;
+  height:2rem;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 100%;
+}
+
+.header-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.top-right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items:end;
+  gap: 5px; /* Adjust gap between account/cart and search form */
+}
 
 .custom-search-form {
-  max-width: 340px; /* Or any other width */
-  margin-left: auto; /* Align to the right */
-  margin-right: 22rem; /* Adjust as per your layout */
-  width: 15%;
-}
+  width: 16%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right:6rem;
 
-.custom-search-form .form-control,
-.custom-search-form .btn {
-  height: 30px; /* Decrease height */
-
-  padding: 0 10px; /* Adjust padding to reduce size while maintaining usability */
-  font-size: 12px; /* Smaller text */
-}
-
-.custom-search-form .form-control {
-  padding: 6px 12px; /* Adjust padding to ensure text fits */
-}
-
-.custom-search-form .form-control {
-  width: 100%; /* Ensure it takes the full width of its parent */
+ 
 }
 
 .form-control {
+  font-size:12px;
 }
-
-.custom-search-form .input-group-btn .btn {
-  padding: 0 8px; /* Adjust button padding */
-}
-.input-group-btn .btn {
-  background-color: #fa8072;
-}
-
-.custom-search-form .btn i {
-  font-size: 12px;
-}
-
-/* this is to remove the blue color of the button when user clicks on it */
-.custom-search-form .btn:focus {
-  outline: none;
-  box-shadow: #6b3630;
-}
-
-
 
 /* new 2222 */
 
-.main {
+/* .main {
   width: 50%;
   margin: 50px auto;
-}
+} */
 
 .header-container {
   box-sizing: border-box;
@@ -207,11 +222,12 @@ export default {
   /* padding: 10px; */
 }
 .account-cart,
-.search-bar,
 .app-name,
+.fa-instagram,
 .header-nav {
   width: 90%; /* Full width for each row */
   display: flex;
+  flex-direction:row;
 }
 
 .account-cart,
@@ -247,7 +263,6 @@ export default {
   height: 1.6em;
   /* padding: 0.5em;  */
   margin-top: 0.18em;
-  display: flex;
   align-items: center;
   justify-content: center; /* Horizontally center the content */
 }

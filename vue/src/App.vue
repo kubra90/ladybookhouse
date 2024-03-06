@@ -25,6 +25,7 @@ import FooterPage from './components/FooterPage.vue';
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size:14px;
   /* position:relative; */
 } 
 

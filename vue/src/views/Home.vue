@@ -25,6 +25,7 @@ export default {
 * {
   box-sizing: border-box;
   padding: 0px;
+  font-size:13px;
 }
 
 

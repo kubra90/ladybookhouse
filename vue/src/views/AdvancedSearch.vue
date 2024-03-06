@@ -22,13 +22,12 @@
         display:flex;
         flex-direction:column;
         height:100%;
-        align-items:center;
-    
+       
       }
 
       .search {
         flex:1;
-        padding-inline-start: 6rem;
+       
       }
 
     </style>
