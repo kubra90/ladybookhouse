@@ -6,22 +6,19 @@
         <div class="account-cart">
           <div class="dropdown" v-if="isAuthenticated">
             <button
-              class="btn btn-secondary dropdown-toggle"
+              class="btn btn-secondary btn-sm dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              My Account |
+              My Account 
             </button>
+            <span>|</span>
             <ul class="dropdown-menu">
-              <li><router-link to="/account"> My Account </router-link></li>
-              <li>
-                <router-link to="/checkOrders"> My purchases </router-link>
-              </li>
-              <li>
-                <router-link to="/saved_books"> My bookshelf </router-link>
-              </li>
+              <li><button class="dropdown-item" type="button"><router-link to="/account">My account</router-link></button></li>
+    <li><button class="dropdown-item" type="button"> <router-link to="/checkOrders">Orders</router-link></button></li>
+    <li><button class="dropdown-item" type="button">  <router-link to="/saved_books">Bookshelf </router-link></button></li>
             </ul>
           </div>
 
@@ -185,6 +182,13 @@ export default {
   margin-right:6rem;
 
  
+}
+
+.btn-secondary{
+  background:none;
+  color:#6b3630;;
+  border:none;
+  
 }
 
 .form-control {

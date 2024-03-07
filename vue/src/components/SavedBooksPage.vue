@@ -61,7 +61,7 @@
     <h3 class="mb-3 mt-3">My Bookshelf</h3>
 
     <div class="row">
-      <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="col-sm-6 col-md-3 mb-4">
+      <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="col-sm-6 col-md-3 mb-4 col-xs-12" >
         <div class="card h-100">
           <router-link :to="{ name: 'detail', params: { sku: savedBook.sku } }">
             <img :src="savedBook.image" class="card-img-top" alt="book image">
