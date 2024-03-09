@@ -14,10 +14,10 @@
       <p>{{ book.usedBook }}</p>
       <!-- Other details here -->
       <div class="book-actions">
-        <button @click="addToBasket" class="add-to-cart">
+        <button @click="addToBasket" class="btn btn-primary btn-small add-cart">
           <strong>Add To Cart</strong>
         </button>
-        <button v-if="isAuthenticated" @click="addSavedBook" class="save-book">
+        <button v-if="isAuthenticated" @click="addSavedBook" class="btn btn-primary btn-small save-book">
           <strong>Add to Bookshelf</strong>
         </button>
        
@@ -29,7 +29,8 @@
          <div v-if="showBookshelfPopup" class="bookshelf-popup">
             <div><p>This book added to your Bookshelf</p></div>
             <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
-            <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button>
+            <!-- <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button> -->
+            <button class="btn btn-primary btn-small" @click="goToBookshelf">Go to Bookshelf</button>
           </div>
         </div>
     </div>
@@ -238,11 +239,11 @@ export default {
 .book-actions .add-to-cart,
 .book-actions .save-book,
 .remove-book {
-  position: relative;
-  display: inline-block;
+  /* position: relative;
+  display: inline-block; */
   /* background: $button; */
   /* color: $white; */
-  color: #6b3630;
+  /* color: #6b3630;
   background-color: oldlace;
   border: none;
   border-radius: 0;
@@ -253,7 +254,7 @@ export default {
   transform: translateZ(0);
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem;
-  font-family: "PT Sans", sans-serif;
+  font-family: "PT Sans", sans-serif; */
 }
 
 /* popup design */
@@ -298,11 +299,28 @@ export default {
   font-size:14px;
 }
 
-.bookshelf-btn {
+/* .bookshelf-btn {
   display:flex;
   justify-content: center;
   margin-left:5rem;
   margin-right:5rem;
+} */
+
+.btn-primary{
+  color:white;
+  background-color: #6b3630;
+  border:none;
+  outline:none;
+  height:auto;
+
+}
+
+.btn-primary.save-book, .btn-primary.add-cart{
+  color: #6b3630;
+  background-color: oldlace;
+  font-size:14px;
+  height:120%;
+  width:30%;
 }
 
 .overlay {
