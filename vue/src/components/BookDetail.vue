@@ -13,25 +13,27 @@
       </p>
       <p>{{ book.usedBook }}</p>
       <!-- Other details here -->
-      <div class="book-actions">
-        <button @click="addToBasket" class="btn btn-primary btn-small add-cart">
+      <div class="container book-actions">
+        <button @click="addToBasket" class="btn btn-primary btn-sm add-cart">
           <strong>Add To Cart</strong>
         </button>
-        <button v-if="isAuthenticated" @click="addSavedBook" class="btn btn-primary btn-small save-book">
+        <button v-if="isAuthenticated" @click="addSavedBook" class="btn btn-primary btn-sm save-book">
           <strong>Add to Bookshelf</strong>
         </button>
        
-        <router-link v-else to="/login" class="save-book">
+        <router-link v-else to="/login" class="btn btn-link save-book">
           <strong>Add to Bookshelf</strong>
         </router-link>
          <!-- pop up page show the message the book added into the cart -->
-         <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
-         <div v-if="showBookshelfPopup" class="bookshelf-popup">
-            <div><p>This book added to your Bookshelf</p></div>
-            <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
-            <!-- <button class="bookshelf-btn" @click="goToBookshelf">Go to Bookshelf</button> -->
-            <button class="btn btn-primary btn-small" @click="goToBookshelf">Go to Bookshelf</button>
-          </div>
+          <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
+<div v-if="showBookshelfPopup" class="bookshelf-popup">
+  <div class="d-flex justify-content-between align-items-center">
+    <p class="mb-3">This book added to your Bookshelf</p>
+    <button type="button" class="btn-close mb-3" aria-label="Close" @click="hidePopup"></button>
+  </div>
+  <button class="btn btn-primary btn-sm" @click="goToBookshelf">Go to Bookshelf</button>
+</div>
+
         </div>
     </div>
 
@@ -333,15 +335,27 @@ export default {
   z-index: 999; /* Ensure it's below the popup but above other content */
 }
 
-.close-popup {
+/* .close-popup {
   position: absolute;
   top: 1rem;
   right: 0.6rem;
   border: none;
   background: none;
-  color: gray; /* Or any color that matches your design */
-  font-size: 0.8em; /* Adjust size as needed */
+  color: gray;
+  font-size: 0.8em; 
   cursor: pointer;
+} */
+
+.btn-close{
+  /* position: absolute; */
+  /* top: 1rem; */
+  /* right: 0.6rem; */
+  border: none;
+  background-color: none;
+  color: black;
+  font-size: 0.8em; 
+  cursor: pointer;
+  
 }
 
 /* Optional: Add a hover effect for the close button */
