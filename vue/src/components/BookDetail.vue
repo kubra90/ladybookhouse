@@ -1,68 +1,83 @@
 <template>
-  <div class="book-container">
-    <div class="book-details">
+  <div class="book-container flex-column flex-lg-row">
+    <div class="book-details mb-4 mb-lg-0">
       <p>
-        <strong style="font-size:medium">{{ book.title}}</strong>
+        <strong style="font-size: medium">{{ book.title }}</strong>
       </p>
       <p>{{ book.author }}</p>
       <p>{{ book.publisher }}. {{ book.media }}, {{ book.conditionAsText }}</p>
-      <p> ISBN: {{ book.isbn }}</p>
+      <p>ISBN: {{ book.isbn }}</p>
       <p>{{ book.notes }}. {{ book.sku }}</p>
       <p>
         <strong>Price: ${{ formatPrice(book.price) }} </strong>
       </p>
       <p>{{ book.usedBook }}</p>
-      <!-- Other details here -->
-      <div class="container book-actions">
+      <div class="container book-actions d-flex">
         <button @click="addToBasket" class="btn btn-primary btn-sm add-cart">
           <strong>Add To Cart</strong>
         </button>
-        <button v-if="isAuthenticated" @click="addSavedBook" class="btn btn-primary btn-sm save-book">
+        <button
+          v-if="isAuthenticated"
+          @click="addSavedBook"
+          class="btn btn-primary btn-sm save-book"
+        >
           <strong>Add to Bookshelf</strong>
         </button>
-       
-        <router-link v-else to="/login" class="btn btn-link save-book">
-          <strong>Add to Bookshelf</strong>
-        </router-link>
-         <!-- pop up page show the message the book added into the cart -->
-          <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
-<div v-if="showBookshelfPopup" class="bookshelf-popup">
-  <div class="d-flex justify-content-between align-items-center">
-    <p class="mb-3">This book added to your Bookshelf</p>
-    <button type="button" class="btn-close mb-3" aria-label="Close" @click="hidePopup"></button>
-  </div>
-  <button class="btn btn-primary btn-sm" @click="goToBookshelf">Go to Bookshelf</button>
-</div>
-
+        <router-link v-else to="/login" class="btn btn-link save-book"
+          ><strong>Add to Bookshelf</strong></router-link
+        >
+      </div>
+      <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
+      <div v-if="showBookshelfPopup" class="bookshelf-popup">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="mb-3">This book added to your Bookshelf</p>
+          <button
+            type="button"
+            class="btn-close mb-3"
+            aria-label="Close"
+            @click="hidePopup"
+          ></button>
         </div>
+        <button
+          class="btn btn-primary btn-sm"
+          style="text-align: center"
+          @click="goToBookshelf"
+        >
+          Go to Bookshelf
+        </button>
+      </div>
     </div>
 
-    <div class="new-image">
+    <div class="new-image d-flex justify-content-center">
       <div class="book-image">
         <img v-bind:src="book.image" />
       </div>
     </div>
-    
+
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
     <div v-if="showAddedToCart" class="added-to-cart-popup">
       <!-- Added to Cart -->
       <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
-      <div v-if="showErrorMessage" class="added-book-error"><h5>You're already added this book to the cart</h5></div>
+      <div v-if="showErrorMessage" class="added-book-error">
+        <h5>You're already added this book to the cart</h5>
+      </div>
       <!-- this is error message for the added page -->
-      <div v-else><h3>Added to Cart</h3> </div>
+      <div v-else><h3>Added to Cart</h3></div>
       <div class="popup-content">
         <!-- check the book is already in the basket or not! -->
         <img :src="book.image" class="popup-book-image" />
         <div class="popup-detail">
           <h4 class="popup-book-title">{{ book.title }}</h4>
-          <h5 class="popup-book-author">{{ book.author }} </h5>
+          <h5 class="popup-book-author">{{ book.author }}</h5>
           <h5 class="popup-book-price">
             <strong>Price: ${{ formatPrice(book.price) }}</strong>
           </h5>
         </div>
       </div>
       <div class="popup-navbar">
-        <button class="continue-shopping-bar" @click="hidePopup">CONTINUE SHOPPING</button>
+        <button class="continue-shopping-bar" @click="hidePopup">
+          CONTINUE SHOPPING
+        </button>
         <button class="go-to-cart-bar" @click="goToCart">GO TO CART</button>
       </div>
     </div>
@@ -80,46 +95,46 @@ export default {
       showAddedToCart: false,
       showErrorMessage: false,
       showBookshelfPopup: false,
-      loginRequiredMessage: false
+      loginRequiredMessage: false,
     };
   },
   computed: {
     ...mapState(["book", "user", "savedBooks", "cartBooks", "savedBook"]),
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(["isAuthenticated"]),
     // consider computed method to preserve book across navigation
-    isBookInCart(){
-      return this.cartBooks.some(book=> book.isbn === this.book.isbn);
-    }
+    isBookInCart() {
+      return this.cartBooks.some((book) => book.isbn === this.book.isbn);
+    },
   },
   methods: {
-    ...mapActions(['addToCart', 'fetchBookById', 'addBookToBookshelf']),
+    ...mapActions(["addToCart", "fetchBookById", "addBookToBookshelf"]),
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
 
-    addSavedBook(sku){
-  if(this.isAuthenticated){
-    sku = this.book.sku;
-    console.log(sku);
-    this.addBookToBookshelf(sku);
-    this.showBookshelfPopup = true;
-  } else {
-    this.$router.push({
-      name: 'login',
-      query: {loginRequired: true}
-    });
-  }
-},
+    addSavedBook(sku) {
+      if (this.isAuthenticated) {
+        sku = this.book.sku;
+        console.log(sku);
+        this.addBookToBookshelf(sku);
+        this.showBookshelfPopup = true;
+      } else {
+        this.$router.push({
+          name: "login",
+          query: { loginRequired: true },
+        });
+      }
+    },
 
     addToBasket() {
       this.showAddedToCart = true;
-      if((this.book.qty> 0) && (!this.isBookInCart)){
+      if (this.book.qty > 0 && !this.isBookInCart) {
         this.addToCart(this.book);
         this.numOfBooks++;
-      this.book.qty--;
-      this.showErrorMessage= false;
-      }else {
+        this.book.qty--;
+        this.showErrorMessage = false;
+      } else {
         this.showErrorMessage = true;
       }
     },
@@ -128,23 +143,21 @@ export default {
       this.showBookshelfPopup = false;
     },
     goToCart() {
-      this.$router.push({name: "cart"});
+      this.$router.push({ name: "cart" });
     },
     goToBookshelf() {
-      if(this.isAuthenticated){
-      this.$router.push({name: "saved-books"});
+      if (this.isAuthenticated) {
+        this.$router.push({ name: "saved-books" });
       }
-    }
+    },
   },
   created() {
     this.fetchBookById(this.$route.params.sku);
   },
-
 };
 </script>
 
 <style scoped>
-
 /* new css for main container*/
 /* .main-container {
   flex-direction: column;
@@ -154,12 +167,10 @@ export default {
 .book-container {
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-direction:column;
   font-family: "PT Sans", sans-serif;
-  padding-top: 5.5rem;
-  padding-right: 10rem;
-  padding-left:13rem;
-  padding-bottom: 2rem;
+  padding: 5.5rem 10rem 2rem 13rem;
   min-height: calc(10vh - 10px - 2px);
 }
 
@@ -176,10 +187,10 @@ export default {
   justify-content: center; /* Center the image horizontally */
   align-items: center; /* Center the image vertically */
   /* padding:0.625rem;  */
-  padding:0;
+  padding: 0;
 
   /* new styles */
-  position : relative;
+  position: relative;
 }
 
 .book-image img {
@@ -199,22 +210,22 @@ export default {
 
 .book-image img:hover {
   cursor: pointer;
-  transform: scale(1.50);
+  transform: scale(1.5);
 }
 .icon-background {
-  width:4.5rem;
-  height:3rem;
-  position:absolute;
-  top:38%;
-  right:12%;
+  width: 4.5rem;
+  height: 3rem;
+  position: absolute;
+  top: 38%;
+  right: 12%;
   /* left:83%; */
   /* z-index is to position the icon above the book */
-  z-index:1; 
+  z-index: 1;
   /* border: 10px; */
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#6b3630;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #6b3630;
 }
 
 .enlarger-icon {
@@ -223,8 +234,8 @@ export default {
   cursor: pointer;
 }
 
-.new-image{
-  flex:1;/* Adjust the flex ratio as needed */
+.new-image {
+  flex: 1; /* Adjust the flex ratio as needed */
   display: flex;
   flex-direction: column;
   /* justify-content: center; Center the image horizontally */
@@ -273,7 +284,7 @@ export default {
   text-align: left; /* Optional: for text alignment inside the popup */
   width: 35%;
   height: 320px;
-  
+
   /* max-height: 350px; */
   font-size: 20px;
   /* new properties */
@@ -285,20 +296,20 @@ export default {
 
 .bookshelf-popup {
   position: fixed;
-  top:50%;
-  left:50%;
-  padding:10px 20px;
-  color:#6b3630;
-  text-align:left;
+  top: 50%;
+  left: 50%;
+  padding: 10px 20px;
+  color: #6b3630;
+  text-align: left;
   z-index: 1000;
-  width:19%;
+  width: 19%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  max-height:none;
-  display:flex;
-  flex-direction:column;
+  max-height: none;
+  display: flex;
+  flex-direction: column;
   background-color: white;
-  font-size:14px;
+  font-size: 14px;
 }
 
 /* .bookshelf-btn {
@@ -308,21 +319,21 @@ export default {
   margin-right:5rem;
 } */
 
-.btn-primary{
-  color:white;
+.btn-primary {
+  color: white;
   background-color: #6b3630;
-  border:none;
-  outline:none;
-  height:auto;
-
+  border: none;
+  outline: none;
+  height: auto;
 }
 
-.btn-primary.save-book, .btn-primary.add-cart{
+.btn-primary.save-book,
+.btn-primary.add-cart {
   color: #6b3630;
   background-color: oldlace;
-  font-size:14px;
-  height:120%;
-  width:30%;
+  font-size: 14px;
+  height: 120%;
+  width: 30%;
 }
 
 .overlay {
@@ -346,16 +357,15 @@ export default {
   cursor: pointer;
 } */
 
-.btn-close{
+.btn-close {
   /* position: absolute; */
   /* top: 1rem; */
   /* right: 0.6rem; */
   border: none;
   background-color: none;
   color: black;
-  font-size: 0.8em; 
+  font-size: 0.8em;
   cursor: pointer;
-  
 }
 
 /* Optional: Add a hover effect for the close button */
@@ -380,11 +390,11 @@ export default {
 
 .popup-navbar {
   display: flex;
-  flex-direction :row;
+  flex-direction: row;
   /* align-items: right; */
   justify-content: right;
-  max-height:30px;
-  flex:0;
+  max-height: 30px;
+  flex: 0;
 }
 
 .go-to-cart-bar {
@@ -393,15 +403,34 @@ export default {
 
 .added-book-error {
   box-sizing: border-box;
-  border-style :solid;
+  border-style: solid;
   background-color: rgb(226, 144, 144);
   border-color: rgb(226, 144, 144);
-  margin-right:0.7rem;
+  margin-right: 0.7rem;
 }
 
 @media (max-height: 600px) {
   .icon-background {
     bottom: 3%; /* Adjust for shorter screens */
+  }
+}
+
+  @media (min-width: 768px) { /* Adjust for medium screens and up */
+  .book-container {
+    flex-direction: row; /* Switch to horizontal layout on larger screens */
+    padding: 3.5rem 7rem 1rem 4rem; /* Adjust padding for larger screens, can be fine-tuned */
+  }
+}
+@media (min-width: 368px) { /* Adjust for medium screens and up */
+  .book-container {
+    flex-direction: row; /* Switch to horizontal layout on larger screens */
+    padding: 3.5rem 0.1rem 2rem 5rem; /* Adjust padding for larger screens, can be fine-tuned */
+  }
+}
+
+@media (min-width: 992px) { /* Adjust for large screens */
+  .book-container {
+    padding: 5.5rem 10rem 2rem 13rem; /* Original padding for large screens */
   }
 }
 </style>
