@@ -39,7 +39,7 @@
           ></button>
         </div>
         <button
-          class="btn btn-primary btn-sm"
+          class="btn btn-primary btn-xs"
           style="text-align: center"
           @click="goToBookshelf"
         >
@@ -302,7 +302,8 @@ export default {
   color: #6b3630;
   text-align: left;
   z-index: 1000;
-  width: 19%;
+  width: 25%;
+  /* max-width: 25%; */
   transform: translate(-50%, -50%);
   overflow: hidden;
   max-height: none;
@@ -310,6 +311,15 @@ export default {
   flex-direction: column;
   background-color: white;
   font-size: 14px;
+}
+
+.bookshelf-popup .btn {
+  font-size: 1rem; /* Adjust font size as necessary */
+  padding: 0.5rem 1rem; /* Adjust padding to control the size */
+  width: auto; /* Set width to auto or specify a width */
+  max-width: 40%; /* Ensure it doesn't exceed its container's width */
+  font-size:12px;
+  /* Add any other styling as necessary */
 }
 
 /* .bookshelf-btn {
@@ -421,16 +431,34 @@ export default {
     padding: 3.5rem 7rem 1rem 4rem; /* Adjust padding for larger screens, can be fine-tuned */
   }
 }
-@media (min-width: 368px) { /* Adjust for medium screens and up */
+@media (min-width: 368px) { /* Adjust for small screens and up */
   .book-container {
-    flex-direction: row; /* Switch to horizontal layout on larger screens */
-    padding: 3.5rem 0.1rem 2rem 5rem; /* Adjust padding for larger screens, can be fine-tuned */
+    flex-direction: row; /* Switch to horizontal layout on small screens */
+    padding: 3.5rem 0.1rem 2rem 5rem; /* Adjust padding for small screens, can be fine-tuned */
   }
+  .bookshelf-popup{
+  padding: 1rem 1rem 1rem 2rem;
+  /* max-width: 80%; */
+  width:50%;
+  }
+
+  .bookshelf-popup.btn {
+    font-size: 1rem; /* Adjust font size as necessary */
+  padding: 0rem 0rem; /* Adjust padding to control the size */
+  /* max-width: 40%; */
+  font-size:12px;
+  width:50%;
+  }
+
 }
 
 @media (min-width: 992px) { /* Adjust for large screens */
   .book-container {
     padding: 5.5rem 10rem 2rem 13rem; /* Original padding for large screens */
+  }
+  .bookshelf-popup{
+  padding: 1rem 2rem 1rem 2rem;
+  width:30%;
   }
 }
 </style>
