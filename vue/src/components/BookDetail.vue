@@ -23,11 +23,11 @@
         >
           <strong>Add to Bookshelf</strong>
         </button>
-        <router-link v-else to="/login" class="btn btn-link save-book"
+        <router-link v-else to="/login" class="btn btn-primary save-book"
           ><strong>Add to Bookshelf</strong></router-link
         >
       </div>
-      <div v-if="showBookshelfPopup" class="overlay" @click="hidePopup"></div>
+      <div v-if="showBookshelfPopup" class="overlay-bookshelf" @click="hidePopup"></div>
       <div v-if="showBookshelfPopup" class="bookshelf-popup">
         <div class="d-flex justify-content-between align-items-center">
           <p class="mb-3">This book added to your Bookshelf</p>
@@ -39,11 +39,11 @@
           ></button>
         </div>
         <button
-          class="btn btn-primary btn-xs"
+          class="btn btn-primary btn-xs btn-bookshelf"
           style="text-align: center"
           @click="goToBookshelf"
         >
-          Go to Bookshelf
+          <strong> Go to Bookshelf</strong>
         </button>
       </div>
     </div>
@@ -55,32 +55,28 @@
     </div>
 
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
-    <div v-if="showAddedToCart" class="added-to-cart-popup">
-      <!-- Added to Cart -->
-      <button class="close-popup" @click="hidePopup"><strong>x</strong></button>
-      <div v-if="showErrorMessage" class="added-book-error">
-        <h5>You're already added this book to the cart</h5>
-      </div>
-      <!-- this is error message for the added page -->
-      <div v-else><h3>Added to Cart</h3></div>
-      <div class="popup-content">
-        <!-- check the book is already in the basket or not! -->
-        <img :src="book.image" class="popup-book-image" />
-        <div class="popup-detail">
-          <h4 class="popup-book-title">{{ book.title }}</h4>
-          <h5 class="popup-book-author">{{ book.author }}</h5>
-          <h5 class="popup-book-price">
-            <strong>Price: ${{ formatPrice(book.price) }}</strong>
-          </h5>
-        </div>
-      </div>
-      <div class="popup-navbar">
-        <button class="continue-shopping-bar" @click="hidePopup">
-          CONTINUE SHOPPING
-        </button>
-        <button class="go-to-cart-bar" @click="goToCart">GO TO CART</button>
-      </div>
+<div v-if="showAddedToCart" class="added-to-cart-popup p-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <div v-if="showErrorMessage" class="alert alert-warning" role="alert" style="height:auto;">
+      You've already added this book to the cart.
     </div>
+    <div v-else class="fw-bold fs-5">Added to Cart</div>
+    <button type="button" class="btn-close" aria-label="Close" @click="hidePopup"></button>
+  </div>
+  <div class="d-flex align-items-center mt-3">
+    <img :src="book.image" class="img-fluid me-3" style="width: 100px; height: auto;" />
+    <div>
+      <h5 class="mb-0">{{ book.title }}</h5>
+      <p class="mb-1">{{ book.author }}</p>
+      <p class="fw-bold">Price: ${{ formatPrice(book.price) }}</p>
+    </div>
+  </div>
+  <div class="mt-3 text-end">
+    <button @click="hidePopup" class="btn btn-outline-primary btn-sm me-2" style="color:#6b3630; border-color:#6b3630;">CONTINUE SHOPPING</button>
+    <button @click="goToCart" class="btn btn-primary btn-sm" style="color:#6b3630; background-color:antiquewhite;border:none;">GO TO CART</button>
+  </div>
+</div>
+
   </div>
 </template>
   
@@ -134,6 +130,8 @@ export default {
         this.numOfBooks++;
         this.book.qty--;
         this.showErrorMessage = false;
+        // this new method;
+        this.showModal();
       } else {
         this.showErrorMessage = true;
       }
@@ -158,17 +156,71 @@ export default {
 </script>
 
 <style scoped>
-/* new css for main container*/
-/* .main-container {
-  flex-direction: column;
-  display:flex;
 
-} */
+/* Overlay Style */
+.overlay-bookshelf {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 999; /* Ensure it's below the popup but above other content */
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+/* Added to Cart Popup Style */
+.added-to-cart-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1051;
+  background: white;
+  border-radius: 0.3rem;
+  width: auto;
+  max-width: 500px;
+  padding: 1rem;
+}
+
+/* Popup Image Style */
+.popup-book-image {
+  width: 100px;
+  height: auto;
+}
+
+/* Popup Margin and Padding Adjustments */
+.me-3 {
+  margin-right: 1rem; /* Bootstrap 5 uses margin utilities like me-3. You can adjust the value or keep it for consistency */
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.mb-0, .mb-1 {
+  margin-bottom: 0;
+  margin-bottom: 0.25rem;
+}
+
+/* Text End Alignment */
+.text-end {
+  text-align: right;
+}
+
 .book-container {
   box-sizing: border-box;
   display: flex;
   /* flex-direction: row; */
-  flex-direction:column;
+  flex-direction: column;
   font-family: "PT Sans", sans-serif;
   padding: 5.5rem 10rem 2rem 13rem;
   min-height: calc(10vh - 10px - 2px);
@@ -194,17 +246,12 @@ export default {
 }
 
 .book-image img {
-  /* Control the max width of the image */
-  /* Control the max height of the image */
-  /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   border: 1px solid #ddd; /* Add a border */
   border-radius: 1rem; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
   width: 18.5rem; /* Increase width for smaller screens */
   height: 25.75rem; /* Maintain aspect ratio */
-  /* max-width: 300px; */
-  /* max-height: 400px; */
   transition-duration: 1.25s;
 }
 
@@ -270,29 +317,7 @@ export default {
   font-family: "PT Sans", sans-serif; */
 }
 
-/* popup design */
-.added-to-cart-popup {
-  position: fixed;
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust for the element's own size */
-  padding: 10px 20px;
-  background-color: white;
-  color: #6b3630;
-  border-radius: 5px;
-  z-index: 1000;
-  text-align: left; /* Optional: for text alignment inside the popup */
-  width: 35%;
-  height: 320px;
 
-  /* max-height: 350px; */
-  font-size: 20px;
-  /* new properties */
-  display: flex;
-  flex-direction: column;
-  max-height: none; /* Remove max height or make it larger */
-  overflow: hidden; /* Hide overflow or use 'auto' to allow scrolling */
-}
 
 .bookshelf-popup {
   position: fixed;
@@ -309,7 +334,7 @@ export default {
   max-height: none;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background: white;
   font-size: 14px;
 }
 
@@ -318,55 +343,32 @@ export default {
   padding: 0.5rem 1rem; /* Adjust padding to control the size */
   width: auto; /* Set width to auto or specify a width */
   max-width: 40%; /* Ensure it doesn't exceed its container's width */
-  font-size:12px;
+  font-size: 12px;
   /* Add any other styling as necessary */
 }
 
-/* .bookshelf-btn {
-  display:flex;
-  justify-content: center;
-  margin-left:5rem;
-  margin-right:5rem;
-} */
-
-.btn-primary {
-  color: white;
-  background-color: #6b3630;
+.btn-primary.btn-bookshelf {
+  color: #6b3630;
+  background-color: oldlace;
   border: none;
   outline: none;
   height: auto;
+  font-size: 12px;
 }
 
 .btn-primary.save-book,
-.btn-primary.add-cart {
+.btn-primary.add-cart,
+.btn-primary.shopping,
+.btn-primary.cart {
   color: #6b3630;
   background-color: oldlace;
   font-size: 14px;
   height: 120%;
   width: 30%;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-  z-index: 999; /* Ensure it's below the popup but above other content */
-}
-
-/* .close-popup {
-  position: absolute;
-  top: 1rem;
-  right: 0.6rem;
   border: none;
-  background: none;
-  color: gray;
-  font-size: 0.8em; 
-  cursor: pointer;
-} */
-
+  outline: none;
+  height: auto;
+}
 .btn-close {
   /* position: absolute; */
   /* top: 1rem; */
@@ -383,13 +385,7 @@ export default {
   color: #555; /* Darken the color on hover */
 }
 
-.popup-book-image {
-  /* max-width: 70px; Adjust as per your design */
-  height: auto;
-  margin: 10px 0;
-  width: 140px;
-  max-height: 200px;
-}
+
 
 .popup-content {
   display: flex;
@@ -425,40 +421,45 @@ export default {
   }
 }
 
-  @media (min-width: 768px) { /* Adjust for medium screens and up */
+@media (min-width: 768px) {
+  /* Adjust for medium screens and up */
   .book-container {
     flex-direction: row; /* Switch to horizontal layout on larger screens */
     padding: 3.5rem 7rem 1rem 4rem; /* Adjust padding for larger screens, can be fine-tuned */
   }
 }
-@media (min-width: 368px) { /* Adjust for small screens and up */
+@media (min-width: 368px) {
+  /* Adjust for small screens and up */
   .book-container {
     flex-direction: row; /* Switch to horizontal layout on small screens */
     padding: 3.5rem 0.1rem 2rem 5rem; /* Adjust padding for small screens, can be fine-tuned */
   }
-  .bookshelf-popup{
-  padding: 1rem 1rem 1rem 2rem;
-  /* max-width: 80%; */
-  width:50%;
+  .bookshelf-popup {
+    padding: 1rem 1rem 1rem 2rem;
+    /* max-width: 80%; */
+    width: 50%;
+  }
+
+  .btn-primary.save-book {
+    width: 43%;
   }
 
   .bookshelf-popup.btn {
     font-size: 1rem; /* Adjust font size as necessary */
-  padding: 0rem 0rem; /* Adjust padding to control the size */
-  /* max-width: 40%; */
-  font-size:12px;
-  width:50%;
+    padding: 0rem 0rem; /* Adjust padding to control the size */
+    font-size: 12px;
+    width: 50%;
   }
-
 }
 
-@media (min-width: 992px) { /* Adjust for large screens */
+@media (min-width: 992px) {
+  /* Adjust for large screens */
   .book-container {
     padding: 5.5rem 10rem 2rem 13rem; /* Original padding for large screens */
   }
-  .bookshelf-popup{
-  padding: 1rem 2rem 1rem 2rem;
-  width:30%;
+  .bookshelf-popup {
+    padding: 1rem 2rem 1rem 2rem;
+    width: 30%;
   }
 }
 </style>
