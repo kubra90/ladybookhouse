@@ -49,41 +49,42 @@
     <div>
       <button class="btn btn-outline-secondary me-2" @click="goToHomePage">Continue Shopping</button>
       <router-link v-bind:to="{name: 'checkout'}">
-        <button class="btn btn-primary">Checkout</button>
+        <button class="btn btn-primary" style="color:oldlace; background-color:#fa8072; border:none;">Checkout</button>
       </router-link>
     </div>
   </div>
 </nav>
 <div v-if="!checkBook" class="container mt-4">There is no book in your cart</div>
 <div class="container mt-4">
-  <div v-for="(book, index) in cartBooks" :key="index" class="card mb-3">
+  <div v-for="(book, index) in cartBooks" :key="index" class="card mb-3 border-0">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-sm-4 col-md-3 col-lg-2 col-6 col-xs-12">
         <router-link :to="{ name: 'detail', params: { sku: book.sku }}">
-          <img :src="book.image" alt="Book Image" class="img-fluid rounded-start"/>
+          <img :src="book.image" alt="Book Image" class="img-fluid rounded-start book-image"/>
         </router-link>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-9 col-lg-10 col-sm-8">
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">{{ book.author }}</p>
           <div class="d-flex justify-content-between align-items-center">
-           <button class="btn btn-outline-danger btn-sm" @click="confirmRemoveBook(index)">Remove Item</button>
-           <p class="card-text">${{ formatPrice(book.price) }}</p>
+           <button class="btn btn-link remove-item" style="padding-left:0rem;" @click="confirmRemoveBook(index)">Remove Item</button>
+           <p class="card-text ms-auto text-end" style="padding-right:0rem;">${{ formatPrice(book.price) }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div><hr></div>
 </div>
 <div v-if="checkBook" class="container my-4">
   <div class="d-flex justify-content-end">
     <div class="text-end">
       <p class="mb-1">Subtotal: <span>${{ formatPrice(subTotalPrice) }}</span></p>
       <p class="mb-1">Shipping: <span>${{ formatPrice(totalShippingCost) }}</span></p>
-      <p class="fw-bold">Order Total: <span>${{ formatPrice(totalPrice) }}</span></p>
-      <router-link to="{name: 'checkout'}">
-        <button class="btn btn-primary mt-2">Checkout</button>
+      <p class="fw-bold">Order Total: <span style="color:chocolate;">${{ formatPrice(totalPrice) }}</span></p>
+      <router-link v-bind:to="{name: 'checkout'}">
+        <button class="btn btn-primary mt-2" style="color:oldlace; background-color:#fa8072; border:none;">Checkout</button>
       </router-link>
     </div>
   </div>
@@ -164,14 +165,13 @@ export default {
 </script>
 
 <style scoped>
-/* .cart-container {
-  display: flex;
-  flex-direction: column;
-} */
 
-.container{
-  /* padding-left: 0.9rem; */
+.btn-link.remove-item {
+  font-size:12px;
+  color:black;
+  /* margin-right: 30px; */
 }
+
 
 .book-item {
   display: flex;
@@ -242,7 +242,7 @@ export default {
   margin-top:2%;
 }
 
-.book-image {
+/* .book-image {
   height: auto; 
   border: 1px solid #ddd; 
   border-radius: 8px; 
@@ -250,7 +250,8 @@ export default {
   width: 120px; 
   height: 170px; 
   margin-right:1%;
-}
+} */
+
 
 .book-price {
   display: flex;
@@ -320,5 +321,26 @@ export default {
   /* margin-bottom: 2rem; */
 
 }
+
+@media (max-width: 576px) {
+  /* Adjust for small screens and up */
+  .card-title{
+    padding: 0rem;
+    font-size:17px;
+  }
+
+  .btn-primary.save-book {
+    width: 43%;
+  }
+
+  .bookshelf-popup.btn {
+    font-size: 1rem; /* Adjust font size as necessary */
+    padding: 0rem 0rem; /* Adjust padding to control the size */
+    font-size: 12px;
+    width: 50%;
+  }
+}
+
+
 </style>
 
