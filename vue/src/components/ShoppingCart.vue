@@ -1,14 +1,12 @@
-<template>
+<!-- <template>
   <div class="cart-container">
     <div class="cart-header">
       <h4>Shopping Cart</h4>
       <button class="continue-shopping" @click="goToHomePage"><strong>CONTINUE SHOPPING</strong> </button>
-      <!-- this goes the checkout page! -->
       <router-link v-bind:to="{name: 'checkout'}">
       <button class="checkout"><strong>CHECKOUT</strong></button>
     </router-link>
     </div>
-    <!-- if statement if there is specific items  -->
     <div v-if=!checkBook>There is no book in your cart</div>
     <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
       <div class="book-detail">
@@ -38,6 +36,61 @@
       </router-link>
     </div>
   </div>
+</template>   -->
+
+
+<!-- new component with bootstrap 5 -->
+
+<template>
+  <div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-none">
+  <div class="container">
+    <a class="navbar-brand" href="#">Shopping Cart</a>
+    <div>
+      <button class="btn btn-outline-secondary me-2" @click="goToHomePage">Continue Shopping</button>
+      <router-link v-bind:to="{name: 'checkout'}">
+        <button class="btn btn-primary">Checkout</button>
+      </router-link>
+    </div>
+  </div>
+</nav>
+<div v-if="!checkBook" class="container mt-4">There is no book in your cart</div>
+<div class="container mt-4">
+  <div v-for="(book, index) in cartBooks" :key="index" class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <router-link :to="{ name: 'detail', params: { sku: book.sku }}">
+          <img :src="book.image" alt="Book Image" class="img-fluid rounded-start"/>
+        </router-link>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">{{ book.author }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+           <button class="btn btn-outline-danger btn-sm" @click="confirmRemoveBook(index)">Remove Item</button>
+           <p class="card-text">${{ formatPrice(book.price) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div v-if="checkBook" class="container my-4">
+  <div class="d-flex justify-content-end">
+    <div class="text-end">
+      <p class="mb-1">Subtotal: <span>${{ formatPrice(subTotalPrice) }}</span></p>
+      <p class="mb-1">Shipping: <span>${{ formatPrice(totalShippingCost) }}</span></p>
+      <p class="fw-bold">Order Total: <span>${{ formatPrice(totalPrice) }}</span></p>
+      <router-link to="{name: 'checkout'}">
+        <button class="btn btn-primary mt-2">Checkout</button>
+      </router-link>
+    </div>
+  </div>
+</div>
+</div>
+
+
 </template>
 
 <script>
@@ -111,9 +164,13 @@ export default {
 </script>
 
 <style scoped>
-.cart-container {
+/* .cart-container {
   display: flex;
   flex-direction: column;
+} */
+
+.container{
+  /* padding-left: 0.9rem; */
 }
 
 .book-item {
