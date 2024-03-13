@@ -1,19 +1,32 @@
 <template>
-  <div id="new-arrivals">
-    <div class="title-link">
-      <h3><strong>New Arrivals</strong></h3>
-      <router-link :to="{ name: 'new-arrivals-view' }" class="link"><button class="button">See All New Arrivals</button></router-link>
+  <div class="container">
+    <div class="row align-items-center m-4 title">
+      <div class="col-6">
+        <h3><strong>New Arrivals</strong></h3>
+      </div>
+      <div class="col-6 text-end button">
+        <router-link
+          :to="{ name: 'new-arrivals-view' }"
+          class="btn btn-primary btn-sm btn-custom"
+          >See New Arrivals</router-link
+        >
+      </div>
     </div>
-    <ul>
-     <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
-    </ul>
+    <div class="book-cards">
+      <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+        <book-card
+          v-for="book in paginatedList"
+          :book="book"
+          :key="book.isbn"
+        />
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-
 import BookCard from "@/components/BookCard.vue"
-import {mapState, mapGetters, mapActions} from "vuex"
+import { mapState, mapGetters, mapActions } from "vuex"
 
 export default {
   name: "new-arrivals",
@@ -21,55 +34,35 @@ export default {
   components: {
     BookCard
   },
-  
+
   computed: {
     paginatedList() {
       return this.newBookArrivals.slice(0, 4)
     },
-    // ...mapState(["newArrivals"]),
-     ...mapState(['books']),
-     ...mapGetters(['newBookArrivals'])
+    ...mapState(["books"]),
+    ...mapGetters(["newBookArrivals"])
   },
-  
-  methods: {
-    // ...mapActions(["fetchNewArrivals"])
-    ...mapActions(['fetchBooks'])
 
+  methods: {
+    ...mapActions(["fetchBooks"])
   },
-  
+
   created() {
-    // this.fetchNewArrivals()
     this.fetchBooks()
   }
 }
-
 </script>
 
 <style scoped>
-.title-link h3 {
-  padding-left: 45px;
+h3 {
   color: #e2907a;
 }
 
-.title-link {
-  display: flex;
-  justify-content: space-between;
-}
-
-.link {
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  flex-direction:row;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding-right: 90px;
-}
-
 .button {
-  margin: auto;
-  height: 4rem;
-  width: 100%;
+  padding-right: 4rem;
+}
+
+.btn-custom {
   background: #e2907a;
   color: #fff;
   text-align: center;
@@ -79,58 +72,13 @@ export default {
   border-radius: 0.6rem;
   box-shadow: 0 3px #999;
 }
-.button:hover {background-color: #e08167}
+.btn-custom:hover {
+  background-color: #e27253;
+}
 
-.button:active {
-  background-color: #e08167;
+.btn-custom:active {
+  background-color: #d16e53;
   box-shadow: 0 2px #666;
   transform: translateY(4px);
 }
-
-#new-arrivals ul {
-  margin-top:50px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-  gap: 10px;
-  list-style-type: none;
-  padding-left: 45px;
- }
-
-#new-arrivals li {
-  text-align: center;
-}
-
-#new-arrivals {
-  padding: 45px 90px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  #new-arrivals ul {
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 20px;
-  }
-
-  #new-arrivals {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  #new-arrivals ul {
-    grid-template-columns: 1fr; /* 1 book per row for mobiles */
-  }
-}
-
 </style>
-
-
-
-
-
-
-
-
-
-
-
