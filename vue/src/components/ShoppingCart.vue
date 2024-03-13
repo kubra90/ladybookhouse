@@ -45,17 +45,18 @@
   <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-none">
   <div class="container">
-    <a class="navbar-brand" href="#">Shopping Cart</a>
+    <a class="navbar-brand" style="font-size:25px; color:brown;" href="#">Shopping Cart</a>
     <div>
       <button class="btn btn-outline-secondary me-2" @click="goToHomePage">Continue Shopping</button>
       <router-link v-bind:to="{name: 'checkout'}">
-        <button class="btn btn-primary" style="color:oldlace; background-color:#fa8072; border:none;">Checkout</button>
+        <button class="btn btn-primary" style="color:oldlace; background-color:#fa8072; border:none;"><strong>Checkout</strong></button>
       </router-link>
     </div>
   </div>
 </nav>
 <div v-if="!checkBook" class="container mt-4">There is no book in your cart</div>
 <div class="container mt-4">
+  <div><hr></div>
   <div v-for="(book, index) in cartBooks" :key="index" class="card mb-3 border-0">
     <div class="row g-0">
       <div class="col-sm-4 col-md-3 col-lg-2 col-6 col-xs-12">
@@ -82,9 +83,9 @@
     <div class="text-end">
       <p class="mb-1">Subtotal: <span>${{ formatPrice(subTotalPrice) }}</span></p>
       <p class="mb-1">Shipping: <span>${{ formatPrice(totalShippingCost) }}</span></p>
-      <p class="fw-bold">Order Total: <span style="color:chocolate;">${{ formatPrice(totalPrice) }}</span></p>
+      <p class="mb-0">Order Total: <span style="color:chocolate;">${{ formatPrice(totalPrice) }}</span></p>
       <router-link v-bind:to="{name: 'checkout'}">
-        <button class="btn btn-primary mt-2" style="color:oldlace; background-color:#fa8072; border:none;">Checkout</button>
+        <button class="btn btn-primary mt-2" style="color:oldlace; background-color:#fa8072; border:none;"><strong>Checkout</strong></button>
       </router-link>
     </div>
   </div>
