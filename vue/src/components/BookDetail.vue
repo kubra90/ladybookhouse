@@ -66,7 +66,7 @@
   <div class="d-flex align-items-center mt-3">
     <img :src="book.image" class="img-fluid me-3" style="width: 100px; height: auto;" />
     <div>
-      <h5 class="mb-0">{{ book.title }}</h5>
+      <h5 class="mb-0 book-title">{{ book.title }}</h5>
       <p class="mb-1">{{ book.author }}</p>
       <p class="fw-bold">Price: ${{ formatPrice(book.price) }}</p>
     </div>
