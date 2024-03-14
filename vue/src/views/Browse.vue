@@ -1,15 +1,22 @@
 <template>
   <div>
     <header-page />
-    <h3 class="links-title">Browse Categories</h3>
-    <div class="links">
-      <router-link
-        :to="{ path: `/${category}` }"
-        v-for="category in categories"
-        :key="category"
-      >
-        <div class="link">{{ category }}</div>
-      </router-link>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-3 m-3">
+          <h3 class="links-title mb-3">Browse Categories</h3>
+        </div>
+      </div>
+      <div class="row">
+        <router-link
+          :to="{ path: `/${category}` }"
+          v-for="category in categories"
+          :key="category"
+          class="col-md-3 mb-3 m-3 text-decoration-none"
+        >
+          <div class="link">{{ category }}</div>
+        </router-link>
+      </div>
     </div>
     <hr />
     <featured-books />
@@ -19,8 +26,8 @@
 
 <script>
 import HeaderPage from "../components/HeaderPage.vue"
-import FooterPage from "@/components/FooterPage.vue"
-import FeaturedBooks from "@/components/FeaturedBooks.vue"
+import FooterPage from "../components/FooterPage.vue"
+import FeaturedBooks from "../components/FeaturedBooks.vue"
 
 export default {
   name: "browse",
@@ -40,38 +47,25 @@ export default {
         "Design",
         "Technology",
         "Art",
-        "Language",
-      ],
+        "Language"
+      ]
     }
   },
   components: {
     HeaderPage,
     FooterPage,
-    FeaturedBooks,
+    FeaturedBooks
   }
 }
 </script>
 
 <style scoped>
-.links {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  max-width: 100%;
-  padding-inline-start: 12rem;
-}
-
 .links-title {
   color: #e2907a;
-  padding-inline-start: 13rem;
   font-weight: 700;
-  margin-top: 3rem;
 }
 
 .link {
-  display: inline-block;
-  margin: 1rem;
-  padding: 0.2rem;
-  text-align: center;
   color: #dc8a73;
 }
 
