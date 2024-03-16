@@ -21,18 +21,18 @@ export default {
 
 <style scoped>
 .detail {
-  flex:1;
+  /* flex:1; */
 }
 
 .detail-page {
-  display:flex;
+  /* display:flex;
   flex-direction:column;
   height:100%;
-  margin:0;
+  margin:0; */
 }
 
 .footer {
-  display:flex;
-  bottom:0;
+  /* display:flex;
+  bottom:0; */
 }
 </style>

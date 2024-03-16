@@ -1,20 +1,20 @@
 <template>
-  <div>
-    <!-- <HeaderPage/> -->
-    <about-lady/>
-    <!-- <FooterPage class="footer"/> -->
+  <div class="about-container">
+    <HeaderPage/>
+    <about-lady class="about-lady-body"/>
+    <FooterPage class="footer"/>
   </div>
 </template>
 
 <script>
 import AboutLady from "../components/AboutLady.vue"
-// import HeaderPage from "../components/HeaderPage.vue"
-// import FooterPage from "../components/FooterPage.vue"
+import HeaderPage from "../components/HeaderPage.vue"
+import FooterPage from "../components/FooterPage.vue"
 
 export default {
   name: "about",
   components: {
-    AboutLady
+    AboutLady, HeaderPage, FooterPage
   }
 }
 </script>
@@ -22,6 +22,22 @@ export default {
 <style scoped>
 /* .footer {
   position:absolute;
+  bottom:0;
+} */
+
+/* .about-lady-body {
+  flex:1;
+}
+
+.about-container{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  margin:0;
+}
+
+.footer {
+  display:flex;
   bottom:0;
 } */
 </style>
