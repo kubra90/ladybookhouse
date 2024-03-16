@@ -47,7 +47,7 @@
 </template> -->
 
 <template>
-  <div class="container about-us-container">
+  <div class="container about-us-container mt-4">
     <div class="row">
       <div class="col-12">
         <h4 class="title-lb">Welcome Lady Bookhouse</h4>
@@ -106,12 +106,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-.about-us-container {
-  padding: 0.75em 2.5em 1.25em 6.25em;
-  margin: 2.5em 1em;
-}
 
 .img-fluid{
   width: 4.5em; 

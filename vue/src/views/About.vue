@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import AboutLady from "../components/AboutLady.vue"
-import HeaderPage from "../components/HeaderPage.vue"
-import FooterPage from "../components/FooterPage.vue"
+import AboutLady from "@/components/AboutLady.vue"
+import HeaderPage from "@/components/HeaderPage.vue"
+import FooterPage from "@/components/FooterPage.vue"
 
 export default {
   name: "about",
@@ -25,20 +25,19 @@ export default {
   bottom:0;
 } */
 
-/* .about-lady-body {
+ .about-lady-body {
   flex:1;
-}
+} 
 
 .about-container{
   display:flex;
   flex-direction:column;
   height:100%;
-  margin:0;
 }
 
-.footer {
+/* .footer {
   display:flex;
   bottom:0;
-} */
+}  */
 </style>
 
