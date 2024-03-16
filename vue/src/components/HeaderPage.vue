@@ -1,401 +1,191 @@
 <template>
-  <header class="header-container">
-    <div class="header-top">
-      <!-- First Box: Account and Cart -->
-      <div class="top-right-container">
-        <div class="account-cart">
-          <div class="dropdown" v-if="isAuthenticated">
-            <button
-              class="btn btn-secondary btn-sm dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              My Account 
-            </button>
-            <span>|</span>
-            <ul class="dropdown-menu">
-              <li><button class="dropdown-item" type="button"><router-link to="/account">My account</router-link></button></li>
-    <li><button class="dropdown-item" type="button"> <router-link to="/checkOrders">Orders</router-link></button></li>
-    <li><button class="dropdown-item" type="button">  <router-link to="/saved_books">Bookshelf </router-link></button></li>
-            </ul>
-          </div>
+	<header class="header-container header-custom">
+		<div class="container">
+			<div class="row align-items-center justify-content-between">
+				<!-- Website Name and Navigation Links -->
+				<div class="col-md-auto">
+					<h1 class="mt-4 mb-0">Lady Bookhouse</h1>
+				</div>
 
-          <router-link v-else to="/login">Your account |</router-link>
-          <router-link v-show="isAuthenticated" to="/logout"
-            >Logout</router-link
-          >
-          <!-- <i class="fa fa-shopping-cart"></i> -->
-          <router-link
-            v-bind:to="{
-              name: 'cart',
-            }"
-          >
-            <i class="fa fa-shopping-cart"></i>
-            <span class="cart-count">({{ basketCount }} items)</span>
-          </router-link>
-        </div>
+				<!-- Account/Cart Links and Search Bar -->
+				<div class="col-md-auto">
+					<div class="d-flex align-items-center">
+						<!-- Account/Cart Links -->
+						<div class="me-3">
+							<router-link v-if="isAuthenticated" to="/account" class="btn btn-sm btn-secondary">My
+								Account</router-link>
+							<router-link v-else to="/login" class="btn btn-sm btn-secondary">Your Account
+							</router-link>
+							<router-link v-bind:to="{ name: 'cart' }" class="btn btn-sm btn-secondary">
+								<i class="fas fa-shopping-cart me-1"></i>
+								<span>{{ basketCount }} items</span>
+							</router-link>
+							<router-link v-if="isAuthenticated" to="/logout" class="btn btn-sm btn-secondary">Logout</router-link>
+						</div>
 
-      
+						<!-- Search Bar -->
+						<div class="col-md-auto">
+							<form class="d-flex">
+								<input v-model="searchText" type="text" class="form-control me-2 search-box shadow-none"
+									placeholder="Search" aria-label="Search" />
+								<button class="btn btn-outline-secondary" type="submit" @click.prevent="searchAllBookDetails">
+									<i class="fas fa-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="mb-3 custom-search-form">
-          <!-- Bootstrap 5 no longer uses .form-group; .mb-3 is for margin -->
-          <div class="input-group">
-            <input
-              v-model="searchText"
-              type="text"
-              class="form-control"
-              placeholder="Author, title, or keyword"
-              aria-label="Search"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="submit"
-              @click.prevent="searchAllBookDetails"
-            >
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Third Box: App Name -->
-      <div class="app-name"><p>Lady Bookhouse</p></div>
-
-      <!-- Fourth Box: Navigation Links -->
-      <nav class="header-nav">
-        <router-link v-bind:to="{ name: 'home' }">Home</router-link>
-        <!-- <a href="/search">Search</a> -->
-        <router-link v-bind:to="{ name: 'advanced-search' }"
-          >Search</router-link
-        >
-        <a href="/browse">Browse</a>
-        <router-link v-bind:to="{ name: 'new-arrivals-view' }"
-          >New Arrivals</router-link
-        >
-        <a href="/rare-books">Rare Books</a>
-        <a href="/about">About</a>
-        <router-link v-bind:to="{ name: 'contact' }">Contact</router-link>
-        <!-- instagram icon -->
-        <!-- <i class="fa fa-instagram"></i> -->
-        <a
-          href="https://www.instagram.com/ladybookhouse/"
-          class="account-instagram"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-instagram"></i>
-        </a>
-      </nav>
-    </div>
-  </header>
+		<!-- Responsive Navbar for Navigation Links -->
+		<nav class="navbar navbar-expand-md navbar-light nav-custom mt-4">
+			<div class="container">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<router-link v-bind:to="{ name: 'home' }" class="nav-link">Home</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link v-bind:to="{ name: 'advanced-search' }" class="nav-link">Search</router-link>
+						</li>
+						<li class="nav-item">
+							<a href="/browse" class="nav-link">Browse</a>
+						</li>
+						<li class="nav-item">
+							<router-link v-bind:to="{ name: 'new-arrivals-view' }" class="nav-link">New Arrivals</router-link>
+						</li>
+						<li class="nav-item">
+							<a href="/rare-books" class="nav-link">Rare Books</a>
+						</li>
+						<li class="nav-item">
+							<router-link v-bind:to="{ name: 'about' }" class="nav-link">About</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link v-bind:to="{ name: 'contact' }" class="nav-link">Contact</router-link>
+						</li>
+						<!-- Instagram Icon -->
+						<div class="insta-icon">
+							<a href="https://www.instagram.com/ladybookhouse/" class="nav-link" target="_blank"
+								rel="noopener noreferrer">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 </template>
 
-  
-  <script>
-import { mapState, mapGetters } from "vuex";
+<script>
+import { mapState, mapGetters } from "vuex"
+
 export default {
-  name: "header-page",
-  data() {
-    return {
-      isClicked: false,
-      searchText: "",
-    };
-  },
-  methods: {
-    toggleClick() {
-      this.isClicked = !this.isClicked;
-    },
+	name: "header-page",
+	data() {
+		return {
+			isClicked: false,
+			searchText: ""
+		}
+	},
+	methods: {
+		toggleClick() {
+			this.isClicked = !this.isClicked
+		},
 
-    searchAllBookDetails() {
-      const filteredDetails = this.books.filter((book) => {
-        const filteredMatch = this.searchText
-          ? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
-            book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-            book.isbn === this.searchText ||
-            book.publisher
-              .toLowerCase()
-              .includes(this.searchText.toLowerCase()) ||
-            book.category.toLowerCase().includes(this.searchText.toLowerCase())
-          : true;
+		searchAllBookDetails() {
+			const filteredDetails = this.books.filter((book) => {
+				const filteredMatch = this.searchText
+					? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.isbn === this.searchText ||
+					book.publisher
+						.toLowerCase()
+						.includes(this.searchText.toLowerCase()) ||
+					book.category.toLowerCase().includes(this.searchText.toLowerCase())
+					: true
 
-        return filteredMatch;
-      });
+				return filteredMatch
+			})
 
-      console.log(filteredDetails);
-      for (let book of filteredDetails) {
-        console.log(book.title);
-        console.log(book.author);
-      }
-    },
-  },
+			console.log(filteredDetails)
+			for (let book of filteredDetails) {
+				console.log(book.title)
+				console.log(book.author)
+			}
+		}
+	},
 
-  created() {
-    this.$store.dispatch("fetchBooks");
-  },
+	created() {
+		this.$store.dispatch("fetchBooks")
+	},
 
-  // Your script here
-  computed: {
-    ...mapState(["basketCount", "user", "books"]),
-    ...mapGetters(["isAuthenticated"]),
-  },
-};
+	computed: {
+		...mapState(["basketCount", "user", "books"]),
+		...mapGetters(["isAuthenticated"])
+	}
+}
 </script>
 
 <style scoped>
-/* Adjusted Styles */
-
-.btn-outline-secondary{
-  border: none;
-  color: orange;
-  background-color:brown;
-  height:2rem;
+.header-custom {
+	background-color: #fdf5e6;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
 }
 
-.header-container {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  width: 100%;
+h1 {
+	font-family: "PT Sans", sans-serif;
+	font-weight: 600;
+	color: #fa8072;
 }
 
-.header-top {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
+.btn-outline-secondary {
+	border: none;
+	color: orange;
+	background-color: brown;
+	height: 2rem;
 }
 
-.top-right-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items:end;
-  gap: 5px; /* Adjust gap between account/cart and search form */
+.btn-secondary {
+	background: none;
+	color: #6b3630;
+	border: none;
 }
 
-.custom-search-form {
-  width: 16%;
-  display: flex;
-  justify-content: flex-end;
-  margin-right:6rem;
-
- 
-}
-
-.btn-secondary{
-  background:none;
-  color:#6b3630;;
-  border:none;
-  
-}
-
-.form-control {
-  font-size:12px;
-}
-
-/* new 2222 */
-
-/* .main {
-  width: 50%;
-  margin: 50px auto;
-} */
-
-.header-container {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  background-color: #fdf5e6;
-  padding-right: 0px;
-  width: 100%;
-
-  /* width: 100vw;
-  height: 15vw; */
-  top: 0;
-  margin-top: 0px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-}
-
-.header-top {
-  display: flex;
-  flex-direction: column; /* Change to column layout */
-  /* align-items: flex-start; */
-  /* margin-right:0px; */
-  /* padding: 10px; */
-}
-.account-cart,
-.app-name,
-.fa-instagram,
-.header-nav {
-  width: 90%; /* Full width for each row */
-  display: flex;
-  flex-direction:row;
-}
-
-.account-cart,
-.search-bar {
-  justify-content: right;
-  padding-top: 7px;
-  padding-right: 70px;
-}
-
-/* search icon updated responsive css */
-/* .search-box {
-  max-width: 200px; /* Maximum width */
-/* width: 100%; /* Make it flexible */
-/* border: 2px solid #6b3630;
-  cursor: pointer; */
-/* 
-.search-bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-} */
-
-.fa-instagram {
-  font-size: 1em;
-  color: #6b3630;
-  margin-left: 33em;
-  margin-right: 3em;
-
-  /* Circle background */
-  background: white;
-  border-radius: 50%;
-  width: 1.6em;
-  height: 1.6em;
-  /* padding: 0.5em;  */
-  margin-top: 0.18em;
-  align-items: center;
-  justify-content: center; /* Horizontally center the content */
-}
-
-.search-bar .search-box.clicked {
-  /* border-color: #6B3630; */
-  border: 2px solid #6b3630;
+.search-box,
+.search-box:active {
+	border: 2px solid #6b3630;
 }
 
 .search-icon {
-  position: absolute;
-  right: 8rem;
-  color: #6b3630;
-  margin-left: auto;
-}
-/* responsive design for the smaller screen */
-/* @media screen and (max-width: 600px) { */
-@media screen and (max-width: 768px) {
-  .search-box {
-    max-width: 100%; /* Allow it to expand */
-    width: 40%; /* Take more width on smaller screens */
-  }
-
-  .search-icon {
-    /* Adjust icon size or position if needed */
-    margin-left: auto;
-  }
+	position: absolute;
+	color: #6b3630;
+	margin-left: auto;
 }
 
-/* until here the search bar css */
-
-.fa-shopping-cart {
-  margin-top: 2px;
-  font-size: 16px;
+.nav-custom {
+	background-color: #fa8072;
 }
 
-.cart-count {
-  margin-left: 3px;
-  font-size: 12px;
+.nav-link {
+	color: #6b3630;
+	font-weight: 600;
+	font-size: medium;
 }
 
-.app-name {
-  /* Adjust the font size as needed */
-  /* font-weight: bold; */
-  flex-grow: 1; /* Allows the app name to grow and take available space */
-  /* Center the text if desired */
-  padding-top: 15px;
-  padding-right: 40px;
-  padding-left: 130px;
-  padding-bottom: 20px;
-  width: 100%; /* Ensures it spans the full width of the row */
-  line-height: 1;
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  font-family: "PT Sans", sans-serif;
-  font-weight: 400; /* Try a bolder weight */
-  font-size: 60px;
-  height: 50px;
-  margin-bottom: 30px;
-  color: #fa8072;
-}
-
-.header-nav {
-  width: calc(100% - 110px - 20px);
-
-  box-sizing: border-box;
-  justify-content: left;
-  background-color: #fa8072;
-  padding-bottom: 3px;
-  /* padding-right:40px; */
-  /* Match the width of .app-name, considering its padding */
-  margin-left: 130px; /* Align with .app-name */
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.account-cart a,
-.header-nav a {
-  text-decoration: none;
-  padding: 3px;
-  margin: 3px;
-  /* color:	#B22222; */
-  color: #6b3630;
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    padding: 10px; /* Reduce padding */
-  }
-
-  .app-name {
-    font-size: 40px; /* Reduce font size */
-    padding-left: 20px; /* Adjust padding */
-  }
-
-  .header-nav {
-    flex-wrap: wrap; /* Allow nav items to wrap */
-    justify-content: center; /* Center the items */
-    margin-left: 0; /* Reset margin */
-    margin-right: 0;
-  }
-
-  .account-cart {
-    padding-right: 20px; /* Adjust padding */
-    justify-content: space-between; /* Adjust alignment */
-  }
-}
-
-@media (max-width: 480px) {
-  .header-top {
-    flex-direction: column; /* Stack all items vertically */
-    align-items: center; /* Center align items */
-  }
-
-  .app-name {
-    font-size: 30px; /* Further reduce font size */
-    padding: 10px 0; /* Adjust padding */
-  }
-
-  .header-nav {
-    flex-wrap: wrap; /* Ensure nav items can wrap on small screens */
-    justify-content: center; /* Center the items */
-    gap: 10px; /* Adjust gap between items */
-  }
-
-  .account-cart {
-    padding: 0; /* Remove padding */
-    width: 100%; /* Full width */
-  }
+.insta-icon {
+	display: grid;
+	place-content: center;
+	margin-left: 33em;
+	background-color: white;
+	border-radius: 50%;
+	width: 2em;
+	height: 2em;
 }
 </style>
-
