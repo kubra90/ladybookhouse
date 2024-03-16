@@ -1,10 +1,10 @@
 <template>
-<div class="home">
-  <HeaderPage/>
-  <NewArrivals/>
-  <FeaturedBooks/>
-  <FooterPage/>
-</div>
+  <div class="home">
+    <HeaderPage />
+    <NewArrivals />
+    <FeaturedBooks />
+    <FooterPage />
+  </div>
 </template>
 
 <script>
@@ -16,17 +16,16 @@ import FooterPage from "@/components/FooterPage.vue"
 export default {
   name: "home",
   components: {
-   HeaderPage, NewArrivals, FeaturedBooks,FooterPage
+    HeaderPage, NewArrivals, FeaturedBooks, FooterPage
   }
 }
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-  padding: 0px;
-  font-size:13px;
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
 }
-
-
 </style>
