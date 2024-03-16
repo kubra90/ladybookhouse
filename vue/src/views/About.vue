@@ -20,10 +20,6 @@ export default {
 </script>
 
 <style scoped>
-/* .footer {
-  position:absolute;
-  bottom:0;
-} */
 
  .about-lady-body {
   flex:1;
@@ -35,9 +31,6 @@ export default {
   height:100%;
 }
 
-/* .footer {
-  display:flex;
-  bottom:0;
-}  */
+
 </style>
 

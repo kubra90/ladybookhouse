@@ -1,5 +1,5 @@
 <template>
-  <div class="book-container flex-column flex-lg-row">
+  <div class="container book-container d-flex flex-column flex-lg-row align-items-center justify-content-center">
     <div class="book-details mb-4 mb-lg-0">
       <p>
         <strong style="font-size: medium">{{ book.title }}</strong>
@@ -217,20 +217,20 @@ export default {
 }
 
 .book-container {
-  box-sizing: border-box;
-  display: flex;
+  /* box-sizing: border-box;
+  display: flex; */
   /* flex-direction: row; */
-  flex-direction: column;
+  /* flex-direction: column; */
   font-family: "PT Sans", sans-serif;
-  padding: 5.5rem 10rem 2rem 13rem;
-  min-height: calc(10vh - 10px - 2px);
+  /* padding: 5.5rem 10rem 2rem 13rem;
+  min-height: calc(10vh - 10px - 2px); */
 }
 
 .book-details {
   flex: 2; /* Allocate more space to the details */
   display: flex;
   flex-direction: column;
-  padding-right: 6.25rem; /* Add some spacing between the details and the image */
+  padding-right: 6.25rem; 
 }
 
 .book-image {
@@ -432,7 +432,7 @@ export default {
   /* Adjust for small screens and up */
   .book-container {
     flex-direction: row; /* Switch to horizontal layout on small screens */
-    padding: 3.5rem 0.1rem 2rem 5rem; /* Adjust padding for small screens, can be fine-tuned */
+    padding: 2.5rem 0rem 2rem 1rem; /* Adjust padding for small screens, can be fine-tuned */
   }
   .bookshelf-popup {
     padding: 1rem 1rem 1rem 2rem;
@@ -441,7 +441,7 @@ export default {
   }
 
   .btn-primary.save-book {
-    width: 43%;
+    width: 55%;
   }
 
   .bookshelf-popup.btn {
@@ -455,7 +455,8 @@ export default {
 @media (min-width: 992px) {
   /* Adjust for large screens */
   .book-container {
-    padding: 5.5rem 10rem 2rem 13rem; /* Original padding for large screens */
+    /* Original padding for large screens */
+    /* padding: 5.5rem 10rem 2rem 13rem;  */
   }
   .bookshelf-popup {
     padding: 1rem 2rem 1rem 2rem;
