@@ -54,7 +54,8 @@
 							<router-link v-bind:to="{ name: 'advanced-search' }" class="nav-link">Search</router-link>
 						</li>
 						<li class="nav-item">
-							<a href="/browse" class="nav-link">Browse</a>
+							<!-- <a href="/browse" class="nav-link">Browse</a> -->
+							<router-link v-bind:to="{name: 'browse'}" class="nav-link">Browse</router-link>
 						</li>
 						<li class="nav-item">
 							<router-link v-bind:to="{ name: 'new-arrivals-view' }" class="nav-link">New Arrivals</router-link>
