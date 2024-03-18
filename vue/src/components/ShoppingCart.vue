@@ -13,10 +13,12 @@
   </div>
 </nav>
 <div v-if="!checkBook" class="container d-flex mt-5 align-items-center justify-content-center">
-  <div class="col-md-4 mb-4" >The shopping basket is empty. 
-    <router-link v-bind:to="{name: 'login'}">Sign on</router-link> to your account to see saved items from a previous visit.
-Or 
-<router-link v-bind:to="{name: 'advanced-search'}"> search </router-link>for books to fill it up.</div>
+  <div class="col-md-4 mb-6" >
+    <div  v-if="!isAuthenticated">The shopping basket is empty. 
+    <router-link v-bind:to="{name: 'login'}">Sign on</router-link> to your account to see saved items from a previous visit. Or 
+    <router-link v-bind:to="{name: 'advanced-search'}"> search </router-link>for books to fill it up.</div>
+     <div v-else-if="isAuthenticated">Go to <router-link v-bind:to="{name: 'home'}">home</router-link> page to continue shopping or <router-link v-bind:to="{name: 'advanced-search'}"> search </router-link>for books to fill it up.</div>
+   </div>
 </div>
 <template v-if="checkBook">
 <div class="container mt-4">
@@ -59,12 +61,13 @@ Or
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: "shopping-cart",
   computed: {
     
     ...mapState(['cartBooks']),
+    ...mapGetters(['isAuthenticated']),
     checkBook(){
       let checkBookCart = false;
       if(this.cartBooks.length > 0){
@@ -121,7 +124,8 @@ export default {
     removeBookFromCart(index){
       this.removeBook(index)
     },
-    ...mapActions(['removeBook']),
+    ...mapActions(['removeBook'])
+    
   }
   
 }

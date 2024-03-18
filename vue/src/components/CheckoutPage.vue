@@ -32,7 +32,7 @@
             </div>
 
             <!-- Checkout -->
-            <div class="card shadow-0 border mb-4">
+            <div v-if="!isAuthenticated" class="card shadow-0 border mb-4">
               <div class="p-4">
                 <h5 class="card-title mb-3">Guest checkout</h5>
                 <div class="row">
