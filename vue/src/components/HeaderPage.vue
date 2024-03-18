@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row align-items-center justify-content-between">
 				<!-- Website Name and Navigation Links -->
-				<div class="col-md-auto">
+				<div class="col-md-auto mt-6">
 					<h1 class="mt-4 mb-0">Lady Bookhouse</h1>
 				</div>
 
