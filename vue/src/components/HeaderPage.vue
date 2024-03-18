@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row align-items-center justify-content-between">
 				<!-- Website Name and Navigation Links -->
-				<div class="col-md-auto mt-6">
+				<div class="col-md-auto">
 					<h1 class="mt-4 mb-0">Lady Bookhouse</h1>
 				</div>
 
@@ -20,6 +20,10 @@
 								<i class="fas fa-shopping-cart me-1"></i>
 								<span>{{ basketCount }} items</span>
 							</router-link>
+							<!-- <router-link v-if="basketCount = 0" v-bind:to="{ name: 'cart' }" class="btn btn-sm btn-secondary">
+								<i class="fas fa-shopping-cart me-1"></i>
+								<span>{{ basketCount }} items</span>
+							</router-link> -->
 							<router-link v-if="isAuthenticated" to="/logout" class="btn btn-sm btn-secondary">Logout</router-link>
 						</div>
 

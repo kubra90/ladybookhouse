@@ -1,52 +1,10 @@
-<!-- <template>
-  <div class="cart-container">
-    <div class="cart-header">
-      <h4>Shopping Cart</h4>
-      <button class="continue-shopping" @click="goToHomePage"><strong>CONTINUE SHOPPING</strong> </button>
-      <router-link v-bind:to="{name: 'checkout'}">
-      <button class="checkout"><strong>CHECKOUT</strong></button>
-    </router-link>
-    </div>
-    <div v-if=!checkBook>There is no book in your cart</div>
-    <div v-for="(book, index) in cartBooks" :key="index" class="book-item">
-      <div class="book-detail">
-        <router-link v-bind:to="{
-        name: 'detail',
-        params: {
-          sku: book.sku
-        }}">
-        <img :src="book.image" alt="Book Image" class="book-image"/>
-        </router-link>
-        <div class="book-info">
-          <p><strong>{{ book.title }}</strong></p>
-          <p>{{ book.author }}</p>
-        </div>
-        <div class="book-remove" @click="confirmRemoveBook(index)">Remove Item</div>
-        <div class="book-price">${{ formatPrice(book.price) }}</div>
-      </div>
-    </div>
-    <div v-if=checkBook class="price-tab">
-      <p class="subtotal-price">Subtotal: <span>${{formatPrice(subTotalPrice)}}</span> </p>
-      <p class="shipping-price">Shipping: <span>${{formatPrice(totalShippingCost) }}</span> </p>
-      <p class="total-price"> <strong>Order Total: </strong> <span class="order-total"> ${{ formatPrice(totalPrice)}}</span></p>
-    </div>
-    <div>
-      <router-link v-bind:to="{name: 'checkout'}">
-        <button class="checkout-btn"><strong>CHECKOUT</strong></button>
-      </router-link>
-    </div>
-  </div>
-</template>   -->
-
-
-<!-- new component with bootstrap 5 -->
 
 <template>
   <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-none">
   <div class="container">
     <a class="navbar-brand" style="font-size:25px; color:brown;" href="#">Shopping Cart</a>
-    <div>
+    <div v-if="checkBook">
       <button class="btn btn-outline-secondary me-2" @click="goToHomePage">Continue Shopping</button>
       <router-link v-bind:to="{name: 'checkout'}">
         <button class="btn btn-primary" style="color:oldlace; background-color:#fa8072; border:none;"><strong>Checkout</strong></button>
@@ -54,7 +12,13 @@
     </div>
   </div>
 </nav>
-<div v-if="!checkBook" class="container mt-4">There is no book in your cart</div>
+<div v-if="!checkBook" class="container d-flex mt-5 align-items-center justify-content-center">
+  <div class="col-md-4 mb-4" >The shopping basket is empty. 
+    <router-link v-bind:to="{name: 'login'}">Sign on</router-link> to your account to see saved items from a previous visit.
+Or 
+<router-link v-bind:to="{name: 'advanced-search'}"> search </router-link>for books to fill it up.</div>
+</div>
+<template v-if="checkBook">
 <div class="container mt-4">
   <div><hr></div>
   <div v-for="(book, index) in cartBooks" :key="index" class="card mb-3 border-0">
@@ -78,6 +42,7 @@
   </div>
   <div><hr></div>
 </div>
+</template>
 <div v-if="checkBook" class="container my-4">
   <div class="d-flex justify-content-end">
     <div class="text-end">
@@ -91,8 +56,6 @@
   </div>
 </div>
 </div>
-
-
 </template>
 
 <script>
