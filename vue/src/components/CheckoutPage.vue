@@ -1,6 +1,7 @@
 <template>
+    
   <div>
-    <section class="bg-light py-5">
+    <section v-if="checkBookCart" class="bg-light py-5">
       <div class="container">
         <div class="row">
           <div class="col-xl-8 col-lg-8 mb-4">
@@ -65,7 +66,7 @@
                       <input
                         type="tel"
                         id="typePhone"
-                        value="+48 "
+                        value=""
                         class="form-control"
                       />
                     </div>
@@ -277,7 +278,7 @@
               <hr />
               <h6 class="text-dark my-4">Items in cart</h6>
 
-              <div class="d-flex align-items-center mb-4">
+              <div v-for="(book,index) in cartBooks" :key="index" class="d-flex align-items-center mb-4">
                 <div class="me-3 position-relative">
                   <span
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"
@@ -285,60 +286,17 @@
                     1
                   </span>
                   <img
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/7.webp"
+                    :src="book.image" alt="book image"
                     style="height: 96px; width: 96x"
                     class="img-sm rounded border"
                   />
                 </div>
                 <div class="">
                   <a href="#" class="nav-link">
-                    Gaming Headset with Mic <br />
-                    Darkblue color
+                    {{ book.title }} <br />
+                    {{ book.author }}
                   </a>
-                  <div class="price text-muted">Total: $295.99</div>
-                </div>
-              </div>
-
-              <div class="d-flex align-items-center mb-4">
-                <div class="me-3 position-relative">
-                  <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"
-                  >
-                    1
-                  </span>
-                  <img
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/5.webp"
-                    style="height: 96px; width: 96x"
-                    class="img-sm rounded border"
-                  />
-                </div>
-                <div class="">
-                  <a href="#" class="nav-link">
-                    Apple Watch Series 4 Space <br />
-                    Large size
-                  </a>
-                  <div class="price text-muted">Total: $217.99</div>
-                </div>
-              </div>
-
-              <div class="d-flex align-items-center mb-4">
-                <div class="me-3 position-relative">
-                  <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"
-                  >
-                    3
-                  </span>
-                  <img
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/1.webp"
-                    style="height: 96px; width: 96x"
-                    class="img-sm rounded border"
-                  />
-                </div>
-                <div class="">
-                  <a href="#" class="nav-link"
-                    >GoPro HERO6 4K Action Camera - Black</a
-                  >
-                  <div class="price text-muted">Total: $910.00</div>
+                  <div class="price text-muted">Total: {{ book.price }}</div>
                 </div>
               </div>
             </div>
@@ -349,12 +307,23 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters(["isAuthenticated"]),
-  },
-};
+    ...mapState(['cartBooks']),
+    ...mapActions(['removeBook']),
+    checkBookCart() {
+       let checkBook = false;
+    
+       if(this.cartBooks.length >0){
+          checkBook = true;
+       }
+       return checkBook;
+    } 
+        
+    }
+  }
 </script>
 <style scoped>
 </style>
