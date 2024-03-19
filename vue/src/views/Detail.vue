@@ -29,9 +29,4 @@ export default {
   flex-direction:column;
   height:100%;
 }
-
-.footer {
-  /* display:flex;
-  bottom:0; */
-}
 </style>

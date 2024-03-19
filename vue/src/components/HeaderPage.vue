@@ -20,10 +20,6 @@
 								<i class="fas fa-shopping-cart me-1"></i>
 								<span>{{ basketCount }} items</span>
 							</router-link>
-							<!-- <router-link v-if="basketCount = 0" v-bind:to="{ name: 'cart' }" class="btn btn-sm btn-secondary">
-								<i class="fas fa-shopping-cart me-1"></i>
-								<span>{{ basketCount }} items</span>
-							</router-link> -->
 							<router-link v-if="isAuthenticated" to="/logout" class="btn btn-sm btn-secondary">Logout</router-link>
 						</div>
 

@@ -5,4 +5,8 @@ async function getOrders(headers) {
     return axios.get('/orders', { headers });
 }
 
-export {getOrders}
+async function placeOrder(order){
+    return axios.post('/checkout', order)
+}
+
+export {getOrders, placeOrder}
