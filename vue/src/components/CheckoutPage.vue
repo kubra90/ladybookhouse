@@ -69,7 +69,7 @@
                       <input
                         type="tel"
                         id="typePhone"
-                        v-model="order.phone"
+                        v-model="orderInfo.phoneNumber"
                         value=""
                         class="form-control"
                       />
@@ -111,9 +111,12 @@
                 <h5 class="card-title mb-3">Guest checkout</h5>
                 <div class="row">
                   <div class="col-6 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      First Name <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      First Name <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
                       <input
                         type="text"
@@ -127,9 +130,12 @@
                   </div>
 
                   <div class="col-6">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      Last Name <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      Last Name <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
                       <input
                         type="text"
@@ -157,9 +163,12 @@
 
                   <div class="col-6 mb-3">
                     <!-- <p class="mb-0">Email</p> -->
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      Email address <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      Email address <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
                       <input
                         type="email"
@@ -186,7 +195,7 @@
                 </div>
               </div>
             </div>
-<!-- shipping info -->
+            <!-- shipping info -->
             <!-- <hr class="my-4" /> -->
             <div class="card shadow-0 border">
               <div class="p-4">
@@ -229,29 +238,17 @@
                     </div>
                   </div>
                   <div class="col-lg-4 mb-3">
-                    <!-- Default radio -->
-                    <!-- <div class="form-check h-100 border rounded-3">
-                      <div class="p-3">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="flexRadioDefault"
-                          id="flexRadioDefault3"
-                        />
-                        <label class="form-check-label" for="flexRadioDefault3">
-                          Self pick-up <br />
-                          <small class="text-muted">Come to our shop </small>
-                        </label>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-sm-8 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      Address <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      Address <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
                       <input
                         type="text"
@@ -264,17 +261,23 @@
                     </div>
                   </div>
                   <div class="col-sm-4 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      Country <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      Country <span class="text-danger">*</span>
+                    </label>
                     <select class="form-select" v-model="orderInfo.country">
                       <option value="USA">United States</option>
                     </select>
                   </div>
                   <div class="col-sm-4 col-6 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      State <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      State <span class="text-danger">*</span>
+                    </label>
                     <select class="form-select" v-model="orderInfo.state">
                       <option value="AK">Alaska</option>
                       <option value="AL">Alabama</option>
@@ -344,21 +347,38 @@
                   </div> -->
 
                   <div class="col-sm-4 col-6 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      City <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      City <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
-                      <input type="text" id="typeText" v-model="orderInfo.city" class="form-control" required/>
+                      <input
+                        type="text"
+                        id="typeText"
+                        v-model="orderInfo.city"
+                        class="form-control"
+                        required
+                      />
                     </div>
                   </div>
 
                   <div class="col-sm-4 col-6 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-0">
-      Zip <span class="text-danger">*</span>
-    </label>
+                    <label
+                      for="exampleFormControlInput1"
+                      class="form-label mb-0"
+                    >
+                      Zip <span class="text-danger">*</span>
+                    </label>
                     <div class="form-outline">
-                      <input type="text" id="typeText" v-model="orderInfo.zipCode" class="form-control" required/>
-                      
+                      <input
+                        type="text"
+                        id="typeText"
+                        v-model="orderInfo.zipCode"
+                        class="form-control"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -388,7 +408,10 @@
                 </div>
 
                 <div class="float-end">
-                  <button class="btn btn-light border" @click="continueToPayment">
+                  <button
+                    class="btn btn-light border"
+                    @click="continueToPayment"
+                  >
                     Continue Checkout
                   </button>
                   <!-- <button class="btn btn-success shadow-0 border">
@@ -399,12 +422,12 @@
             </div>
             <!-- Payment Info -->
             <div class="card shadow-0 border mt-4">
-             <div class="p-4">
+              <div class="p-4">
                 <h5 class="card-title mb-3">Payment Information</h5>
                 <div v-if="showPaymentInfo">
-                   <p>detailed payment information</p>
+                  <p>detailed payment information</p>
                 </div>
-             </div>
+              </div>
             </div>
           </div>
           <!-- calculating cost part of the checkout page -->
@@ -480,27 +503,24 @@
 <script>
 import { mapGetters, mapState, mapActions } from "vuex";
 export default {
-
-    data(){
-        return {
-            orderInfo: {
-                
-                firstName:"",
-                lastName: "",
-                email: "",
-                country: "",
-                city: "",
-                state: "",
-                zipCode: "",
-                address:"",
-                phoneNumber: "",
-                bookNo: "",
-                message: "",
-
-            },
-            showPaymentInfo : false, //new property to control visibility
-        }
-    },
+  data() {
+    return {
+      orderInfo: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        country: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        address: "",
+        phoneNumber: "",
+        bookNo: "",
+        message: "",
+      },
+      showPaymentInfo: false, //new property to control visibility
+    };
+  },
   computed: {
     ...mapGetters(["isAuthenticated"]),
     ...mapState(["cartBooks", "user", "order"]),
@@ -516,9 +536,15 @@ export default {
   },
   methods: {
     continueToPayment() {
-        this.showPaymentInfo = true;
-    }
-  }
+        // access the form via this.$refs and check if it's valid
+        const form = this.$refs.checkoutForm;
+        if(form.checkValidity() === true){
+      this.showPaymentInfo = true;
+        }else{
+            form.classList.add('was-validated')
+        }
+    },
+  },
 };
 </script>
 <style scoped>
