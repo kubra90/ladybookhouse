@@ -22,12 +22,12 @@ public class JdbcOrderDao implements OrderDao {
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
                           String addressLine, String email, String phoneNumber,
-                          String sku) {
+                          String sku, String message) {
         String orderSql = "insert into orders (firstname, lastname, country, city, " +
-                "state, zipcode, address, phoneNumber, email, bookNo) " +
-                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "state, zipcode, address, phoneNumber, email, bookNo, message) " +
+                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(orderSql, firstname, lastName, country,
-                city, state, zipcode, addressLine, email, phoneNumber, sku) == 1;
+                city, state, zipcode, addressLine, email, phoneNumber, sku, message) == 1;
     }
 
     @Override
@@ -83,6 +83,7 @@ public class JdbcOrderDao implements OrderDao {
         order.setEmail(rs.getString("email"));
         order.setPhoneNumber(rs.getString("phoneNumber"));
         order.setInventoryCode(rs.getString("bookNo"));
+        order.setMessage(rs.getString("message"));
         return order;
     }
 }

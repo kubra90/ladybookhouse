@@ -25,6 +25,7 @@ CREATE TABLE orders (
    phoneNumber varchar(15),
    email varchar(50) NOT NULL,
    bookNo varchar(10) NOT NULL UNIQUE,
+   message varchar(250),
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );
 

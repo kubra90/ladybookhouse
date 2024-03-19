@@ -13,12 +13,15 @@ public class Order {
     private String phoneNumber;
     private String inventoryCode;
 
+    private String message;
+
     public Order() {
     }
 
+
     public Order(int orderId, String firstName, String lastName, String addressLine,
                  String zipCode, String country, String state, String city, String
-                         email, String phoneNumber, String inventoryCode) {
+                         email, String phoneNumber, String inventoryCode, String message) {
         this.orderId = orderId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +33,16 @@ public class Order {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.inventoryCode = inventoryCode;
+        this.message = message;
+    }
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public int getOrderId() {

@@ -37,7 +37,7 @@ public OrderController(OrderDao orderDao){
              orderDao.create(newOrder.getFirstName(),newOrder.getLastName(),
                      newOrder.getCountry(), newOrder.getZipCode(), newOrder.getCity(),
                      newOrder.getState(), newOrder.getAddressLine(), newOrder.getPhoneNumber(),
-                     newOrder.getEmail(), newOrder.getInventoryCode());
+                     newOrder.getEmail(), newOrder.getInventoryCode(), newOrder.getMessage());
           }
     @RequestMapping(path="/orders", method= RequestMethod.GET)
     public List<Order> getOrders(Principal principal) {
