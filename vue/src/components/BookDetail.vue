@@ -26,6 +26,10 @@
         <router-link v-else to="/login" class="btn btn-primary save-book"
           ><strong>Add to Bookshelf</strong></router-link
         >
+        <!-- new vue for ask a question -->
+        <button class="btn btn-primary btn-sm add-cart">
+          <strong>Ask a Question</strong>
+        </button>
       </div>
       <div v-if="showBookshelfPopup" class="overlay-bookshelf" @click="hidePopup"></div>
       <div v-if="showBookshelfPopup" class="bookshelf-popup">
@@ -440,9 +444,9 @@ export default {
     width: 50%;
   }
 
-  .btn-primary.save-book {
+  /* .btn-primary.save-book {
     width: 55%;
-  }
+  } */
 
   .bookshelf-popup.btn {
     font-size: 1rem; /* Adjust font size as necessary */
