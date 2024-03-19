@@ -23,7 +23,7 @@ CREATE TABLE orders (
    zipcode varchar(5) NOT NULL,
    address varchar(100) NOT NULL,
    phoneNumber varchar(15),
-   email varchar(50),
+   email varchar(50) NOT NULL,
    bookNo varchar(10) NOT NULL UNIQUE,
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );

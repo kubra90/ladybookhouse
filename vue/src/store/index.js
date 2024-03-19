@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import { getBooks, getBookById, getFeaturedItems } from '../services/BookService'
 import { register, login } from '../services/AuthService'
-import { getOrders } from '../services/OrderService'
+import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
 Vue.use(Vuex)
 /*
@@ -113,6 +113,9 @@ export default new Vuex.Store({
     SET_ORDERS(state, data) {
       state.orders = data
     },
+    SET_ORDER(state, data){
+      state.order = data
+    },
 
     // new code for modifying bookshelf logic
     SET_BOOKSHELF(state, data){
@@ -147,6 +150,10 @@ export default new Vuex.Store({
       const response = await getOrders();
       commit('SET_ORDERS', response.data)
   },
+  async createOrder({commit}, order){
+    const response = await placeOrder(order)
+    commit('SET_ORDER', response.data)
+   },
 
     async fetchBookshelf({commit}) {
       const response = await getBookshelf();
@@ -181,10 +188,7 @@ export default new Vuex.Store({
       const response = await getBookById(sku)
       commit('SET_BOOK', response.data)
     },
-    // async fetchNewArrivals({ commit }) {
-    //   const response = await getNewArrivals()
-    //   commit('SET_NEW_ARRIVALS', response.data)
-    // },
+
     async fetchFeaturedItems({ commit }) {
       const response = await getFeaturedItems()
       commit('SET_FEATURED_ITEMS', response.data)
