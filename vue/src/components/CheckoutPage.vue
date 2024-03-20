@@ -423,15 +423,71 @@
               </div>
             </div>
         </form>
+        <!-- 
+            <div id="app">
+  <div class="card shadow-0 border mt-4">
+    <div class="p-4">
+      <h5 class="card-title mb-1">Payment Information</h5>
+       Payment Option Buttons 
+      <div class="mb-3">
+        <button @click="paymentMethod = 'paypal'" class="btn btn-primary">PayPal</button>
+        <button @click="paymentMethod = 'creditCard'" class="btn btn-secondary">Credit Card</button>
+      </div>
+       PayPal Payment Information
+      <div v-if="paymentMethod === 'paypal' && showPaymentInfo">
+        <p>Your PayPal order details will be displayed here.</p>
+      </div>
+       Credit Card Payment Information (Unavailable) 
+      <div v-if="paymentMethod === 'creditCard'">
+        <p>Credit card payments are currently unavailable. We're working on this page.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+         -->
             <!-- Payment Info -->
-            <div class="card shadow-0 border mt-4">
+            <!-- <div class="card shadow-0 border mt-4">
               <div class="p-4">
-                <h5 class="card-title mb-3">Payment Information</h5>
+                <h5 class="card-title mb-1">Payment Information</h5>
                 <div v-if="showPaymentInfo">
-                  <p>detailed payment information</p>
+                    <h6 class="card-title mb-1">Paypal</h6>
                 </div>
               </div>
             </div>
+          </div> -->
+          <div class="card shadow-0 border mt-4">
+    <div class="p-4">
+      <h5 class="card-title mb-1">Payment Information</h5>
+      <!-- Payment Methods as Horizontal Cards -->
+    <!-- Payment Options Displayed After Checkout Validation -->
+<div v-if="showPaymentInfo" class="mt-4">
+  <div class="container">
+    <div class="row mb-3">
+      <!-- PayPal Card -->
+      <div class="col-12">
+        <div class="card shadow-0 border" @click="paymentMethod = 'paypal'">
+          <div class="card-body">
+            <h6 class="card-title">PayPal</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Credit Card -->
+      <div class="col-12">
+        <div class="card shadow-0 border" @click="paymentMethod = 'creditCard'">
+          <div class="card-body">
+            <h6 class="card-title">Credit Card</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+          </div>
           </div>
           <!-- calculating cost part of the checkout page -->
           <div
@@ -525,6 +581,7 @@ export default {
         bookNo: "",
         message: "",
       },
+      paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
     };
   },
@@ -565,9 +622,9 @@ export default {
 ::v-deep .was-validated .form-check-input:valid ~ .form-check-label,
 ::v-deep .form-check-input.is-valid ~ .form-check-label {
   background-image: none !important;
-  border-color: #ced4da; /* Adjust this to match your form's style */
-  box-shadow: none !important; /* Removes Bootstrap's default glow on valid inputs */
-  color: #495057; /* Sets text color to default or whatever color you prefer */
+  border-color: #ced4da; 
+  box-shadow: none !important;
+  color: #495057; 
 }
 
 /* Remove the green check icon for valid select inputs */
@@ -580,7 +637,7 @@ export default {
 ::v-deep .valid-feedback,
 ::v-deep .was-validated .form-control:valid ~ .valid-feedback,
 ::v-deep .was-validated .form-check-input:valid ~ .valid-feedback {
-  display: none; /* Hide valid feedback text or change the color as needed */
+  display: none; 
 }
 </style>
 
