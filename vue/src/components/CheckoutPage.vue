@@ -1,9 +1,12 @@
 <template>
   <div>
+   <alert-toast ref="alertToast"></alert-toast>
     <section v-if="checkBookCart" class="bg-light py-5">
       <div class="container">
         <div class="row">
           <div class="col-xl-8 col-lg-8 mb-4">
+            <!-- begin form -->
+            <form ref="checkoutForm" @submit.prevent="continueToPayment">
             <div v-if="!isAuthenticated" class="card mb-4 border shadow-0">
               <div class="p-4 d-flex justify-content-between">
                 <div class="">
@@ -267,7 +270,7 @@
                     >
                       Country <span class="text-danger">*</span>
                     </label>
-                    <select class="form-select" v-model="orderInfo.country">
+                    <select class="form-select" v-model="orderInfo.country" required>
                       <option value="USA">United States</option>
                     </select>
                   </div>
@@ -278,7 +281,7 @@
                     >
                       State <span class="text-danger">*</span>
                     </label>
-                    <select class="form-select" v-model="orderInfo.state">
+                    <select class="form-select" v-model="orderInfo.state" required>
                       <option value="AK">Alaska</option>
                       <option value="AL">Alabama</option>
                       <option value="AR">Arkansas</option>
@@ -406,11 +409,10 @@
                     ></textarea>
                   </div>
                 </div>
-
+               
                 <div class="float-end">
                   <button
                     class="btn btn-light border"
-                    @click="continueToPayment"
                   >
                     Continue Checkout
                   </button>
@@ -420,6 +422,7 @@
                 </div>
               </div>
             </div>
+        </form>
             <!-- Payment Info -->
             <div class="card shadow-0 border mt-4">
               <div class="p-4">
@@ -502,7 +505,11 @@
 </template>
 <script>
 import { mapGetters, mapState, mapActions } from "vuex";
+import AlertToast from "../components/AlertToast.vue";
 export default {
+    components: {
+        AlertToast
+    },
   data() {
     return {
       orderInfo: {
@@ -538,14 +545,42 @@ export default {
     continueToPayment() {
         // access the form via this.$refs and check if it's valid
         const form = this.$refs.checkoutForm;
-        if(form.checkValidity() === true){
-      this.showPaymentInfo = true;
+        if(!form.checkValidity()){
+            this.$refs.alertToast.addToast({
+                title: "Form Incomplete",
+                message: 'Please fill out all required fields',
+            })
         }else{
-            form.classList.add('was-validated')
+            this.showPaymentInfo = true;
         }
+        form.classList.add('was-validated');
     },
   },
 };
 </script>
 <style scoped>
+/* Override styles for valid inputs to remove green background and border */
+::v-deep .was-validated .form-control:valid, 
+::v-deep .form-control.is-valid,
+::v-deep .was-validated .form-check-input:valid ~ .form-check-label,
+::v-deep .form-check-input.is-valid ~ .form-check-label {
+  background-image: none !important;
+  border-color: #ced4da; /* Adjust this to match your form's style */
+  box-shadow: none !important; /* Removes Bootstrap's default glow on valid inputs */
+  color: #495057; /* Sets text color to default or whatever color you prefer */
+}
+
+/* Remove the green check icon for valid select inputs */
+::v-deep .was-validated .form-select:valid, 
+::v-deep .form-select.is-valid {
+  background-image: none !important;
+}
+
+/* Override styles for valid feedback to prevent it from displaying in green */
+::v-deep .valid-feedback,
+::v-deep .was-validated .form-control:valid ~ .valid-feedback,
+::v-deep .was-validated .form-check-input:valid ~ .valid-feedback {
+  display: none; /* Hide valid feedback text or change the color as needed */
+}
 </style>
+
