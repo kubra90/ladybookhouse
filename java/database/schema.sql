@@ -20,12 +20,14 @@ CREATE TABLE orders (
    city varchar(50) NOT NULL,
    state varchar(50) NOT NULL,
 --   check 5 character is acceptable or not?
-   zipcode varchar(5) NOT NULL,
+   zipcode varchar(20) NOT NULL,
    address varchar(100) NOT NULL,
    phoneNumber varchar(15),
    email varchar(50) NOT NULL,
    bookNo varchar(10) NOT NULL UNIQUE,
    message varchar(250),
+--   added a timestamp column for order creation date and time
+   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );
 

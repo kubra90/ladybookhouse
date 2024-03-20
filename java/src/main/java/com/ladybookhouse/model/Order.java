@@ -1,5 +1,7 @@
 package com.ladybookhouse.model;
 
+import java.time.LocalDateTime;
+
 public class Order {
     private int orderId;
     private String firstName;
@@ -15,8 +17,12 @@ public class Order {
 
     private String message;
 
+    private LocalDateTime orderDateTime;
+
     public Order() {
     }
+
+
 
 
     public Order(int orderId, String firstName, String lastName, String addressLine,
@@ -34,6 +40,15 @@ public class Order {
         this.phoneNumber = phoneNumber;
         this.inventoryCode = inventoryCode;
         this.message = message;
+        this.orderDateTime = LocalDateTime.now();
+    }
+
+    public LocalDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public void setOrderDateTime(LocalDateTime orderDateTime) {
+        this.orderDateTime = orderDateTime;
     }
 
 

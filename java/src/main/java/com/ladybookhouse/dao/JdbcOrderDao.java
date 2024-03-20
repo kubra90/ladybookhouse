@@ -6,8 +6,10 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Component
@@ -84,6 +86,7 @@ public class JdbcOrderDao implements OrderDao {
         order.setPhoneNumber(rs.getString("phoneNumber"));
         order.setInventoryCode(rs.getString("bookNo"));
         order.setMessage(rs.getString("message"));
+        order.setOrderDateTime(Objects.requireNonNull(rs.getTimestamp("created_at")).toLocalDateTime());
         return order;
     }
 }
