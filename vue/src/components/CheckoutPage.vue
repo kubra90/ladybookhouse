@@ -381,6 +381,8 @@
                         v-model="orderInfo.zipCode"
                         class="form-control"
                         required
+                        pattern="[0-9-]+"
+                        title="Zip code can only contain numbers and hyphens."
                       />
                     </div>
                   </div>
@@ -423,65 +425,42 @@
               </div>
             </div>
         </form>
-        <!-- 
-            <div id="app">
-  <div class="card shadow-0 border mt-4">
+        <!-- payment information -->
+          <div class="card shadow-0 border mt-3">
     <div class="p-4">
       <h5 class="card-title mb-1">Payment Information</h5>
-       Payment Option Buttons 
-      <div class="mb-3">
-        <button @click="paymentMethod = 'paypal'" class="btn btn-primary">PayPal</button>
-        <button @click="paymentMethod = 'creditCard'" class="btn btn-secondary">Credit Card</button>
-      </div>
-       PayPal Payment Information
-      <div v-if="paymentMethod === 'paypal' && showPaymentInfo">
-        <p>Your PayPal order details will be displayed here.</p>
-      </div>
-       Credit Card Payment Information (Unavailable) 
-      <div v-if="paymentMethod === 'creditCard'">
-        <p>Credit card payments are currently unavailable. We're working on this page.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-         -->
-            <!-- Payment Info -->
-            <!-- <div class="card shadow-0 border mt-4">
-              <div class="p-4">
-                <h5 class="card-title mb-1">Payment Information</h5>
-                <div v-if="showPaymentInfo">
-                    <h6 class="card-title mb-1">Paypal</h6>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <div class="card shadow-0 border mt-4">
-    <div class="p-4">
-      <h5 class="card-title mb-1">Payment Information</h5>
-      <!-- Payment Methods as Horizontal Cards -->
-    <!-- Payment Options Displayed After Checkout Validation -->
 <div v-if="showPaymentInfo" class="mt-4">
   <div class="container">
     <div class="row mb-3">
       <!-- PayPal Card -->
       <div class="col-12">
-        <div class="card shadow-0 border" @click="paymentMethod = 'paypal'">
+        <div class="card shadow-0 border bg-light" @click="togglePaymentMethod('paypal')">
           <div class="card-body">
             <h6 class="card-title">PayPal</h6>
           </div>
         </div>
+          <!-- PayPal Details -->
+          <div v-if="selectedPaymentMethod === 'paypal'" class="mt-2" ref="paypalDetails">
+            <div class="card-body">
+              <p>Your PayPal order details will be displayed here.</p>
+            </div>
+          </div>
       </div>
     </div>
     <div class="row">
       <!-- Credit Card -->
       <div class="col-12">
-        <div class="card shadow-0 border" @click="paymentMethod = 'creditCard'">
+        <div class="card shadow-0 border bg-light" @click="togglePaymentMethod('card')">
           <div class="card-body">
             <h6 class="card-title">Credit Card</h6>
           </div>
         </div>
+        <!-- Credit Card Details -->
+        <div v-if="selectedPaymentMethod === 'paypal'" class="mt-2" ref="cardDetails">
+            <div class="card-body">
+              <p>Your credit card order details will be displayed here.</p>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -583,6 +562,7 @@ export default {
       },
       paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
+      selectedPaymentMethod: '', // Track which payment method is selected
     };
   },
   computed: {
@@ -612,8 +592,30 @@ export default {
         }
         form.classList.add('was-validated');
     },
+    togglePaymentMethod(method) {
+    if(this.selectedPaymentMethod === method) {
+      this.selectedPaymentMethod = ''; // Clicking the same method again will hide its details
+    } else {
+      this.selectedPaymentMethod = method;
+    }
+
+    // Optional: Smooth dropdown effect for PayPal details
+    if(method === 'paypal' && this.selectedPaymentMethod === method) {
+      this.$nextTick(() => {
+        const details = this.$refs.paypalDetails;
+        if(details) {
+          details.style.display = 'block';
+          details.style.height = '0';
+          details.style.overflow = 'hidden';
+          details.style.transition = 'height 0.5s ease';
+
+          // Adjust the height as per the content dynamically or set to a specific value
+          details.style.height = `${details.scrollHeight}px`;
+        }
+      });
+    }
   },
-};
+}}
 </script>
 <style scoped>
 /* Override styles for valid inputs to remove green background and border */
