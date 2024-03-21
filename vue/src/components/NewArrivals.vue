@@ -1,26 +1,20 @@
 <template>
   <div class="container">
-    <div class="row align-items-center m-4 title">
-      <div class="col-6">
-        <h3><strong>New Arrivals</strong></h3>
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h3>New Arrivals</h3>
       </div>
-      <div class="col-6 text-end button">
-        <router-link
-          :to="{ name: 'new-arrivals-view' }"
-          class="btn btn-primary btn-sm btn-custom"
-          >See New Arrivals</router-link
-        >
+      <div class="col-md-6 d-flex justify-content-md-end align-items-center">
+        <router-link :to="{ name: 'featured-book-view' }">
+          <div class="button-container">
+            <button class="btn btn-sm btn-primary">See All New Arrivals</button>
+          </div>
+        </router-link>
       </div>
     </div>
-    <div class="book-cards">
-      <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
-        <book-card
-          v-for="book in paginatedList"
-          :book="book"
-          :key="book.isbn"
-        />
-      </ul>
-    </div>
+    <ul class="row p-2">
+      <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
+    </ul>
   </div>
 </template>
 
@@ -56,13 +50,16 @@ export default {
 <style scoped>
 h3 {
   color: #e2907a;
+  font-weight: 700;
 }
 
-.button {
-  padding-right: 4rem;
+.button-container {
+  padding-right: 6rem;
 }
 
-.btn-custom {
+button {
+  height: 2.3rem;
+  width: 100%;
   background: #e2907a;
   color: #fff;
   text-align: center;
@@ -72,13 +69,39 @@ h3 {
   border-radius: 0.6rem;
   box-shadow: 0 3px #999;
 }
-.btn-custom:hover {
-  background-color: #e27253;
+
+button:hover {
+  background-color: #e08167;
 }
 
-.btn-custom:active {
-  background-color: #d16e53;
+button:active {
+  background-color: #e08167;
   box-shadow: 0 2px #666;
   transform: translateY(4px);
+}
+
+ul {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  list-style-type: none;
+}
+
+li {
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  ul {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

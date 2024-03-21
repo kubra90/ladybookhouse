@@ -1,12 +1,18 @@
 <template>
-  <div id="featured-books">
-    <div class="title-link">
-      <h3><strong>Featured Books</strong></h3>
-      <router-link :to="{ name: 'featured-book-view' }" class="link"
-        ><button class="button">See All Featured Books</button></router-link
-      >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Featured Books</h3>
+      </div>
+      <div class="col-md-6 d-flex justify-content-md-end align-items-center">
+        <router-link :to="{ name: 'featured-book-view' }">
+          <div class="button-container">
+            <button class="btn btn-sm btn-primary">See All Featured Books</button>
+          </div>
+        </router-link>
+      </div>
     </div>
-    <ul>
+    <ul class="row p-2">
       <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
     </ul>
   </div>
@@ -14,7 +20,7 @@
 
 <script>
 import BookCard from "../components/BookCard.vue"
-import {mapState, mapGetters} from "vuex"
+import { mapState, mapGetters } from "vuex"
 
 export default {
   name: "featured-books",
@@ -35,13 +41,13 @@ export default {
         ? this.shuffledBooks(this.featuredItems).slice(0, 4)
         : this.shuffledBooks(this.featuredItems).slice(0, 16)
     },
-  ...mapState(['books']),
-  ...mapGetters(['featuredItems'])
-},
+    ...mapState(['books']),
+    ...mapGetters(['featuredItems'])
+  },
 
 
   methods: {
-   // Fisher-Yates Sorting Algorithm to shuffle items of an array
+    // Fisher-Yates Sorting Algorithm to shuffle items of an array
     shuffledBooks(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -65,29 +71,17 @@ export default {
 </script>
 
 <style scoped>
-.title-link h3 {
+h3 {
   color: #e2907a;
-  padding-left: 45px;
+  font-weight: 700;
 }
 
-.title-link {
-  display: flex;
-  justify-content: space-between;
+.button-container {
+  padding-right: 6rem;
 }
 
-.link {
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding-right: 90px;
-}
-
-.button {
-  margin: auto;
-  height: 4rem;
+button {
+  height: 2.3rem;
   width: 100%;
   background: #e2907a;
   color: #fff;
@@ -98,48 +92,39 @@ export default {
   border-radius: 0.6rem;
   box-shadow: 0 3px #999;
 }
-.button:hover {
+
+button:hover {
   background-color: #e08167;
 }
 
-.button:active {
+button:active {
   background-color: #e08167;
   box-shadow: 0 2px #666;
   transform: translateY(4px);
 }
 
-#featured-books ul {
-  margin-top: 50px;
+ul {
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* gap: 10px; */
   list-style-type: none;
-  padding-left: 45px;
 }
 
-#featured-books li {
+li {
   text-align: center;
-}
-
-#featured-books {
-  padding: 45px 90px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  #featured-books ul {
+  ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-  }
-
-  #featured-books {
-    padding: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  #featured-books ul {
-    grid-template-columns: 1fr; /* 1 book per row for mobiles  */
+  ul {
+    grid-template-columns: 1fr;
   }
 }
 </style>
