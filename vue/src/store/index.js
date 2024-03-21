@@ -36,7 +36,8 @@ export default new Vuex.Store({
     savedBook: {},
     // orders
     orders: [],
-    order: {}
+    order: {},
+    deliveryOption: "USPS"
   },
   getters: {
     isAuthenticated: state => state.user.email,
@@ -63,6 +64,11 @@ export default new Vuex.Store({
         }else{
           shippingCost =9.99;
         }
+
+        if(state.deliveryOption === "UPS"){
+          shippingCost+=7.99;
+        }
+        console.log(shippingCost);
         return shippingCost;
       },
       subTotalPrice: (state)=>{
@@ -165,6 +171,10 @@ export default new Vuex.Store({
     REMOVE_BOOK_FROM_BOOKSHELF(state, index){
       state.savedBooks.splice(index, 1)
     },
+    SET_DELIVERY_OPTION(state, option){
+      console.log(option);
+      state.deliveryOption = option
+    }
   },
   actions: {
     async registerUser({ commit }, user) {

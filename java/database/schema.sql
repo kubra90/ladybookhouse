@@ -24,12 +24,20 @@ CREATE TABLE orders (
    address varchar(100) NOT NULL,
    phoneNumber varchar(15),
    email varchar(50) NOT NULL,
-   bookNo varchar(10) NOT NULL UNIQUE,
+--   bookNo varchar(10) NOT NULL UNIQUE,
    message varchar(250),
 --   added a timestamp column for order creation date and time
    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );
+
+CREATE TABLE order_books (
+    order_books_id SERIAL PRIMARY KEY,
+    bookNo varchar(10) NOT NULL,
+    order_id INTEGER NOT NULL,
+    FOREIGN KEY(order_id) REFERENCES orders(order_id) ON DELETE CASCADE
+    UNIQUE (order_id, bookNo)
+)
 
 CREATE TABLE books (
     isbn VARCHAR(13),

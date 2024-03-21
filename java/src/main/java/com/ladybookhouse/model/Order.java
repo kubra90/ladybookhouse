@@ -1,6 +1,7 @@
 package com.ladybookhouse.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
     private int orderId;
@@ -13,7 +14,7 @@ public class Order {
     private String city;
     private String email;
     private String phoneNumber;
-    private String inventoryCode;
+    private List<String> inventoryCode;
 
     private String message;
 
@@ -27,7 +28,7 @@ public class Order {
 
     public Order(int orderId, String firstName, String lastName, String addressLine,
                  String zipCode, String country, String state, String city, String
-                         email, String phoneNumber, String inventoryCode, String message) {
+                         email, String phoneNumber, List<String> inventoryCode, String message) {
         this.orderId = orderId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -140,11 +141,11 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getInventoryCode() {
+    public List<String> getInventoryCode() {
         return inventoryCode;
     }
 
-    public void setInventoryCode(String inventoryCode) {
+    public void setInventoryCode(List<String> inventoryCode) {
         this.inventoryCode = inventoryCode;
     }
 }

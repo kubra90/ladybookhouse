@@ -215,6 +215,8 @@
                           name="flexRadioDefault"
                           id="flexRadioDefault1"
                           checked
+                          value="USPS"
+                          v-model="selectedDelivery"
                         />
                         <label class="form-check-label" for="flexRadioDefault1">
                           USPS Media <br />
@@ -232,10 +234,12 @@
                           type="radio"
                           name="flexRadioDefault"
                           id="flexRadioDefault2"
+                          value="UPS"
+                          v-model="selectedDelivery"
                         />
                         <label class="form-check-label" for="flexRadioDefault2">
                           UPS Express <br />
-                          <small class="text-muted">4-7 business days </small>
+                          <small class="text-muted">4-7 business days. May apply extra charges in shopping cost </small>
                         </label>
                       </div>
                     </div>
@@ -389,7 +393,7 @@
                   </div>
                 </div>
 
-                <div class="form-check mb-3">
+                <div class="form-check mb-3" v-if="isAuthenticated">
                   <input
                     class="form-check-input"
                     type="checkbox"
@@ -476,14 +480,14 @@
             <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px">
               <h6 class="mb-3">Summary</h6>
               <div class="d-flex justify-content-between">
-                <p class="mb-2">Total price:</p>
+                <p class="mb-2">Price:</p>
                 <p class="mb-2">${{formatPrice(subTotalPrice)}}</p>
               </div>
               <!-- <div class="d-flex justify-content-between">
                 <p class="mb-2">Discount:</p>
                 <p class="mb-2 text-danger">- $60.00</p>
               </div> -->
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between" >
                 <p class="mb-2">Shipping cost:</p>
                 <p class="mb-2">${{ formatPrice(totalShippingCost) }}</p>
               </div>
@@ -493,7 +497,7 @@
                 <p class="mb-2 fw-bold">${{formatPrice(totalPrice)}}</p>
               </div>
 
-              <div class="input-group mt-3 mb-4">
+              <!-- <div class="input-group mt-3 mb-4">
                 <input
                   type="text"
                   class="form-control border"
@@ -501,7 +505,7 @@
                   placeholder="Promo code"
                 />
                 <button class="btn btn-light text-primary border">Apply</button>
-              </div>
+              </div> -->
 
               <hr />
               <h6 class="text-dark my-4">Items in cart</h6>
@@ -564,7 +568,14 @@ export default {
       paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
       selectedPaymentMethod: '', // Track which payment method is selected
+      selectedDelivery: 'USPS' //default value
+    
     };
+  },
+  watch: {
+     selectedDelivery(newValue) {
+        this.$store.commit('SET_DELIVERY_OPTION', newValue); 
+     }
   },
   computed: {
     ...mapGetters(["isAuthenticated", "totalPrice", "subTotalPrice", "totalShippingCost"]),

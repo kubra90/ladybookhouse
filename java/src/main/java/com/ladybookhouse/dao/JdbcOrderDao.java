@@ -20,16 +20,38 @@ public class JdbcOrderDao implements OrderDao {
     public JdbcOrderDao(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
 
 
+//    @Override
+//    public boolean create(String firstname, String lastName, String country,
+//                          String zipcode, String city, String state,
+//                          String addressLine, String email, String phoneNumber,
+//                          String sku, String message) {
+//        String orderSql = "insert into orders (firstname, lastname, country, city, " +
+//                "state, zipcode, address, phoneNumber, email, bookNo, message) " +
+//                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        return jdbcTemplate.update(orderSql, firstname, lastName, country,
+//                city, state, zipcode, addressLine, email, phoneNumber, sku, message) == 1;
+//    }
+
     @Override
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
                           String addressLine, String email, String phoneNumber,
-                          String sku, String message) {
-        String orderSql = "insert into orders (firstname, lastname, country, city, " +
-                "state, zipcode, address, phoneNumber, email, bookNo, message) " +
-                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(orderSql, firstname, lastName, country,
-                city, state, zipcode, addressLine, email, phoneNumber, sku, message) == 1;
+                          List<String> skus, String message) {
+        // Insert the order into 'orders' table
+        String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
+                "state, zipcode, address, phoneNumber, email, message) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
+
+        Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, message}, Integer.class);
+        if(orderId == null){
+            return false;
+        }
+        String bookSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
+        for (String sku : skus) {
+            jdbcTemplate.update(bookSql, orderId, sku);
+        }
+
+        return true; // Order and book links successfully created
     }
 
     @Override
@@ -84,7 +106,6 @@ public class JdbcOrderDao implements OrderDao {
         order.setZipCode(rs.getString("zipcode"));
         order.setEmail(rs.getString("email"));
         order.setPhoneNumber(rs.getString("phoneNumber"));
-        order.setInventoryCode(rs.getString("bookNo"));
         order.setMessage(rs.getString("message"));
         order.setOrderDateTime(Objects.requireNonNull(rs.getTimestamp("created_at")).toLocalDateTime());
         return order;

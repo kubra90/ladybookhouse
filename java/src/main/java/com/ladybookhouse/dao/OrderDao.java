@@ -8,7 +8,7 @@ public interface OrderDao {
 
     boolean create(String firstname, String lastName, String country, String
                    zipcode, String city, String state, String addressLine,
-                   String email, String phoneNumber, String sku, String message);
+                   String email, String phoneNumber, List<String> skus, String message);
 
     List<Order> findAllOrders();
 
