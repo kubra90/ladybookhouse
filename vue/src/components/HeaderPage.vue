@@ -25,10 +25,10 @@
 
 						<!-- Search Bar -->
 						<div class="col-md-auto">
-							<form class="d-flex">
-								<input v-model="searchText" type="text" class="form-control me-2 search-box shadow-none"
+							<form class="d-flex position-relative">
+								<input v-model="searchText" type="text" class="form-control me-2 search-box shadow-none m-2 p-1"
 									placeholder="Search" aria-label="Search" />
-								<button class="btn btn-outline-secondary" type="submit" @click.prevent="searchAllBookDetails">
+								<button class="btn btn-outline-secondary position-absolute end-0 m-2" type="submit" @click.prevent="searchAllBookDetails">
 									<i class="fas fa-search"></i>
 								</button>
 							</form>
@@ -150,7 +150,7 @@ h1 {
 	border: none;
 	color: orange;
 	background-color: brown;
-	height: 2rem;
+	height: 2.2rem;
 }
 
 .btn-secondary {
@@ -165,9 +165,7 @@ h1 {
 }
 
 .search-icon {
-	position: absolute;
 	color: #6b3630;
-	margin-left: auto;
 }
 
 .nav-custom {
