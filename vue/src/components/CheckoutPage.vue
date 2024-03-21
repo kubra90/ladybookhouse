@@ -381,7 +381,8 @@
                         v-model="orderInfo.zipCode"
                         class="form-control"
                         required
-                        pattern="[0-9-]+"
+                        pattern="\d{5}(-\d{4})?"
+
                         title="Zip code can only contain numbers and hyphens."
                       />
                     </div>
@@ -456,7 +457,7 @@
           </div>
         </div>
         <!-- Credit Card Details -->
-        <div v-if="selectedPaymentMethod === 'paypal'" class="mt-2" ref="cardDetails">
+        <div v-if="selectedPaymentMethod === 'card'" class="mt-2" ref="cardDetails">
             <div class="card-body">
               <p>Your credit card order details will be displayed here.</p>
             </div>
@@ -614,6 +615,22 @@ export default {
         }
       });
     }
+    // Credit card details
+    if(method === 'card' && this.selectedPaymentMethod === method) {
+      this.$nextTick(() => {
+        const details = this.$refs.cardDetails;
+        if(details) {
+          details.style.display = 'block';
+          details.style.height = '0';
+          details.style.overflow = 'hidden';
+          details.style.transition = 'height 0.5s ease';
+
+          // Adjust the height as per the content dynamically or set to a specific value
+          details.style.height = `${details.scrollHeight}px`;
+        }
+      });
+    }
+    
   },
 }}
 </script>
