@@ -40,6 +40,43 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.user.email,
+    totalShippingCost: (state) => {
+        let totalWeight=0;
+        let shippingCost=0;
+       state.cartBooks.forEach( book=> {
+        totalWeight+=book.weight;
+       })
+        if(totalWeight>0 && totalWeight<17){
+          shippingCost = 4.15;
+        }else if(totalWeight>16 && totalWeight<33){
+          shippingCost = 4.90;
+        }else if(totalWeight>32 && totalWeight<=48){
+          shippingCost =5.65;
+        }else if(totalWeight>48 && totalWeight<=64){
+          shippingCost =6.40;
+        }else if(totalWeight>64 && totalWeight<=80){
+          shippingCost =7.15;
+        }else if(totalWeight>80 && totalWeight <=96){
+          shippingCost = 7.90;
+        }else if(totalWeight>96 && totalWeight<=112){
+          shippingCost = 8.65;
+        }else{
+          shippingCost =9.99;
+        }
+        return shippingCost;
+      },
+      subTotalPrice: (state)=>{
+        return state.cartBooks.reduce((total, book) => total + book.price, 0);
+      },
+      totalPrice: (state, getters) => {
+        // Assuming subTotalPrice returns the total price of books without shipping
+        const subTotalPrice = getters.subTotalPrice;
+        // Assuming totalShippingCost returns the shipping cost based on the total weight
+        const shippingCost = getters.totalShippingCost;
+        // Calculate the final total price by adding the subtotal price and the shipping cost
+        const total = subTotalPrice + shippingCost;
+        return total;
+    },
     newBookArrivals(state){
        const threeMonthsAgo = new Date();
        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);

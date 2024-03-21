@@ -49,7 +49,7 @@
   <div class="d-flex justify-content-end">
     <div class="text-end">
       <p class="mb-1">Subtotal: <span>${{ formatPrice(subTotalPrice) }}</span></p>
-      <p class="mb-1">Shipping: <span>${{ formatPrice(totalShippingCost) }}</span></p>
+      <p class="mb-1">Shipping: <span>${{formatPrice(totalShippingCost)}}</span></p>
       <p class="mb-0">Order Total: <span style="color:chocolate;">${{ formatPrice(totalPrice) }}</span></p>
       <router-link v-bind:to="{name: 'checkout'}">
         <button class="btn btn-primary mt-2" style="color:oldlace; background-color:#fa8072; border:none;"><strong>Checkout</strong></button>
@@ -67,7 +67,7 @@ export default {
   computed: {
     
     ...mapState(['cartBooks']),
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'totalShippingCost', 'totalPrice', 'subTotalPrice']),
     checkBook(){
       let checkBookCart = false;
       if(this.cartBooks.length > 0){
@@ -75,38 +75,13 @@ export default {
         }
         return checkBookCart;
     },
-    totalPrice(){
-      return this.cartBooks.reduce((total, book) => total + book.price, 0) + this.totalShippingCost;
-    },
-    subTotalPrice(){
-      return this.cartBooks.reduce((total, book) => total + book.price, 0);
-    },
-    totalShippingCost(){
-      let totalWeight=0;
-      let shippingCost=0;
-      for(const book of this.cartBooks){
-        totalWeight+=book.weight;
-      }
-      if(totalWeight>0 && totalWeight<17){
-        shippingCost = 4.15;
-      }else if(totalWeight>16 && totalWeight<33){
-        shippingCost = 4.90;
-      }else if(totalWeight>32 && totalWeight<=48){
-        shippingCost =5.65;
-      }else if(totalWeight>48 && totalWeight<=64){
-        shippingCost =6.40;
-      }else if(totalWeight>64 && totalWeight<=80){
-        shippingCost =7.15;
-      }else if(totalWeight>80 && totalWeight <=96){
-        shippingCost = 7.90;
-      }else if(totalWeight>96 && totalWeight<=112){
-        shippingCost = 8.65;
-      }else{
-        shippingCost =9.99;
-      }
-      //implement more shopping cost here.
-      return shippingCost;
-    }
+    // totalPrice(){
+    //   return this.cartBooks.reduce((total, book) => total + book.price, 0) + this.totalShippingCost;
+    // },
+    // subTotalPrice(){
+    //   return this.cartBooks.reduce((total, book) => total + book.price, 0);
+    // },
+    
   },
   methods: {
     goToHomePage() {

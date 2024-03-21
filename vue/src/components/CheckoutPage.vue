@@ -477,20 +477,20 @@
               <h6 class="mb-3">Summary</h6>
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Total price:</p>
-                <p class="mb-2">$195.90</p>
+                <p class="mb-2">${{formatPrice(subTotalPrice)}}</p>
               </div>
-              <div class="d-flex justify-content-between">
+              <!-- <div class="d-flex justify-content-between">
                 <p class="mb-2">Discount:</p>
                 <p class="mb-2 text-danger">- $60.00</p>
-              </div>
+              </div> -->
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Shipping cost:</p>
-                <p class="mb-2">+ $14.00</p>
+                <p class="mb-2">${{ formatPrice(totalShippingCost) }}</p>
               </div>
               <hr />
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Total price:</p>
-                <p class="mb-2 fw-bold">$149.90</p>
+                <p class="mb-2 fw-bold">${{formatPrice(totalPrice)}}</p>
               </div>
 
               <div class="input-group mt-3 mb-4">
@@ -567,7 +567,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isAuthenticated"]),
+    ...mapGetters(["isAuthenticated", "totalPrice", "subTotalPrice", "totalShippingCost"]),
     ...mapState(["cartBooks", "user", "order"]),
     ...mapActions(["removeBook"]),
     checkBookCart() {
@@ -632,6 +632,10 @@ export default {
     }
     
   },
+  formatPrice(value) {
+    const formattedPrice = Number(value).toFixed(2);
+    return formattedPrice
+  }
 }}
 </script>
 <style scoped>
