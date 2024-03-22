@@ -260,7 +260,7 @@
                       <input
                         type="text"
                         id="typeText"
-                        v-mode="orderInfo.address"
+                        v-mode="orderInfo.addressLine"
                         placeholder="Type here"
                         class="form-control"
                         required
@@ -448,6 +448,7 @@
           <div v-if="selectedPaymentMethod === 'paypal'" class="mt-2" ref="paypalDetails">
             <div class="card-body">
               <p>Your PayPal order details will be displayed here.</p>
+              <button @click="concludeOrder">Checkout</button>
             </div>
           </div>
       </div>
@@ -508,7 +509,7 @@
               </div> -->
 
               <hr />
-              <h6 class="text-dark my-4">Items in cart</h6>
+              <h6 class="text-dark my-4"><router-link v-bind:to="{name: 'cart'}" class="cart-item">Items in cart</router-link></h6>
 
               <div
                 v-for="(book, index) in cartBooks"
@@ -529,10 +530,18 @@
                   />
                 </div>
                 <div class="">
-                  <a href="#" class="nav-link">
+                  <!-- <a href="#" class="nav-link">
                     {{ book.title }} <br />
                     {{ book.author }}
-                  </a>
+                  </a> -->
+                  <router-link :to="{
+     name: 'detail',
+     params: {
+       sku: book.sku
+    }}" class="nav-link">
+                    {{ book.title }} <br />
+                    {{ book.author }}
+                  </router-link>
                   <div class="price text-muted">Total: {{ book.price }}</div>
                 </div>
               </div>
@@ -560,9 +569,9 @@ export default {
         city: "",
         state: "",
         zipCode: "",
-        address: "",
+        addressLine: "",
         phoneNumber: "",
-        bookNo: "",
+        inventoryCode: [],
         message: "",
       },
       paymentMethod: "",
@@ -591,6 +600,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['createOrder']),
     continueToPayment() {
         // access the form via this.$refs and check if it's valid
         const form = this.$refs.checkoutForm;
@@ -603,6 +613,21 @@ export default {
             this.showPaymentInfo = true;
         }
         form.classList.add('was-validated');
+    },
+    concludeOrder(){
+      if(this.cartBooks != null && this.cartBooks.length> 0){
+        this.orderInfo.inventoryCode = []
+        for(const book of this.cartBooks){
+            this.orderInfo.inventoryCode.push(book.sku);
+        }
+        try {
+          this.createOrder(this.orderInfo);
+          this.$router.push({name: 'orderSuccess'})
+        } catch(error) {
+          console.error("Order submission failed", error);
+        }
+         
+      }
     },
     togglePaymentMethod(method) {
     if(this.selectedPaymentMethod === method) {
@@ -650,6 +675,12 @@ export default {
 }}
 </script>
 <style scoped>
+
+.cart-item {
+    color: black;
+    font-size:13px;
+    text-decoration:none;
+}
 /* Override styles for valid inputs to remove green background and border */
 ::v-deep .was-validated .form-control:valid, 
 ::v-deep .form-control.is-valid,

@@ -36,7 +36,7 @@ public class JdbcOrderDao implements OrderDao {
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
                           String addressLine, String email, String phoneNumber,
-                          List<String> skus, String message) {
+                          List<String> inventoryCode, String message) {
         // Insert the order into 'orders' table
         String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
                 "state, zipcode, address, phoneNumber, email, message) " +
@@ -47,7 +47,7 @@ public class JdbcOrderDao implements OrderDao {
             return false;
         }
         String bookSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
-        for (String sku : skus) {
+        for (String sku : inventoryCode) {
             jdbcTemplate.update(bookSql, orderId, sku);
         }
 
