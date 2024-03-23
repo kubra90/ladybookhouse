@@ -17,7 +17,7 @@
                   {{ tempOrderInfo.state }} {{ tempOrderInfo.zipCode }} <br> 
                   {{ tempOrderInfo.country }}<br>
                   Phone: {{ tempOrderInfo.phoneNumber }}<br>
-                  Email: {{ tempOrderInfo.email }}
+                  Email: {{ displayEmail}}
                 </p>
               </div>
             </div>
@@ -52,7 +52,7 @@
                 <hr>
                 <div class="d-flex justify-content-between">
                   <strong>Total Price:</strong>
-                  <span>${{ totalPrice }}</span>
+                  <span>${{ formatPrice(totalPrice) }}</span>
                 </div>
               </div>
             </div>
@@ -80,7 +80,17 @@
         const firstName = this.tempOrderInfo.firstName || this.$store.state.user.firstName;
         const lastName = this.tempOrderInfo.lastName || this.$store.state.user.lastName;
         return `${firstName} ${lastName}`;
+      },
+      displayEmail(){
+        const email = this.tempOrderInfo.email || this.$store.state.user.email;
+        return `${email}`;
       }
+    },
+    methods: {
+        formatPrice(value) {
+            const formattedPrice = Number(value).toFixed(2);
+            return formattedPrice;
+        }
     }
   }
   </script>
