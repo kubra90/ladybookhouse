@@ -20,6 +20,7 @@ import Browse from '../views/Browse.vue'
 import CategoryDetail from '../views/CategoryDetail.vue'
 import Order from '../views/Order.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
+import OrderSummary from '../views/OrderSummaryView.vue'
 
 Vue.use(Router)
 
@@ -127,6 +128,14 @@ const router = new Router({
       path: "/checkout-page",
       name: "checkout",
       component: Checkout,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/order-summary",
+      name: "orderSummary",
+      component: OrderSummary,
       meta: {
         requiresAuth: false
       }

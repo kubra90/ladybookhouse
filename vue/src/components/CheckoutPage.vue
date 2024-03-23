@@ -260,7 +260,7 @@
                       <input
                         type="text"
                         id="typeText"
-                        v-mode="orderInfo.addressLine"
+                        v-model="orderInfo.addressLine"
                         placeholder="Type here"
                         class="form-control"
                         required
@@ -447,8 +447,10 @@
           <!-- PayPal Details -->
           <div v-if="selectedPaymentMethod === 'paypal'" class="mt-2" ref="paypalDetails">
             <div class="card-body">
-              <p>Your PayPal order details will be displayed here.</p>
-              <button @click="concludeOrder">Checkout</button>
+              <p>PayPal payments will be processed by the seller after checkout.
+The seller will contact you to arrange payment within 2 business days after the order is placed.</p>
+              <button class="btn btn-secondary" @click="saveAndContinue"> Save and Continue </button>
+              <!-- <button @click="concludeOrder">Checkout</button> -->
             </div>
           </div>
       </div>
@@ -561,19 +563,19 @@ export default {
     },
   data() {
     return {
-      orderInfo: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        country: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        addressLine: "",
-        phoneNumber: "",
-        inventoryCode: [],
-        message: "",
-      },
+    //   orderInfo: {
+    //     firstName: "",
+    //     lastName: "",
+    //     email: "",
+    //     country: "",
+    //     city: "",
+    //     state: "",
+    //     zipCode: "",
+    //     addressLine: "",
+    //     phoneNumber: "",
+    //     inventoryCode: [],
+    //     message: "",
+    //   },
       paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
       selectedPaymentMethod: '', // Track which payment method is selected
@@ -590,6 +592,14 @@ export default {
     ...mapGetters(["isAuthenticated", "totalPrice", "subTotalPrice", "totalShippingCost"]),
     ...mapState(["cartBooks", "user", "order"]),
     ...mapActions(["removeBook"]),
+    orderInfo: {
+     get() {
+        return this.$store.state.tempOrderInfo;
+     },
+     set(value){
+        this.$store.commit('SET_TEMP_ORDER_INFO', value);
+     }
+    },
     checkBookCart() {
       let checkBook = false;
 
@@ -613,6 +623,10 @@ export default {
             this.showPaymentInfo = true;
         }
         form.classList.add('was-validated');
+    },
+    saveAndContinue(){
+      this.$store.dispatch('updateTempOrderInfo', this.orderInfo);
+      this.$router.push({name: 'orderSummary'});
     },
     concludeOrder(){
       if(this.cartBooks != null && this.cartBooks.length> 0){

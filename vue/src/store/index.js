@@ -37,7 +37,9 @@ export default new Vuex.Store({
     // orders
     orders: [],
     order: {},
-    deliveryOption: "USPS"
+    deliveryOption: "USPS",
+    selectedPaymentMethod: "paypal",
+    tempOrderInfo: {}
   },
   getters: {
     isAuthenticated: state => state.user.email,
@@ -124,6 +126,11 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+      // additional step to clear tempOrderInfo and cartBooks
+      state.tempOrderInfo = {};
+      state.cartBooks= [];
+      state.basketCount = 0
+
     },
     SET_BOOKS(state, data) {
       state.books = data
@@ -159,8 +166,9 @@ export default new Vuex.Store({
     SET_ORDER(state, data){
       state.order = data
     },
-
-    // new code for modifying bookshelf logic
+    SET_TEMP_ORDER_INFO(state, order){
+      state.tempOrderInfo = order
+    },
     SET_BOOKSHELF(state, data){
       state.savedBooks = data
     },
@@ -174,6 +182,9 @@ export default new Vuex.Store({
     SET_DELIVERY_OPTION(state, option){
       console.log(option);
       state.deliveryOption = option
+    },
+    SET_PAYMENT_OPTION(state, data){
+      state.selectedPaymentMethod = data
     }
   },
   actions: {
@@ -192,6 +203,9 @@ export default new Vuex.Store({
     },
     addToCart({ commit }, book) {
       commit('ADD_TO_CART', book);
+    },
+    updateTempOrderInfo({commit}, order){
+     commit('SET_TEMP_ORDER_INFO', order)
     },
     async fetchOrders({commit}) {
       const response = await getOrders();
