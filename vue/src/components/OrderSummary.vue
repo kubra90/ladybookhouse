@@ -12,7 +12,7 @@
           Review your Order
         </p>
         <!-- Container for Payment and Shipping Information -->
-        <div class="col-8">
+        <div class="col-12 col-md-8">
           <div class="card shadow-sm">
             <div class="card-body">
               <!-- <h5 class="card-title">Payment & Shipping Information</h5> -->
@@ -72,25 +72,27 @@
           </div>
         </div>
         <!-- Order Total and Shipping Price Information -->
-        <div class="col-4">
+        <div class="col-md-4 col-12">
           <div class="card shadow-sm">
             <div class="card-body">
               <h5 class="card-title">Order Summary</h5>
               <hr />
               <div class="mb-3">
-              
                 <div class="card-text">
-                    <div class="d-flex justify-content-between align-items-center">
-                  <span>Items({{ basketCount }}):</span>
-                  <span> ${{ formatPrice(totalPrice) }}</span>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span>Items({{ basketCount }}):</span>
+                    <span> ${{ formatPrice(subTotalPrice) }}</span>
                   </div>
-                  <div class="d-flex justify-content-between align-items-center">
-                  <span>Shipping:</span>
-                  <span> ${{ formatPrice(totalShippingCost) }}</span>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span>Shipping:</span>
+                    <span> ${{ formatPrice(totalShippingCost) }}</span>
                   </div>
                 </div>
-             
-            </div>
+              </div>
               <!-- Additional details like shipping cost can be added here -->
             </div>
           </div>
@@ -99,17 +101,45 @@
 
       <!-- Book Details and Shipping Options -->
       <div class="row mt-4">
-        <div class="col-8">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Books in Cart</h5>
-              <div v-for="(book, index) in cartBooks" :key="index" class="mb-3">
-                <div>{{ book.title }} by {{ book.author }}</div>
-                <div>Price: ${{ book.price }}</div>
-              </div>
-            </div>
+<!-- Book Details with Price Adjustment and Shipping Dropdown -->
+<div class="col-12 col-md-8">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Books in Cart</h5>
+      <div v-for="(book, index) in cartBooks" :key="index" class="mb-4">
+        <div class="d-flex align-items-center">
+          <div class="me-3 position-relative">
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
+              {{ book.quantity }}
+            </span>
+            <img :src="book.image" alt="book image" class="img-sm rounded border" style="height: 96px; width: 66px"/>
+          </div>
+          <div class="flex-grow-1">
+            <router-link :to="{ name: 'detail', params: { sku: book.sku }}" class="nav-link">
+              <strong>{{ book.title }}</strong> <br />
+              {{ book.author }}
+            </router-link>
+          </div>
+          <div>
+            <span class="price text-muted" style="color: chocolate">$ {{ book.price }}</span>
           </div>
         </div>
+        <hr class="my-2" />
+        <!-- Shipping Options Dropdown -->
+        <div class="mt-2">
+          <!-- <label for="shipping-options-{{ index }}" class="form-label">Shipping Options</label> -->
+          <select class="form-select" id="shipping" aria-label="Shipping Options">
+            <option selected>{{ selectedDelivery }}</option>
+            <option value="USPS">USPS</option>
+            <option value="UPS">UPS</option>
+            <!-- Add more shipping options as needed -->
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
@@ -124,9 +154,19 @@ export default {
   // Assuming props are passed or Vuex store is used
   computed: {
     ...mapState(["order", "cartBooks", "selectedPaymentMethod", "basketCount"]),
-    ...mapGetters(["totalPrice", "isAuthenticated", "totalShippingCost"]),
+    ...mapGetters(["totalPrice", "isAuthenticated", "totalShippingCost", "subTotalPrice"]),
     tempOrderInfo() {
       return this.$store.state.tempOrderInfo;
+    },
+    selectedDelivery() {
+      return this.$store.state.deliveryOption;
+    },
+    chooseOptionInDelivery() {
+      if (this.$store.state.deliveryOption === "USPS") {
+        return "UPS";
+      } else {
+        return "USPS";
+      }
     },
     selectedPaymentMethod() {
       return this.$store.state.selectedPaymentMethod;
