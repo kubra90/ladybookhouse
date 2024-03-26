@@ -91,6 +91,15 @@
                     <span>Shipping:</span>
                     <span> ${{ formatPrice(totalShippingCost) }}</span>
                   </div>
+                  <hr>
+                  <div
+                    class="d-flex justify-content-between align-items-center" style="color:#c7002c"
+                  >
+                    <span>Order Total:</span>
+                    <span> ${{ formatPrice(totalPrice) }}</span>
+                  </div>
+                  <hr>
+                  <button class="btn btn-primary w-100" style="color:white;background-color:#c7002c;width:auto;border:none;" @click="concludeOrder">Place your order</button>
                 </div>
               </div>
               <!-- Additional details like shipping cost can be added here -->
@@ -121,20 +130,10 @@
             </router-link>
           </div>
           <div>
-            <span class="price text-muted" style="color: chocolate">$ {{ book.price }}</span>
+            <span class="price text-muted" style="color:chocolate">$ {{ book.price }}</span>
           </div>
         </div>
-        <hr class="my-2" />
         <!-- Shipping Options Dropdown -->
-        <div class="mt-2">
-          <!-- <label for="shipping-options-{{ index }}" class="form-label">Shipping Options</label> -->
-          <select class="form-select" id="shipping" aria-label="Shipping Options">
-            <option selected>{{ selectedDelivery }}</option>
-            <option value="USPS">USPS</option>
-            <option value="UPS">UPS</option>
-            <!-- Add more shipping options as needed -->
-          </select>
-        </div>
       </div>
     </div>
   </div>
@@ -148,12 +147,12 @@
   
   
   <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "OrderSummary",
   // Assuming props are passed or Vuex store is used
   computed: {
-    ...mapState(["order", "cartBooks", "selectedPaymentMethod", "basketCount"]),
+    ...mapState(["order", "cartBooks", "selectedPaymentMethod", "basketCount", "tempOrderInfo","order"]),
     ...mapGetters(["totalPrice", "isAuthenticated", "totalShippingCost", "subTotalPrice"]),
     tempOrderInfo() {
       return this.$store.state.tempOrderInfo;
@@ -184,12 +183,52 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['createOrder']),
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
-  },
-};
+   
+//    async concludeOrder() {
+//   if (this.cartBooks != null && this.cartBooks.length > 0) {
+//     // Assuming tempOrderInfo is already up-to-date with user inputs
+//     // and just needs inventory codes from cartBooks
+//     this.tempOrderInfo.inventoryCode = this.cartBooks.map(book => book.sku);
+
+//     try {
+//       // Use tempOrderInfo for creating the order
+//       await this.createOrder(this.tempOrderInfo);
+
+//       // Navigate to the order success page
+//       this.$router.push({ name: "orderSuccess" });
+//     } catch (error) {
+//       // Log or handle the error appropriately
+//       console.error("Order submission failed", error);
+//       // Optionally, display a user-friendly error message
+//       this.$refs.alertToast.addToast({
+//         title: "Order Submission Failed",
+//         message: "There was a problem submitting your order. Please try again.",
+//       });
+//     }
+//   }
+// }
+    concludeOrder() {
+      if (this.cartBooks != null && this.cartBooks.length > 0) {
+        this.tempOrderInfo.inventoryCode = [];
+        for (const book of this.cartBooks) {
+          this.tempOrderInfo.inventoryCode.push(book.sku);
+        }
+        try {
+          this.createOrder(this.tempOrderInfo);
+          this.$router.push({ name: "orderSuccess" });
+        } catch (error) {
+          console.error("Order submission failed", error);
+        }
+      }
+    },
+  }
+
+}
 </script>
   
   <style scoped>
