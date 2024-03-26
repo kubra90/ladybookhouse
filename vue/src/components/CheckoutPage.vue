@@ -447,7 +447,7 @@
               </div>
             </form>
             <!-- payment information -->
-            <div class="card shadow-0 border mt-3">
+            <div class="card shadow-0 border mt-3" ref="paymentSection">
               <div class="p-4">
                 <h5 class="card-title mb-1">Payment Information</h5>
                 <div v-if="showPaymentInfo" class="mt-4">
@@ -623,6 +623,18 @@ export default {
     selectedDelivery(newValue) {
       this.$store.commit("SET_DELIVERY_OPTION", newValue);
     },
+    '$route.query.focus'(newValue){
+         if(newValue === 'payment'){
+            this.showPaymentInfo = true;
+            this.scrollToPaymentSection();
+         }
+    }
+  },
+  mounted() {
+    if(this.$route.query.focus === 'payment'){
+        this.showPaymentInfo = true;
+        this.scrollPaymentSection();
+    }
   },
   computed: {
     ...mapGetters([
@@ -725,6 +737,12 @@ export default {
           }
         });
       }
+    },
+    scrollPaymentSection(){
+     const paymentSection = this.$refs.paymentSection;
+     if(paymentSection){
+        paymentSection.scrollIntoView({behavior: 'smooth'});
+     }
     },
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
