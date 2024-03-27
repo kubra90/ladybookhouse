@@ -18,6 +18,10 @@ public class Order {
 
     private String message;
 
+    private boolean saveAddress;
+
+    private boolean infoMail;
+
     private LocalDateTime orderDateTime;
 
     public Order() {
@@ -28,7 +32,7 @@ public class Order {
 
     public Order(int orderId, String firstName, String lastName, String addressLine,
                  String zipCode, String country, String state, String city, String
-                         email, String phoneNumber, List<String> inventoryCode, String message) {
+                         email, String phoneNumber, List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message) {
         this.orderId = orderId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,6 +44,8 @@ public class Order {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.inventoryCode = inventoryCode;
+        this.saveAddress = saveAddress;
+        this.infoMail = infoMail;
         this.message = message;
         this.orderDateTime = LocalDateTime.now();
     }
@@ -52,6 +58,21 @@ public class Order {
         this.orderDateTime = orderDateTime;
     }
 
+    public boolean isSaveAddress() {
+        return saveAddress;
+    }
+
+    public void setSaveAddress(boolean saveAddress) {
+        this.saveAddress = saveAddress;
+    }
+
+    public boolean isInfoMail() {
+        return infoMail;
+    }
+
+    public void setInfoMail(boolean infoMail) {
+        this.infoMail = infoMail;
+    }
 
     public String getMessage() {
         return message;

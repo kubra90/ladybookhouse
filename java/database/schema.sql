@@ -24,6 +24,8 @@ CREATE TABLE orders (
    address varchar(100) NOT NULL,
    phoneNumber varchar(15),
    email varchar(50) NOT NULL,
+   saveAddress BOOLEAN,
+   infoMail BOOLEAN,
 --   bookNo varchar(10) NOT NULL UNIQUE,
    message varchar(250),
 --   added a timestamp column for order creation date and time

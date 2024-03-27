@@ -36,13 +36,13 @@ public class JdbcOrderDao implements OrderDao {
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
                           String addressLine, String email, String phoneNumber,
-                          List<String> inventoryCode, String message) {
+                          List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message) {
         // Insert the order into 'orders' table
         String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
-                "state, zipcode, address, phoneNumber, email, message) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
+                "state, zipcode, address, phoneNumber, email, message, infoMail, saveAddress) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
 
-        Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, message}, Integer.class);
+        Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, saveAddress, infoMail, message}, Integer.class);
         if(orderId == null){
             return false;
         }
@@ -107,6 +107,8 @@ public class JdbcOrderDao implements OrderDao {
         order.setEmail(rs.getString("email"));
         order.setPhoneNumber(rs.getString("phoneNumber"));
         order.setMessage(rs.getString("message"));
+        order.setInfoMail(rs.getBoolean("infoMail"));
+        order.setSaveAddress(rs.getBoolean("saveAddress"));
         order.setOrderDateTime(Objects.requireNonNull(rs.getTimestamp("created_at")).toLocalDateTime());
         return order;
     }

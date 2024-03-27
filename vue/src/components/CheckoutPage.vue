@@ -533,7 +533,7 @@
                 <p class="mb-2 text-danger">- $60.00</p>
               </div> -->
               <div class="d-flex justify-content-between">
-                <p class="mb-2">Shipping cost:</p>
+                <p class="mb-2">Shipping: </p>
                 <p class="mb-2">${{ formatPrice(totalShippingCost) }}</p>
               </div>
               <hr />
@@ -645,7 +645,7 @@ export default {
             this.scrollToShippingSection();
         })
     }
-    if(this.$route.query.fromCheckout){
+    if(this.paymentMethod){
         this.showPaymentInfo =true;
     }
   },
@@ -672,14 +672,6 @@ export default {
       set(value) {
         this.$store.commit("SET_TEMP_ORDER_INFO", value);
       },
-    },
-   payMethod: {
-      get() {
-        return this.$store.state.paymentMethod;
-      },
-      set(value){
-        this.$store.commit('SET_PAYMENT_OPTION', value)
-      }
     },
     
     checkBookCart() {
@@ -731,7 +723,8 @@ continueToPayment() {
             this.$router.push({ name: 'orderSummary' });
         } else {
             // Show payment info section if not redirected from checkout summary
-           
+            console.log("Redirecting to order summary");
+            this.$router.push({name: 'orderSummary'})
         }
     }
 },
