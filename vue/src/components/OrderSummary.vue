@@ -29,11 +29,12 @@
                         >Shipping Information</span
                       >
                       <router-link
-                        v-bind:to="{ name: 'checkout' }"
+                        v-bind:to="{ name: 'checkout', query: {focus: 'shipping'} }"
                         class="btn btn-secondary btn-sm"
                         style="margin-left: 0.4rem; background-color: gray"
                         >Change</router-link
                       >
+                   
                     </div>
                     <p class="card-text">
                       <strong>{{ displayName }}</strong
@@ -58,11 +59,12 @@
                         >Payment Information</span
                       >
                       <router-link
-                        v-bind:to="{ name: 'checkout' }"
-                        class="btn btn-secondary btn-sm"
+                      v-bind:to="{name: 'checkout', query: {focus: 'payment'}}"
+                      class="btn btn-secondary btn-sm"
                         style="margin-left: 0.4rem; background-color: gray"
-                        >Change</router-link
                       >
+                        Change
+                      </router-link>
                     </div>
                     <p class="card-text">Method: {{ selectedPaymentMethod }}</p>
                   </div>

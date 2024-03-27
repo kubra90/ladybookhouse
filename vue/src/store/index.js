@@ -38,7 +38,7 @@ export default new Vuex.Store({
     orders: [],
     order: {},
     deliveryOption: "USPS",
-    selectedPaymentMethod: "paypal",
+    paymentMethod: "paypal",
     tempOrderInfo: {}
   },
   getters: {
@@ -184,7 +184,7 @@ export default new Vuex.Store({
       state.deliveryOption = option
     },
     SET_PAYMENT_OPTION(state, data){
-      state.selectedPaymentMethod = data
+      state.paymentMethod = data
     }
   },
   actions: {
@@ -207,6 +207,10 @@ export default new Vuex.Store({
     updateTempOrderInfo({commit}, order){
      commit('SET_TEMP_ORDER_INFO', order)
     },
+    updateSelectedPaymentMethod({commit}, paymentMethod){
+    commit('SET_PAYMENT_OPTION', paymentMethod);
+    },
+   
     async fetchOrders({commit}) {
       const response = await getOrders();
       commit('SET_ORDERS', response.data)
