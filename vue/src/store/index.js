@@ -38,7 +38,12 @@ export default new Vuex.Store({
     orders: [],
     order: {},
     deliveryOption: "USPS",
-    paymentMethod: "paypal",
+    // paymentMethod: "paypal",
+
+    checkout: {
+      paymentMethod: '',
+      returningUserEditingShipping: false,
+    },
     tempOrderInfo: {}
   },
   getters: {
@@ -183,8 +188,11 @@ export default new Vuex.Store({
       console.log(option);
       state.deliveryOption = option
     },
-    SET_PAYMENT_OPTION(state, data){
-      state.paymentMethod = data
+    SET_PAYMENT_METHOD(state, data){
+      state.checkout.paymentMethod = data
+    },
+    SET_RETURNING_USER_EDITING_SHIPPING(state, value) {
+      state.checkout.returningUserEditingShipping = value;
     }
   },
   actions: {
@@ -207,8 +215,14 @@ export default new Vuex.Store({
     updateTempOrderInfo({commit}, order){
      commit('SET_TEMP_ORDER_INFO', order)
     },
-    updateSelectedPaymentMethod({commit}, paymentMethod){
-    commit('SET_PAYMENT_OPTION', paymentMethod);
+    // updateSelectedPaymentMethod({commit}, paymentMethod){
+    // commit('SET_PAYMENT_OPTION', paymentMethod);
+    // },
+    updateSelectedPaymentMethod({ commit }, method) {
+      commit('SET_PAYMENT_METHOD', method);
+    },
+    updateReturningUserEditingShipping({ commit }, value) {
+      commit('SET_RETURNING_USER_EDITING_SHIPPING', value);
     },
    
     async fetchOrders({commit}) {

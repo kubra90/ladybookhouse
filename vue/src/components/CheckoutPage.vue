@@ -613,7 +613,7 @@ export default {
   },
   data() {
     return {
-      paymentMethod: "",
+    //   paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
        selectedPaymentMethod: "", // Track which payment method is selected
       selectedDelivery: "USPS", //default value
@@ -628,10 +628,11 @@ export default {
             this.showPaymentInfo = true;
             this.scrollToPaymentSection();
          }else if(newValue === 'shipping'){
+            this.showPaymentInfo = true;
             this.scrollToShippingSection();
          }
-         }
-        },
+         },
+    },
   mounted() {
     if(this.$route.query.focus === 'payment'){
         this.showPaymentInfo = true;
@@ -639,6 +640,7 @@ export default {
             this.scrollToPaymentSection();
         })
     } if(this.$route.query.focus === 'shipping'){
+        this.showPaymentInfo = true;
         this.$nextTick(()=> {
             this.scrollToShippingSection();
         })
@@ -648,6 +650,7 @@ export default {
     }
   },
   computed: {
+   
     ...mapGetters([
       "isAuthenticated",
       "totalPrice",
@@ -656,6 +659,12 @@ export default {
     ]),
     ...mapState(["cartBooks", "user", "order"]),
     ...mapActions(["removeBook"]),
+    paymentMethod() {
+    return this.$store.state.checkout.paymentMethod;
+  },
+  returningUserEditingShipping() {
+    return this.$store.state.checkout.returningUserEditingShipping;
+  },
     orderInfo: {
       get() {
         return this.$store.state.tempOrderInfo;
@@ -684,42 +693,7 @@ export default {
   },
   methods: {
     ...mapActions(["createOrder"]),
-//     continueToPayment() {
-//         if(this.selectedPaymentMethod === ""){
-//         if(this.isAuthenticated){
-//             this.orderInfo.firstName = this.user.firstName;
-//             this.orderInfo.lastName = this.user.lastName;
-//             this.orderInfo.email = this.user.email;
-//         }
-    
-  
-        
-//       // access the form via this.$refs and check if it's valid
-//       const form = this.$refs.checkoutForm;
-//       if (!form.checkValidity()) {
-//         this.$refs.alertToast.addToast({
-//           title: "Form Incomplete",
-//           message: "Please fill out all required fields",
-//         });
-      
-//       form.classList.add("was-validated");
-//       return;
-//     }else{
-//         this.showPaymentInfo = true;
-//     }
-// } else{
-//     // there is a problem in this below if condition
-//     if(this.selectedPaymentMethod === 'paypal'){
-//         this.showPaymentInfo =true;
-//         console.log(this.$route.query.fromCheckout )
-//         this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
-//         this.$router.push({name: 'orderSummary'});
-//       } else{
-//         this.showPaymentInfo =true;
-//       }
-// }
-    
-//     },
+
 continueToPayment() {
     // First, check if the form is valid.
     const form = this.$refs.checkoutForm;
@@ -739,31 +713,35 @@ continueToPayment() {
         this.orderInfo.email = this.user.email;
     }
 
-    // Then, check if a payment method has been selected.
-    if (this.selectedPaymentMethod === "") {
-        this.showPaymentInfo = true; // This line prompts the user to select a payment method if not already selected.
-        return; // Stop execution if no payment method is selected.
-    }
+    // Save the order information to the store regardless of the payment method selection
+    this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
 
-    // If a payment method is selected and we're coming from the checkout process.
-    if (this.$route.query.fromCheckout && this.selectedPaymentMethod) {
-        console.log("Redirecting to order summary");
-        this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
-        this.$router.push({ name: 'orderSummary' });
+    // Then, check if a payment method has been selected.
+    if (this.paymentMethod === "") {
+        this.showPaymentInfo = true; // Prompt the user to select a payment method if not already selected.
+        return; // Stop execution if no payment method is selected.
+    } else {
+        // If a payment method is selected, update it in the store
+        // this.$store.dispatch('updateSelectedPaymentMethod', this.selectedPaymentMethod);
+
+        // Redirect to order summary if coming from checkout process
+        if (this.$route.query.focus === 'shipping' || this.$route.query.focus === 'payment') {
+            this.showPaymentInfo = true;
+            console.log("Redirecting to order summary");
+            this.$router.push({ name: 'orderSummary' });
+        } else {
+            // Show payment info section if not redirected from checkout summary
+           
+        }
     }
 },
 
-    // saveAndContinue() {
-    //   this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
-    //   this.$store.dispatch('updateSelectedPaymentMethod', this.payMethod);
-    //   this.$router.push({ name: "orderSummary", query: {fromCheckout: true} });
-    // },
     saveAndContinue() {
     if (this.selectedPaymentMethod) {
         console.log(this.selectedPaymentMethod);
       // Assuming 'updateSelectedPaymentMethod' is an action that correctly updates the Vuex state
       this.$store.dispatch('updateSelectedPaymentMethod', this.selectedPaymentMethod);
-      
+      console.log(this.paymentMethod + "this is this.paymentMethod")
       // Assuming orderInfo is correctly populated and needs to be updated as well
       this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
       

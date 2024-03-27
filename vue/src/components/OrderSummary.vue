@@ -66,7 +66,7 @@
                         Change
                       </router-link>
                     </div>
-                    <p class="card-text">Method: {{ selectedPaymentMethod }}</p>
+                    <p class="card-text">Method: {{paymentMethod}}</p>
                   </div>
                 </div>
               </div>
@@ -169,8 +169,8 @@ export default {
         return "USPS";
       }
     },
-    selectedPaymentMethod() {
-      return this.$store.state.selectedPaymentMethod;
+    paymentMethod() {
+      return this.$store.state.checkout.paymentMethod;
     },
     displayName() {
       const firstName =
