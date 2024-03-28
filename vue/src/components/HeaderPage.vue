@@ -4,7 +4,7 @@
 			<div class="row align-items-center justify-content-between">
 				<!-- Website Name and Navigation Links -->
 				<div class="col-md-auto">
-					<h1 class="mt-4 mb-0">Lady Bookhouse</h1>
+					<h1 class="mt-5 mb-4">Lady Bookhouse</h1>
 				</div>
 
 				<!-- Account/Cart Links and Search Bar -->
@@ -12,9 +12,18 @@
 					<div class="d-flex align-items-center">
 						<!-- Account/Cart Links -->
 						<div class="me-3">
-							<router-link v-if="isAuthenticated" to="/account" class="btn btn-sm btn-secondary">My
-								Account</router-link>
-							<router-link v-else to="/login" class="btn btn-sm btn-secondary">Your Account
+							<div class="dropdown" v-if="isAuthenticated">
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									My Account
+								</button>
+								<ul class="dropdown-menu custom-menu">
+									<li><router-link class="menu-link" to="/account"> My Account </router-link></li>
+									<li><router-link class="menu-link" to="/checkOrders"> My purchases </router-link></li>
+									<li><router-link class="menu-link" to="/saved_books"> My bookshelf </router-link></li>
+								</ul>
+							</div>
+							<router-link v-else to="/login" class="btn btn-sm btn-secondary">Your Account |
 							</router-link>
 							<router-link v-bind:to="{ name: 'cart' }" class="btn btn-sm btn-secondary">
 								<i class="fas fa-shopping-cart me-1"></i>
@@ -28,7 +37,8 @@
 							<form class="d-flex position-relative">
 								<input v-model="searchText" type="text" class="form-control me-2 search-box shadow-none m-2 p-1"
 									placeholder="Search" aria-label="Search" />
-								<button class="btn btn-outline-secondary position-absolute end-0 m-2" type="submit" @click.prevent="searchAllBookDetails">
+								<button class="btn btn-outline-secondary position-absolute end-0 m-2" type="submit"
+									@click.prevent="searchAllBookDetails">
 									<i class="fas fa-search"></i>
 								</button>
 							</form>
@@ -39,7 +49,7 @@
 		</div>
 
 		<!-- Responsive Navbar for Navigation Links -->
-		<nav class="navbar navbar-expand-md navbar-light nav-custom mt-4">
+		<nav class="navbar navbar-expand-md navbar-light nav-custom mt-5">
 			<div class="container">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +65,7 @@
 						</li>
 						<li class="nav-item">
 							<!-- <a href="/browse" class="nav-link">Browse</a> -->
-							<router-link v-bind:to="{name: 'browse'}" class="nav-link">Browse</router-link>
+							<router-link v-bind:to="{ name: 'browse' }" class="nav-link">Browse</router-link>
 						</li>
 						<li class="nav-item">
 							<router-link v-bind:to="{ name: 'new-arrivals-view' }" class="nav-link">New Arrivals</router-link>
@@ -146,6 +156,26 @@ h1 {
 	color: #fa8072;
 }
 
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+	background: #fff !important;
+	color: #6b3630;
+}
+
+.custom-menu {
+	height: fit-content;
+}
+
+.menu-link {
+	color: #6b3630;
+	padding: 0.8rem;
+	text-decoration: none;
+}
+
+.menu-link:hover {
+	color: #f36858;
+}
+
 .btn-outline-secondary {
 	border: none;
 	color: orange;
@@ -157,6 +187,7 @@ h1 {
 	background: none;
 	color: #6b3630;
 	border: none;
+	margin: 0.3rem;
 }
 
 .search-box,
