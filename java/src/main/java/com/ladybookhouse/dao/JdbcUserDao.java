@@ -62,16 +62,20 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByEmail(String email) {
-        if(email == null) throw new IllegalArgumentException("Email cannot be null");
-
-        int userId;
-            try {
-                userId = jdbcTemplate.queryForObject("select user_id from users where email= ?", int.class, email);
-            } catch (EmptyResultDataAccessException e) {
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
+        try {
+            Integer userId = jdbcTemplate.queryForObject("select user_id from users where email= ?", new Object[]{email}, Integer.class);
+//            check if the retrieved value is null or not
+            if (userId != null) {
+            return userId;
+        } else {
+            throw new UsernameNotFoundException("user with this email" + email + "not found");
+        }
+    }
+            catch (EmptyResultDataAccessException e) {
                 throw new UsernameNotFoundException("User with this email" + email + "not found");
 
             }
-        return userId;
     }
 
     @Override

@@ -33,12 +33,34 @@ CREATE TABLE orders (
    CONSTRAINT PK_order PRIMARY KEY(order_id)
 );
 
+CREATE TABLE address(
+    address_id SERIAL
+    email varchar(50) NOT NULL,
+    firstname varchar(50) NOT NULL,
+    lastname varchar(50) NOT NULL,
+    country varchar(50) NOT NULL,
+    city varchar(50) NOT NULL,
+    state varchar(50) NOT NULL,
+    zipcode varchar(20) NOT NULL,
+    address varchar(100) NOT NULL,
+    phoneNumber varchar(15) NOT NULL,
+    CONSTRAINT PK_address PRIMARY KEY(address_id)
+);
+
 CREATE TABLE order_books (
     order_books_id SERIAL PRIMARY KEY,
     bookNo varchar(10) NOT NULL,
     order_id INTEGER NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES orders(order_id) ON DELETE CASCADE
-    UNIQUE (order_id, bookNo)
+    FOREIGN KEY(order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    UNIQUE (bookNo)
+)
+
+CREATE TABLE user_addresses (
+   user_addresses_id SERIAL PRIMARY KEY,
+   user_id INTEGER NOT NULL,
+   address_id INTEGER NOT NULL,
+   FOREIGN KEY(user_id) REFERENCES users(user_id),
+   FOREIGN KEY(address_id) REFERENCES address(address_id)
 )
 
 CREATE TABLE books (

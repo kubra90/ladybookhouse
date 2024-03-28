@@ -58,7 +58,8 @@ public class Order {
         this.orderDateTime = orderDateTime;
     }
 
-    public boolean isSaveAddress() {
+
+    public boolean getSaveAddress() {
         return saveAddress;
     }
 
@@ -66,7 +67,7 @@ public class Order {
         this.saveAddress = saveAddress;
     }
 
-    public boolean isInfoMail() {
+    public boolean getInfoMail() {
         return infoMail;
     }
 

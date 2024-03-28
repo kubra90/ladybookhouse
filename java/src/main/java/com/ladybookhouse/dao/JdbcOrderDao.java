@@ -1,15 +1,18 @@
 package com.ladybookhouse.dao;
 
 import com.ladybookhouse.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Component
@@ -17,42 +20,77 @@ public class JdbcOrderDao implements OrderDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+
+
     public JdbcOrderDao(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
 
 
-//    @Override
-//    public boolean create(String firstname, String lastName, String country,
-//                          String zipcode, String city, String state,
-//                          String addressLine, String email, String phoneNumber,
-//                          String sku, String message) {
-//        String orderSql = "insert into orders (firstname, lastname, country, city, " +
-//                "state, zipcode, address, phoneNumber, email, bookNo, message) " +
-//                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        return jdbcTemplate.update(orderSql, firstname, lastName, country,
-//                city, state, zipcode, addressLine, email, phoneNumber, sku, message) == 1;
-//    }
 
     @Override
     public boolean create(String firstname, String lastName, String country,
                           String zipcode, String city, String state,
                           String addressLine, String email, String phoneNumber,
                           List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message) {
-        // Insert the order into 'orders' table
-        String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
-                "state, zipcode, address, phoneNumber, email, message, infoMail, saveAddress) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
+        try {
+            // Insert the order into 'orders' table
+            String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
+                    "state, zipcode, address, email, phoneNumber, saveAddress, infoMail, message) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
 
-        Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, saveAddress, infoMail, message}, Integer.class);
-        if(orderId == null){
-            return false;
-        }
-        String bookSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
-        for (String sku : inventoryCode) {
-            jdbcTemplate.update(bookSql, orderId, sku);
+            Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, saveAddress, infoMail, message}, Integer.class);
+
+            if (orderId == null) {
+                return false;
+            }
+
+            // Inserting books for the order
+            String bookSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
+            for (String sku : inventoryCode) {
+                jdbcTemplate.update(bookSql, orderId, sku);
+            }
+            System.out.println("Email used for query: " + email);
+
+//            check orderId in books_order table than return true
+//            String checkSql = "SELECT order_books_id from order_books where order_id = ?";
+//            Integer orderBookId = jdbcTemplate.queryForObject(checkSql, new Object[]{orderId}, Integer.class);
+////
+//           if (orderBookId != null)
+                if (saveAddress) {
+                    // Attempt to find user ID by email
+                    String findUserIdBySql = "SELECT user_id FROM users WHERE email=?";
+                    Integer userId = jdbcTemplate.queryForObject(findUserIdBySql, new Object[]{email}, Integer.class);
+                    System.out.println(userId);
+                    if (userId != null) {
+                        // Insert new address and link it to the user
+                        String addressSql = "INSERT INTO address (email, firstname, lastname, country, city, state, zipcode, address, phoneNumber) "
+                                + "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?) RETURNING address_id";
+                        Integer addressId = jdbcTemplate.queryForObject(addressSql, new Object[]{email, firstname, lastName, country, city, state, zipcode, addressLine, phoneNumber}, Integer.class);
+                        System.out.println(addressId);
+                        if (addressId != null) {
+                            String linkAddressToUserSql = "INSERT INTO user_addresses(user_id, address_id) VALUES (?, ?)";
+                            jdbcTemplate.update(linkAddressToUserSql, userId, addressId);
+                            return true;
+                        }
+                    }
+
+            }
+
+                return true; // Order and book links successfully created
+
+            } catch(EmptyResultDataAccessException e){
+                // Handle case where no rows are returned for a query expecting a single row
+                System.out.println("No results found where one was expected: " + e.getMessage());
+                return false;
+            } catch(DataAccessException e){
+                // General handler for other data access exceptions
+                System.out.println("Data access error: " + e.getMessage());
+                return false;
+            }
         }
 
-        return true; // Order and book links successfully created
-    }
+
+
+
 
     @Override
     public List<Order> findAllOrders() {
@@ -104,11 +142,11 @@ public class JdbcOrderDao implements OrderDao {
         order.setCity(rs.getString("city"));
         order.setAddressLine(rs.getString("address"));
         order.setZipCode(rs.getString("zipcode"));
-        order.setEmail(rs.getString("email"));
         order.setPhoneNumber(rs.getString("phoneNumber"));
-        order.setMessage(rs.getString("message"));
-        order.setInfoMail(rs.getBoolean("infoMail"));
+        order.setEmail(rs.getString("email"));
         order.setSaveAddress(rs.getBoolean("saveAddress"));
+        order.setInfoMail(rs.getBoolean("infoMail"));
+        order.setMessage(rs.getString("message"));
         order.setOrderDateTime(Objects.requireNonNull(rs.getTimestamp("created_at")).toLocalDateTime());
         return order;
     }

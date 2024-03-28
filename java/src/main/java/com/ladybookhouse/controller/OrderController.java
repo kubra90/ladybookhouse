@@ -34,10 +34,11 @@ public OrderController(OrderDao orderDao){
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public void placeOrder(@Valid @RequestBody Order newOrder) {
+        System.out.println(newOrder.getSaveAddress());
              orderDao.create(newOrder.getFirstName(),newOrder.getLastName(),
                      newOrder.getCountry(), newOrder.getZipCode(), newOrder.getCity(),
-                     newOrder.getState(), newOrder.getAddressLine(), newOrder.getPhoneNumber(),
-                     newOrder.getEmail(), newOrder.getInventoryCode(), newOrder.getMessage());
+                     newOrder.getState(), newOrder.getAddressLine(),  newOrder.getEmail(),newOrder.getPhoneNumber(),
+                    newOrder.getInventoryCode(), newOrder.getSaveAddress(), newOrder.getInfoMail(),  newOrder.getMessage());
           }
     @RequestMapping(path="/orders", method= RequestMethod.GET)
     public List<Order> getOrders(Principal principal) {
