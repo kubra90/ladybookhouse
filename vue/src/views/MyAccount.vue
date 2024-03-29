@@ -1,35 +1,37 @@
 <template>
-  <div class="account-page">
-    <Header-page/>
-    <main class="account-content">
-      <div class="flex-container">
-        <h1>Your account</h1>
-        <div class="welcome">
-          Welcome, {{ user.firstName}} {{ user.lastName }}. 
-          <router-link to="/logout">Logout</router-link>
+  <div>
+    <Header-page />
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="mt-4">Your account</h1>
+        </div>
+        <div class="col text-end">
+          <div class="welcome mt-4">
+            Welcome, {{ user.firstName }} {{ user.lastName }}.
+            <p class="pt-3"><router-link class="link " to="/logout">Logout</router-link></p>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="container mt-2">
       <div class="personal-info">
         <span class="personal-info-header">Personal Information</span>
         <hr>
         <div class="personal-info-body">
-          <span>Name: {{ user.firstName}} {{ user.lastName }}</span><br>
-          <span>Email: {{ user.email }}</span>
+          <p>Name: {{ user.firstName }} {{ user.lastName }}</p>
+          <p class="pt-2">Email: {{ user.email }}</p>
         </div>
-        <!-- <div class="orders">
-          <strong>Orders</strong>
-          <hr>
-          <span>You currently have no recent orders</span>
-        </div>   -->
         <hr>
-        <router-link v-bind:to="{name: 'order'}" class="purchase-link">View My Purchases</router-link>
-        <hr>
-        <router-link v-bind:to="{name: 'saved-books'}" class="bookshelf-link">View My Bookshelf</router-link>
+        <p><router-link v-bind:to="{ name: 'order' }" class="link">View My Purchases</router-link></p>
+        <p class="pt-2 pb-2"><router-link v-bind:to="{ name: 'saved-books' }" class="link">View My
+            Bookshelf</router-link></p>
       </div>
-    </main>
-    <Footer-page class="footer"/>
+    </div>
+    <Footer-page />
   </div>
 </template>
+
 
 <script>
 
@@ -40,58 +42,33 @@ import { mapState } from 'vuex'
 export default {
   name: "my-account",
   components: {
-   HeaderPage, FooterPage
+    HeaderPage, FooterPage
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"])
   }
 }
 </script>
 
 <style scoped>
-
 * {
-  box-sizing: border-box;
-  padding: 0px;
-}
-.personal-info {
-  margin: 1em;
+  font-family: "PT SANS", sans-serif;
 }
 
-.purchase-link, .bookshelf-link{
+h1 {
+  color: #6b3630;
 }
 
-.account-page {
-  display:flex;
-  flex-direction: column;
-  height: 100%;
-  margin:0
-}
-
-.footer{
-  display:flex;
-}
-.personal-info-header {
-  font-weight: 700;
-}
 hr {
   color: #c1c1c1;
-  margin-top: 0.50em;
 }
-.orders {
-  margin: 2em 0;
+
+.link {
+  color: #935048;
+  font-weight: 600;
 }
-@media (min-width: 768px) {
-  main.account-content {
-  /* display: block; */
-  margin-left: 130px;
-  padding: 1em;
-  flex:1
-}
-.flex-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
+.link:hover {
+  color: #6B3630;
 }
 </style>
