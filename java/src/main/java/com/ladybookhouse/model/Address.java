@@ -11,11 +11,14 @@ public class Address {
     private String phoneNumber;
     private String email;
 
+    private int addressId;
+
     public Address(){
 
     }
 
-    public Address(String firstname, String lastname, String country, String city, String state, String zipcode, String addressLine, String phoneNumber, String email) {
+    public Address(int addressId,String firstname, String lastname, String country, String city, String state, String zipcode, String addressLine, String phoneNumber, String email) {
+        this.addressId =addressId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.country = country;
@@ -33,6 +36,14 @@ public class Address {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public int getAddressId(int addressId) {
+        return this.addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public String getLastname() {
@@ -83,8 +94,8 @@ public class Address {
         this.addressLine = addressLine;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhoneNumber(String phoneNumber) {
+        return this.phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
