@@ -3,8 +3,8 @@
 		<div class="container">
 			<div class="row align-items-start justify-content-between">
 				<!-- Website Name and Navigation Links -->
-				<div class="col-md-auto">
-					<h1 class="mt-5 py-3">Lady Bookhouse</h1>
+				<div class="col-md-auto py-5 col-sm-12 ">
+					<h1 class="mt-5 mb-0">Lady Bookhouse</h1>
 				</div>
 
 				<!-- Account/Cart Links and Search Bar -->
@@ -12,10 +12,10 @@
 					<div class="row">
 						<div class="col-12">
 							<!-- Account/Cart Links -->
-							<div class="d-flex align-items-center mb-1"> <!-- Added mb-3 to create space between this section and the search bar -->
+							<div class="d-flex align-items-center mt-2"> <!-- Added mb-3 to create space between this section and the search bar -->
 								<div class="dropdown" v-if="isAuthenticated">
-									<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-secondary dropdown-toggle"  type="button" data-bs-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false" style="font-size:14px">
 										My Account
 									</button>
 									<ul class="dropdown-menu custom-menu">
@@ -50,7 +50,7 @@
 		</div>
 
 		<!-- Responsive Navbar for Navigation Links -->
-		<nav class="navbar navbar-expand-md navbar-light nav-custom mt-4">
+		<nav class="navbar navbar-expand-md navbar-light nav-custom ">
 			<div class="container">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,8 +147,9 @@ export default {
 <style scoped>
 .header-custom {
 	background-color: #fdf5e6;
-	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-		"Lucida Sans", Arial, sans-serif;
+	/* font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif; */
+		font-family: "PT Sans", sans-serif;
 }
 
 h1 {
@@ -188,7 +189,7 @@ h1 {
 	background: none;
 	color: #6b3630;
 	border: none;
-	margin: 0.3rem;
+	margin: 0rem;
 }
 
 .search-box,
@@ -196,11 +197,16 @@ h1 {
 	/* border: 2px solid #6b3630; */
 	border:none;
 	background-color:#fa8072;
+	font-size:medium;
+	font-family: "PT Sans", sans-serif;
 }
 
 .search-icon {
 	color: #6b3630;
+	background: none;
 }
+
+
 
 .nav-custom {
 	background-color: #fa8072;
