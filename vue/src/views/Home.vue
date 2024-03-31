@@ -17,7 +17,11 @@ export default {
   name: "home",
   components: {
     HeaderPage, NewArrivals, FeaturedBooks, FooterPage
-  }
+  },
+  created() {
+    // this.fetchNewArrivals()
+    this.$store.dispatch("fetchBooks")
+  },
 }
 </script>
 
