@@ -14,7 +14,7 @@
    
 <script>
 
-import { mapActions, mapGetters } from "vuex"
+import { mapGetters } from "vuex"
 import HeaderPage from "../components/HeaderPage.vue"
 import FooterPage from "../components/FooterPage.vue"
 import BookCard from "../components/BookCard.vue"
@@ -41,13 +41,6 @@ export default {
       const end = start + this.booksPerPage
       return this.filteredBooksByCateg(this.$route.params.category).slice(start, end)
     }
-  },
-  methods: {
-    ...mapActions(["fetchBooks"])
-  },
-
-  created() {
-    this.fetchBooks()
   }
 }
 

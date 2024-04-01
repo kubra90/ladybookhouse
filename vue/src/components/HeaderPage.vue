@@ -132,11 +132,6 @@ export default {
 			}
 		}
 	},
-
-	created() {
-		this.$store.dispatch("fetchBooks")
-	},
-
 	computed: {
 		...mapState(["basketCount", "user", "books"]),
 		...mapGetters(["isAuthenticated"])

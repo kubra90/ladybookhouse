@@ -35,15 +35,7 @@ export default {
     },
     ...mapState(["books"]),
     ...mapGetters(["newBookArrivals"])
-  },
-
-  // methods: {
-  //   ...mapActions(["fetchBooks"])
-  // },
-
-  // created() {
-  //   this.fetchBooks()
-  // }
+  }
 }
 </script>
 
