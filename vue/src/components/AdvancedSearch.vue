@@ -98,9 +98,6 @@ export default {
     computed: {
         ...mapState(['books', 'book']),
     },
-    created() {
-  this.$store.dispatch('fetchBooks');
-},
 
     methods: {
         // ...mapActions(['fetchBooks']),

@@ -415,7 +415,7 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      v-model="orderInfo.saveAddress"
                       id="flexCheckDefault1"
                     />
                     <label class="form-check-label" for="flexCheckDefault1"

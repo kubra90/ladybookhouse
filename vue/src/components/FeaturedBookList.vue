@@ -50,10 +50,6 @@ import {mapGetters, mapState} from "vuex"
       },
     },
     
-    created() {
-      // this.fetchFeaturedItems()
-      this.$store.dispatch("fetchBooks")
-      }
   }
   
   </script>

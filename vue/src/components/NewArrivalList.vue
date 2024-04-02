@@ -98,6 +98,10 @@ export default {
     // ...mapState(["newArrivals"])
     ...mapState(["books"]),
   },
+  // created() {
+  
+  //   this.$store.dispatch("fetchBooks")
+  // },
 
   methods: {
     // ...mapActions(["fetchNewArrivals"]),
@@ -106,10 +110,7 @@ export default {
     },
   },
 
-  created() {
-    // this.fetchNewArrivals()
-    this.$store.dispatch("fetchBooks")
-  },
+
 };
 </script>
   

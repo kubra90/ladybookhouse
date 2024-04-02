@@ -43,7 +43,7 @@ CREATE TABLE address(
     state varchar(50) NOT NULL,
     zipcode varchar(20) NOT NULL,
     address varchar(100) NOT NULL,
-    phoneNumber varchar(15) NOT NULL,
+    phoneNumber varchar(15),
     CONSTRAINT PK_address PRIMARY KEY(address_id)
 );
 
