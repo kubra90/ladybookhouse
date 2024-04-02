@@ -1,43 +1,79 @@
 <template>
   <div>
     <Header-page />
-    <div class="container">
+    <div class="container mt-4 mb-4">
       <div class="row">
-        <div class="col">
-          <h1 class="mt-4">Your account</h1>
+        <div class="col-md-6">
+          <h2>Your account</h2>
         </div>
-        <div class="col text-end">
-          <div class="welcome mt-4">
+        <div class="col-md-6">
+          <div class="welcome">
             Welcome, {{ user.firstName }} {{ user.lastName }}.
-            <p class="pt-3"><router-link class="link " to="/logout">Logout</router-link></p>
+            <router-link class="link" to="/logout">Logout</router-link>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container mt-2">
-      <div class="personal-info">
-        <span class="personal-info-header">Personal Information</span>
-        <hr>
-        <div class="personal-info-body">
-          <p>Name: {{ user.firstName }} {{ user.lastName }}</p>
-          <p class="pt-2">Email: {{ user.email }}</p>
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">Personal Information</h6>
+            <hr class="mt-1 mb-2">
+            <p class="mb-0">Name: {{ user.firstName }} {{ user.lastName }}</p>
+            <p class="mb-0">Email: {{ user.email }}</p>
+            <p>Password: ••••••••</p>
+          </div>
         </div>
-        <hr>
-        <p><router-link v-bind:to="{ name: 'order' }" class="link">View My Purchases</router-link></p>
-        <p class="pt-2 pb-2"><router-link v-bind:to="{ name: 'saved-books' }" class="link">View My
-            Bookshelf</router-link></p>
+        <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">Address</h6>
+            <hr class="mt-1 mb-2">
+            <!-- Address information here -->
+            <p>Your saved address information.</p>
+            <router-link to="/addresses" class="link">View other addresses</router-link>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">My Purchases</h6>
+            <hr class="mt-1 mb-2">
+            <router-link to="/order-history" class="link">View Order History</router-link>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">My Bookshelf</h6>
+            <hr class="mt-1 mb-2">
+            <router-link v-bind:to="{name: 'saved-books'}" class="link">View My Bookshelf</router-link>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">New Arrival Notifications</h6>
+            <hr class="mt-1 mb-2">
+            <router-link to="/order-history" class="link">Change Notifications</router-link>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="container p-0">
+            <h6 class="mb-0">My Bookshelf</h6>
+            <hr class="mt-1 mb-2">
+            <router-link to="/saved-books" class="link">View My Bookshelf</router-link>
+          </div>
+        </div> -->
       </div>
     </div>
     <Footer-page />
   </div>
 </template>
 
-
 <script>
-
-import HeaderPage from "../components/HeaderPage.vue"
-import FooterPage from "../components/FooterPage.vue"
-import { mapState } from 'vuex'
+import HeaderPage from "../components/HeaderPage.vue";
+import FooterPage from "../components/FooterPage.vue";
+import { mapState } from 'vuex';
 
 export default {
   name: "my-account",
@@ -55,12 +91,13 @@ export default {
   font-family: "PT SANS", sans-serif;
 }
 
-h1 {
+h1, h5, h2, h6, hr{
   color: #6b3630;
 }
 
 hr {
-  color: #c1c1c1;
+  color: #6b3630;
+  width:90%;
 }
 
 .link {
