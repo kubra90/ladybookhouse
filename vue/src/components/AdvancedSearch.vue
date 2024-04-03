@@ -1,8 +1,8 @@
 <template>
   <div class="main-container">
     <div class="container">
-    <h2>Advanced Search</h2>
-    <form class="form-horizontal">
+    <h2 class="px-md-5 mx-md-5 px-sm-0 mx-sm-0">Advanced Search</h2>
+    <form class="form-horizontal px-md-5 mx-md-5 px-sm-0 mx-sm-0">
         <!-- Categories -->
         <div class="mb-4 row"> <!-- Categories -->
           <label for="categorySelect" class="col-form-label col-sm-1">Search in:</label>

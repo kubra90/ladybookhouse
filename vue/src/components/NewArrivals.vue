@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="row mt-5 px-5 mx-5">
-      <div class="col-md-6">
+    <div class="row mt-5 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5" >
+      <div class="col-md-6 col-6 mt-sm-2">
         <h3>New Arrivals</h3>
       </div>
-      <div class="col-md-6 d-flex justify-content-md-end align-items-center">
+      <div class="col-md-6  col-6 d-flex justify-content-md-end align-items-center">
         <router-link :to="{ name: 'featured-book-view' }">
           <div class="button-container">
             <button class="btn btn-sm btn-primary">See All New Arrivals</button>
@@ -53,9 +53,9 @@ h3 {
   font-weight: 700;
 }
 
-.button-container {
+/* .button-container {
   padding-right: 6rem;
-}
+}  */
 
 button {
   height: 2.3rem;
