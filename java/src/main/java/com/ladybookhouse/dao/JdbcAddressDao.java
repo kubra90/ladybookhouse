@@ -29,10 +29,22 @@ public class JdbcAddressDao implements AddressDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(addressSql, Email);
         while(results.next()){
            Address address = mapRowToAddress(results);
+            System.out.println(address.getFirstname());
            addressList.add(address);
 
         }
         return addressList;
+    }
+
+    @Override
+    public boolean deleteAddress(int addressId, String email) {
+        String deleteReferencesSql = "DELETE FROM user_addresses WHERE address_id = ?";
+        jdbcTemplate.update(deleteReferencesSql, addressId);
+        
+        String sql= "DELETE from address where email= ? and address_id= ?";
+
+        int rowsEffected = jdbcTemplate.update(sql, email, addressId);
+        return rowsEffected > 0;
     }
 
     private Address mapRowToAddress(SqlRowSet rs) {

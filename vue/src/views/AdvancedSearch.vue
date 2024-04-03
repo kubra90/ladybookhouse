@@ -25,9 +25,9 @@
        
       }
 
-      .search {
+      /* .search {
         flex:1;
        
-      }
+      } */
 
     </style>

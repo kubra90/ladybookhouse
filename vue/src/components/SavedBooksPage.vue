@@ -46,43 +46,67 @@
 </template> -->
 
 <template>
-  <div class="container my-1" style="padding-left: 80px;">
+  <div class="container my-1">
     <div class="row">
-      <div class="col-12">
-    <div class="navigation-links" style="font-size:12px;">
-      <router-link v-bind:to="{ name: 'account' }" class="btn btn-link" style="font-size:12px; padding-top: 3px;">My Account</router-link>
-      <span class="greater-sign">&gt;</span>
-      <span style="padding-left: 1px;">My bookshelf</span>
-    </div>
-    </div>
+      <div class="col-12 ms-0">
+        <div class="navigation-links" style="font-size: 12px">
+          <router-link
+            v-bind:to="{ name: 'account' }"
+            class="btn btn-link"
+            style="font-size: 12px; padding-top: 3px"
+            >My Account</router-link
+          >
+          <span class="greater-sign">&gt;</span>
+          <span style="padding-left: 1px">My bookshelf</span>
+        </div>
+      </div>
     </div>
 
-
-    <h3 class="mb-3 mt-3">My Bookshelf</h3>
+    <h3 class="ms-2 mb-3 mt-3">My Bookshelf</h3>
 
     <div class="row">
-      <div v-for="savedBook in savedBooks" :key="savedBook.sku" class="col-sm-6 col-md-3 mb-4 col-xs-12" >
+      <div
+        v-for="savedBook in savedBooks"
+        :key="savedBook.sku"
+        class="col-sm-6 col-md-3 mb-4 col-xs-12"
+      >
         <div class="card h-100">
           <router-link :to="{ name: 'detail', params: { sku: savedBook.sku } }">
-            <img :src="savedBook.image" class="card-img-top" alt="book image">
+            <img :src="savedBook.image" class="card-img-top" alt="book image" />
           </router-link>
           <div class="card-body">
             <h6 class="card-title">{{ savedBook.title }}</h6>
             <p class="card-text">{{ savedBook.author }}</p>
           </div>
-          <div class="card-footer d-flex justify-content-between align-items-center">
-           <div>
-          <button class="btn btn-light" :class="{'in-cart': isBookInBasket(savedBook)}" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to shopping cart"
-          @click="addToBasket(savedBook)">
-  <i class="fas fa-shopping-cart"></i>
-</button>
-          <button class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Book" @click="removeBook(savedBook.sku)">
-            <div class="fa fa-heart" style="color:orange">
-              <!-- <span class="remove-tooltip-text"></span> -->
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <button
+                class="btn btn-light"
+                :class="{ 'in-cart': isBookInBasket(savedBook) }"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Add to shopping cart"
+                @click="addToBasket(savedBook)"
+              >
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+              <button
+                class="btn btn-light"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Remove Book"
+                @click="removeBook(savedBook.sku)"
+              >
+                <div class="fa fa-heart" style="color: orange">
+                  <!-- <span class="remove-tooltip-text"></span> -->
+                </div>
+              </button>
             </div>
-          </button>
-          </div>
-            <span class="text me-2"><strong>${{ formattedPrice(savedBook.price) }}</strong></span>
+            <span class="text me-2"
+              ><strong>${{ formattedPrice(savedBook.price) }}</strong></span
+            >
           </div>
         </div>
       </div>
@@ -109,11 +133,15 @@ export default {
   mounted() {
     this.$nextTick(async () => {
       // Dynamically import Bootstrap JS to ensure it's available
-      const bootstrap = await import('bootstrap');
+      const bootstrap = await import("bootstrap");
 
       // Then initialize tooltips
-      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.forEach(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+      const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      tooltipTriggerList.forEach(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
     });
   },
 
@@ -323,20 +351,18 @@ img {
 
  <style scoped>
 .in-cart {
-  color:#228B22;
-  
-} 
+  color: #228b22;
+}
 
 .btn-light.fa-heart:hover,
-.btn-light.fa-heart:focus{
-    background: none;
-    border:none;
-    outline:none
+.btn-light.fa-heart:focus {
+  background: none;
+  border: none;
+  outline: none;
 }
 
 .btn-light {
-  background: none;   
-  border: none;       
+  background: none;
+  border: none;
 }
-
 </style>

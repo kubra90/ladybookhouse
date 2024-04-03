@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="account-container">
     <Header-page />
-    <div class="container mt-4 mb-4">
+    <div class="container mt-4 mb-4 ">
       <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5">
         <div class="col-md-6 ">
           <h2>Your account</h2>
@@ -27,6 +27,7 @@
           <div class="container p-0">
             <h6 class="mb-0">Address</h6>
             <hr class="mt-1 mb-2">
+            <p class="mb-0"> <strong>{{ addresses[arrLength].firstname }} {{ addresses[arrLength].lastname }}</strong></p>
           <p class="mb-0"> {{ addresses[arrLength].addressLine }}</p>
           <p class="mb-0"> {{ addresses[arrLength].country}}</p>
           <p class="mb-0"> {{ addresses[arrLength].state }}</p>
@@ -99,6 +100,12 @@ export default {
 </script>
 
 <style scoped>
+
+.account-container {
+  display:flex;
+        flex-direction:column;
+        height:100%;
+}
 * {
   font-family: "PT SANS", sans-serif;
 }

@@ -4,10 +4,7 @@ package com.ladybookhouse.controller;
 import com.ladybookhouse.dao.AddressDao;
 import com.ladybookhouse.model.Address;
 import com.ladybookhouse.model.Order;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -29,6 +26,13 @@ public class AddressController {
         System.out.println(principal);
         System.out.println(email);
         return addressDao.getAddressesByEmail(email);
+    }
+
+    @DeleteMapping(path= "/removeAddress")
+    public boolean deleteBook(Principal principal, @RequestParam int addressId){
+        String email = principal.getName();
+        System.out.println("addressId: " + addressId + " email: " + email);
+        return addressDao.deleteAddress(addressId, email);
     }
 
 

@@ -8,8 +8,9 @@
 
 <script>
 
-import AddressBook from '@/components/AddressBook.vue';
+
 import HeaderPage from '@/components/HeaderPage.vue';
+import AddressBook from '@/components/AddressBook.vue';
 import FooterPage from '@/components/FooterPage.vue';
 
 export default {
@@ -22,12 +23,12 @@ export default {
 
 
 <style scoped>
-.address-container {
+/* .address-container {
   display:flex;
   flex-direction:column;
   height:100%;
  
-}
+} */
 
 .address-body {
   flex:1;
