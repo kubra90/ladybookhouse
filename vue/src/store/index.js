@@ -5,6 +5,7 @@ import { getBooks, getBookById, getFeaturedItems } from '../services/BookService
 import { register, login } from '../services/AuthService'
 import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
+import { getAddress} from '../services/AddressService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -37,6 +38,8 @@ export default new Vuex.Store({
     // orders
     orders: [],
     order: {},
+    address: {},
+    addresses: [],
     deliveryOption: "USPS",
     // paymentMethod: "paypal",
 
@@ -171,6 +174,12 @@ export default new Vuex.Store({
     SET_ORDER(state, data){
       state.order = data
     },
+    SET_ADDRESS(state, data){
+      state.address = data
+    },
+    SET_ADDRESSES(state, data){
+     state.addresses =data
+    },
     SET_TEMP_ORDER_INFO(state, order){
       state.tempOrderInfo = order
     },
@@ -232,6 +241,10 @@ export default new Vuex.Store({
   async createOrder({commit}, order){
     const response = await placeOrder(order)
     commit('SET_ORDER', response.data)
+   },
+    async getUserAddresses({commit}){
+     const response = await getAddress()
+     commit('SET_ADDRESSES', response.data)
    },
 
     async fetchBookshelf({commit}) {

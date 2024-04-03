@@ -1,9 +1,9 @@
 <template>
 	<header class="header-container header-custom">
 		<div class="container">
-			<div class="row align-items-start justify-content-between">
+			<div class="row align-items-start justify-content-between px-5 mx-5">
 				<!-- Website Name and Navigation Links -->
-				<div class="col-md-auto py-5 col-sm-12 ">
+				<div class="col-md-auto py-5 col-sm-12">
 					<h1 class="mt-5 mb-0">Lady Bookhouse</h1>
 				</div>
 
@@ -56,7 +56,7 @@
 					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="collapse navbar-collapse px-5 mx-5" id="navbarNav" >
 					<ul class="navbar-nav">
 						<li class="nav-item">
 							<router-link v-bind:to="{ name: 'home' }" class="nav-link">Home</router-link>

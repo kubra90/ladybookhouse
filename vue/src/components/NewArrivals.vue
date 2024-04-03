@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row mt-5">
+    <div class="row mt-5 px-5 mx-5">
       <div class="col-md-6">
         <h3>New Arrivals</h3>
       </div>
@@ -12,7 +12,7 @@
         </router-link>
       </div>
     </div>
-    <ul class="row p-2">
+    <ul class="row px-5 mx-5">
       <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
     </ul>
   </div>
