@@ -2,7 +2,7 @@
   <header class="header-container header-custom">
     <div class="container">
       <div
-        class="row align-items-start justify-content-between px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5"
+        class="row align-items-start justify-content-between px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0"
       >
         <!-- Website Name and Navigation Links -->
         <div class="col-md-auto py-5 col-sm-12">
@@ -10,12 +10,12 @@
         </div>
 
         <!-- Account/Cart Links and Search Bar -->
-        <div class="col-md-auto custom-account">
+        <div class="col-md-3 custom-account">
 	
           <div class="row">
-            <div class="col-8">
+            <div class="col-10 ps-2">
               <!-- Account/Cart Links -->
-              <div class="d-flex align-items-center mt-2">
+              <div class="d-flex align-items-center justify-content-end mt-2">
                 <!-- Added mb-3 to create space between this section and the search bar -->
                 <div class="dropdown" v-if="isAuthenticated">
                   <button
@@ -65,18 +65,18 @@
               </div>
             </div>
             <!-- Search Bar -->
-            <div class="col-8">
+            <div class="col-10">
               <!-- Changed to col-12 to make it full width and below account/cart links -->
               <form class="d-flex position-relative">
                 <input
                   v-model="searchText"
                   type="text"
-                  class="form-control me-2 search-box shadow-none m-2 p-1"
-                  placeholder="Search"
+                  class="form-control me-2 search-box shadow-none m-1 p-1"
+                  placeholder="Author, title, or keyword"
                   aria-label="Search"
                 />
                 <button
-                  class="btn btn-outline-secondary position-absolute end-0 m-2"
+                  class="btn btn-outline-secondary position-absolute end-0 m-1 py-1"
                   type="submit"
                   @click.prevent="searchAllBookDetails"
                 >
@@ -104,7 +104,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse px-md-5 mx-md-5 px-sm-0 mx-sm-0"
+          class="collapse navbar-collapse px-md-5 mx-md-5 px-sm-0 mx-sm-0 px-xxl-0 mx-xxl-0"
           id="navbarNav"
         >
 		
@@ -149,10 +149,10 @@
             </li>
           </ul>
           <!-- Instagram Icon -->
-          <div class="insta-icon col-md-2">
+          <div class="col-md-2 link-instagram">
             <a
               href="https://www.instagram.com/ladybookhouse/"
-              class="nav-link"
+              class="nav-link insta-icon "
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -254,6 +254,7 @@ h1 {
   color: #6b3630;
   /* background-color: brown; */
   height: 2rem;
+  margin-bottom: 2rem;
 }
 
 
@@ -265,13 +266,14 @@ h1 {
   margin: 0rem;
 }
 
-.search-box,
-.search-box:active {
+.search-box{
   /* border: 2px solid #6b3630; */
   border: none;
   background-color: #fa8072;
   font-size: medium;
   font-family: "PT Sans", sans-serif;
+  font-size:13px;
+ 
 }
 
 .search-icon {
@@ -283,10 +285,20 @@ h1 {
   background-color: #fa8072;
 }
 
+.link-instagram {
+	padding-left:7rem;
+}
+
 .nav-link {
   color: #6b3630;
   font-weight: 600;
   font-size: medium;
+}
+
+.custom-account {
+	position:relative;
+	
+	
 }
 
 .insta-icon {

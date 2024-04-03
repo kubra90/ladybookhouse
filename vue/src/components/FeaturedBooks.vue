@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="row px-5 mx-5 mt-3">
-      <div class="col-md-6">
+    <div class="row mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
+      <div class="col-md-6 col-6">
         <h3>Featured Books</h3>
       </div>
-      <div class="col-md-6 d-flex justify-content-md-end align-items-center">
+      <div class="col-md-6 col-6 d-flex justify-content-md-end align-items-center">
         <router-link :to="{ name: 'featured-book-view' }">
           <div class="button-container">
             <button class="btn btn-sm btn-primary">See All Featured Books</button>
@@ -12,7 +12,7 @@
         </router-link>
       </div>
     </div>
-    <ul class="row px-5 mx-5">
+    <ul class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
       <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
     </ul>
   </div>
@@ -77,7 +77,7 @@ h3 {
 }
 
 .button-container {
-  padding-right: 6rem;
+  padding-right: 4rem;
 }
 
 button {

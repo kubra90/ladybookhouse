@@ -1,6 +1,7 @@
 package com.ladybookhouse.model;
 
 public class Address {
+    private int addressId;
     private String firstname;
     private String lastname;
     private String country;
@@ -11,7 +12,7 @@ public class Address {
     private String phoneNumber;
     private String email;
 
-    private int addressId;
+
 
     public Address(){
 
@@ -38,7 +39,7 @@ public class Address {
         this.firstname = firstname;
     }
 
-    public int getAddressId(int addressId) {
+    public int getAddressId() {
         return this.addressId;
     }
 
@@ -94,7 +95,7 @@ public class Address {
         this.addressLine = addressLine;
     }
 
-    public String getPhoneNumber(String phoneNumber) {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 

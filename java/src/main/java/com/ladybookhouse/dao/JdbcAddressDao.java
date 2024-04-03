@@ -37,6 +37,7 @@ public class JdbcAddressDao implements AddressDao {
 
     private Address mapRowToAddress(SqlRowSet rs) {
         Address address = new Address();
+        address.setAddressId(rs.getInt("address_id"));
         address.setFirstname(rs.getString("firstname"));
         address.setLastname(rs.getString("lastname"));
         address.setCountry(rs.getString("country"));
@@ -46,7 +47,7 @@ public class JdbcAddressDao implements AddressDao {
         address.setEmail(rs.getString("email"));
         address.setZipcode(rs.getString("zipcode"));
         address.setPhoneNumber(rs.getString("phoneNumber"));
-        address.setAddressId(rs.getInt("address_id"));
+
         return address;
     }
 }

@@ -2,8 +2,8 @@
   <div>
     <Header-page />
     <div class="container mt-4 mb-4">
-      <div class="row">
-        <div class="col-md-6">
+      <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5">
+        <div class="col-md-6 ">
           <h2>Your account</h2>
         </div>
         <div class="col-md-6">
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="row g-3 mt-3">
+      <div class="row g-3 mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5">
         <div class="col-md-6">
           <div class="container p-0">
             <h6 class="mb-0">Personal Information</h6>
@@ -36,15 +36,14 @@
           <p class="mb-0"> {{ addresses[arrLength].state }}</p>
             <p class="mb-0">{{ addresses[arrLength].city }}</p>
             <p class="mb-0"> {{ addresses[arrLength].zipcode}}</p>
-            <p class="mb-0"> {{ addresses[arrLength].phonenumber}}</p>
-            <div>{{ addresses[0] }}</div>
+            <p class="mb-0"> {{ addresses[arrLength].phoneNumber}}</p>
             <!-- Address information here -->
             <p>Your saved address information.</p>
             <router-link to="/addresses" class="link">View other addresses</router-link>
           </div>
         </div>
       </div>
-      <div class="row g-3 mt-3">
+      <div class="row g-3 mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5">
         <div class="col-md-6">
           <div class="container p-0">
             <h6 class="mb-0">My Purchases</h6>
@@ -60,7 +59,7 @@
           </div>
         </div>
       </div>
-      <div class="row g-3 mt-3">
+      <div class="row g-3 mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5">
         <div class="col-md-6">
           <div class="container p-0">
             <h6 class="mb-0">New Arrival Notifications</h6>
