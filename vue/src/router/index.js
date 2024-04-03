@@ -21,6 +21,7 @@ import CategoryDetail from '../views/CategoryDetail.vue'
 import Order from '../views/Order.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
 import OrderSummary from '../views/OrderSummaryView.vue'
+import AddressBook from '../views/AddressBook.vue'
 
 Vue.use(Router)
 
@@ -169,6 +170,14 @@ const router = new Router({
       path: "/saved_books",
       name: "saved-books",
       component: SavedBooks,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/addressBook",
+      name: "address-book",
+      component: AddressBook,
       meta: {
         requiresAuth: false
       }

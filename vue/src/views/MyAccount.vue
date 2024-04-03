@@ -27,10 +27,6 @@
           <div class="container p-0">
             <h6 class="mb-0">Address</h6>
             <hr class="mt-1 mb-2">
-            <!-- <div v-for="address in addresses" :key="address.address_id">
-         {{ address.state }}
-            {{ address.city }}
-          </div> -->
           <p class="mb-0"> {{ addresses[arrLength].addressLine }}</p>
           <p class="mb-0"> {{ addresses[arrLength].country}}</p>
           <p class="mb-0"> {{ addresses[arrLength].state }}</p>
@@ -38,8 +34,7 @@
             <p class="mb-0"> {{ addresses[arrLength].zipcode}}</p>
             <p class="mb-0"> {{ addresses[arrLength].phoneNumber}}</p>
             <!-- Address information here -->
-            <p>Your saved address information.</p>
-            <router-link to="/addresses" class="link">View other addresses</router-link>
+            <router-link v-bind:to="{name: 'address-book'}" class="link">View other addresses</router-link>
           </div>
         </div>
       </div>
