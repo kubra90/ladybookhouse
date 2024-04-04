@@ -5,15 +5,12 @@ import java.util.List;
 
 public class Order {
     private int orderId;
-    private String firstName;
-    private String lastName;
-    private String addressLine;
-    private String zipCode;
-    private String country;
-    private String state;
-    private String city;
     private String email;
-    private String phoneNumber;
+//    private String phoneNumber;
+
+    private int billingId;
+
+    private int shippingId;
     private List<String> inventoryCode;
 
     private String message;
@@ -27,60 +24,16 @@ public class Order {
     public Order() {
     }
 
-
-
-
-    public Order(int orderId, String firstName, String lastName, String addressLine,
-                 String zipCode, String country, String state, String city, String
-                         email, String phoneNumber, List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message) {
+    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String message, boolean saveAddress, boolean infoMail, LocalDateTime orderDateTime) {
         this.orderId = orderId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.addressLine = addressLine;
-        this.zipCode = zipCode;
-        this.country = country;
-        this.state = state;
-        this.city = city;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.billingId = billingId;
+        this.shippingId = shippingId;
         this.inventoryCode = inventoryCode;
+        this.message = message;
         this.saveAddress = saveAddress;
         this.infoMail = infoMail;
-        this.message = message;
-        this.orderDateTime = LocalDateTime.now();
-    }
-
-    public LocalDateTime getOrderDateTime() {
-        return orderDateTime;
-    }
-
-    public void setOrderDateTime(LocalDateTime orderDateTime) {
         this.orderDateTime = orderDateTime;
-    }
-
-
-    public boolean getSaveAddress() {
-        return saveAddress;
-    }
-
-    public void setSaveAddress(boolean saveAddress) {
-        this.saveAddress = saveAddress;
-    }
-
-    public boolean getInfoMail() {
-        return infoMail;
-    }
-
-    public void setInfoMail(boolean infoMail) {
-        this.infoMail = infoMail;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public int getOrderId() {
@@ -91,62 +44,6 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAddressLine() {
-        return addressLine;
-    }
-
-    public void setAddressLine(String addressLine) {
-        this.addressLine = addressLine;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -155,12 +52,20 @@ public class Order {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public int getBillingId() {
+        return billingId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setBillingId(int billingId) {
+        this.billingId = billingId;
+    }
+
+    public int getShippingId() {
+        return shippingId;
+    }
+
+    public void setShippingId(int shippingId) {
+        this.shippingId = shippingId;
     }
 
     public List<String> getInventoryCode() {
@@ -169,5 +74,37 @@ public class Order {
 
     public void setInventoryCode(List<String> inventoryCode) {
         this.inventoryCode = inventoryCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isSaveAddress() {
+        return saveAddress;
+    }
+
+    public void setSaveAddress(boolean saveAddress) {
+        this.saveAddress = saveAddress;
+    }
+
+    public boolean isInfoMail() {
+        return infoMail;
+    }
+
+    public void setInfoMail(boolean infoMail) {
+        this.infoMail = infoMail;
+    }
+
+    public LocalDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public void setOrderDateTime(LocalDateTime orderDateTime) {
+        this.orderDateTime = orderDateTime;
     }
 }

@@ -1,46 +1,18 @@
 package com.ladybookhouse.model;
 
-public class Address {
-    private int addressId;
-    private String email;
+public class AddressDTO {
+
+
     private String firstname;
     private String lastname;
     private String country;
     private String city;
-
     private String state;
     private String zipcode;
     private String addressLine;
     private String phoneNumber;
-
     private String addressType;
 
-    public String getAddressType() {
-        return addressType;
-    }
-
-    public void setAddressType(String addressType) {
-        this.addressType = addressType;
-    }
-
-    public Address(){
-
-    }
-
-    public Address(int addressId,String email, String firstname, String lastname, String country, String city, String state, String zipcode, String addressLine, String phoneNumber, String addressType) {
-        this.addressId =addressId;
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.country = country;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.addressLine = addressLine;
-        this.phoneNumber = phoneNumber;
-        this.addressType =addressType;
-
-    }
 
     public String getFirstname() {
         return firstname;
@@ -48,14 +20,6 @@ public class Address {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public int getAddressId() {
-        return this.addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
     }
 
     public String getLastname() {
@@ -107,19 +71,18 @@ public class Address {
     }
 
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAddressType() {
+        return addressType;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 }
-

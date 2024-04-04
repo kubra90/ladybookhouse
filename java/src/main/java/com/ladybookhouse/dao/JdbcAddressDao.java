@@ -47,6 +47,18 @@ public class JdbcAddressDao implements AddressDao {
         return rowsEffected > 0;
     }
 
+    @Override
+    public Address fetchAddressByAddressId(int addressId) {
+        String sql = "SELECT * FROM address WHERE address_id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, addressId);
+        if (result.next()) {
+            return mapRowToAddress(result);
+        } else {
+            // Return null or throw an exception if the address is not found
+            return null;
+        }
+    }
+
     private Address mapRowToAddress(SqlRowSet rs) {
         Address address = new Address();
         address.setAddressId(rs.getInt("address_id"));
@@ -59,6 +71,7 @@ public class JdbcAddressDao implements AddressDao {
         address.setEmail(rs.getString("email"));
         address.setZipcode(rs.getString("zipcode"));
         address.setPhoneNumber(rs.getString("phoneNumber"));
+        address.setAddressType(rs.getString("addressType"));
 
         return address;
     }

@@ -19,7 +19,7 @@
     <!-- 
       <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0"> -->
 
-    <div class="row">
+    <div class="row py-2">
       <div class="col">
         <div class="card h-100">
           <div class="card-header">
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="row py-4">
+    <div class="row py-4" v-if="addresses.length > 1">
       <div class="col">
         <div class="card">
           <div class="card-header">
@@ -141,13 +141,12 @@ export default {
   if (this.selectedAddress) {
     this.$store.dispatch("deleteAddressFromAddressBook", this.selectedAddress)
       .then(() => {
-        // After the address is successfully deleted, fetch the updated list of addresses
+        // After the address is successfully deleted
         this.$store.dispatch("getUserAddresses");
-        this.selectedAddress = null; // Reset the selectedAddress to null or appropriate value
+        this.selectedAddress = null; 
       })
       .catch(error => {
         console.error("Failed to delete the address:", error);
-        // Handle the error (e.g., show an error message to the user)
       });
   } else {
     console.log("No address selected");

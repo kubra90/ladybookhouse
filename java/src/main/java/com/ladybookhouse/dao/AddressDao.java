@@ -9,4 +9,7 @@ public interface AddressDao {
      List<Address> getAddressesByEmail(String Email);
 
      boolean deleteAddress(int addressId, String email);
+
+     Address fetchAddressByAddressId(int addressId);
+
 }

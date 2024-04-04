@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, orders, bookshelf;
+DROP TABLE IF EXISTS users, orders, bookshelf, address, order_books, user_addresses, books;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -12,25 +12,39 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-CREATE TABLE orders (
-   order_id SERIAL,
-   firstname varchar(50) NOT NULL,
-   lastname varchar(50) NOT NULL,
-   country varchar(50) NOT NULL,
-   city varchar(50) NOT NULL,
-   state varchar(50) NOT NULL,
---   check 5 character is acceptable or not?
-   zipcode varchar(20) NOT NULL,
-   address varchar(100) NOT NULL,
-   phoneNumber varchar(15),
-   email varchar(50) NOT NULL,
-   saveAddress BOOLEAN,
-   infoMail BOOLEAN,
---   bookNo varchar(10) NOT NULL UNIQUE,
-   message varchar(250),
---   added a timestamp column for order creation date and time
-   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-   CONSTRAINT PK_order PRIMARY KEY(order_id)
+--CREATE TABLE orders (
+--   order_id SERIAL,
+--   firstname varchar(50) NOT NULL,
+--   lastname varchar(50) NOT NULL,
+--   country varchar(50) NOT NULL,
+--   city varchar(50) NOT NULL,
+--   state varchar(50) NOT NULL,
+----   check 5 character is acceptable or not?
+--   zipcode varchar(20) NOT NULL,
+--   address varchar(100) NOT NULL,
+--   phoneNumber varchar(15),
+--   email varchar(50) NOT NULL,
+--   saveAddress BOOLEAN,
+--   infoMail BOOLEAN,
+----   bookNo varchar(10) NOT NULL UNIQUE,
+--   message varchar(250),
+----   added a timestamp column for order creation date and time
+--   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--   CONSTRAINT PK_order PRIMARY KEY(order_id)
+--);
+
+CREATE TABLE orders(
+  order_id SERIAL,
+  email varchar(255) NOT NULL,
+  billing_address_id INTEGER,
+  shipping_address_id INTEGER,
+  saveAddress BOOLEAN,
+  infoMail BOOLEAN,
+  message varchar(250),
+  created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT PK_order PRIMARY KEY(order_id),
+  CONSTRAINT FK_billing_address FOREIGN KEY (billing_address_id) REFERENCES address(address_id),
+  CONSTRAINT FK_shipping_address FOREIGN KEY (shipping_address_id) REFERENCES address(address_id)
 );
 
 CREATE TABLE address(
@@ -42,9 +56,11 @@ CREATE TABLE address(
     city varchar(50) NOT NULL,
     state varchar(50) NOT NULL,
     zipcode varchar(20) NOT NULL,
-    address varchar(100) NOT NULL,
+    addressLine varchar(100) NOT NULL,
     phoneNumber varchar(15),
+    addressType varchar(50) NOT NULL,
     CONSTRAINT PK_address PRIMARY KEY(address_id)
+
 );
 
 CREATE TABLE order_books (
