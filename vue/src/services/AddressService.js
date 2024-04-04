@@ -4,4 +4,8 @@ async function getAddress(headers){
     return axios.get('/your-address', {headers})
 }
 
-export {getAddress};
+async function deleteAddress(addressId, headers){
+    return axios.delete(`removeAddress?addressId=${addressId}`, {headers})
+}
+
+export {getAddress, deleteAddress};

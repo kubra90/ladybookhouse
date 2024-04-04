@@ -62,7 +62,7 @@
                       class="form-check-input"
                       type="radio"
                       :id="'address-' + index"
-                      :value="index"
+                      :value="address.addressId"
                       v-model="selectedAddress"
                       name="addressSelection"
                     />
@@ -100,7 +100,7 @@
             </ul>
           </div>
           <div class="card-footer">
-            <button class="btn btn-secondary" @click="performActionOnSelected">
+            <button class="btn btn-secondary" @click="deleteSelectedAddress">
               Delete Address
             </button>
           </div>
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "address-book",
@@ -132,16 +132,30 @@ export default {
   },
   created() {
     this.$store.dispatch("getUserAddresses");
+
   },
 
   methods: {
-    performActionOnSelected(){
-       if(this.selectedAddress){
-        return;
-    }
-}
+    ...mapActions(["deleteAddressFromAddressBook", "getUserAddresses"]),
+    deleteSelectedAddress() {
+  if (this.selectedAddress) {
+    this.$store.dispatch("deleteAddressFromAddressBook", this.selectedAddress)
+      .then(() => {
+        // After the address is successfully deleted, fetch the updated list of addresses
+        this.$store.dispatch("getUserAddresses");
+        this.selectedAddress = null; // Reset the selectedAddress to null or appropriate value
+      })
+      .catch(error => {
+        console.error("Failed to delete the address:", error);
+        // Handle the error (e.g., show an error message to the user)
+      });
+  } else {
+    console.log("No address selected");
   }
-};
+}
+
+}
+  };
 </script>
 
 <style scoped>

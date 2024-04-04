@@ -40,7 +40,7 @@ public class JdbcAddressDao implements AddressDao {
     public boolean deleteAddress(int addressId, String email) {
         String deleteReferencesSql = "DELETE FROM user_addresses WHERE address_id = ?";
         jdbcTemplate.update(deleteReferencesSql, addressId);
-        
+
         String sql= "DELETE from address where email= ? and address_id= ?";
 
         int rowsEffected = jdbcTemplate.update(sql, email, addressId);
