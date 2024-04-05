@@ -47,7 +47,20 @@ export default new Vuex.Store({
       paymentMethod: '',
       returningUserEditingShipping: false,
     },
-    tempOrderInfo: {}
+    tempOrderInfo: {
+      email: "",
+      inventoryCode: [],
+      isSaveAddress: false,
+      isInfoMail: false,
+      message: "",
+      shippingAddress: {
+        addressType : "shipping"
+      },
+      billingAddress: {
+        addressType: "billing"
+      },
+      useSameAddressForBilling: false
+    }
   },
   getters: {
     isAuthenticated: state => state.user.email,

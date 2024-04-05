@@ -73,7 +73,7 @@
                         <input
                           type="tel"
                           id="typePhone"
-                          v-model="orderInfo.phoneNumber"
+                          v-model="orderInfo.shippingAddress.phoneNumber"
                           value=""
                           class="form-control"
                         />
@@ -128,7 +128,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.firstName"
+                          v-model="orderInfo.shippingAddress.firstname"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -147,7 +147,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.lastName"
+                          v-model="orderInfo.shippingAddress.lastname"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -161,7 +161,7 @@
                         <input
                           type="tel"
                           id="typePhone"
-                          v-model="orderInfo.phoneNumber"
+                          v-model="orderInfo.shippingAddress.phoneNumber"
                           value=""
                           class="form-control"
                         />
@@ -180,7 +180,7 @@
                         <input
                           type="email"
                           id="typeEmail"
-                          v-model="orderInfo.email"
+                          v-model="orderInfo.shippingAddress.email"
                           placeholder="example@gmail.com"
                           class="form-control"
                           required
@@ -272,7 +272,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.addressLine"
+                          v-model="orderInfo.shippingAddress.addressLine"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -288,7 +288,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.country"
+                        v-model="orderInfo.shippingAddress.country"
                         required
                       >
                         <option value="USA">United States</option>
@@ -303,7 +303,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.state"
+                        v-model="orderInfo.shippingAddress.state"
                         required
                       >
                         <option value="AK">Alaska</option>
@@ -384,7 +384,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.city"
+                          v-model="orderInfo.shippingAddress.city"
                           class="form-control"
                           required
                         />
@@ -402,7 +402,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.zipCode"
+                          v-model="orderInfo.shippingAddress.zipcode"
                           class="form-control"
                           required
                           pattern="\d{5}(-\d{4})?"
@@ -458,8 +458,9 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      v-model="orderInfo.saveAddress"
-                      id="flexCheckDefault1"
+                      v-model="useSameAddress"
+                      id="useSameAddressCheckbox"
+                      @change="setBillingAddress"
                     />
                     <label class="form-check-label" for="flexCheckDefault1"
                       >Use the shipping address as the billing address</label
@@ -478,7 +479,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.addressLine"
+                          v-model="orderInfo.billingAddress.addressLine"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -494,7 +495,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.country"
+                        v-model="orderInfo.billingAddress.country"
                         required
                       >
                         <option value="USA">United States</option>
@@ -509,7 +510,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.state"
+                        v-model="orderInfo.billingAddress.state"
                         required
                       >
                         <option value="AK">Alaska</option>
@@ -578,7 +579,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.city"
+                          v-model="orderInfo.billingAddress.city"
                           class="form-control"
                           required
                         />
@@ -596,7 +597,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.zipCode"
+                          v-model="orderInfo.billingAddress.zipcode"
                           class="form-control"
                           required
                           pattern="\d{5}(-\d{4})?"
@@ -798,6 +799,7 @@ export default {
   },
   data() {
     return {
+      useSameAddress: false,
     //   paymentMethod: "",
       showPaymentInfo: false, //new property to control visibility
        selectedPaymentMethod: "", // Track which payment method is selected
@@ -870,6 +872,27 @@ export default {
   },
   methods: {
     ...mapActions(["createOrder"]),
+
+    setBillingAddress() {
+    if (this.useSameAddress) {
+      // Copy shipping address to billing address
+      this.orderInfo.billingAddress = JSON.parse(JSON.stringify(this.orderInfo.shippingAddress));
+    }
+    // } else {
+    //   // Optional: Reset billing address fields if necessary
+    //   this.orderInfo.billingAddress = {
+    //     firstName: '',
+    //     lastName: '',
+    //     phoneNumber: '',
+    //     email: '',
+    //     addressLine: '',
+    //     country: '',
+    //     state: '',
+    //     city: '',
+    //     zipCode: '',
+    //   };
+    // }
+  },
 
 continueToPayment() {
     // First, check if the form is valid.

@@ -34,15 +34,6 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
     this.orderDao = orderDao;
     this.addressDao =addressDao;
 }
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-//    public void placeOrder(@Valid @RequestBody Order newOrder) {
-//         orderDao.create(newOrder.getEmail(),newOrder.getInventoryCode(),
-//    newOrder.isSaveAddress(), newOrder.isInfoMail(),  newOrder.getMessage(),
-//                 newOrder.getBilling);
-//
-//
-//    }
 
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,7 +43,7 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
       AddressDTO billingAddressDTO = orderRequest.getBillingAddress();
       AddressDTO shippingAddressDTO = orderRequest.getShippingAddress();
 
-        // Convert AddressDTOs to your domain model Address objects if necessary
+        // Convert AddressDTOs to model Address
         Address billingAddress = convertToAddress(billingAddressDTO);
         Address shippingAddress = convertToAddress(shippingAddressDTO);
         orderDao.create(
@@ -65,9 +56,6 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
                 shippingAddress
 
         );
-        System.out.println(billingAddress.getAddressId());
-        System.out.println(orderRequest.isSaveAddress());
-        System.out.println(shippingAddress.getAddressId());
 
     }
 
