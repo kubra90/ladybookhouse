@@ -51,7 +51,7 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
         // get the billing and shipping addresses from the methods in orderRequest
       AddressDTO billingAddressDTO = orderRequest.getBillingAddress();
       AddressDTO shippingAddressDTO = orderRequest.getShippingAddress();
-        System.out.println(shippingAddressDTO.getCountry());
+
         // Convert AddressDTOs to your domain model Address objects if necessary
         Address billingAddress = convertToAddress(billingAddressDTO);
         Address shippingAddress = convertToAddress(shippingAddressDTO);
@@ -65,7 +65,9 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
                 shippingAddress
 
         );
-
+        System.out.println(billingAddress.getAddressId());
+        System.out.println(orderRequest.isSaveAddress());
+        System.out.println(shippingAddress.getAddressId());
 
     }
 

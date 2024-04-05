@@ -33,6 +33,22 @@ CREATE TABLE users (
 --   CONSTRAINT PK_order PRIMARY KEY(order_id)
 --);
 
+CREATE TABLE address(
+    address_id SERIAL,
+    email varchar(50),
+    firstname varchar(50) NOT NULL,
+    lastname varchar(50) NOT NULL,
+    country varchar(50) NOT NULL,
+    city varchar(50) NOT NULL,
+    state varchar(50) NOT NULL,
+    zipcode varchar(20) NOT NULL,
+    addressLine varchar(100) NOT NULL,
+    phoneNumber varchar(15),
+    addressType varchar(50) NOT NULL,
+    CONSTRAINT PK_address PRIMARY KEY(address_id)
+
+);
+
 CREATE TABLE orders(
   order_id SERIAL,
   email varchar(255) NOT NULL,
@@ -47,21 +63,7 @@ CREATE TABLE orders(
   CONSTRAINT FK_shipping_address FOREIGN KEY (shipping_address_id) REFERENCES address(address_id)
 );
 
-CREATE TABLE address(
-    address_id SERIAL
-    email varchar(50) NOT NULL,
-    firstname varchar(50) NOT NULL,
-    lastname varchar(50) NOT NULL,
-    country varchar(50) NOT NULL,
-    city varchar(50) NOT NULL,
-    state varchar(50) NOT NULL,
-    zipcode varchar(20) NOT NULL,
-    addressLine varchar(100) NOT NULL,
-    phoneNumber varchar(15),
-    addressType varchar(50) NOT NULL,
-    CONSTRAINT PK_address PRIMARY KEY(address_id)
 
-);
 
 CREATE TABLE order_books (
     order_books_id SERIAL PRIMARY KEY,

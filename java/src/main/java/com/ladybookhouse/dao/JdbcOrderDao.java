@@ -28,47 +28,49 @@ public class JdbcOrderDao implements OrderDao {
    @Override
    public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
                          boolean infoMail, String message, Address billingAddress, Address shippingAddress) {
-       Integer shippingAddressId = null;
-       Integer billingAddressId = null;
 
+        if(!checkInventoryCodesExistsInOrders(inventoryCode)) {
+            Integer shippingAddressId;
+            Integer billingAddressId;
+            try {
 
-
-       try {
-//           check if user is registered or not.
-//           boolean isRegisteredUser = checkUserRegistration(email);
-
-//           if (saveAddress & isRegisteredUser) {
-              shippingAddressId = insertAddress(shippingAddress);
-               System.out.println(shippingAddressId);
-               System.out.println(shippingAddress);
-               if (!shippingAddress.equals(billingAddress)) {
-                   billingAddressId = insertAddress(billingAddress);
-               } else {
-                  billingAddressId = shippingAddressId;
-               }
+                shippingAddressId = insertAddress(shippingAddress);
+                System.out.println(shippingAddressId);
+                System.out.println(shippingAddress);
+                if (!shippingAddress.equals(billingAddress)) {
+                    billingAddressId = insertAddress(billingAddress);
+                } else {
+                    billingAddressId = shippingAddressId;
+                }
 
 //           }
 
-           System.out.println("Billing Address: " + billingAddress);
-           System.out.println("Shipping Address: " + shippingAddress);
+                System.out.println("Billing Address: " + billingAddress);
+                System.out.println("Shipping Address: " + shippingAddress);
 
 
-           // Now insert the order linking it to the address IDs (if addresses were saved)
-           String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, saveAddress, infoMail, message, created_at) " +
-                   "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
+                // Now insert the order linking it to the address IDs (if addresses were saved)
+                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, saveAddress, infoMail, message, created_at) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
 
-           Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, saveAddress, infoMail, message, LocalDateTime.now());
+                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, saveAddress, infoMail, message, LocalDateTime.now());
 
-           if (orderId != null) {
-               // If the order was successfully created, insert related books
-               insertOrderBooks(inventoryCode, orderId);
-               return true;
-           }
-       } catch (DataAccessException e) {
-           return false;
-           // Log exception
-       }
-       return false;
+                if (orderId != null)
+                    // If the order was successfully created, insert related books
+                    insertOrderBooks(inventoryCode, orderId);
+
+                return true;
+
+            } catch (EmptyResultDataAccessException e) {
+                return false;
+                // Log exception
+            } catch (DataAccessException e) {
+                // General handler for other data access exceptions
+                System.out.println("Data access error: " + e.getMessage());
+                return false;
+            }
+        }
+        throw new UsernameNotFoundException("sku number used in previous orders");
    }
 
 //    @Override
@@ -147,7 +149,17 @@ public class JdbcOrderDao implements OrderDao {
         }
     }
 
-
+    private boolean checkInventoryCodesExistsInOrders(List<String> inventoryCode) {
+        Integer count;
+        for (String sku : inventoryCode) {
+            String orderSql = "SELECT COUNT(*) from order_books where bookNo=?";
+            count = jdbcTemplate.queryForObject(orderSql, new Object[]{sku}, Integer.class);
+            if(count > 0){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public List<Order> findAllOrders() {
@@ -191,13 +203,23 @@ public class JdbcOrderDao implements OrderDao {
 
 
     private Integer insertAddress(Address address) {
-            String addressSql = "INSERT INTO address (email, firstname, lastname, country, city, state, zipcode, addressLine, phoneNumber, addressType) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING address_id";
-            return jdbcTemplate.queryForObject(addressSql, Integer.class, address.getEmail(), address.getFirstname(), address.getLastname(),
-                    address.getCountry(), address.getCity(), address.getState(), address.getZipcode(), address.getAddressLine(),
-                    address.getPhoneNumber(), address.getAddressType());
+
+               if(address != null){
+                   String addressSql = "INSERT INTO address (email, firstname, lastname, country, city, state, zipcode, addressLine, phoneNumber, addressType) " +
+                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING address_id";
+                  Integer addressId = jdbcTemplate.queryForObject(addressSql, new Object[]{ address.getEmail(), address.getFirstname(), address.getLastname(),
+                           address.getCountry(), address.getCity(), address.getState(), address.getZipcode(), address.getAddressLine(),
+                           address.getPhoneNumber(), address.getAddressType()}, Integer.class);
+
+                  return addressId;
+               }else{
+                   throw new UsernameNotFoundException("address is null" + address + " not found");
+               }
+
+
 
     }
+
 
     private Order mapRowToOrder(SqlRowSet rs){
         Order order = new Order();
