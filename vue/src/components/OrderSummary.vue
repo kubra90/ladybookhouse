@@ -39,12 +39,12 @@
                     <p class="card-text">
                       <strong>{{ displayName }}</strong
                       ><br />
-                      {{ tempOrderInfo.addressLine }}<br />
-                      {{ tempOrderInfo.city }}<br />
-                      {{ tempOrderInfo.state }} {{ tempOrderInfo.zipCode
+                      {{ tempOrderInfo.shippingAddress.addressLine }}<br />
+                      {{ tempOrderInfo.shippingAddress.city }}<br />
+                      {{ tempOrderInfo.shippingAddress.state }} {{ tempOrderInfo.shippingAddress.zipcode
                       }}<br />
-                      {{ tempOrderInfo.country }}<br />
-                      Phone: {{ tempOrderInfo.phoneNumber }}<br />
+                      {{ tempOrderInfo.shippingAddress.country }}<br />
+                      Phone: {{ tempOrderInfo.shippingAddress.phoneNumber }}<br />
                       Email: {{ displayEmail }}
                     </p>
                   </div>
@@ -174,9 +174,9 @@ export default {
     },
     displayName() {
       const firstName =
-        this.tempOrderInfo.firstName || this.$store.state.user.firstName;
+        this.tempOrderInfo.shippingAddress.firstname || this.$store.state.user.firstName;
       const lastName =
-        this.tempOrderInfo.lastName || this.$store.state.user.lastName;
+        this.tempOrderInfo.shippingAddress.lastname || this.$store.state.user.lastName;
       return `${firstName} ${lastName}`;
     },
     displayEmail() {
@@ -220,6 +220,7 @@ export default {
         for (const book of this.cartBooks) {
           this.tempOrderInfo.inventoryCode.push(book.sku);
         }
+
         try {
           this.createOrder(this.tempOrderInfo);
           console.log(this.tempOrderInfo.saveAddress);

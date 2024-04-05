@@ -895,6 +895,7 @@ export default {
   },
 
 continueToPayment() {
+  console.log(this.orderInfo);
     // First, check if the form is valid.
     const form = this.$refs.checkoutForm;
     if (!form.checkValidity()) {
@@ -908,8 +909,8 @@ continueToPayment() {
 
     // Next, update orderInfo based on authentication status.
     if (this.isAuthenticated) {
-        this.orderInfo.firstName = this.user.firstName;
-        this.orderInfo.lastName = this.user.lastName;
+        this.orderInfo.shippingAddress.firstname = this.user.firstName;
+        this.orderInfo.shippingAddress.lastname = this.user.lastName;
         this.orderInfo.email = this.user.email;
     }
 
