@@ -74,7 +74,6 @@
                           type="tel"
                           id="typePhone"
                           v-model="orderInfo.shippingAddress.phoneNumber"
-                          value=""
                           class="form-control"
                         />
                       </div>
@@ -162,7 +161,6 @@
                           type="tel"
                           id="typePhone"
                           v-model="orderInfo.shippingAddress.phoneNumber"
-                          value=""
                           class="form-control"
                         />
                       </div>
@@ -932,14 +930,14 @@ export default {
     //     this.orderInfo.email = this.user.email;
     // }
 
-    this.checkUserAuthentication;
+    this.checkUserAuthentication();
 
       this.orderInfo.billingAddress = JSON.parse(JSON.stringify(this.orderInfo.shippingAddress));
     }else {
       // Optional: Reset billing address fields if necessary
       this.orderInfo.billingAddress = {
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         phoneNumber: '',
         email: '',
         addressLine: '',
@@ -971,7 +969,7 @@ continueToPayment() {
     //     this.orderInfo.email = this.user.email;
     // }
 
-    this.checkUserAuthentication;
+    this.checkUserAuthentication();
 
     // Save the order information to the store regardless of the payment method selection
     this.$store.dispatch("updateTempOrderInfo", this.orderInfo);
