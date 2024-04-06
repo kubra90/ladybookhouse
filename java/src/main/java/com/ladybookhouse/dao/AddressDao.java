@@ -12,4 +12,6 @@ public interface AddressDao {
 
      Address fetchAddressByAddressId(int addressId);
 
+     List<Address> getAddressesBySaveAddress(String email);
+
 }

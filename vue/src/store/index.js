@@ -5,7 +5,7 @@ import { getBooks, getBookById, getFeaturedItems } from '../services/BookService
 import { register, login } from '../services/AuthService'
 import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
-import { getAddress, deleteAddress} from '../services/AddressService'
+import { getAddress} from '../services/AddressService'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -206,9 +206,9 @@ export default new Vuex.Store({
     REMOVE_BOOK_FROM_BOOKSHELF(state, index){
       state.savedBooks.splice(index, 1)
     },
-    REMOVE_ADDRESS_FROM_ADDRESSES(state, index){
-      state.addresses.splice(index, 1)
-    },
+    // REMOVE_ADDRESS_FROM_ADDRESSES(state, index){
+    //   state.addresses.splice(index, 1)
+    // },
     SET_DELIVERY_OPTION(state, option){
       console.log(option);
       state.deliveryOption = option
@@ -279,15 +279,15 @@ export default new Vuex.Store({
         }
     },
 
-    async deleteAddressFromAddressBook({commit, state}, addressId){
-      const response = await deleteAddress(addressId)
-      if(response && response.status === 200){
-        const index = state.addresses.findIndex(address => address.address_id === addressId);
-        if(index !== -1){
-           commit('REMOVE_ADDRESS_FROM_ADDRESSES', index);
-        }
-      }
-    },
+    // async deleteAddressFromAddressBook({commit, state}, addressId){
+    //   const response = await deleteAddress(addressId)
+    //   if(response && response.status === 200){
+    //     const index = state.addresses.findIndex(address => address.address_id === addressId);
+    //     if(index !== -1){
+    //        commit('REMOVE_ADDRESS_FROM_ADDRESSES', index);
+    //     }
+    //   }
+    // },
 
   async addBookToBookshelf({commit}, sku) {
      const response = await addBookshelf(sku)

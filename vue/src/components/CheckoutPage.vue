@@ -180,7 +180,7 @@
                         <input
                           type="email"
                           id="typeEmail"
-                          v-model="orderInfo.shippingAddress.email"
+                          v-model="orderInfo.email"
                           placeholder="example@gmail.com"
                           class="form-control"
                           required
@@ -468,6 +468,47 @@
                   </div>
 
                   <div class="row">
+
+                    <!-- here for firstname and lastname -->
+
+                    <div class="col-6 mb-3">
+                      <label
+                        for="exampleFormControlInput1"
+                        class="form-label mb-0"
+                      >
+                        First Name <span class="text-danger">*</span>
+                      </label>
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          id="typeText"
+                          v-model="orderInfo.billingAddress.firstname"
+                          placeholder="Type here"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <label
+                        for="exampleFormControlInput1"
+                        class="form-label mb-0"
+                      >
+                        Last Name <span class="text-danger">*</span>
+                      </label>
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          id="typeText"
+                          v-model="orderInfo.billingAddress.lastname"
+                          placeholder="Type here"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <!-- till here -->
                     <div class="col-sm-8 mb-3">
                       <label
                         for="exampleFormControlInput1"
@@ -873,25 +914,41 @@ export default {
   methods: {
     ...mapActions(["createOrder"]),
 
+
+    checkUserAuthentication(){
+      if (this.isAuthenticated) {
+        this.orderInfo.shippingAddress.firstname = this.user.firstName;
+        this.orderInfo.shippingAddress.lastname = this.user.lastName;
+        this.orderInfo.email = this.user.email;
+    }
+    },
+
     setBillingAddress() {
     if (this.useSameAddress) {
       // Copy shipping address to billing address
-      this.orderInfo.billingAddress = JSON.parse(JSON.stringify(this.orderInfo.shippingAddress));
-    }
-    // } else {
-    //   // Optional: Reset billing address fields if necessary
-    //   this.orderInfo.billingAddress = {
-    //     firstName: '',
-    //     lastName: '',
-    //     phoneNumber: '',
-    //     email: '',
-    //     addressLine: '',
-    //     country: '',
-    //     state: '',
-    //     city: '',
-    //     zipCode: '',
-    //   };
+    //   if (this.isAuthenticated) {
+    //     this.orderInfo.shippingAddress.firstname = this.user.firstName;
+    //     this.orderInfo.shippingAddress.lastname = this.user.lastName;
+    //     this.orderInfo.email = this.user.email;
     // }
+
+    this.checkUserAuthentication;
+
+      this.orderInfo.billingAddress = JSON.parse(JSON.stringify(this.orderInfo.shippingAddress));
+    }else {
+      // Optional: Reset billing address fields if necessary
+      this.orderInfo.billingAddress = {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        email: '',
+        addressLine: '',
+        country: '',
+        state: '',
+        city: '',
+        zipCode: '',
+      };
+    }
   },
 
 continueToPayment() {
@@ -908,11 +965,13 @@ continueToPayment() {
     }
 
     // Next, update orderInfo based on authentication status.
-    if (this.isAuthenticated) {
-        this.orderInfo.shippingAddress.firstname = this.user.firstName;
-        this.orderInfo.shippingAddress.lastname = this.user.lastName;
-        this.orderInfo.email = this.user.email;
-    }
+    // if (this.isAuthenticated) {
+    //     this.orderInfo.shippingAddress.firstname = this.user.firstName;
+    //     this.orderInfo.shippingAddress.lastname = this.user.lastName;
+    //     this.orderInfo.email = this.user.email;
+    // }
+
+    this.checkUserAuthentication;
 
     // Save the order information to the store regardless of the payment method selection
     this.$store.dispatch("updateTempOrderInfo", this.orderInfo);

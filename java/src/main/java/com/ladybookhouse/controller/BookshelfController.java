@@ -66,6 +66,7 @@ public class BookshelfController {
     @RequestMapping(path= "/your-books", method= RequestMethod.GET)
     public List<Book> getBookshelf(Principal principal){
         String email = principal.getName();
+        System.out.println(email + "bookshelf testing");
         return bookDao.findSavedBooksDetailByEMail(email);
 
     }

@@ -36,6 +36,8 @@ public class JdbcAddressDao implements AddressDao {
         return addressList;
     }
 
+
+
     @Override
     public boolean deleteAddress(int addressId, String email) {
         String deleteReferencesSql = "DELETE FROM user_addresses WHERE address_id = ?";
@@ -59,6 +61,20 @@ public class JdbcAddressDao implements AddressDao {
         }
     }
 
+    @Override
+    public List<Address> getAddressesBySaveAddress(String email) {
+        List<Address> addresses = new ArrayList<>();
+        String sql = "SELECT a.* from address a " +
+                "JOIN orders o ON (a.address_id =o.shipping_address_id OR a.address_id = o.billing_address_id) "+
+                "JOIN users u ON u.email = o.email " +
+                "WHERE o.email = ? and o.saveAddress = true";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, email);
+        while(results.next()){
+            addresses.add(mapRowToAddress(results));
+        }
+        return addresses;
+    }
+
     private Address mapRowToAddress(SqlRowSet rs) {
         Address address = new Address();
         address.setAddressId(rs.getInt("address_id"));
@@ -66,7 +82,7 @@ public class JdbcAddressDao implements AddressDao {
         address.setLastname(rs.getString("lastname"));
         address.setCountry(rs.getString("country"));
         address.setCity(rs.getString("city"));
-        address.setAddressLine(rs.getString("address"));
+        address.setAddressLine(rs.getString("addressLine"));
         address.setState(rs.getString("state"));
         address.setEmail(rs.getString("email"));
         address.setZipcode(rs.getString("zipcode"));
