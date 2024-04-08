@@ -54,9 +54,25 @@ export default new Vuex.Store({
       isInfoMail: false,
       message: "",
       shippingAddress: {
+        firstname: '',
+        lastname: '',
+        addressLine: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        phoneNumber: '',
         addressType : "shipping"
       },
       billingAddress: {
+        firstname: '',
+        lastname: '',
+        addressLine: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        phoneNumber: '',
         addressType: "billing"
       },
       useSameAddressForBilling: false
@@ -149,10 +165,85 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
       // additional step to clear tempOrderInfo and cartBooks
       state.tempOrderInfo = {};
+      // this.$store.commit('RESET_TEMP_ORDER_INFO')
       state.cartBooks= [];
       state.basketCount = 0
 
     },
+    UPDATE_SHIPPING_FIRST_NAME(state, firstname){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { firstname: '' });
+      }
+      state.tempOrderInfo.shippingAddress.firstname = firstname
+    },
+    UPDATE_SHIPPING_LAST_NAME(state, lastname){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { lastname: '' });
+      }
+      state.tempOrderInfo.shippingAddress.lastname = lastname
+    },
+    UPDATE_SHIPPING_PHONE_NUMBER(state, phoneNumber){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { phoneNumber: '' });
+      }
+      state.tempOrderInfo.shippingAddress.phoneNumber = phoneNumber
+    },
+    UPDATE_SHIPPING_ADDRESS_LINE(state, addressLine){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { addressLine: '' });
+      }
+      state.tempOrderInfo.shippingAddress.addressLine = addressLine
+    },
+    UPDATE_SHIPPING_COUNTRY(state, country){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { country: '' });
+      }
+      state.tempOrderInfo.shippingAddress.country = country
+    },
+    UPDATE_SHIPPING_CITY(state, city){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { city: '' });
+      }
+      state.tempOrderInfo.shippingAddress.city = city
+    },  
+    UPDATE_SHIPPING_ZIP_CODE(state, zipcode){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { zipcode: '' });
+      }
+      state.tempOrderInfo.shippingAddress.zipcode = zipcode
+    },
+
+    RESET_TEMP_ORDER_INFO(state){
+      state.tempOrderInfo = {
+        shippingAddress: {
+          firstname: '',
+          lastname: '',
+          addressLine: '',
+          city: '',
+          state: '',
+          zipcode: '',
+          country: '',
+          phoneNumber: ''
+        },
+        inventoryCode: [],
+        email: '',
+        isSaveAddress: false,
+        isInfoMail: false,
+        message: "",
+        billingAddress: {
+          firstname: '',
+          lastname: '',
+          addressLine: '',
+          city: '',
+          state: '',
+          zipcode: '',
+          country: '',
+          phoneNumber: ''
+        }
+
+
+        }
+      },
     SET_BOOKS(state, data) {
       state.books = data
     },

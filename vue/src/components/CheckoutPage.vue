@@ -73,7 +73,7 @@
                         <input
                           type="tel"
                           id="typePhone"
-                          v-model="orderInfo.shippingAddress.phoneNumber"
+                          v-model="shippingPhoneNumber"
                           class="form-control"
                         />
                       </div>
@@ -127,7 +127,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.shippingAddress.firstname"
+                          v-model="shippingFirstName"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -146,7 +146,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.shippingAddress.lastname"
+                          v-model="shippingLastName"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -160,7 +160,7 @@
                         <input
                           type="tel"
                           id="typePhone"
-                          v-model="orderInfo.shippingAddress.phoneNumber"
+                          v-model="shippingPhoneNumber"
                           class="form-control"
                         />
                       </div>
@@ -270,7 +270,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.shippingAddress.addressLine"
+                          v-model="shippingAddressLine"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -469,7 +469,7 @@
 
                     <!-- here for firstname and lastname -->
 
-                    <div class="col-6 mb-3">
+                    <div class="col-6 mb-3" v-if="orderInfo && orderInfo.shippingAddress">
                       <label
                         for="exampleFormControlInput1"
                         class="form-label mb-0"
@@ -888,6 +888,75 @@ export default {
     paymentMethod() {
     return this.$store.state.checkout.paymentMethod;
   },
+
+  // new codes
+  shippingFirstName: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.firstname;
+    },
+    set(value) {
+      if (this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress) {
+        this.$store.commit('UPDATE_SHIPPING_FIRST_NAME', value);
+      }
+    }
+  },
+  shippingLastName: {
+    get(){
+      return this.$store.state.tempOrderInfo.shippingAddress?.lastname;
+    },
+    set(value){
+      if (this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress) {
+        this.$store.commit('UPDATE_SHIPPING_LAST_NAME', value);
+    }
+  }
+},
+  shippingPhoneNumber: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.phoneNumber;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_PHONE_NUMBER', value);
+    }
+  },
+  shippingAddressLine: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.addressLine;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_ADDRESS_LINE', value);
+    }
+  },
+  shippingCountry: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.country;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_COUNTRY', value);
+    }
+  },
+  shippingCity: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.city;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_CITY', value);
+    }
+  },
+  shippingZipcode: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.zipcode;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_ZIP_CODE', value);
+    }
+  },
+
+  //till here
   returningUserEditingShipping() {
     return this.$store.state.checkout.returningUserEditingShipping;
   },

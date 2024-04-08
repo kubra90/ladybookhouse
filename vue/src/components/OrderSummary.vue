@@ -225,6 +225,7 @@ export default {
           this.createOrder(this.tempOrderInfo);
           console.log(this.tempOrderInfo.saveAddress);
           this.$router.push({ name: "orderSuccess" });
+          this.$store.commit('RESET_TEMP_ORDER_INFO')
         } catch (error) {
           console.error("Order submission failed", error);
         }
