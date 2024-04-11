@@ -7,7 +7,7 @@ public class AddressDTO {
     private String lastname;
     private String country;
     private String city;
-    private String state;
+    private String stateInfo;
     private String zipcode;
     private String addressLine;
     private String phoneNumber;
@@ -46,12 +46,12 @@ public class AddressDTO {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
+    public String getStateInfo() {
+        return stateInfo;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStateInfo(String stateInfo) {
+        this.stateInfo = stateInfo;
     }
 
     public String getZipcode() {

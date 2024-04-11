@@ -58,7 +58,7 @@ export default new Vuex.Store({
         lastname: '',
         addressLine: '',
         city: '',
-        state: '',
+        stateInfo: '',
         zipcode: '',
         country: '',
         phoneNumber: '',
@@ -69,7 +69,7 @@ export default new Vuex.Store({
         lastname: '',
         addressLine: '',
         city: '',
-        state: '',
+        stateInfo: '',
         zipcode: '',
         country: '',
         phoneNumber: '',
@@ -206,12 +206,70 @@ export default new Vuex.Store({
       }
       state.tempOrderInfo.shippingAddress.city = city
     },  
+    UPDATE_SHIPPING_STATE(state, stateInfo){
+      if (!state.tempOrderInfo.shippingAddress) {
+        Vue.set(state.tempOrderInfo, 'shippingAddress', { stateInfo: '' });
+      }
+      state.tempOrderInfo.shippingAddress.stateInfo = stateInfo
+    },  
     UPDATE_SHIPPING_ZIP_CODE(state, zipcode){
       if (!state.tempOrderInfo.shippingAddress) {
         Vue.set(state.tempOrderInfo, 'shippingAddress', { zipcode: '' });
       }
       state.tempOrderInfo.shippingAddress.zipcode = zipcode
     },
+
+    // mutations for billing info
+    
+    UPDATE_BILLING_FIRST_NAME(state, firstname){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { firstname: '' });
+      }
+      state.tempOrderInfo.billingAddress.firstname = firstname
+    },
+    UPDATE_BILLING_LAST_NAME(state, lastname){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { lastname: '' });
+      }
+      state.tempOrderInfo.billingAddress.lastname = lastname
+    },
+    UPDATE_BILLING_PHONE_NUMBER(state, phoneNumber){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { phoneNumber: '' });
+      }
+      state.tempOrderInfo.billingAddress.phoneNumber = phoneNumber
+    },
+    UPDATE_BILLING_ADDRESS_LINE(state, addressLine){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { addressLine: '' });
+      }
+      state.tempOrderInfo.billingAddress.addressLine = addressLine
+    },
+    UPDATE_BILLING_COUNTRY(state, country){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { country: '' });
+      }
+      state.tempOrderInfo.billingAddress.country = country
+    },
+    UPDATE_BILLING_CITY(state, city){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { city: '' });
+      }
+      state.tempOrderInfo.billingAddress.city = city
+    },  
+    UPDATE_BILLING_STATE_INFO(state, stateInfo){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { stateInfo: '' });
+      }
+      state.tempOrderInfo.billingAddress.stateInfo = stateInfo
+    },  
+    UPDATE_BILLING_ZIP_CODE(state, zipcode){
+      if (!state.tempOrderInfo.billingAddress) {
+        Vue.set(state.tempOrderInfo, 'billingAddress', { zipcode: '' });
+      }
+      state.tempOrderInfo.billingAddress.zipcode = zipcode
+    },
+    // till here
 
     RESET_TEMP_ORDER_INFO(state){
       state.tempOrderInfo = {
@@ -220,10 +278,11 @@ export default new Vuex.Store({
           lastname: '',
           addressLine: '',
           city: '',
-          state: '',
+          stateInfo: '',
           zipcode: '',
           country: '',
-          phoneNumber: ''
+          phoneNumber: '',
+          addressType: 'shipping'
         },
         inventoryCode: [],
         email: '',
@@ -235,10 +294,11 @@ export default new Vuex.Store({
           lastname: '',
           addressLine: '',
           city: '',
-          state: '',
+          stateInfo: '',
           zipcode: '',
           country: '',
-          phoneNumber: ''
+          phoneNumber: '',
+          addressType: "billing"
         }
 
 

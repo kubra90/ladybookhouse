@@ -286,7 +286,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.shippingAddress.country"
+                        v-model="shippingCountry"
                         required
                       >
                         <option value="USA">United States</option>
@@ -301,7 +301,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.shippingAddress.state"
+                        v-model="shippingState"
                         required
                       >
                         <option value="AK">Alaska</option>
@@ -382,7 +382,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.shippingAddress.city"
+                          v-model="shippingCity"
                           class="form-control"
                           required
                         />
@@ -400,7 +400,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.shippingAddress.zipcode"
+                          v-model="shippingZipcode"
                           class="form-control"
                           required
                           pattern="\d{5}(-\d{4})?"
@@ -480,7 +480,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.billingAddress.firstname"
+                          v-model="billingFirstName"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -499,7 +499,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.billingAddress.lastname"
+                          v-model="billingLastName"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -518,7 +518,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.billingAddress.addressLine"
+                          v-model="billingAddressLine"
                           placeholder="Type here"
                           class="form-control"
                           required
@@ -534,7 +534,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.billingAddress.country"
+                        v-model="billingCountry"
                         required
                       >
                         <option value="USA">United States</option>
@@ -549,7 +549,7 @@
                       </label>
                       <select
                         class="form-select"
-                        v-model="orderInfo.billingAddress.state"
+                        v-model="billingState"
                         required
                       >
                         <option value="AK">Alaska</option>
@@ -618,7 +618,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.billingAddress.city"
+                          v-model="billingCity"
                           class="form-control"
                           required
                         />
@@ -636,7 +636,7 @@
                         <input
                           type="text"
                           id="typeText"
-                          v-model="orderInfo.billingAddress.zipcode"
+                          v-model="billingZipcode"
                           class="form-control"
                           required
                           pattern="\d{5}(-\d{4})?"
@@ -946,6 +946,15 @@ export default {
       this.$store.commit('UPDATE_SHIPPING_CITY', value);
     }
   },
+  shippingState: {
+    get() {
+      return this.$store.state.tempOrderInfo.shippingAddress?.stateInfo;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
+      this.$store.commit('UPDATE_SHIPPING_STATE', value);
+    }
+  },
   shippingZipcode: {
     get() {
       return this.$store.state.tempOrderInfo.shippingAddress?.zipcode;
@@ -953,6 +962,79 @@ export default {
     set(value) {
       if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress)
       this.$store.commit('UPDATE_SHIPPING_ZIP_CODE', value);
+    }
+  },
+  billingFirstName: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.firstname;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_FIRST_NAME', value);
+    }
+  },
+  billingLastName: {
+    get(){
+      return this.$store.state.tempOrderInfo.billingAddress?.lastname;
+    },
+    set(value){
+      if (this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress) {
+        this.$store.commit('UPDATE_BILLING_LAST_NAME', value);
+    }
+  }
+},
+billingPhoneNumber: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.phoneNumber;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_PHONE_NUMBER', value);
+    }
+  },
+  billingAddressLine: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.addressLine;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_ADDRESS_LINE', value);
+    }
+  },
+  billingCountry: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.country;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_COUNTRY', value);
+    }
+  },
+  billingCity: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.city;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_CITY', value);
+    }
+  },
+  billingState: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.stateInfo;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_STATE_INFO', value);
+    }
+  },
+  billingZipcode: {
+    get() {
+      return this.$store.state.tempOrderInfo.billingAddress?.zipcode;
+    },
+    set(value) {
+      if(this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.billingAddress)
+      this.$store.commit('UPDATE_BILLING_ZIP_CODE', value);
     }
   },
 
@@ -991,7 +1073,8 @@ export default {
     },
 
     setBillingAddress() {
-    if (this.useSameAddress) {
+    
+    if (this.useSameAddress && this.orderInfo.shippingAddress) {
       // Copy shipping address to billing address
     //   if (this.isAuthenticated) {
     //     this.orderInfo.shippingAddress.firstname = this.user.firstName;
@@ -1000,8 +1083,10 @@ export default {
     // }
 
     this.checkUserAuthentication();
-
+      console.log(this.orderInfo.saveAddress);
       this.orderInfo.billingAddress = JSON.parse(JSON.stringify(this.orderInfo.shippingAddress));
+      console.log(JSON.parse(JSON.stringify(this.orderInfo.shippingAddress)));
+      this.orderInfo.billingAddress.addressType = 'billing';
     }else {
       // Optional: Reset billing address fields if necessary
       this.orderInfo.billingAddress = {
@@ -1011,10 +1096,12 @@ export default {
         email: '',
         addressLine: '',
         country: '',
-        state: '',
+        stateInfo: '',
         city: '',
-        zipCode: '',
+        zipcode: '',
+        addressType: 'billing'
       };
+      this.orderInfo.billingAddress.addressType = 'billing';
     }
   },
 

@@ -41,7 +41,7 @@
                       ><br />
                       {{ tempOrderInfo.shippingAddress.addressLine }}<br />
                       {{ tempOrderInfo.shippingAddress.city }}<br />
-                      {{ tempOrderInfo.shippingAddress.state }} {{ tempOrderInfo.shippingAddress.zipcode
+                      {{ tempOrderInfo.shippingAddress.stateInfo }} {{ tempOrderInfo.shippingAddress.zipcode
                       }}<br />
                       {{ tempOrderInfo.shippingAddress.country }}<br />
                       Phone: {{ tempOrderInfo.shippingAddress.phoneNumber }}<br />

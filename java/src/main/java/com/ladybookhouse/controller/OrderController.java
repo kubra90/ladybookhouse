@@ -73,7 +73,7 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
         address.setLastname(addressDTO.getLastname());
         address.setCountry(addressDTO.getCountry());
         address.setCity(addressDTO.getCity());
-        address.setState(addressDTO.getState());
+        address.setState(addressDTO.getStateInfo());
         address.setZipcode(addressDTO.getZipcode());
         address.setAddressLine(addressDTO.getAddressLine());
         address.setPhoneNumber(addressDTO.getPhoneNumber());
