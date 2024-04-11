@@ -98,10 +98,16 @@ export default {
     computed: {
         ...mapState(['books', 'book']),
     },
+<<<<<<< HEAD
 
+||||||| adf4f83
+    created() {
+  this.$store.dispatch('fetchBooks');
+},
+
+=======
+>>>>>>> main
     methods: {
-        // ...mapActions(['fetchBooks']),
-        
         searchBookDetails(){
         
           const filteredBooks = this.books.filter(book => {

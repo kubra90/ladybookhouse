@@ -95,7 +95,6 @@ export default {
       return this.newBookArrivals.slice(start, end);
     },
     ...mapGetters(["newBookArrivals"]),
-    // ...mapState(["newArrivals"])
     ...mapState(["books"]),
   },
   // created() {
@@ -104,13 +103,23 @@ export default {
   // },
 
   methods: {
-    // ...mapActions(["fetchNewArrivals"]),
     gotoPage(page) {
       this.currentPage = page;
     },
+<<<<<<< HEAD
   },
 
 
+||||||| adf4f83
+  },
+
+  created() {
+    // this.fetchNewArrivals()
+    this.$store.dispatch("fetchBooks")
+  },
+=======
+  }
+>>>>>>> main
 };
 </script>
   

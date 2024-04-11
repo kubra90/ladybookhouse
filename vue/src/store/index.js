@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { getBooks, getBookById, getFeaturedItems } from '../services/BookService'
+import { getBooks, getBookById } from '../services/BookService'
 import { register, login } from '../services/AuthService'
 import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
@@ -458,10 +458,10 @@ export default new Vuex.Store({
       commit('SET_BOOK', response.data)
     },
 
-    async fetchFeaturedItems({ commit }) {
-      const response = await getFeaturedItems()
-      commit('SET_FEATURED_ITEMS', response.data)
-    },
+    // async fetchFeaturedItems({ commit }) {
+    //   const response = await getFeaturedItems()
+    //   commit('SET_FEATURED_ITEMS', response.data)
+    // },
   }
 }
 )

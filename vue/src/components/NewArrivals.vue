@@ -35,6 +35,7 @@ export default {
     },
     ...mapState(["books"]),
     ...mapGetters(["newBookArrivals"])
+<<<<<<< HEAD
   },
 
   methods: {
@@ -44,6 +45,19 @@ export default {
   // created() {
   //   this.fetchBooks()
   // }
+||||||| adf4f83
+  },
+
+  // methods: {
+  //   ...mapActions(["fetchBooks"])
+  // },
+
+  // created() {
+  //   this.fetchBooks()
+  // }
+=======
+  }
+>>>>>>> main
 }
 </script>
 

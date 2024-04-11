@@ -32,7 +32,6 @@ import {mapGetters, mapState} from "vuex"
       totalPages() {
         return Math.ceil(this.featuredItems.length / this.booksPerPage)
       },
-      // ...mapState(["featuredItems"]),
       ...mapGetters(['featuredItems']),
       ...mapState(['books']),
       paginatedBooks() {
@@ -43,13 +42,23 @@ import {mapGetters, mapState} from "vuex"
     },
     
     methods: {
-      // ...mapActions(["fetchFeaturedItems"]),
       formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
       },
+<<<<<<< HEAD
     },
     
+||||||| adf4f83
+    },
+    
+    created() {
+      // this.fetchFeaturedItems()
+      this.$store.dispatch("fetchBooks")
+      }
+=======
+    }
+>>>>>>> main
   }
   
   </script>

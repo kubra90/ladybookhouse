@@ -169,6 +169,7 @@
 import { mapState, mapGetters } from "vuex";
 
 export default {
+<<<<<<< HEAD
   name: "header-page",
   data() {
     return {
@@ -213,6 +214,92 @@ export default {
     ...mapGetters(["isAuthenticated"]),
   },
 };
+||||||| adf4f83
+	name: "header-page",
+	data() {
+		return {
+			isClicked: false,
+			searchText: ""
+		}
+	},
+	methods: {
+		toggleClick() {
+			this.isClicked = !this.isClicked
+		},
+
+		searchAllBookDetails() {
+			const filteredDetails = this.books.filter((book) => {
+				const filteredMatch = this.searchText
+					? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.isbn === this.searchText ||
+					book.publisher
+						.toLowerCase()
+						.includes(this.searchText.toLowerCase()) ||
+					book.category.toLowerCase().includes(this.searchText.toLowerCase())
+					: true
+
+				return filteredMatch
+			})
+
+			console.log(filteredDetails)
+			for (let book of filteredDetails) {
+				console.log(book.title)
+				console.log(book.author)
+			}
+		}
+	},
+
+	created() {
+		this.$store.dispatch("fetchBooks")
+	},
+
+	computed: {
+		...mapState(["basketCount", "user", "books"]),
+		...mapGetters(["isAuthenticated"])
+	}
+}
+=======
+	name: "header-page",
+	data() {
+		return {
+			isClicked: false,
+			searchText: ""
+		}
+	},
+	methods: {
+		toggleClick() {
+			this.isClicked = !this.isClicked
+		},
+
+		searchAllBookDetails() {
+			const filteredDetails = this.books.filter((book) => {
+				const filteredMatch = this.searchText
+					? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+					book.isbn === this.searchText ||
+					book.publisher
+						.toLowerCase()
+						.includes(this.searchText.toLowerCase()) ||
+					book.category.toLowerCase().includes(this.searchText.toLowerCase())
+					: true
+
+				return filteredMatch
+			})
+
+			console.log(filteredDetails)
+			for (let book of filteredDetails) {
+				console.log(book.title)
+				console.log(book.author)
+			}
+		}
+	},
+	computed: {
+		...mapState(["basketCount", "user", "books"]),
+		...mapGetters(["isAuthenticated"])
+	}
+}
+>>>>>>> main
 </script>
 
 <style scoped>

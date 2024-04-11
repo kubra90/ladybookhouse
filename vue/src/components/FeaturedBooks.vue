@@ -58,7 +58,12 @@ export default {
   },
 
   created() {
+<<<<<<< HEAD
     // this.$store.dispatch("fetchBooks");
+||||||| adf4f83
+    this.$store.dispatch("fetchBooks");
+=======
+>>>>>>> main
     this.isBrowseCateg = this.$route.name === "browse"
   },
 
