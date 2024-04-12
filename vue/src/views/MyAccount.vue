@@ -34,7 +34,6 @@
             <p class="mb-0">{{ addresses[arrLength].city }}</p>
             <p class="mb-0"> {{ addresses[arrLength].zipcode}}</p>
             <p class="mb-0"> {{ addresses[arrLength].phoneNumber}}</p>
-            <p class="mb-0"> {{ addresses[0]}}</p>
             <!-- Address information here -->
             <router-link v-bind:to="{name: 'address-book'}" class="link">View other addresses</router-link>
           </div>

@@ -46,19 +46,7 @@ import {mapGetters, mapState} from "vuex"
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
       },
-<<<<<<< HEAD
-    },
-    
-||||||| adf4f83
-    },
-    
-    created() {
-      // this.fetchFeaturedItems()
-      this.$store.dispatch("fetchBooks")
-      }
-=======
     }
->>>>>>> main
   }
   
   </script>

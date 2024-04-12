@@ -404,6 +404,7 @@ export default new Vuex.Store({
     async fetchOrders({commit}) {
       const response = await getOrders();
       commit('SET_ORDERS', response.data)
+      console.log(response.data)
   },
   async createOrder({commit}, order){
     const response = await placeOrder(order)

@@ -20,7 +20,7 @@
 
 <script>
 import BookCard from "@/components/BookCard.vue"
-import { mapState, mapGetters, mapActions } from "vuex"
+import { mapState, mapGetters} from "vuex"
 
 export default {
   name: "new-arrivals",
@@ -35,29 +35,7 @@ export default {
     },
     ...mapState(["books"]),
     ...mapGetters(["newBookArrivals"])
-<<<<<<< HEAD
-  },
-
-  methods: {
-    ...mapActions(["fetchBooks"])
-  },
-
-  // created() {
-  //   this.fetchBooks()
-  // }
-||||||| adf4f83
-  },
-
-  // methods: {
-  //   ...mapActions(["fetchBooks"])
-  // },
-
-  // created() {
-  //   this.fetchBooks()
-  // }
-=======
   }
->>>>>>> main
 }
 </script>
 

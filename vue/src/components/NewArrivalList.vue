@@ -106,20 +106,7 @@ export default {
     gotoPage(page) {
       this.currentPage = page;
     },
-<<<<<<< HEAD
-  },
-
-
-||||||| adf4f83
-  },
-
-  created() {
-    // this.fetchNewArrivals()
-    this.$store.dispatch("fetchBooks")
-  },
-=======
   }
->>>>>>> main
 };
 </script>
   
