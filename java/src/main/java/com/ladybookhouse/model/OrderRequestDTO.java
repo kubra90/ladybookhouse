@@ -1,5 +1,6 @@
 package com.ladybookhouse.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderRequestDTO {
@@ -10,12 +11,33 @@ public class OrderRequestDTO {
         private String message;
         private AddressDTO billingAddress;
         private AddressDTO shippingAddress;
-        // Getters and setters
+
+        private String deliveryOption; // "USPS" or "UPS"
+        private BigDecimal totalPrice; // total price including items and shipping
 
 
-      public OrderRequestDTO(){
+    public OrderRequestDTO(){
 
     }
+    // ... getters and setters ...
+
+    public String getDeliveryOption() {
+        return deliveryOption;
+    }
+
+    public void setDeliveryOption(String deliveryOption) {
+        this.deliveryOption = deliveryOption;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+        // Getters and setters
+
 
     public String getEmail() {
         return email;
