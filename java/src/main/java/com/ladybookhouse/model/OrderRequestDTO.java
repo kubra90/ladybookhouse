@@ -13,12 +13,24 @@ public class OrderRequestDTO {
         private AddressDTO shippingAddress;
 
         private String deliveryOption; // "USPS" or "UPS"
-        private BigDecimal totalPrice; // total price including items and shipping
+
 
 
     public OrderRequestDTO(){
 
     }
+
+    public OrderRequestDTO(String email, List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message, AddressDTO billingAddress, AddressDTO shippingAddress, String deliveryOption) {
+        this.email = email;
+        this.inventoryCode = inventoryCode;
+        this.saveAddress = saveAddress;
+        this.infoMail = infoMail;
+        this.message = message;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
+        this.deliveryOption = deliveryOption;
+    }
+
     // ... getters and setters ...
 
     public String getDeliveryOption() {
@@ -28,15 +40,6 @@ public class OrderRequestDTO {
     public void setDeliveryOption(String deliveryOption) {
         this.deliveryOption = deliveryOption;
     }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-        // Getters and setters
 
 
     public String getEmail() {

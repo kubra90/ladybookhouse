@@ -20,7 +20,7 @@ public class OrderService {
         this.restAobApiService = restAobApiService;
     }
 
-    private BigDecimal calculateTotalPrice(OrderRequestDTO orderRequestDTO) throws JsonProcessingException {
+    public BigDecimal calculateTotalPrice(OrderRequestDTO orderRequestDTO) throws JsonProcessingException {
         BigDecimal itemPricesTotal= getItemPricesTotal(orderRequestDTO.getInventoryCode());
         BigDecimal shippingPriceTotal =calculateShippingPrice(orderRequestDTO.getInventoryCode(), orderRequestDTO.getDeliveryOption());
 
@@ -52,29 +52,31 @@ public class OrderService {
         return calculateShippingCostByWeightAndOption(totalWeight, deliveryOption);
     }
 
-    private BigDecimal calculateShippingCostByWeightAndOption(int weight, String delivery){
+    private BigDecimal calculateShippingCostByWeightAndOption(int weight, String delivery) {
         BigDecimal totalShippingCost = BigDecimal.ZERO;
 
         BigDecimal shippingCostByWeight = BigDecimal.ZERO;
 
-        if(weight <= 16) {
+        if (weight <= 16) {
             shippingCostByWeight = new BigDecimal("4.50");
         } else if (weight > 16 && weight < 33) {
             shippingCostByWeight = new BigDecimal("5.20");
-        }else if(weight > 33 && weight < 49) {
+        } else if (weight > 33 && weight < 49) {
             shippingCostByWeight = new BigDecimal("5.90");
-        }else if(weight > 48 && weight< 65){
+        } else if (weight > 48 && weight < 65) {
             shippingCostByWeight = new BigDecimal("6.60");
-        }else if(weight > 64 && weight < 81){
+        } else if (weight > 64 && weight < 81) {
             shippingCostByWeight = new BigDecimal("7.30");
-        }else if(weight > 80 && weight < 97){
+        } else if (weight > 80 && weight < 97) {
             shippingCostByWeight = new BigDecimal("8.00");
-        }else {
+        } else {
             shippingCostByWeight = new BigDecimal("8.70");
         }
 
-        if(delivery.equals("UPS")){
+        if (delivery.equals("UPS")) {
             totalShippingCost = shippingCostByWeight.add(new BigDecimal("9.90"));
+        } else {
+            totalShippingCost = shippingCostByWeight;
         }
         return totalShippingCost;
     }

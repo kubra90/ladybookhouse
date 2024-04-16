@@ -1,7 +1,11 @@
 package com.ladybookhouse.dao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.model.Address;
+import com.ladybookhouse.model.AddressDTO;
 import com.ladybookhouse.model.Order;
+import com.ladybookhouse.model.OrderRequestDTO;
+import com.ladybookhouse.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,14 +26,19 @@ public class JdbcOrderDao implements OrderDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+   private OrderService orderService;
 
 
-    public JdbcOrderDao(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
+   @Autowired
+    public JdbcOrderDao(JdbcTemplate jdbcTemplate, OrderService orderService){
+        this.jdbcTemplate = jdbcTemplate;
+        this.orderService =orderService;
+    }
 
    @Override
    public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
-                         boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption,
-                         BigDecimal totalPrice)
+                         boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption
+ )
    {
 
         if(!checkInventoryCodesExistsInOrders(inventoryCode)) {
@@ -47,10 +56,13 @@ public class JdbcOrderDao implements OrderDao {
                 }
 
 //           }
+                AddressDTO billingAddressDTO = convertAddressToAddressDTO(billingAddress);
+                AddressDTO shippingAddressDTO =convertAddressToAddressDTO(shippingAddress);
+                OrderRequestDTO orderRequestDTO = new OrderRequestDTO(email, inventoryCode, saveAddress, infoMail, message, billingAddressDTO, shippingAddressDTO, deliveryOption);
+                BigDecimal totalPrice = orderService.calculateTotalPrice(orderRequestDTO); // Calculate the total price
 
                 System.out.println("Billing Address: " + billingAddress);
                 System.out.println("Shipping Address: " + shippingAddress);
-
 
                 // Now insert the order linking it to the address IDs (if addresses were saved)
                 String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
@@ -71,6 +83,8 @@ public class JdbcOrderDao implements OrderDao {
                 // General handler for other data access exceptions
                 System.out.println("Data access error: " + e.getMessage());
                 return false;
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
             }
         }
         throw new UsernameNotFoundException("sku number used in previous orders");
@@ -163,6 +177,21 @@ public class JdbcOrderDao implements OrderDao {
         }
         return false;
     }
+
+    private AddressDTO convertAddressToAddressDTO(Address address){
+            AddressDTO addressDTO = new AddressDTO();
+            addressDTO.setFirstname(address.getFirstname());
+            addressDTO.setLastname(address.getLastname());
+        addressDTO.setCountry(address.getCountry());
+        addressDTO.setCity(address.getCity());
+        addressDTO.setStateInfo(address.getState());
+        addressDTO.setZipcode(address.getZipcode());
+        addressDTO.setAddressLine(address.getAddressLine());
+        addressDTO.setPhoneNumber(address.getPhoneNumber());
+        addressDTO.setAddressType(address.getAddressType());
+
+            return addressDTO;
+        }
 
     @Override
     public List<Order> findAllOrders() {
