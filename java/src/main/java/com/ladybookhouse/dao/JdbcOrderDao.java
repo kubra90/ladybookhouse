@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -27,7 +28,9 @@ public class JdbcOrderDao implements OrderDao {
 
    @Override
    public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
-                         boolean infoMail, String message, Address billingAddress, Address shippingAddress) {
+                         boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption,
+                         BigDecimal totalPrice)
+   {
 
         if(!checkInventoryCodesExistsInOrders(inventoryCode)) {
             Integer shippingAddressId;
@@ -50,10 +53,10 @@ public class JdbcOrderDao implements OrderDao {
 
 
                 // Now insert the order linking it to the address IDs (if addresses were saved)
-                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, saveAddress, infoMail, message, created_at) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
+                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
+                        "VALUES (?, ?, ?, ?,?,?, ?, ?, ?) RETURNING order_id";
 
-                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, saveAddress, infoMail, message, LocalDateTime.now());
+                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
 
                 if (orderId != null)
                     // If the order was successfully created, insert related books
@@ -227,6 +230,8 @@ public class JdbcOrderDao implements OrderDao {
         order.setEmail(rs.getString("email"));
         order.setBillingId(rs.getInt("billing_address_id"));
         order.setShippingId(rs.getInt("shipping_address_id"));
+        order.setDeliveryOption(rs.getString("delivery_option"));
+        order.setTotalPrice(rs.getBigDecimal("total_price"));
         order.setSaveAddress(rs.getBoolean("saveAddress"));
         order.setInfoMail(rs.getBoolean("infoMail"));
         order.setMessage(rs.getString("message"));

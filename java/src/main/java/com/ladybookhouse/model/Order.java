@@ -1,5 +1,6 @@
 package com.ladybookhouse.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class Order {
     private int shippingId;
     private List<String> inventoryCode;
 
+    private String deliveryOption;
+
+    private BigDecimal totalPrice;
+
     private String message;
 
     private boolean saveAddress;
@@ -24,12 +29,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String message, boolean saveAddress, boolean infoMail, LocalDateTime orderDateTime) {
+    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String deliveryOption,  BigDecimal totalPrice, String message, boolean saveAddress, boolean infoMail, LocalDateTime orderDateTime) {
         this.orderId = orderId;
         this.email = email;
         this.billingId = billingId;
         this.shippingId = shippingId;
         this.inventoryCode = inventoryCode;
+        this.deliveryOption =deliveryOption;
+        this.totalPrice =totalPrice;
         this.message = message;
         this.saveAddress = saveAddress;
         this.infoMail = infoMail;
@@ -46,6 +53,22 @@ public class Order {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getDeliveryOption() {
+        return deliveryOption;
+    }
+
+    public void setDeliveryOption(String deliveryOption) {
+        this.deliveryOption = deliveryOption;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public void setEmail(String email) {

@@ -53,7 +53,9 @@ public OrderController(OrderDao orderDao, AddressDao addressDao){
                 orderRequest.isInfoMail(),
                 orderRequest.getMessage(),
                 billingAddress,
-                shippingAddress
+                shippingAddress,
+                orderRequest.getDeliveryOption(),
+                orderRequest.getTotalPrice()
 
         );
 

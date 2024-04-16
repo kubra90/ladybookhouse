@@ -54,6 +54,10 @@ CREATE TABLE orders(
   email varchar(255) NOT NULL,
   billing_address_id INTEGER,
   shipping_address_id INTEGER,
+  total_price DECIMAL(10, 2),
+--  shipping_cost DECIMAL(10, 2),
+--  total_weight INTEGER DEFAULT 0,
+  delivery_option varchar(10) NOT NULL;
   saveAddress BOOLEAN,
   infoMail BOOLEAN,
   message varchar(250),
