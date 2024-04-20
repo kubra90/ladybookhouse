@@ -26,22 +26,21 @@ public class JdbcOrderDao implements OrderDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-   private OrderService orderService;
+    private OrderService orderService;
 
 
-   @Autowired
-    public JdbcOrderDao(JdbcTemplate jdbcTemplate, OrderService orderService){
+    @Autowired
+    public JdbcOrderDao(JdbcTemplate jdbcTemplate, OrderService orderService) {
         this.jdbcTemplate = jdbcTemplate;
-        this.orderService =orderService;
+        this.orderService = orderService;
     }
 
-   @Override
-   public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
-                         boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption
- )
-   {
+    @Override
+    public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
+                          boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption
+    ) {
 
-        if(!checkInventoryCodesExistsInOrders(inventoryCode)) {
+        if (!checkInventoryCodesExistsInOrders(inventoryCode)) {
             Integer shippingAddressId;
             Integer billingAddressId;
             try {
@@ -57,7 +56,7 @@ public class JdbcOrderDao implements OrderDao {
 
 //           }
                 AddressDTO billingAddressDTO = convertAddressToAddressDTO(billingAddress);
-                AddressDTO shippingAddressDTO =convertAddressToAddressDTO(shippingAddress);
+                AddressDTO shippingAddressDTO = convertAddressToAddressDTO(shippingAddress);
                 OrderRequestDTO orderRequestDTO = new OrderRequestDTO(email, inventoryCode, saveAddress, infoMail, message, billingAddressDTO, shippingAddressDTO, deliveryOption);
                 BigDecimal totalPrice = orderService.calculateTotalPrice(orderRequestDTO); // Calculate the total price
 
@@ -88,7 +87,7 @@ public class JdbcOrderDao implements OrderDao {
             }
         }
         throw new UsernameNotFoundException("sku number used in previous orders");
-   }
+    }
 
 //    @Override
 //    public boolean create(String firstname, String lastName, String country,
@@ -159,10 +158,10 @@ public class JdbcOrderDao implements OrderDao {
         return count != null && count > 0;
     }
 
-    private void insertOrderBooks(List<String> inventoryCode, Integer orderId){
+    private void insertOrderBooks(List<String> inventoryCode, Integer orderId) {
         String orderSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
-            for (String sku : inventoryCode) {
-                jdbcTemplate.update(orderSql, orderId, sku);
+        for (String sku : inventoryCode) {
+            jdbcTemplate.update(orderSql, orderId, sku);
         }
     }
 
@@ -171,17 +170,17 @@ public class JdbcOrderDao implements OrderDao {
         for (String sku : inventoryCode) {
             String orderSql = "SELECT COUNT(*) from order_books where bookNo=?";
             count = jdbcTemplate.queryForObject(orderSql, new Object[]{sku}, Integer.class);
-            if(count > 0){
+            if (count > 0) {
                 return true;
             }
         }
         return false;
     }
 
-    private AddressDTO convertAddressToAddressDTO(Address address){
-            AddressDTO addressDTO = new AddressDTO();
-            addressDTO.setFirstname(address.getFirstname());
-            addressDTO.setLastname(address.getLastname());
+    private AddressDTO convertAddressToAddressDTO(Address address) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setFirstname(address.getFirstname());
+        addressDTO.setLastname(address.getLastname());
         addressDTO.setCountry(address.getCountry());
         addressDTO.setCity(address.getCity());
         addressDTO.setStateInfo(address.getState());
@@ -190,17 +189,17 @@ public class JdbcOrderDao implements OrderDao {
         addressDTO.setPhoneNumber(address.getPhoneNumber());
         addressDTO.setAddressType(address.getAddressType());
 
-            return addressDTO;
-        }
+        return addressDTO;
+    }
 
     @Override
     public List<Order> findAllOrders() {
         List<Order> orders = new ArrayList<>();
-        String sql= "select * from orders";
+        String sql = "select * from orders";
 
-        SqlRowSet results= jdbcTemplate.queryForRowSet(sql);
-        while(results.next()){
-            Order order=mapRowToOrder(results);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            Order order = mapRowToOrder(results);
             orders.add(order);
         }
         return orders;
@@ -208,30 +207,50 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public Order getOrderByOrderId(int orderId) {
-        String sql= "SELECT * from orders WHERE order_id= ?";
-        SqlRowSet results= jdbcTemplate.queryForRowSet(sql, orderId);
-        if(results.next()){
-            return mapRowToOrder(results);
-        }else {
-            return null;
+        String sql = "SELECT o.*, b.bookNo from orders o " +
+                "LEFT JOIN order_books b ON o.order_id =b.order_id " +
+                "WHERE o.order_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, orderId);
+        Map<Integer, Order> orderMap = new HashMap<>();
+        while (results.next()) {
+            Integer retrievedOrderId = results.getInt("order_id");
+            Order order = orderMap.get(retrievedOrderId);
+
+            if (order == null) {
+
+                order = mapRowToOrder(results);
+                order.setInventoryCode(new ArrayList<>());
+                orderMap.put(retrievedOrderId, order);
+            }
+
+            String bookNo = results.getString("bookNo");
+            if (bookNo != null) {
+                order.getInventoryCode().add(bookNo);
+            }
         }
+
+        return orderMap.get(orderId);
     }
 
     @Override
     public List<Order> getOrderByEmail(String email) {
-        if(email == null) throw new IllegalArgumentException("Email cannot be null");
-        List<Order> orders= new ArrayList<>();
-        for(Order order: this.findAllOrders()){
-            if(order.getEmail().equalsIgnoreCase(email)){
-                orders.add(order);
-            }
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
+        String sql = "SELECT order_id FROM orders WHERE email = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, email);
+        List<Order> orders = new ArrayList<>();
+
+        while (results.next()) {
+            int orderId = results.getInt("order_id");
+            orders.add(getOrderByOrderId(orderId)); // Fetch each order by id
         }
+
         if (orders.isEmpty()) {
-            // create new customized exception here
             throw new UsernameNotFoundException("Order with this email " + email + " was not found!");
         }
+
         return orders;
-    }
+        }
 
 
     private Integer insertAddress(Address address) {

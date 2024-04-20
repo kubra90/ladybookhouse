@@ -6,6 +6,7 @@ import { register, login } from '../services/AuthService'
 import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
 import { getAddress} from '../services/AddressService'
+// import BookDetail from '../components/BookDetail.vue'
 Vue.use(Vuex)
 /*
  * The authorization header is set for axios when you login but what happens when you come back or
@@ -40,7 +41,9 @@ export default new Vuex.Store({
     order: {},
     address: {},
     addresses: [],
-    deliveryOption: "USPS",
+    // Object to store multiple book details keyed by sku
+    bookDetails: {},
+    // deliveryOption: "USPS",
     // paymentMethod: "paypal",
 
     checkout: {
@@ -75,6 +78,7 @@ export default new Vuex.Store({
         phoneNumber: '',
         addressType: "billing"
       },
+      deliveryOption: 'USPS',
       useSameAddressForBilling: false
     }
   },
@@ -104,7 +108,7 @@ export default new Vuex.Store({
           shippingCost =9.99;
         }
 
-        if(state.deliveryOption === "UPS"){
+        if(state.tempOrderInfo.deliveryOption === "UPS"){
           shippingCost+=7.99;
         }
         console.log(shippingCost);
@@ -170,6 +174,9 @@ export default new Vuex.Store({
       state.basketCount = 0
 
     },
+
+    
+
     UPDATE_SHIPPING_FIRST_NAME(state, firstname){
       if (!state.tempOrderInfo.shippingAddress) {
         Vue.set(state.tempOrderInfo, 'shippingAddress', { firstname: '' });
@@ -299,7 +306,8 @@ export default new Vuex.Store({
           country: '',
           phoneNumber: '',
           addressType: "billing"
-        }
+        },
+        deliveryOption : ''
 
 
         }
@@ -322,6 +330,13 @@ export default new Vuex.Store({
     },
     SET_BOOK_COUNT(state, data) {
       state.basketCount = data
+    },
+    SET_DELIVERY_OPTION(state, data){
+      console.log(data);
+     state.tempOrderInfo.deliveryOption = data;
+    },
+    SET_BOOK_DETAILS(state, {sku, details}){
+      Vue.set(state.bookDetails, sku, details)
     },
     //add the book to cart
     ADD_TO_CART(state, book) {
@@ -360,10 +375,10 @@ export default new Vuex.Store({
     // REMOVE_ADDRESS_FROM_ADDRESSES(state, index){
     //   state.addresses.splice(index, 1)
     // },
-    SET_DELIVERY_OPTION(state, option){
-      console.log(option);
-      state.deliveryOption = option
-    },
+    // SET_DELIVERY_OPTION(state, option){
+    //   console.log(option);
+    //   state.deliveryOption = option
+    // },
     SET_PAYMENT_METHOD(state, data){
       state.checkout.paymentMethod = data
     },
@@ -454,9 +469,23 @@ export default new Vuex.Store({
       const response = await getBooks()
       commit('SET_BOOKS', response.data)
     },
+    // async fetchBookById({ commit }, sku) {
+    //   const response = await getBookById(sku)
+    //   commit('SET_BOOK', response.data)
+    // },
     async fetchBookById({ commit }, sku) {
+      try{
       const response = await getBookById(sku)
+      if(response &&response.data){
       commit('SET_BOOK', response.data)
+      commit('SET_BOOK_DETAILS', {sku, details: response.data})
+      console.log(this.state.bookDetails);
+      }else {
+        throw new Error('no data received')
+      }
+      }catch(error){
+        console.error('error fetching book by sku', error);
+      }
     },
 
     // async fetchFeaturedItems({ commit }) {

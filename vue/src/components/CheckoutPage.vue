@@ -847,8 +847,11 @@ export default {
   },
   watch: {
     selectedDelivery(newValue) {
-      this.$store.commit("SET_DELIVERY_OPTION", newValue);
+      this.$store.commit('SET_DELIVERY_OPTION', newValue);
     },
+    // deliveryMethod(newValue){
+    //       this.$store.commit('UPDATE_DELIVERY_OPTION', newValue);
+    // },
     '$route.query.focus'(newValue){
          if(newValue === 'payment'){
             this.showPaymentInfo = true;
@@ -858,6 +861,7 @@ export default {
             this.scrollToShippingSection();
          }
          },
+         
     },
   mounted() {
     if(this.$route.query.focus === 'payment'){
@@ -892,7 +896,9 @@ export default {
   // new codes
   shippingFirstName: {
     get() {
+      console.log('Accessing shipping address:', this.orderInfo.shippingAddress);
       return this.$store.state.tempOrderInfo.shippingAddress?.firstname;
+    
     },
     set(value) {
       if (this.$store.state.tempOrderInfo && this.$store.state.tempOrderInfo.shippingAddress) {
@@ -1073,8 +1079,12 @@ billingPhoneNumber: {
     },
 
     setBillingAddress() {
-    
+      if (this.useSameAddress) {
+    // Log to check if we enter here when checkbox is toggled
+    console.log('Copying shipping address to billing address');
+    console.log(this.orderInfo.shippingAddress)
     if (this.useSameAddress && this.orderInfo.shippingAddress) {
+      console.log('address should be same')
       // Copy shipping address to billing address
     //   if (this.isAuthenticated) {
     //     this.orderInfo.shippingAddress.firstname = this.user.firstName;
@@ -1103,6 +1113,7 @@ billingPhoneNumber: {
       };
       this.orderInfo.billingAddress.addressType = 'billing';
     }
+  }
   },
 
 continueToPayment() {
