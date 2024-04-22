@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="container my-4">
     <div class="row" v-for="order in orders" :key="order.order_id">
@@ -13,43 +11,37 @@
               <div>Ordered on {{ order.orderDateTime | formatDate }}</div>
             </div>
             <div>
-                <div>Order Total: <strong>${{formatPrice(order.totalPrice)}}</strong> </div>
+                <div>Order Total: <strong>${{ formatPrice(order.totalPrice) }}</strong> </div>
             </div>
           </div>
-          <div class="card-body">
-            <ul class="list-group">
-              <li v-for="bookNo in order.inventoryCode" :key="bookNo" class="list-group-item">
-                Book Number: {{ bookNo }}
-                
-                {{ fetchBookById(bookNo) }}
-                {{ bookNo.title }}
-                <button @click="toggleBookDetails(bookNo)" class="btn btn-sm btn-primary">
-                  {{ showBookDetails[bookNo] ? 'Hide Details' : 'Show Details' }}
-                </button>
-                 <div v-if="showBookDetails[bookNo]" class="dropdown-content">
-                  <p> Title: {{ getBookDetails(bookNo).title || 'Loading...' }}</p>
-                  <p>Loading book details...</p>
-                </div> 
-              </li>
-            </ul>
-            <p class="card-text">
-              <!-- <small class="text-muted">Estimated Delivery: {{ order.estimatedDelivery }}</small> -->
-            </p>
-            <a href="#" class="card-link">Request Return/Refund</a>
-            <a href="#" class="card-link">Contact Bookseller</a>
-          </div>
+          <!-- Moved list-group outside card-body -->
           <ul class="list-group list-group-flush">
-            <!-- <li class="list-group-item">Shipping Speed: {{ order.shippingSpeed }}</li>
-              <li class="list-group-item">Tracking Number: {{ order.trackingNumber }}</li> -->
+            <li v-for="bookNo in order.inventoryCode" :key="bookNo" class="list-group-item">
+              <div><strong>{{ getBookDetails(bookNo).title || 'Loading...' }}</strong></div>
+              <div>{{ getBookDetails(bookNo).author || 'Loading...' }}</div>
+              <button @click="toggleBookDetails(bookNo)" class="btn btn-link mt-4 mb-2">
+                {{ showBookDetails[bookNo] ? 'Hide Book Description' : 'View Book Description' }}
+              </button>
+              <div v-if="showBookDetails[bookNo]" class="dropdown-content mb-2">
+                <div><strong>ISBN: </strong>{{ getBookDetails(bookNo).isbn || 'Loading...' }}</div>
+                <div><strong>Binding: </strong>{{ getBookDetails(bookNo).media || 'Loading...' }}</div>
+                <div><strong>Condition: </strong>{{ getBookDetails(bookNo).conditionAsText || 'Loading...' }}</div>
+                <div><strong>Publisher: </strong>{{ getBookDetails(bookNo).publisher || 'Loading...' }}</div>
+                <div><strong>Publication Date: </strong>{{ getBookDetails(bookNo).isbn || 'Loading...' }}</div>
+                <div>{{ getBookDetails(bookNo).notes || 'Loading...' }}</div>
+              </div>
+            </li>
           </ul>
           <div class="card-footer text-muted">
-            <!-- Order Total: ${{ order.total }} -->
+            <a href="#" class="card-link">Request Return/Refund</a>
+            <a href="#" class="card-link">Contact Bookseller</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
   
 
 <script>
@@ -77,6 +69,10 @@ export default {
   },
   computed: {
     ...mapState(["orders", "user", "book", "bookDetails"]),
+    // getBookDetails() {
+    //   console.log("accessing bookdetails from the store:", this.$store.state.bookDetails)
+    //   return this.$store.state.bookDetails;
+    // }
     getBookDetails() {
         return (bookNo) => {
             return this.bookDetails[bookNo] || { title: 'Loading...' };
@@ -91,11 +87,6 @@ export default {
       return formattedValue;
     },
    
-//     toggleBookDetails(bookNo) {
-//       this.showBookDetails = true;
-//     this.fetchBookById(bookNo);
-//     console.log(this.fetchBookById(bookNo));
-// }
 
 toggleBookDetails(bookNo) {
   // Initialize if not present
@@ -115,22 +106,25 @@ toggleBookDetails(bookNo) {
 
 },
   created() {
-    this.fetchOrders();
-    console.log(this.fetchOrders())
+
+    this.fetchOrders().then(() => {
+    this.orders.forEach(order => {
+      order.inventoryCode.forEach(bookNo => {
+        this.fetchBookById(bookNo); // Fetch details
+      });
+    });
+  });
   },
-//   async created() {
-//   await this.fetchOrders();
-//   this.orders.forEach(order => {
-//     order.inventoryCode.forEach(bookNo => {
-//       if (!this.getBookDetails[bookNo]) {  // Check if details are already loaded
-//         this.fetchBookById(bookNo);
-//       }
-//     });
-//   });
-// }
 
 };
 </script>
 
 <style scoped>
+
+.btn-link {
+  font-size: small;
+  /* notes about !important */
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
 </style>
