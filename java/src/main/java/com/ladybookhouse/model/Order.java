@@ -26,10 +26,15 @@ public class Order {
 
     private LocalDateTime orderDateTime;
 
+//    added later on
+    private BigDecimal subTotalPrice;
+
+    private BigDecimal shippingCost;
+
     public Order() {
     }
 
-    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String deliveryOption,  BigDecimal totalPrice, String message, boolean saveAddress, boolean infoMail, LocalDateTime orderDateTime) {
+    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String deliveryOption,  BigDecimal totalPrice, String message, boolean saveAddress, boolean infoMail, BigDecimal shippingCost, BigDecimal subTotalPrice, LocalDateTime orderDateTime) {
         this.orderId = orderId;
         this.email = email;
         this.billingId = billingId;
@@ -37,6 +42,8 @@ public class Order {
         this.inventoryCode = inventoryCode;
         this.deliveryOption =deliveryOption;
         this.totalPrice =totalPrice;
+        this.subTotalPrice =subTotalPrice;
+        this.shippingCost = shippingCost;
         this.message = message;
         this.saveAddress = saveAddress;
         this.infoMail = infoMail;
@@ -89,6 +96,22 @@ public class Order {
 
     public void setShippingId(int shippingId) {
         this.shippingId = shippingId;
+    }
+
+    public BigDecimal getSubTotalPrice() {
+        return subTotalPrice;
+    }
+
+    public void setSubTotalPrice(BigDecimal subTotalPrice) {
+        this.subTotalPrice = subTotalPrice;
+    }
+
+    public BigDecimal getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(BigDecimal shippingCost) {
+        this.shippingCost = shippingCost;
     }
 
     public List<String> getInventoryCode() {

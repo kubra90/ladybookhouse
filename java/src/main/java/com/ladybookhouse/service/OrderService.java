@@ -28,7 +28,7 @@ public class OrderService {
     }
 
 
-    private BigDecimal getItemPricesTotal(List<String> inventoryCodes) throws JsonProcessingException {
+    public BigDecimal getItemPricesTotal(List<String> inventoryCodes) throws JsonProcessingException {
         BigDecimal total = BigDecimal.ZERO;
 
         for (String inventoryCode : inventoryCodes) {
@@ -41,7 +41,7 @@ public class OrderService {
     }
 
     // ... other service methods ...
-    private BigDecimal calculateShippingPrice(List<String> inventoryCodes, String deliveryOption) throws JsonProcessingException {
+    public BigDecimal calculateShippingPrice(List<String> inventoryCodes, String deliveryOption) throws JsonProcessingException {
         int totalWeight=0;
         for (String inventoryCode : inventoryCodes) {
             Book book = restAobApiService.getBookInfo(inventoryCode);

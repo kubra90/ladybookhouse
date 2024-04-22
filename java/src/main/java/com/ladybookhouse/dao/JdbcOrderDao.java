@@ -59,15 +59,18 @@ public class JdbcOrderDao implements OrderDao {
                 AddressDTO shippingAddressDTO = convertAddressToAddressDTO(shippingAddress);
                 OrderRequestDTO orderRequestDTO = new OrderRequestDTO(email, inventoryCode, saveAddress, infoMail, message, billingAddressDTO, shippingAddressDTO, deliveryOption);
                 BigDecimal totalPrice = orderService.calculateTotalPrice(orderRequestDTO); // Calculate the total price
+//                shipping cost and subtotal price
+                BigDecimal shippingCost =orderService.calculateShippingPrice(inventoryCode, deliveryOption);
+                BigDecimal subTotalPrice = orderService.getItemPricesTotal(inventoryCode);
 
                 System.out.println("Billing Address: " + billingAddress);
                 System.out.println("Shipping Address: " + shippingAddress);
 
                 // Now insert the order linking it to the address IDs (if addresses were saved)
-                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
+                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, subtotal_price, shipping_cost, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
                         "VALUES (?, ?, ?, ?,?,?, ?, ?, ?) RETURNING order_id";
 
-                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
+                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, subTotalPrice, shippingCost, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
 
                 if (orderId != null)
                     // If the order was successfully created, insert related books
@@ -279,6 +282,8 @@ public class JdbcOrderDao implements OrderDao {
         order.setBillingId(rs.getInt("billing_address_id"));
         order.setShippingId(rs.getInt("shipping_address_id"));
         order.setDeliveryOption(rs.getString("delivery_option"));
+        order.setSubTotalPrice(rs.getBigDecimal("subtotal_price"));
+        order.setShippingCost(rs.getBigDecimal("shipping_cost"));
         order.setTotalPrice(rs.getBigDecimal("total_price"));
         order.setSaveAddress(rs.getBoolean("saveAddress"));
         order.setInfoMail(rs.getBoolean("infoMail"));
