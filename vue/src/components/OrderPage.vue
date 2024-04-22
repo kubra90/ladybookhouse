@@ -5,33 +5,39 @@
         <div class="card mb-3">
           <div class="card-header d-flex justify-content-between">
             <div>
-              <div>
-                <strong>Sales Order #{{ order.orderId }}</strong>
-              </div>
+              <div><b>Sales Order #{{ order.orderId }}</b></div>
               <div>Ordered on {{ order.orderDateTime | formatDate }}</div>
             </div>
-            <div>
-                <div>Order Total: <strong>${{ formatPrice(order.totalPrice) }}</strong> </div>
-            </div>
+            <div><div>Order Total: <strong>${{ formatPrice(order.totalPrice) }}</strong></div></div>
           </div>
-          <!-- Moved list-group outside card-body -->
-          <ul class="list-group list-group-flush">
-            <li v-for="bookNo in order.inventoryCode" :key="bookNo" class="list-group-item">
-              <div><strong>{{ getBookDetails(bookNo).title || 'Loading...' }}</strong></div>
-              <div>{{ getBookDetails(bookNo).author || 'Loading...' }}</div>
-              <button @click="toggleBookDetails(bookNo)" class="btn btn-link mt-4 mb-2">
-                {{ showBookDetails[bookNo] ? 'Hide Book Description' : 'View Book Description' }}
-              </button>
-              <div v-if="showBookDetails[bookNo]" class="dropdown-content mb-2">
-                <div><strong>ISBN: </strong>{{ getBookDetails(bookNo).isbn || 'Loading...' }}</div>
-                <div><strong>Binding: </strong>{{ getBookDetails(bookNo).media || 'Loading...' }}</div>
-                <div><strong>Condition: </strong>{{ getBookDetails(bookNo).conditionAsText || 'Loading...' }}</div>
-                <div><strong>Publisher: </strong>{{ getBookDetails(bookNo).publisher || 'Loading...' }}</div>
-                <div><strong>Publication Date: </strong>{{ getBookDetails(bookNo).isbn || 'Loading...' }}</div>
-                <div>{{ getBookDetails(bookNo).notes || 'Loading...' }}</div>
-              </div>
-            </li>
-          </ul>
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+              <li v-for="bookNo in order.inventoryCode" :key="bookNo" class="list-group-item">
+                <div class="d-flex justify-content-between">
+                  <div class="flex-grow-1">
+                    <div><b>{{ getBookDetails(bookNo).title || 'Loading...' }}</b></div>
+                    <div> {{ getBookDetails(bookNo).author || 'Loading...' }}</div>
+                   
+                  </div>
+                  <div class="align-items-end ms-4" style="text-align: end;">
+                  <div class="item-status">Item status: <b> shipped</b> </div>
+                  <div>The book has been shipped to you</div>
+                </div>
+                </div>
+                <button @click="toggleBookDetails(bookNo)" class="btn btn-link mt-2">
+                  {{ showBookDetails[bookNo] ? 'Hide Book Description' : 'View Book Description' }}
+                </button>
+                <div v-if="showBookDetails[bookNo]" class="dropdown-content mt-2">
+                  <div><b>ISBN:</b> {{ getBookDetails(bookNo).isbn || 'Loading...' }}</div>
+                  <div><b>Binding:</b> {{ getBookDetails(bookNo).media || 'Loading...' }}</div>
+                  <div><b>Condition:</b> {{ getBookDetails(bookNo).conditionAsText || 'Loading...' }}</div>
+                  <div><b>Publisher:</b> {{ getBookDetails(bookNo).publisher || 'Loading...' }}</div>
+                  <div><b>Publication Date:</b> {{ getBookDetails(bookNo).publicationDate || 'Loading...' }}</div>
+                  <div>{{ getBookDetails(bookNo).notes || 'Loading...' }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
           <div class="card-footer text-muted">
             <a href="#" class="card-link">Request Return/Refund</a>
             <a href="#" class="card-link">Contact Bookseller</a>
@@ -41,6 +47,7 @@
     </div>
   </div>
 </template>
+
 
   
 
@@ -126,5 +133,18 @@ toggleBookDetails(bookNo) {
   /* notes about !important */
   margin-left: 0 !important;
   padding-left: 0 !important;
+}
+
+/* .item-status {
+  text-align:end;
+} */
+
+@media (max-width: 576px) {
+  /* Adjust for small screens and up */
+  .item-status{
+    padding-right:0 !important;
+    margin-right:0 !important;
+    margin-left:0.7em;
+  }
 }
 </style>
