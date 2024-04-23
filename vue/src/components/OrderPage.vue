@@ -83,7 +83,7 @@
                       <b>Estimated Delivery</b>
                     </div>
                     <div>
-                      on/before estimated_delivery
+                      on/before {{ getEstimatedDeliveryDate(order.deliveryOption, order.orderDateTime) | formatDate}}
                     </div>
                   </div>
                   <div class="flex-grow-1">
@@ -106,26 +106,33 @@
                 <!-- view payment ans shipping details -->
                 <button
                   class="btn btn-link mt-2"
-                  @click="toggleShippingDetails"
+                  @click="toggleShippingDetails(order.orderId)"
                 >
                   {{
-                    showShippingDetails
+                    showShippingDetails[order.orderId]
                       ? "Payment & Shipping Details"
                       : "Payment & Shipping Details"
                   }}
                 </button>
                 <div
-                  v-if="showShippingDetails"
+                  v-if="showShippingDetails[order.orderId]"
                   class="dropdown-content mt-2 mb-3"
                 >
                 <div class="d-flex justify-content-between">
                   <div>
-                 <div>Payment Method: <span> PayPal</span></div>
-                 <div>Payment Date <span>Date</span></div>
+                 <div class="flex-grow-1">Payment Method: <span> PayPal</span></div>
+                 <!-- <div>Payment Date <span>Date</span></div> -->
                   </div>
-                  <div>
-                    Shipping Address
-
+                  <div class="flex-grow-2" style="text-align:end">
+                    <div>Shipping Address:</div>
+                     <div>{{ shippingAddresses[order.shippingId]?.firstname }}  {{ shippingAddresses[order.shippingId]?.lastname }}</div> 
+                    <div>{{ shippingAddresses[order.shippingId]?.addressLine }}</div>
+                    <div>{{ shippingAddresses[order.shippingId]?.city}} {{ shippingAddresses[order.shippingId]?.state}} {{ shippingAddresses[order.shippingId]?.zipcode}}</div>
+                
+                    <div>{{ shippingAddresses[order.shippingId]?.country}}</div>
+                   <div>
+                  
+                   </div>
                   </div>
                 </div>
                 </div>
@@ -153,7 +160,8 @@ export default {
   data() {
     return {
       showBookDetails: {},
-      showShippingDetails: false,
+      showShippingDetails: {},
+      shippingAddresses: {}
     };
   },
   filters: {
@@ -180,11 +188,27 @@ export default {
         return this.bookDetails[bookNo] || { title: "Loading..." };
       };
     },
-
+    orderAddress() {
+    // Returns a function that accepts orderId and returns the address
+    return orderId => this.shippingAddresses[orderId] || {};
+  }
    
   },
+  created() {
+    this.fetchOrders().then(() => {
+      this.orders.forEach((order) =>{
+        this.$set(this.showShippingDetails, order.orderId, false);
+        console.log(order.shippingId);
+        this.getAddressById(order.shippingId);
+        console.log(this.getAddressById(order.shippingId))
+        order.inventoryCode.forEach((bookNo) => {
+          this.fetchBookById(bookNo); // Fetch details
+        });
+      });
+    });
+  },
   methods: {
-    ...mapActions(["fetchOrders", "fetchBookById"]), // Moved mapActions to methods
+    ...mapActions(["fetchOrders", "fetchBookById", "getShippingAddressById"]), // Moved mapActions to methods
     formatPrice(value) {
       const formattedValue = Number(value).toFixed(2);
       return formattedValue;
@@ -195,6 +219,14 @@ export default {
       }else{
         return "6-10 business days";
       }
+    },
+    getEstimatedDeliveryDate(deliveryMethod, orderDate){
+      const date = new Date(orderDate);
+      const daysToAdd = deliveryMethod === "UPS" ? 7: 10;
+       
+      date.setDate(date.getDate() + daysToAdd);
+      return date;
+       
     },
 
     toggleBookDetails(bookNo) {
@@ -211,19 +243,40 @@ export default {
         this.fetchBookById(bookNo);
       }
     },
-    toggleShippingDetails(){
-      this.showShippingDetails = !this.showShippingDetails;
+    toggleShippingDetails(id) {
+      console.log(`before toggle -showShippingDetails[${id}]`, this.showShippingDetails[id])
+  // Initialize if not present
+  if (this.showShippingDetails[id] === undefined) {
+    this.$set(this.showShippingDetails, id, false); // Initialize as false
+  }
+  
+  // Toggle the visibility
+  this.showShippingDetails[id] = !this.showShippingDetails[id];
+  console.log(`After toggle - showShippingDetails[${id}]:`, this.showShippingDetails[id]);
+},
+  //   getAddressById(id) {
+  //   this.getShippingAddressById(id).then(address => {
+  //     console.log("Address fetched:", address); 
+  //     this.$set(this.shippingAddresses, id, address); // Store address by shippingId
+  //   }).catch(error => {
+  //     console.error("Failed to fetch shipping address:", error);
+  //   });
+  // },
+  getAddressById(id) {
+  this.getShippingAddressById(id).then(address => {
+    console.log("Full response received:", address);
+    if (address) {
+      console.log("Address fetched:", address);
+      this.$set(this.shippingAddresses, id, address); // Store address by shippingId
+    } else {
+      console.error("No address returned for ID:", id);
     }
+  }).catch(error => {
+    console.error("Failed to fetch shipping address:", error);
+  });
+},
   },
-  created() {
-    this.fetchOrders().then(() => {
-      this.orders.forEach((order) => {
-        order.inventoryCode.forEach((bookNo) => {
-          this.fetchBookById(bookNo); // Fetch details
-        });
-      });
-    });
-  },
+
 };
 </script>
 

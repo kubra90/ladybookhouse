@@ -5,7 +5,7 @@ import { getBooks, getBookById } from '../services/BookService'
 import { register, login } from '../services/AuthService'
 import { getOrders, placeOrder } from '../services/OrderService'
 import { addBookshelf, deleteBook, getBookshelf } from '../services/BookshelfService'
-import { getAddress} from '../services/AddressService'
+import { getAddress, getAddressByAddressId} from '../services/AddressService'
 // import BookDetail from '../components/BookDetail.vue'
 Vue.use(Vuex)
 /*
@@ -39,6 +39,7 @@ export default new Vuex.Store({
     // orders
     orders: [],
     order: {},
+    shippingAddresses: [], 
     address: {},
     addresses: [],
     // Object to store multiple book details keyed by sku
@@ -356,6 +357,11 @@ export default new Vuex.Store({
     SET_ADDRESS(state, data){
       state.address = data
     },
+    // look at this below code to check how you can store one object that includes different addresses
+    SET_SHIPPING_ADDRESS(state, { id, address }) {
+      console.log("Mutation setting address for ID:", id, "Data:", address);
+      Vue.set(state.shippingAddresses, id, address);
+    },
     SET_ADDRESSES(state, data){
      state.addresses =data
     },
@@ -429,6 +435,20 @@ export default new Vuex.Store({
      const response = await getAddress()
      commit('SET_ADDRESSES', response.data)
    },
+  //  async getShippingAddressById({commit}, id){
+  //     const response = await getAddressByAddressId(id);
+  //     commit('SET_SHIPPING_ADDRESS', response.data)
+  //  },
+  async getShippingAddressById({ commit }, id) {
+    try {
+      const response = await getAddressByAddressId(id);
+      console.log("Action received address data:", response);
+      commit('SET_SHIPPING_ADDRESS', { id, address: response.data });
+      return response.data
+    } catch (error) {
+      console.error("Failed to fetch shipping address by ID:", error);
+    }
+  },
 
     async fetchBookshelf({commit}) {
       const response = await getBookshelf();

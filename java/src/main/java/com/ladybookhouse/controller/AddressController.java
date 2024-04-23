@@ -6,6 +6,7 @@ import com.ladybookhouse.model.Address;
 import com.ladybookhouse.model.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -48,6 +49,19 @@ public class AddressController {
         return addresses;
 
     }
+
+    @RequestMapping(path="/address", method= RequestMethod.GET)
+        public Address getAddressById(@RequestParam int addressId, Principal principal){
+            String email =principal.getName();
+            if(email == null) throw new UsernameNotFoundException("Unauthorized user");
+            Address address = null;
+            if(email != null) {
+                address= addressDao.fetchAddressByAddressId(addressId);
+            }
+           return address;
+    }
+
+
 
 //    @DeleteMapping(path= "/removeAddress")
 //    public boolean deleteBook(Principal principal, @RequestParam int addressId){
