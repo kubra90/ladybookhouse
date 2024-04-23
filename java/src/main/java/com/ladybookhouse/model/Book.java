@@ -133,7 +133,8 @@ public class Book {
                         "of use. It has clean, crisp pages with no markings or highlighting, " +
                         "and the spine and cover are intact without any creases or wear. This " +
                         "book appears as if it has been barely touched and is virtually " +
-                        "indistinguishable from a brand new book.";
+                        "indistinguishable from a brand new book. This book may be an ex-library item. " +
+                        "Textbooks may not include supplemental items i.e. CDs, access codes etc.";
                 break;
             case 2:
                 notes += "This book is in very good condition, with only minor signs " +
@@ -141,7 +142,8 @@ public class Book {
                         "highlighting, but overall, the text remains clean and legible. " +
                         "The cover and spine are also in great shape, with only minimal " +
                         "shelf wear or creasing. This book has been well-maintained and " +
-                        "still presents a clean and attractive appearance.";
+                        "still presents a clean and attractive appearance. This book may be an ex-library item. " +
+                        "Textbooks may not include supplemental items i.e. CDs, access codes etc.";
                 break;
             case 3:
                 notes += "This book is in good condition, showing moderate signs of wear " +
@@ -149,7 +151,8 @@ public class Book {
                         "underlining, but the text remains clearly readable. The cover and " +
                         "spine may show signs of shelf wear, such as creases, scuff marks, " +
                         "or small tears. Despite these cosmetic flaws, the book remains " +
-                        "structurally sound and fully functional.";
+                        "structurally sound and fully functional. This book may be an ex-library item. " +
+                        "Textbooks may not include supplemental items i.e. CDs, access codes etc.";
                 break;
             case 4:
                 notes+= "This book is in acceptable condition, showing significant signs of " +
@@ -158,7 +161,8 @@ public class Book {
                     "cover and spine may have considerable wear, including creases, scuff marks, " +
                     "or larger tears. This book may also have a former owner's name or other " +
                     "markings on the inside covers or endpapers. Although the book shows its age " +
-                    "and heavy use, it is still intact and suitable for reading or reference purposes.";
+                    "and heavy use, it is still intact and suitable for reading or reference purposes. " +
+                        "This book may be an ex-library item. Textbooks may not include supplemental items i.e. CDs, access codes etc. ";
         break;
            case 11:
             notes += "Brand New";

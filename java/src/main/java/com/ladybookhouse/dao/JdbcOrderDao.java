@@ -68,7 +68,7 @@ public class JdbcOrderDao implements OrderDao {
 
                 // Now insert the order linking it to the address IDs (if addresses were saved)
                 String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, subtotal_price, shipping_cost, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
-                        "VALUES (?, ?, ?, ?,?,?, ?, ?, ?) RETURNING order_id";
+                        "VALUES (?, ?, ?, ?,?,?, ?, ?, ?, ?, ?) RETURNING order_id";
 
                 Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, subTotalPrice, shippingCost, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
 

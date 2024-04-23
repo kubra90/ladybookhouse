@@ -1,6 +1,6 @@
 <template>
   <div class="container my-4">
-    <div class="row" v-for="order in orders" :key="order.order_id">
+    <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0" v-for="order in orders" :key="order.order_id">
       <div class="col">
         <div class="card mb-3">
           <div class="card-header d-flex justify-content-between">
@@ -34,8 +34,8 @@
                     </div>
                   </div>
                   <div class="align-items-end ms-4" style="text-align: end">
-                    <div class="item-status">Item status: <b> shipped</b></div>
-                    <div>The book has been shipped to you</div>
+                    <div class="item-status text-nowrap">Item status: <b> shipped</b></div>
+                    <div class="text-wrap align-items-end" >The book has been shipped to you</div>
                   </div>
                 </div>
                 <button
@@ -50,7 +50,7 @@
                 </button>
                 <div
                   v-if="showBookDetails[bookNo]"
-                  class="dropdown-content mt-2"
+                  class="dropdown-content mt-2 mb-3"
                 >
                   <div>
                     <b>ISBN:</b>
@@ -74,8 +74,9 @@
                   </div>
                   <div>{{ getBookDetails(bookNo).notes || "Loading..." }}</div>
                 </div>
+                </li>
                 <!-- shipping and payment info -->
-                <hr>
+                <li class="list-group-item mb-3">
                 <div class="d-flex justify-content-between">
                   <div class="flex-grow-1">
                     <div>
@@ -87,22 +88,48 @@
                   </div>
                   <div class="flex-grow-1">
                     <div>
-                      <div>Shipping speed: <span> delivery_days </span></div>
+                      <div>Shipping speed: <span> {{getDeliveryDays(order.deliveryOption)}}</span></div>
                     </div>
                     <div>
-                      <div>Shipping company: <span>{{ order.deliveryOption }}</span></div>
+                      <div class="text-nowrap">Delivery: <span>{{ order.deliveryOption }}</span></div>
                     </div>
                     <div>
                       <div>Tracking number: <span>pending</span></div>
                     </div>
                   </div>
-                  <div class="align-items-end ms-4" style="text-align: end">
-                    <div class="">Subtotal: ${{ formatPrice(getBookDetails(bookNo).price)}}</div>
-                    <div class="">Shipping: <b> shipped</b></div>
+                  <div class="align-items-end ms-4 text-nowrap" style="text-align: end">
+                    <div class="">Subtotal: ${{ formatPrice(order.subTotalPrice)}}</div>
+                    <div class="">Shipping: ${{ formatPrice(order.shippingCost)}}</div>
                     <div class="">Total: <b> $ {{ formatPrice(order.totalPrice) }}</b></div>
                   </div>
                 </div>
-              </li>
+                <!-- view payment ans shipping details -->
+                <button
+                  class="btn btn-link mt-2"
+                  @click="toggleShippingDetails"
+                >
+                  {{
+                    showShippingDetails
+                      ? "Payment & Shipping Details"
+                      : "Payment & Shipping Details"
+                  }}
+                </button>
+                <div
+                  v-if="showShippingDetails"
+                  class="dropdown-content mt-2 mb-3"
+                >
+                <div class="d-flex justify-content-between">
+                  <div>
+                 <div>Payment Method: <span> PayPal</span></div>
+                 <div>Payment Date <span>Date</span></div>
+                  </div>
+                  <div>
+                    Shipping Address
+
+                  </div>
+                </div>
+                </div>
+                </li>
             </ul>
           </div>
           <div class="card-footer text-muted">
@@ -126,6 +153,7 @@ export default {
   data() {
     return {
       showBookDetails: {},
+      showShippingDetails: false,
     };
   },
   filters: {
@@ -152,12 +180,21 @@ export default {
         return this.bookDetails[bookNo] || { title: "Loading..." };
       };
     },
+
+   
   },
   methods: {
     ...mapActions(["fetchOrders", "fetchBookById"]), // Moved mapActions to methods
     formatPrice(value) {
       const formattedValue = Number(value).toFixed(2);
       return formattedValue;
+    },
+    getDeliveryDays(value){
+      if(value === "UPS"){
+        return "4-7 business days";
+      }else{
+        return "6-10 business days";
+      }
     },
 
     toggleBookDetails(bookNo) {
@@ -174,6 +211,9 @@ export default {
         this.fetchBookById(bookNo);
       }
     },
+    toggleShippingDetails(){
+      this.showShippingDetails = !this.showShippingDetails;
+    }
   },
   created() {
     this.fetchOrders().then(() => {
