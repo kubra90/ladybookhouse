@@ -195,6 +195,7 @@ export default {
    
   },
   created() {
+    console.log("order page created")
     this.fetchOrders().then(() => {
       this.orders.forEach((order) =>{
         this.$set(this.showShippingDetails, order.orderId, false);

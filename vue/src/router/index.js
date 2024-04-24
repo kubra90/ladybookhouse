@@ -22,6 +22,7 @@ import Order from '../views/Order.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
 import OrderSummary from '../views/OrderSummaryView.vue'
 import AddressBook from '../views/AddressBook.vue'
+import SearchResultView from '../views/SearchResultView.vue'
 
 Vue.use(Router)
 
@@ -202,6 +203,14 @@ const router = new Router({
       path: "/advSearch",
       name: "advanced-search",
       component: AdvancedSearch,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/searchResult",
+      name: "search-result-view",
+      component: SearchResultView,
       meta: {
         requiresAuth: false
       }

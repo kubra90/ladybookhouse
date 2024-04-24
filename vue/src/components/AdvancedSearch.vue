@@ -2,7 +2,7 @@
   <div class="main-container">
     <div class="container">
     <h2 class="px-md-5 mx-md-5 px-sm-0 mx-sm-0">Advanced Search</h2>
-    <form class="form-horizontal px-md-5 mx-md-5 px-sm-0 mx-sm-0">
+    <form class="form-horizontal px-md-5 mx-md-5 px-sm-0 mx-sm-0"  @submit.prevent="searchBookDetails">
         <!-- Categories -->
         <div class="mb-4 row"> <!-- Categories -->
           <label for="categorySelect" class="col-form-label col-sm-1">Search in:</label>
@@ -55,7 +55,7 @@
 
         <div class="mb-5 row"> <!-- Search Button -->
           <div class="offset-sm-1 col-sm-10">
-            <button type="submit" class="btn btn-primary" @click.prevent="searchBookDetails">Search</button>
+            <button type="submit" class="btn btn-primary" >Search</button>
           </div>
         </div>
      
@@ -99,33 +99,22 @@ export default {
         ...mapState(['books', 'book']),
     },
     methods: {
-        searchBookDetails(){
-        
-          const filteredBooks = this.books.filter(book => {
+      
+        searchBookDetails() {
+    // Construct your query parameters based on search criteria
+    const queryParams = {
+      category: this.searchForm.category,
+      author: this.searchForm.author,
+      title: this.searchForm.title,
+      keywords: this.searchForm.keywords,
+      minPrice: this.searchForm.minPrice,
+      maxPrice: this.searchForm.maxPrice,
+    };
 
-            // category filter
-            const categoryMatch = this.searchForm.category ? book.category === this.searchForm.category : true;
-            console.log(categoryMatch);
-            // author filter
-            const authorMatch = this.searchForm.author ? book.author.toLowerCase().includes(this.searchForm.author.toLowerCase()) : true;
-            console.log(authorMatch);
-            // Title filter
-            const titleMatch = this.searchForm.title ? book.title.toLowerCase().includes(this.searchForm.title.toLowerCase()): true;
-
-            // keywords filter
-            const keywordsMatch = this.searchForm.keywords ? book.isbn === this.searchForm.keywords || book.publisher.toLowerCase().includes(this.searchForm.keywords.toLowerCase()) 
-            || book.media.toLowerCase().includes(this.searchForm.keywords.toLowerCase()) : true;
-
-            const minPriceMatch = this.searchForm.minPrice ? book.price >= Number(this.searchForm.minPrice) : true;
-            const maxPriceMatch = this.searchForm.maxPrice ? book.price <= Number(this.searchForm.maxPrice): true;
-
-            return categoryMatch && authorMatch && titleMatch && keywordsMatch && minPriceMatch && maxPriceMatch;
-          });
-          console.log(filteredBooks);
-          for(let book of filteredBooks){
-            console.log(book.title);
-          }
-        }
+    // Use Vue Router to navigate to the searchResult route with the query parameters
+    this.$router.push({ name: "search-result-view", query: queryParams });
+    console.log(queryParams);
+  }
     }
 }
 </script>

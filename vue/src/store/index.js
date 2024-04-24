@@ -51,6 +51,20 @@ export default new Vuex.Store({
       paymentMethod: '',
       returningUserEditingShipping: false,
     },
+    categories: [
+      { value: 'Literature', text: 'Literature' },
+      { value: 'Science', text: 'Science' },
+      { value: 'Social Science', text: 'Social Science' },
+      { value: 'Art', text: 'Art' },
+      { value: 'Bestseller', text: 'Bestseller' },
+      { value: 'Technology', text: 'Technology' },
+      { value: 'Language', text: 'Language' },
+      { value: 'Religion&Philosophy', text: 'Religion&Philosophy' },
+      { value: 'History&Memory', text: 'History&Memory' },
+      { value: 'Design', text: 'Design' },
+      { value: 'Kids', text: 'Kids' },
+      { value: 'Other', text: 'Other' }
+    ],
     tempOrderInfo: {
       email: "",
       inventoryCode: [],
@@ -84,6 +98,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getCategories: state => state.categories,
     isAuthenticated: state => state.user.email,
     totalShippingCost: (state) => {
         let totalWeight=0;
