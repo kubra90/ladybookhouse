@@ -113,8 +113,8 @@
       <!-- Main Content Area -->
       <div class="col-md-9 mt-2">
         <!-- category name -->
-        <div class="fs-2 fw-normal">
-          {{ this.currentCategory }}
+        <div class="fs-2 fst-normal fw-lighter">
+       {{ this.currentCategory }}
         </div>
 
         <hr class="my-0" />
@@ -137,9 +137,9 @@
           <!-- Number of Items Per Page Dropdown -->
           <div>
             <label for="itemsPerPage" class="form-label"></label>
-            <select class="form-select shadow-none" id="itemsPerPage">
-              <option>25 per page</option>
-              <option>50 per page</option>
+            <select class="form-select shadow-none" v-model= "booksPerPage" id="itemsPerPage">
+              <option value="25">25 per page</option>
+              <option value="50">50 per page</option>
             </select>
           </div>
 
@@ -231,6 +231,12 @@ export default {
         this.performSearch(to.query);
       }
     },
+
+    booksPerPage(newValue, oldValue){
+      if(newValue != oldValue){
+        this.booksPerPage = newValue;
+      }
+    }
   },
   created() {
     const queryParams = this.$route.query;
@@ -308,6 +314,10 @@ export default {
       for (let book of this.filteredBooks) {
         console.log(book.title);
       }
+    },
+
+    goToPage(page){
+      this.currentPage = page;
     },
 
     updateMainBinding(selectedBinding) {
@@ -389,7 +399,7 @@ export default {
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
- 
+  
 }
 
 .pagination .page-item.active .page-link {
@@ -401,6 +411,8 @@ export default {
 .pagination .page-link:hover {
   background-color: none; /* Light grey background on hover, optional */
 }
+
+
 </style>
 
 
