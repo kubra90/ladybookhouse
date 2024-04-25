@@ -1,26 +1,33 @@
 <template>
   <div class="container">
     <div
-      class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0"
+      class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0 my-4"
     >
       <!-- Filter Sidebar -->
-      <div class="col-md-3">
-        <div class="mb-3">
+      <div class="col-md-3" style="border-right: 1px solid #ccc">
+        <div class="mb-3 mt-2">
           <label for="searchBox" class="form-label"
             >Search within these results:</label
           >
-          <input type="text" id="searchBox" class="form-control" />
+          <input type="text" id="searchBox" class="form-control shadow-none" />
         </div>
+        <hr />
+
         <div class="mb-3">
-          <strong>Select Category</strong>
+          <div class="mb-2"><b>Select Category</b></div>
           <ul class="list-group">
-            <li v-for="category in categories" :key="category.value"
-               class="list-group-item list-group-item-action no-border no-hover me-2"
-               @click="setCategoryAndSearch(category.value)">
+            <li
+              v-for="category in categories"
+              :key="category.value"
+              class="list-group-item list-group-item-action no-border no-hover me-2"
+              :class="{
+                'highlight-category': isCategorySelected(category.value),
+              }"
+              @click="setCategoryAndSearch(category.value)"
+            >
               {{ category.text }}
-          </li>
-  
-        </ul>
+            </li>
+          </ul>
         </div>
         <div class="mb-3">
           <b>Select Condition</b>
@@ -42,46 +49,157 @@
         <div class="mb-3">
           <strong>Select Binding</strong>
           <div>
-            <input type="radio" id="all-binding" name="mainBinding" value="all" v-model="binding" checked/>
+            <input
+              type="radio"
+              id="all-binding"
+              name="mainBinding"
+              value="all"
+              v-model="binding"
+              checked
+            />
             <label for="all-binding">All bindings</label>
           </div>
           <div>
             <div class="ms-3">
-              <input type="radio" id="hardcover" name="subBinding" value="hardcover" v-model="subBinding" />
+              <input
+                type="radio"
+                id="hardcover"
+                name="subBinding"
+                value="hardcover"
+                v-model="subBinding"
+              />
               <label for="hardcover">Hardcover</label>
             </div>
             <div class="ms-3">
-              <input type="radio" id="softcover" name="subBinding" value="softcover" v-model="subBinding" />
+              <input
+                type="radio"
+                id="softcover"
+                name="subBinding"
+                value="softcover"
+                v-model="subBinding"
+              />
               <label for="softcover">Softcover</label>
             </div>
           </div>
-          </div>
+        </div>
         <div class="mb-3">
           <strong>Select Price</strong>
           <!-- Radio buttons for price options -->
           <div>
-            <input type="radio" id="any-price" name="price" value="allPrice" checked/>
+            <input
+              type="radio"
+              id="any-price"
+              name="price"
+              value="allPrice"
+              checked
+            />
             <label for="all-price">Any Price</label>
           </div>
           <div>
-          
-              <input type="radio" id="lessPrice" name="price" value="under50" />
-              <label for="underFifty">Under $50</label>
+            <input type="radio" id="lessPrice" name="price" value="under50" />
+            <label for="underFifty">Under $50</label>
           </div>
-            <div>
-              <input type="radio" id="over50" name="price" value="over50"  />
-              <label for="overFifty">$50 - $150</label>
-            </div>
-            <div>
-              <input type="radio" id="over150" name="price" value="over150"  />
-              <label for="overHundred">$150 - $1000</label>
-            </div>
-  
+          <div>
+            <input type="radio" id="over50" name="price" value="over50" />
+            <label for="overFifty">$50 - $150</label>
+          </div>
+          <div>
+            <input type="radio" id="over150" name="price" value="over150" />
+            <label for="overHundred">$150 - $1000</label>
+          </div>
         </div>
       </div>
 
       <!-- Main Content Area -->
-      <div class="col-md-9"></div>
+      <div class="col-md-9 mt-2">
+        <!-- category name -->
+        <div class="fs-2 fw-normal">
+          {{ this.currentCategory }}
+        </div>
+
+        <hr class="my-0" />
+        <!-- sort by and pagination -->
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Sort By Dropdown -->
+          <div class="me-0 pe-0 mt-2">Sort by</div>
+          <div class="ms-0 ps-0">
+            <label for="sortby" class="form-label"></label>
+            <select class="form-select shadow-none" id="sortby">
+              <option>Author</option>
+              <option>Title</option>
+              <option>Highest Price</option>
+              <option>Lowest Price</option>
+              <option>Most Recent</option>
+              <!-- Add more sorting options here -->
+            </select>
+          </div>
+
+          <!-- Number of Items Per Page Dropdown -->
+          <div>
+            <label for="itemsPerPage" class="form-label"></label>
+            <select class="form-select shadow-none" id="itemsPerPage">
+              <option>25 per page</option>
+              <option>50 per page</option>
+            </select>
+          </div>
+
+          <!-- View Toggle Buttons (optional) -->
+          <div class="mt-4">
+            <!-- Replace with icons or images as needed -->
+            <button class="btn" style="background-color: #fdf5e6">
+              <i class="bi-grid-3x3-gap"></i>
+            </button>
+            <button class="btn" style="background-color: #fdf5e6">
+              <i class="bi-list-ul"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pagination Component -->
+        <nav aria-label="Page navigation example">
+          <div class="d-flex justify-content-between mt-4">
+            <!-- left part about results -->
+            <div>
+              Results {{ bookStart }} - {{ bookEnd }} (of
+              {{ filteredBooks.length }})
+              <span> {{ currentCategory }}</span>
+              <!-- add small x icon  -->
+            </div>
+            <div class="pagination justify-content-between">
+              <p>Page {{ currentPage }} of {{ totalPages }}</p>
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a
+                    class="page-link"
+                    href="#"
+                    tabindex="-1"
+                    aria-disabled="true"
+                    >&lt;</a
+                  >
+                </li>
+                <!-- Dynamically generated page numbers here -->
+                <li
+                  class="page-item"
+                  v-for="n in totalPages"
+                  :key="n"
+                  :class="{ active: n === currentPage }"
+                >
+                  <a class="page-link" href="#" @click="goToPage(n)">{{ n }}</a>
+                </li>
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    href="#"
+                    @click="goToPage(currentPage + 1)"
+                    >&gt;</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <hr class="my-0"/>
+      </div>
     </div>
   </div>
 </template>
@@ -92,10 +210,12 @@ export default {
   name: "search-result",
   data() {
     return {
+      currentPage: 1,
+      booksPerPage: 25,
       filteredBooks: [],
       binding: "all",
       subBinding: null,
-      selectedCategory: ''
+      selectedCategory: "",
       // This should be dynamic based on the category selected
       // ... Other data properties ...
     };
@@ -106,12 +226,11 @@ export default {
         this.binding = null; // This unchecks "All bindings"
       }
     },
-    '$route'(to, from) {
-    if (to.query !== from.query) {
-      this.performSearch(to.query);
-    }
-  }
-  
+    $route(to, from) {
+      if (to.query !== from.query) {
+        this.performSearch(to.query);
+      }
+    },
   },
   created() {
     const queryParams = this.$route.query;
@@ -125,10 +244,23 @@ export default {
   // },
   computed: {
     ...mapState(["book", "books"]),
-    ...mapGetters(['getCategories']),
-    categories(){
-      return this.getCategories
-    }
+    ...mapGetters(["getCategories"]),
+    categories() {
+      return this.getCategories;
+    },
+    currentCategory() {
+      return this.$route.query.category;
+    },
+    totalPages() {
+      return Math.ceil(this.filteredBooks.length / this.booksPerPage);
+    },
+    bookStart() {
+      return (this.currentPage - 1) * this.booksPerPage + 1;
+    },
+    bookEnd() {
+      let end = this.currentPage * this.booksPerPage;
+      return end > this.filteredBooks.length ? this.filteredBooks.length : end;
+    },
   },
   methods: {
     performSearch(queryParams) {
@@ -177,19 +309,23 @@ export default {
         console.log(book.title);
       }
     },
-  },
 
-  updateMainBinding(selectedBinding) {
-    if (selectedBinding === "hardcover" || selectedBinding === "softcover") {
-      this.binding = null;
-    }
+    updateMainBinding(selectedBinding) {
+      if (selectedBinding === "hardcover" || selectedBinding === "softcover") {
+        this.binding = null;
+      }
+    },
+    setCategoryAndSearch(category) {
+      console.log("Method called with category:", category);
+      this.$router.replace({
+        name: "search-result-view",
+        query: { ...this.$route.query, category },
+      });
+    },
+    isCategorySelected(categoryValue) {
+      return this.currentCategory === categoryValue;
+    },
   },
-  setCategoryAndSearch(category) {
-    
-    console.log("Method called with category:", category);
-    this.$router.replace({ name: 'search-result-view', query: { ...this.$route.query, category } });
-
-  }
 };
 </script>
 
@@ -202,6 +338,68 @@ export default {
 
 .no-hover:hover {
   background-color: transparent !important; /* Ensures no color change on hover */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* New styles for reducing spacing */
+.list-group-item {
+  padding-top: 0rem; /* Reduce the top and bottom padding */
+  padding-bottom: 0rem;
+  margin-bottom: 0px; /* Reduce the space between items */
+  margin: 0;
+  padding: 0;
+}
+
+.highlight-category {
+  color: orange;
+}
+#searchBox,
+.form-select,
+.btn {
+  height: 30px; /* Smaller height */
+  border-radius: 0; /* No border-radius */
+  border: 1px solid #ccc; /* Subtle border color */
+  outline: none; /* Removes the default focus highlight */
+  font-size: 12px;
+  font-family: "PT Sans", sans-serif;
+}
+
+* {
+  font-family: "PT Sans", sans-serif;
+}
+
+#searchBox:focus,
+.form-select:focus {
+  border-color: #c4742d; /* Darker border when focused for better visibility */
+}
+
+.form-label {
+  /* Optional: Makes the label text bold */
+  /* font-weight: bold;   */
+  color: #5d5a5a; /* Dark grey color for the text */
+  font-weight: bold;
+}
+
+.pagination .page-link {
+  border: none; /* Removes the border */
+  background: none; /* Removes the background color */
+  color: black; /* Bootstrap blue for link color, adjust as necessary */
+  margin-top:0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+ 
+}
+
+.pagination .page-item.active .page-link {
+  background-color: none; /* Bootstrap blue for active page, adjust if needed */
+  color: orange;
+
+}
+
+.pagination .page-link:hover {
+  background-color: none; /* Light grey background on hover, optional */
 }
 </style>
 
