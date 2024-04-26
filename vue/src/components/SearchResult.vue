@@ -114,7 +114,7 @@
       <div class="col-md-9 mt-2">
         <!-- category name -->
         <div class="fs-2 fst-normal fw-lighter">
-       {{ this.currentCategory }}
+          {{ this.currentCategory }}
         </div>
 
         <hr class="my-0" />
@@ -137,7 +137,11 @@
           <!-- Number of Items Per Page Dropdown -->
           <div>
             <label for="itemsPerPage" class="form-label"></label>
-            <select class="form-select shadow-none" v-model= "booksPerPage" id="itemsPerPage">
+            <select
+              class="form-select shadow-none"
+              v-model="booksPerPage"
+              id="itemsPerPage"
+            >
               <option value="25">25 per page</option>
               <option value="50">50 per page</option>
             </select>
@@ -171,7 +175,7 @@
                 <li class="page-item disabled">
                   <a
                     class="page-link"
-                    href="#"
+                   
                     tabindex="-1"
                     aria-disabled="true"
                     >&lt;</a
@@ -182,8 +186,8 @@
                   <a
                     class="page-link"
                     v-if="currentPage > 10"
-          @click="currentPage -= 10"
-          >&lt;&lt;</a
+                    @click="currentPage -= 10"
+                    >&lt;&lt;</a
                   >
                 </li>
                 <!-- Dynamically generated page numbers here -->
@@ -193,34 +197,87 @@
                   :key="n"
                   :class="{ active: n === currentPage }"
                 >
-                  <a class="page-link" href="#" @click="goToPage(n)">{{ n }}</a>
+                  <a class="page-link" @click="goToPage(n)">{{ n }}</a>
                 </li>
                 <!-- if there is items more than 10 -->
                 <li class="page-item">
                   <a
                     class="page-link"
-                    v-if="currentPage < totalPages && currentPage + 10 <= totalPages"
-          @click="currentPage += 10"
-          >&gt;&gt;</a
+                    v-if="
+                      currentPage < totalPages && currentPage + 10 <= totalPages
+                    "
+                    @click="currentPage += 10"
+                    >&gt;&gt;</a
                   >
                 </li>
                 <!-- till here -->
                 <li class="page-item">
                   <a
                     class="page-link"
-                    href="#"
+            
                     @click="goToPage(currentPage + 1)"
                     >&gt;</a
                   >
                 </li>
               </ul>
             </div>
+          
+            
           </div>
         </nav>
-        <hr class="my-0"/>
+        <hr class="my-0" />
+          <!-- main body after pagination numbers -->
+        <!-- <div class="container d-flex">
+          <div class="row">
+         <div class="d-flex justify-content-between" v-for="book in this.filteredBooks" :key="book.isbn">
+          <div class="">
+
+           {{ book.title }}
+          </div>
+          <div class="ms-auto">
+           <button class="btn">Add to Cart</button>
+         </div>
+         </div>
+        </div> -->
+        <div class="container">
+  <div class="row">
+    <div class="col-12 my-3" v-for="book in visibleBooks" :key="book.isbn">
+      <div class="d-flex justify-content-between align-items-start ">
+        <!-- Book Image -->
+        <div class="flex-shrink-0">
+          <router-link :to="{name: 'detail', params: {sku: book.sku}}">
+          <img :src="book.image" alt="Book Cover" class="img-fluid rounded-start" style="max-width: 120px; height: auto;">
+        </router-link>
+        </div>
+
+        <!-- Book Title and Author -->
+        <div class="flex-grow-1 mx-3  px-3">
+          <router-link :to="{name: 'detail', params: {sku: book.sku}}" style="text-decoration: none; color:black">
+          <b><small>{{ book.author }}</small></b>
+          <p>{{ book.title }}</p>
+        </router-link>
+           <p>{{ book.media }}. {{ book.publisher }}. ISBN: {{ book.isbn }} {{ book.conditionAsText }}. 
+           <router-link :to="{name: 'detail', params: {sku: book.sku}}" style="color: orange; text-decoration:none">
+            <span >More ></span>
+          </router-link>
+          </p>
+        </div>
+
+        <!-- Price and Add to Cart Button -->
+        <div class="flex-shrink-0">
+          <button class="btn btn-primary">Add to Cart</button>
+          <p class="mb-0">{{ book.price | currency }}</p>
+        </div>
       </div>
+      <hr>
     </div>
   </div>
+</div>
+
+         
+        </div>
+      </div>
+    </div>
 </template>
   
  <script>
@@ -251,11 +308,11 @@ export default {
       }
     },
 
-    booksPerPage(newValue, oldValue){
-      if(newValue != oldValue){
+    booksPerPage(newValue, oldValue) {
+      if (newValue != oldValue) {
         this.booksPerPage = newValue;
       }
-    }
+    },
   },
   created() {
     const queryParams = this.$route.query;
@@ -287,10 +344,17 @@ export default {
       return end > this.filteredBooks.length ? this.filteredBooks.length : end;
     },
     paginationNumbers() {
-    let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
-    let endPage = Math.min(startPage + 9, this.totalPages);
-    return Array.from({ length: endPage - startPage + 1 }, (v, k) => k + startPage);
-  }
+      let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+      let endPage = Math.min(startPage + 9, this.totalPages);
+      return Array.from(
+        { length: endPage - startPage + 1 },
+        (v, k) => k + startPage
+      );
+    },
+    visibleBooks(){
+      let startIndex = (this.currentPage - 1) * this.booksPerPage;
+      return this.filteredBooks.slice(startIndex, startIndex + this.booksPerPage);
+    }
   },
   methods: {
     performSearch(queryParams) {
@@ -340,7 +404,7 @@ export default {
       }
     },
 
-    goToPage(page){
+    goToPage(page) {
       this.currentPage = page;
     },
 
@@ -419,27 +483,23 @@ export default {
   border: none; /* Removes the border */
   background: none; /* Removes the background color */
   color: black; /* Bootstrap blue for link color, adjust as necessary */
-  margin-top:0.20em;
+  margin-top: 0.2em;
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
-  margin-right:0;
-  padding-right:0;
-  font-size:12px;
-  
+  margin-right: 0;
+  padding-right: 0;
+  font-size: 12px;
 }
 
 .pagination .page-item.active .page-link {
   background-color: none; /* Bootstrap blue for active page, adjust if needed */
   color: orange;
-
 }
 
 .pagination .page-link:hover {
   background-color: none; /* Light grey background on hover, optional */
 }
-
-
 </style>
 
 
