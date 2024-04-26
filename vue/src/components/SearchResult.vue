@@ -251,7 +251,7 @@
         </div>
 
         <!-- Book Title and Author -->
-        <div class="flex-grow-1 mx-3  px-3">
+        <div class="flex-grow-1 mx-3" style="border-right: 1px solid #ccc;">
           <router-link :to="{name: 'detail', params: {sku: book.sku}}" style="text-decoration: none; color:black">
           <b><small>{{ book.author }}</small></b>
           <p>{{ book.title }}</p>
@@ -264,9 +264,18 @@
         </div>
 
         <!-- Price and Add to Cart Button -->
-        <div class="flex-shrink-0">
-          <button class="btn btn-primary">Add to Cart</button>
-          <p class="mb-0">{{ book.price | currency }}</p>
+        <div class="flex-shrink-0 ms-3">
+          <!-- <button class="btn btn-primary">Add to Cart</button>
+          <p class="mb-0">{{ book.price | currency }}</p> -->
+          <button @click="addToBasket(book)" class="btn btn-primary  cart-btn">
+          <strong>Add To Cart</strong></button>
+           <div class="mt-2"><b>Price:</b>${{ book.price }}</div>
+           <router-link :to="{name: 'detail', params: {sku: book.sku}}" style="text-decoration: none;color:#5d5a5a">
+           <div class="mt-2">Item Details</div>
+          </router-link>
+
+          <!-- ask a question -->
+          <div style="color:#5d5a5a">Ask a Question</div>
         </div>
       </div>
       <hr>
@@ -281,7 +290,7 @@
 </template>
   
  <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "search-result",
   data() {
@@ -292,6 +301,7 @@ export default {
       binding: "all",
       subBinding: null,
       selectedCategory: "",
+      numOfBooks:0
       // This should be dynamic based on the category selected
       // ... Other data properties ...
     };
@@ -325,10 +335,13 @@ export default {
   //   console.log("Component mounted!");
   // },
   computed: {
-    ...mapState(["book", "books"]),
+    ...mapState(["book", "books", "cartBooks"]),
     ...mapGetters(["getCategories"]),
     categories() {
       return this.getCategories;
+    },
+    isBookInCart() {
+     return this.cartBooks.some((book) => book.isbn === this.book.isbn)
     },
     currentCategory() {
       return this.$route.query.category;
@@ -357,6 +370,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addToCart']),
     performSearch(queryParams) {
       console.log(this.books);
       if (this.books && this.books.length > 0) {
@@ -408,6 +422,22 @@ export default {
       this.currentPage = page;
     },
 
+    //add to cart
+    addToBasket(book) {
+      //this.showAddedToCart = true;
+      if (book.qty > 0 && !this.isBookInCart) {
+        this.addToCart(book);
+        this.numOfBooks++;
+        book.qty--;
+        // this.showErrorMessage = false;
+        // this new method;
+        // this.showModal();
+      } 
+      // else {
+      //   this.showErrorMessage = true;
+      // }
+    },
+
     updateMainBinding(selectedBinding) {
       if (selectedBinding === "hardcover" || selectedBinding === "softcover") {
         this.binding = null;
@@ -419,6 +449,7 @@ export default {
         name: "search-result-view",
         query: { ...this.$route.query, category },
       });
+      this.currentPage = 1;
     },
     isCategorySelected(categoryValue) {
       return this.currentCategory === categoryValue;
@@ -500,6 +531,28 @@ export default {
 .pagination .page-link:hover {
   background-color: none; /* Light grey background on hover, optional */
 }
+
+/* .cart-btn {
+  background-color: #fa8072;
+} */
+
+
+.cart-btn{
+background-color: #c74c2a; /* Salmon color, keep it or change as needed */
+  color: white; /* Ensures the text color is white for better readability */
+  /* padding: 10px 20px; */
+  font-size: 18px; /* Larger font size makes the button text more prominent */
+  border-radius: 5px; /* Rounded corners, adjust the radius as you like */
+  border: none; /* Remove border for a cleaner look */
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for a 3D effect */
+  cursor: pointer; /* Reaffirm that this is a clickable button */
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  font-family: "PT Sans", sans-serif;
+  font-size:16px
+}
+
 </style>
 
 
