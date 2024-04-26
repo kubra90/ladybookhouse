@@ -159,13 +159,13 @@
         <nav aria-label="Page navigation example">
           <div class="d-flex justify-content-between mt-4">
             <!-- left part about results -->
-            <div>
+            <div class="">
               Results {{ bookStart }} - {{ bookEnd }} (of
               {{ filteredBooks.length }})
               <span> {{ currentCategory }}</span>
               <!-- add small x icon  -->
             </div>
-            <div class="pagination justify-content-between">
+            <div class="pagination justify-content-end">
               <p>Page {{ currentPage }} of {{ totalPages }}</p>
               <ul class="pagination">
                 <li class="page-item disabled">
@@ -177,15 +177,34 @@
                     >&lt;</a
                   >
                 </li>
+                <!-- less 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage > 10"
+          @click="currentPage -= 10"
+          >&lt;&lt;</a
+                  >
+                </li>
                 <!-- Dynamically generated page numbers here -->
                 <li
                   class="page-item"
-                  v-for="n in totalPages"
+                  v-for="n in paginationNumbers"
                   :key="n"
                   :class="{ active: n === currentPage }"
                 >
                   <a class="page-link" href="#" @click="goToPage(n)">{{ n }}</a>
                 </li>
+                <!-- if there is items more than 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage < totalPages && currentPage + 10 <= totalPages"
+          @click="currentPage += 10"
+          >&gt;&gt;</a
+                  >
+                </li>
+                <!-- till here -->
                 <li class="page-item">
                   <a
                     class="page-link"
@@ -267,6 +286,11 @@ export default {
       let end = this.currentPage * this.booksPerPage;
       return end > this.filteredBooks.length ? this.filteredBooks.length : end;
     },
+    paginationNumbers() {
+    let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+    let endPage = Math.min(startPage + 9, this.totalPages);
+    return Array.from({ length: endPage - startPage + 1 }, (v, k) => k + startPage);
+  }
   },
   methods: {
     performSearch(queryParams) {
@@ -395,10 +419,13 @@ export default {
   border: none; /* Removes the border */
   background: none; /* Removes the background color */
   color: black; /* Bootstrap blue for link color, adjust as necessary */
-  margin-top:0;
+  margin-top:0.20em;
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
+  margin-right:0;
+  padding-right:0;
+  font-size:12px;
   
 }
 
