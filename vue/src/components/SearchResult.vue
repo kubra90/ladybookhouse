@@ -32,18 +32,21 @@
         <div class="mb-3">
           <b>Select Condition</b>
           <div>
-            <input type="radio" id="new" name="condition" value="new" />
-            <label for="new">New</label>
+            <input type="radio" id="new" name="condition" value="NEW" v-model="condition"/>
+            <label for="NEW">New  <span>({{ getNewBookNumbersByCategory }} item) </span>
+           
+            </label>
           </div>
           <div>
             <input
               type="radio"
               id="used"
               name="condition"
-              value="used"
+              value="USED"
               checked
+              v-model="condition"
             />
-            <label for="used">Used</label>
+            <label for="USED">Used</label>
           </div>
         </div>
         <div class="mb-3">
@@ -295,13 +298,15 @@ export default {
   name: "search-result",
   data() {
     return {
+      condition: 'USED',
       currentPage: 1,
       booksPerPage: 25,
       filteredBooks: [],
       binding: "all",
       subBinding: null,
       selectedCategory: "",
-      numOfBooks:0
+      numOfBooks:0,
+      newBook:0
       // This should be dynamic based on the category selected
       // ... Other data properties ...
     };
@@ -323,6 +328,12 @@ export default {
         this.booksPerPage = newValue;
       }
     },
+    condition(newValue, oldValue){
+      if(newValue != oldValue){
+        console.log("new VAlue", newValue, "oldValue:", oldValue)
+        this.performSearch(this.$route.query)
+      }
+    }
   },
   created() {
     const queryParams = this.$route.query;
@@ -367,7 +378,13 @@ export default {
     visibleBooks(){
       let startIndex = (this.currentPage - 1) * this.booksPerPage;
       return this.filteredBooks.slice(startIndex, startIndex + this.booksPerPage);
-    }
+    },
+    getNewBookNumbersByCategory() {
+    // Filter books that are both 'new' and belong to the specified category
+    const newBooksInCategory = this.books.filter(book => book.usedBook === 'NEW' && book.category === this.currentCategory);
+    return newBooksInCategory.length;
+  },
+  
   },
   methods: {
     ...mapActions(['addToCart']),
@@ -402,13 +419,17 @@ export default {
           const maxPriceMatch = queryParams.maxPrice
             ? book.price <= Number(queryParams.maxPrice)
             : true;
+          const conditionMatch = book.usedBook === this.condition;
+        
           return (
             categoryMatch &&
             authorMatch &&
             titleMatch &&
             keywordsMatch &&
             minPriceMatch &&
-            maxPriceMatch
+            maxPriceMatch &&
+            conditionMatch
+          
           );
         });
       }
@@ -417,6 +438,8 @@ export default {
         console.log(book.title);
       }
     },
+  
+
 
     goToPage(page) {
       this.currentPage = page;
@@ -450,6 +473,7 @@ export default {
         query: { ...this.$route.query, category },
       });
       this.currentPage = 1;
+      this.condition = "USED";
     },
     isCategorySelected(categoryValue) {
       return this.currentCategory === categoryValue;
