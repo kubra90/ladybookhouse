@@ -78,7 +78,7 @@
                 type="radio"
                 id="softcover"
                 name="subBinding"
-                value="softcover"
+                value="paperback"
                 v-model="subBinding"
               />
               <label for="softcover">Softcover</label>
@@ -312,10 +312,18 @@ export default {
     };
   },
   watch: {
-    subBinding(newValue) {
-      if (newValue === "hardcover" || newValue === "softcover") {
+    // subBinding(newValue) {
+    //   if (newValue === "hardcover" || newValue === "paperback") {
+  
+    //     this.binding = null; // This unchecks "All bindings"
+    //   }
+    // },
+      subBinding(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.performSearch(this.$route.query)
         this.binding = null; // This unchecks "All bindings"
       }
+     
     },
     $route(to, from) {
       if (to.query !== from.query) {
@@ -420,7 +428,7 @@ export default {
             ? book.price <= Number(queryParams.maxPrice)
             : true;
           const conditionMatch = book.usedBook === this.condition;
-        
+          const mediaMatch = this.subBinding === null ? book.media === 'paperback' || book.media === 'hardcover' : book.media === this.subBinding;
           return (
             categoryMatch &&
             authorMatch &&
@@ -428,7 +436,8 @@ export default {
             keywordsMatch &&
             minPriceMatch &&
             maxPriceMatch &&
-            conditionMatch
+            conditionMatch &&
+            mediaMatch
           
           );
         });
