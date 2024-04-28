@@ -312,19 +312,19 @@ export default {
     };
   },
   watch: {
-    // subBinding(newValue) {
-    //   if (newValue === "hardcover" || newValue === "paperback") {
-  
-    //     this.binding = null; // This unchecks "All bindings"
-    //   }
-    // },
-      subBinding(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.performSearch(this.$route.query)
-        this.binding = null; // This unchecks "All bindings"
-      }
-     
-    },
+    
+    binding(newValue) {
+    if (newValue === 'all') {
+      this.subBinding = null; // Reset specific bindings when 'All bindings' is selected
+      this.performSearch(this.$route.query)
+    }
+  },
+  subBinding(newValue) {
+    if (newValue) {
+      this.binding = null; // Uncheck "All bindings" when a specific binding is selected
+      this.performSearch(this.$route.query)
+    }
+  },
     $route(to, from) {
       if (to.query !== from.query) {
         this.performSearch(to.query);
@@ -428,7 +428,9 @@ export default {
             ? book.price <= Number(queryParams.maxPrice)
             : true;
           const conditionMatch = book.usedBook === this.condition;
-          const mediaMatch = this.subBinding === null ? book.media === 'paperback' || book.media === 'hardcover' : book.media === this.subBinding;
+
+          const mediaMatch = this.binding === 'all' ? true : this.subBinding ? book.media === this.subBinding : true;
+
           return (
             categoryMatch &&
             authorMatch &&
@@ -470,11 +472,7 @@ export default {
       // }
     },
 
-    updateMainBinding(selectedBinding) {
-      if (selectedBinding === "hardcover" || selectedBinding === "softcover") {
-        this.binding = null;
-      }
-    },
+  
     setCategoryAndSearch(category) {
       console.log("Method called with category:", category);
       this.$router.replace({

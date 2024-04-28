@@ -39,7 +39,7 @@ public class Category {
             result += "Art";
         }else if(sku.startsWith("B")){
             result+= "Bestseller";
-        }else if(sku.startsWith("D")){
+        }else if(sku.startsWith("D") && sku.charAt(1) != 'V'){
             result+= "Design";
         }else if(sku.startsWith("FL")){
             result += "Literature";
