@@ -93,21 +93,22 @@
               type="radio"
               id="any-price"
               name="price"
-              value="allPrice"
+              value="anyPrice"
+              v-model="price"
               checked
             />
             <label for="all-price">Any Price</label>
           </div>
           <div>
-            <input type="radio" id="lessPrice" name="price" value="under50" />
+            <input type="radio" id="lessPrice" name="price" value="under50" v-model="price" />
             <label for="underFifty">Under $50</label>
           </div>
           <div>
-            <input type="radio" id="over50" name="price" value="over50" />
+            <input type="radio" id="over50" name="price" value="over50" v-model="price"/>
             <label for="overFifty">$50 - $150</label>
           </div>
           <div>
-            <input type="radio" id="over150" name="price" value="over150" />
+            <input type="radio" id="over150" name="price" value="over150" v-model="price" />
             <label for="overHundred">$150 - $1000</label>
           </div>
         </div>
@@ -306,12 +307,35 @@ export default {
       subBinding: null,
       selectedCategory: "",
       numOfBooks:0,
-      newBook:0
+      newBook:0,
+      priceRange: {
+        anyPrice: {min : null, max: null},
+        under50 : {min: 0, max: 50},
+        over50: {min: 50, max: 150},
+        over150: {min:150, max: 1000}
+      },
+  
+      price: 'anyPrice'
       // This should be dynamic based on the category selected
       // ... Other data properties ...
     };
   },
   watch: {
+    // price(newValue, oldValue){
+     
+    //   if(newValue != oldValue){
+    //     this.performSearch(this.$route.query);
+    //     console.log(this.$route.query);
+    //   }
+    // },
+    // new method for price range
+    price() {
+    if (this.getPriceRange) { // Only perform search if the price range actually matches the query, otherwise just update the query
+      this.performSearch();
+    } else {
+      this.updateQueryParams(); // This method could update the URL without fetching data
+    }
+  },
     
     binding(newValue) {
     if (newValue === 'all') {
@@ -356,6 +380,12 @@ export default {
   computed: {
     ...mapState(["book", "books", "cartBooks"]),
     ...mapGetters(["getCategories"]),
+
+    getPriceRange(){
+  const range = this.priceRange[this.price];
+  const queryParams = this.$route.query;
+  return Number(queryParams.minPrice) === range.min && Number(queryParams.maxPrice) === range.max;
+},
     categories() {
       return this.getCategories;
     },
@@ -398,6 +428,7 @@ export default {
     ...mapActions(['addToCart']),
     performSearch(queryParams) {
       console.log(this.books);
+      const priceFilter = this.priceRange[this.price];
       if (this.books && this.books.length > 0) {
         console.log("after getting books");
         this.filteredBooks = this.books.filter((book) => {
@@ -421,16 +452,20 @@ export default {
                 .toLowerCase()
                 .includes(queryParams.keywords.toLowerCase())
             : true;
-          const minPriceMatch = queryParams.minPrice
-            ? book.price >= Number(queryParams.minPrice)
-            : true;
+           const minPriceMatch = queryParams.minPrice
+           ? book.price >= Number(queryParams.minPrice)
+            : priceFilter.min === null || book.price>= priceFilter.min;
           const maxPriceMatch = queryParams.maxPrice
             ? book.price <= Number(queryParams.maxPrice)
-            : true;
+            : priceFilter.max === null || book.price <= priceFilter.max;
+
+          // const priceMatch = (priceFilter.min === null || book.price >= priceFilter.min) &&
+          //                (priceFilter.max === null || book.price <= priceFilter.max);
+          
           const conditionMatch = book.usedBook === this.condition;
 
           const mediaMatch = this.binding === 'all' ? true : this.subBinding ? book.media === this.subBinding : true;
-
+        
           return (
             categoryMatch &&
             authorMatch &&
@@ -449,6 +484,18 @@ export default {
         console.log(book.title);
       }
     },
+    updateQueryParams() {
+    // Logic to update query parameters
+    console.log("Updating query parameters without search");
+    this.$router.replace({
+      name: 'search-result-view',
+      query: {
+        ...this.$route.query,
+        minPrice: this.priceRange[this.price].min,
+        maxPrice: this.priceRange[this.price].max
+      }
+    });
+  },
   
 
 
@@ -481,6 +528,7 @@ export default {
       });
       this.currentPage = 1;
       this.condition = "USED";
+      this.price = 'anyPrice'
     },
     isCategorySelected(categoryValue) {
       return this.currentCategory === categoryValue;
