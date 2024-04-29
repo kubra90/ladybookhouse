@@ -848,6 +848,7 @@ export default {
   watch: {
     selectedDelivery(newValue) {
       this.$store.commit('SET_DELIVERY_OPTION', newValue);
+      console.log(newValue);
     },
     // deliveryMethod(newValue){
     //       this.$store.commit('UPDATE_DELIVERY_OPTION', newValue);

@@ -5,12 +5,21 @@
     >
       <!-- Filter Sidebar -->
       <div class="col-md-3" style="border-right: 1px solid #ccc">
-        <div class="mb-3 mt-2">
+        <!-- <div class="mb-3 mt-2">
           <label for="searchBox" class="form-label"
             >Search within these results:</label
           >
           <input type="text" id="searchBox" class="form-control shadow-none" />
-        </div>
+        </div> -->
+        <div class="mb-3 mt-2">
+  <label for="searchBox" class="form-label">Search within these results:</label>
+  <div class="input-group">
+    <input type="text" id="searchBox" class="form-control shadow-none" placeholder="Type here..." v-model="searchDetail">
+    <button class="btn btn-secondary" type="button" id="goButton" style="background-color: dark gray;"
+    @click="updateQueryParams">Go</button>
+  </div>
+</div>
+
         <hr />
 
         <div class="mb-3">
@@ -128,12 +137,12 @@
           <div class="me-0 pe-0 mt-2">Sort by</div>
           <div class="ms-0 ps-0">
             <label for="sortby" class="form-label"></label>
-            <select class="form-select shadow-none" id="sortby">
-              <option>Author</option>
-              <option>Title</option>
-              <option>Highest Price</option>
-              <option>Lowest Price</option>
-              <option>Most Recent</option>
+            <select class="form-select shadow-none" id="sortby" v-model="sortByOption">
+              <option value="author">Author</option>
+              <option value="title">Title</option>
+              <option value="highestPrice">Highest Price</option>
+              <option value="lowestPrice">Lowest Price</option>
+              <option value="mostRecent">Most Recent</option>
               <!-- Add more sorting options here -->
             </select>
           </div>
@@ -271,8 +280,8 @@
         <div class="flex-shrink-0 ms-3">
           <!-- <button class="btn btn-primary">Add to Cart</button>
           <p class="mb-0">{{ book.price | currency }}</p> -->
-          <button @click="addToBasket(book)" class="btn btn-primary  cart-btn">
-          <strong>Add To Cart</strong></button>
+          <button @click="addToBasket(book)" class="btn btn-secondary cart-btn">
+          Add To Cart</button>
            <div class="mt-2"><b>Price:</b>${{ book.price }}</div>
            <router-link :to="{name: 'detail', params: {sku: book.sku}}" style="text-decoration: none;color:#5d5a5a">
            <div class="mt-2">Item Details</div>
@@ -302,6 +311,8 @@ export default {
       condition: 'USED',
       currentPage: 1,
       booksPerPage: 25,
+      sortByOption : "author",
+      searchDetail: '',
       filteredBooks: [],
       binding: "all",
       subBinding: null,
@@ -358,6 +369,11 @@ export default {
     booksPerPage(newValue, oldValue) {
       if (newValue != oldValue) {
         this.booksPerPage = newValue;
+      }
+    },
+    sortByOption(newValue, oldValue){
+      if(newValue != oldValue){
+        this.performSearch(this.$route.query);
       }
     },
     condition(newValue, oldValue){
@@ -450,7 +466,10 @@ export default {
                 .includes(queryParams.keywords.toLowerCase()) ||
               book.media
                 .toLowerCase()
-                .includes(queryParams.keywords.toLowerCase())
+                .includes(queryParams.keywords.toLowerCase()) ||
+              book.title.toLowerCase().includes(queryParams.keywords.toLowerCase()) ||
+              book.author.toLowerCase().includes(queryParams.keywords.toLowerCase()) 
+
             : true;
            const minPriceMatch = queryParams.minPrice
            ? book.price >= Number(queryParams.minPrice)
@@ -479,6 +498,9 @@ export default {
           );
         });
       }
+      // sorting function
+      this.filteredBooks = this.sortBooks(this.filteredBooks, this.sortByOption);
+      // this below is for debugging purposes.
       console.log(this.filteredBooks);
       for (let book of this.filteredBooks) {
         console.log(book.title);
@@ -491,10 +513,28 @@ export default {
       name: 'search-result-view',
       query: {
         ...this.$route.query,
+        keywords: this.searchDetail,
         minPrice: this.priceRange[this.price].min,
         maxPrice: this.priceRange[this.price].max
       }
     });
+  },
+
+  sortBooks(books, sortByOption){
+    switch(sortByOption){
+      case "author":
+        return books.sort((a,b) => a.author.localeCompare(b.author));
+      case "title":
+        return books.sort((a,b) => a.title.localeCompare(b.title));
+      case "highestPrice":
+        return books.sort((a,b)=> b.price - a.price);
+      case "lowestPrice":
+        return books.sort((a,b) => a.price - b.price);
+      case "mostRecent":
+        return books.sort((a,b) => new Date(b.listed_date) - new Date(a.listed_date))
+  
+      
+    }
   },
   
 
@@ -528,7 +568,8 @@ export default {
       });
       this.currentPage = 1;
       this.condition = "USED";
-      this.price = 'anyPrice'
+      this.price = 'anyPrice';
+      this.sortByOption = 'author'
     },
     isCategorySelected(categoryValue) {
       return this.currentCategory === categoryValue;
