@@ -1,13 +1,83 @@
 <template>
-  <div id="featured-books">
-    <ul>
-      <book-card v-for="book in paginatedBooks" :book="book" :key="book.isbn" />
-    </ul>
-    <button v-if="currentPage > 1" @click="currentPage--">Previous</button>
-    <button v-if="currentPage < totalPages" @click="currentPage++">Next</button>
+  <div  class="container my-5">
+    <div class="row mt-5 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
+      <book-card 
+        v-for="book in paginatedBooks" 
+        :book="book" 
+        :key="book.isbn"
+        class="col-md-3 col-sm-6 mb-4"
+      />
+   
+    <hr />
+
+    <nav aria-label="Page navigation example">
+          <div class="d-flex justify-content-between mt-4">
+            <!-- left part about results -->
+            <div class="">
+              Results {{ bookStart }} - {{ bookEnd }} (of
+              {{ this.featuredItems.length }})
+             
+              <!-- add small x icon  -->
+            </div>
+            <div class="pagination justify-content-end">
+              <p>Page {{ currentPage }} of {{ totalPages }}</p>
+              <ul class="pagination">
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage > 1"
+                    @click="goToPage(currentPage - 1)"
+                   
+                    >&lt;</a
+                  >
+                </li>
+                <!-- less 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage > 10"
+                    @click="currentPage -= 10"
+                    >&lt;&lt;</a
+                  >
+                </li>
+                <!-- Dynamically generated page numbers here -->
+                <li
+                  class="page-item"
+                  v-for="n in paginationNumbers"
+                  :key="n"
+                  :class="{ active: n === currentPage }"
+                >
+                  <a class="page-link" @click="goToPage(n)">{{ n }}</a>
+                </li>
+                <!-- if there is items more than 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="
+                      currentPage < totalPages && currentPage + 10 <= totalPages
+                    "
+                    @click="currentPage += 10"
+                    >&gt;&gt;</a
+                  >
+                </li>
+                <!-- till here -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+            
+                    @click="goToPage(currentPage + 1)"
+                    >&gt;</a
+                  >
+                </li>
+              </ul>
+            </div>
+          
+            
+          </div>
+        </nav>
+      </div>
   </div>
 </template>
-  
   
 <script>
   
@@ -38,14 +108,31 @@ import {mapGetters, mapState} from "vuex"
         const start =  (this.currentPage - 1) * this.booksPerPage
         const end = start + this.booksPerPage
         return this.featuredItems.slice(start, end)
-      }
+      },
+      paginationNumbers() {
+      let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+      let endPage = Math.min(startPage + 9, this.totalPages);
+      return Array.from(
+        { length: endPage - startPage + 1 },
+        (v, k) => k + startPage
+      );
+    },
+
+    bookStart() {
+      return (this.currentPage - 1) * this.booksPerPage + 1;
+    },
+    bookEnd() {
+      let end = this.currentPage * this.booksPerPage;
+      return end > this.featuredItems.length
+        ? this.featuredItems.length
+        : end;
+    },
     },
     
     methods: {
-      formatPrice(value) {
-      const formattedPrice = Number(value).toFixed(2);
-      return formattedPrice;
-      },
+      goToPage(page) {
+      this.currentPage = page;
+    },
     }
   }
   
@@ -53,38 +140,26 @@ import {mapGetters, mapState} from "vuex"
   
 <style scoped>
 
-#featured-books ul {
-  margin-top:50px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-  gap: 10px;
-  list-style-type: none;
-  padding-left: 45px;
+.pagination .page-link {
+  border: none; /* Removes the border */
+  background: none; /* Removes the background color */
+  color: black; /* Bootstrap blue for link color, adjust as necessary */
+  margin-top: 0.2em;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  padding-right: 0;
+  font-size: 12px;
 }
 
-#featured-books li {
-  text-align: center;
+.pagination .page-item.active .page-link {
+  background-color: none; /* Bootstrap blue for active page, adjust if needed */
+  color: orange;
 }
 
-#featured-books {
-  padding: 30px 90px;
-}
-
-@media (max-width: 768px) {
-  #featured-books ul {
-    grid-template-columns: repeat(2, 1fr); /* 2 books per row for tablets */
-    gap: 20px;
-  }
-  
-  #featured-books {
-    padding: 20px; /* Reduce padding */
-  }
-}
-  
-@media (max-width: 480px) {
-  #featured-books ul {
-    grid-template-columns: 1fr; /* 1 book per row for mobiles */
-  }
+.pagination .page-link:hover {
+  background-color: none; /* Light grey background on hover, optional */
 }
 
 </style>
