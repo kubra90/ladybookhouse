@@ -185,12 +185,11 @@
             <div class="pagination justify-content-end">
               <p>Page {{ currentPage }} of {{ totalPages }}</p>
               <ul class="pagination">
-                <li class="page-item disabled">
+                <li class="page-item">
                   <a
                     class="page-link"
-                   
-                    tabindex="-1"
-                    aria-disabled="true"
+                    v-if="currentPage > 1"
+                    @click="goToPage(currentPage - 1)"
                     >&lt;</a
                   >
                 </li>

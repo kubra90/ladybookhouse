@@ -6,7 +6,9 @@
       >
         <!-- Website Name and Navigation Links -->
         <div class="col-md-auto py-5 col-sm-12">
+          <router-link :to="{name: 'home'}" style="text-decoration: none;">
           <h1 class="mt-5 mb-0">Lady Bookhouse</h1>
+        </router-link>
         </div>
 
         <!-- Account/Cart Links and Search Bar -->
@@ -268,7 +270,7 @@ h1 {
   font-size: medium;
   font-family: "PT Sans", sans-serif;
   font-size:13px;
-  
+
  
 }
 

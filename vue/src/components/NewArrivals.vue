@@ -5,7 +5,7 @@
         <h3>New Arrivals</h3>
       </div>
       <div class="col-md-6  col-6 d-flex justify-content-md-end align-items-center custom-feature">
-        <router-link :to="{ name: 'featured-book-view' }">
+        <router-link :to="{ name: 'new-arrivals-view' }">
           <div class="button-container">
             <button class="btn btn-sm btn-primary">See All New Arrivals</button>
           </div>

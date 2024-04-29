@@ -1,45 +1,84 @@
 <template>
-  <div id="new-arrivals">
-    <ul>
-      <book-card v-for="book in paginatedBooks" :book="book" :key="book.isbn" />
-    </ul>
+  <div  class="container my-5">
+    <div class="row mt-5 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
+      <book-card 
+        v-for="book in paginatedBooks" 
+        :book="book" 
+        :key="book.isbn"
+        class="col-md-3 col-sm-6 mb-4"
+      />
+   
     <hr />
-    <div class="page-nav">
-      <div class="book-number">
-        <p>
-          Results {{ bookStart }} - {{ bookEnd }} ( of
-          {{ newBookArrivals.length }} )
-        </p>
-      </div>
-      <div class="page-detail">
-        <p>Page {{ currentPage }} of {{ totalPages }}</p>
-      </div>
 
-      <!-- Page buttons -->
-      <div class="pagination-buttons">
-        <button v-if="currentPage > 1" @click="currentPage--">&lt;</button>
-        <span v-if="currentPage > 10" @click="currentPage -= 10">&lt;&lt;</span>
-        <span
-          id="page-num"
-          v-for="page in visiblePages"
-          :key="page"
-          @click="gotoPage(page)"
-          :class="{ active: currentPage === page }"
-        >
-          {{ page }}
-        </span>
-        <span
-          v-if="currentPage < totalPages && currentPage + 10 <= totalPages"
-          @click="currentPage += 10"
-          >&gt;&gt;</span
-        >
-        <button v-if="currentPage < totalPages" @click="currentPage++">
-          &gt;
-        </button>
+    <nav aria-label="Page navigation example">
+          <div class="d-flex justify-content-between mt-4">
+            <!-- left part about results -->
+            <div class="">
+              Results {{ bookStart }} - {{ bookEnd }} (of
+              {{ this.newBookArrivals.length }})
+             
+              <!-- add small x icon  -->
+            </div>
+            <div class="pagination justify-content-end">
+              <p>Page {{ currentPage }} of {{ totalPages }}</p>
+              <ul class="pagination">
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage > 1"
+                    @click="goToPage(currentPage - 1)"
+                   
+                    >&lt;</a
+                  >
+                </li>
+                <!-- less 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="currentPage > 10"
+                    @click="currentPage -= 10"
+                    >&lt;&lt;</a
+                  >
+                </li>
+                <!-- Dynamically generated page numbers here -->
+                <li
+                  class="page-item"
+                  v-for="n in paginationNumbers"
+                  :key="n"
+                  :class="{ active: n === currentPage }"
+                >
+                  <a class="page-link" @click="goToPage(n)">{{ n }}</a>
+                </li>
+                <!-- if there is items more than 10 -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    v-if="
+                      currentPage < totalPages && currentPage + 10 <= totalPages
+                    "
+                    @click="currentPage += 10"
+                    >&gt;&gt;</a
+                  >
+                </li>
+                <!-- till here -->
+                <li class="page-item">
+                  <a
+                    class="page-link"
+            
+                    @click="goToPage(currentPage + 1)"
+                    >&gt;</a
+                  >
+                </li>
+              </ul>
+            </div>
+          
+            
+          </div>
+        </nav>
       </div>
-    </div>
   </div>
 </template>
+
   
 
 <script>
@@ -66,16 +105,24 @@ export default {
       return Math.ceil(this.newBookArrivals.length / this.booksPerPage);
     },
 
-    visiblePages() {
-      let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
-      let endPage = startPage + 9;
-      endPage = endPage > this.totalPages ? this.totalPages : endPage;
+    // visiblePages() {
+    //   let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+    //   let endPage = startPage + 9;
+    //   endPage = endPage > this.totalPages ? this.totalPages : endPage;
 
-      let pages = [];
-      for (let page = startPage; page <= endPage; page++) {
-        pages.push(page);
-      }
-      return pages;
+    //   let pages = [];
+    //   for (let page = startPage; page <= endPage; page++) {
+    //     pages.push(page);
+    //   }
+    //   return pages;
+    // },
+    paginationNumbers() {
+      let startPage = Math.floor((this.currentPage - 1) / 10) * 10 + 1;
+      let endPage = Math.min(startPage + 9, this.totalPages);
+      return Array.from(
+        { length: endPage - startPage + 1 },
+        (v, k) => k + startPage
+      );
     },
 
     bookStart() {
@@ -103,73 +150,34 @@ export default {
   // },
 
   methods: {
-    gotoPage(page) {
+    goToPage(page) {
       this.currentPage = page;
     },
   }
 };
 </script>
-  
+
 <style scoped>
-#new-arrivals ul {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 books per row */
-  gap: 10px;
-  list-style-type: none;
-  padding-left: 45px;
+.pagination .page-link {
+  border: none; /* Removes the border */
+  background: none; /* Removes the background color */
+  color: black; /* Bootstrap blue for link color, adjust as necessary */
+  margin-top: 0.2em;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  padding-right: 0;
+  font-size: 12px;
 }
 
-#new-arrivals li {
-  text-align: center;
+.pagination .page-item.active .page-link {
+  background-color: none; /* Bootstrap blue for active page, adjust if needed */
+  color: orange;
 }
 
-#new-arrivals {
-  padding: 30px 90px;
+.pagination .page-link:hover {
+  background-color: none; /* Light grey background on hover, optional */
 }
+</style>
 
-.page-nav {
-  display: flex;
-  flex-direction: row;
-}
-
-.page-detail {
-  margin-left: 65rem;
-  margin-right: 3rem;
-}
-
-.pagination-buttons span {
-  padding-right: 0.75rem;
-  padding-left: 0.25rem;
-  color: brown;
-  cursor: pointer;
-}
-
-.pagination-buttons button {
-  color: #6b3630;
-  border: none;
-  background-color: orange;
-  border-radius: 0.3rem;
-  padding-right: 0.5rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  #new-arrivals ul {
-    grid-template-columns: repeat(2, 1fr); /* 2 books per row for tablets */
-    gap: 20px;
-  }
-
-  #new-arrivals {
-    padding: 20px; /* Reduce padding */
-  }
-}
-
-@media (max-width: 480px) {
-  #new-arrivals ul {
-    grid-template-columns: 1fr; /* 1 book per row for mobiles */
-  }
-}
-</style>  
