@@ -85,8 +85,8 @@ export default {
 
 @media (max-width: 768px) {
   #books img {
-   width: 80%; 
-   height: auto; 
+   /* width: 80%; 
+   height: auto;  */
   }
 
   .book-title {
@@ -97,7 +97,7 @@ export default {
 
 @media (max-width: 480px) {
   #books img {
-    width: 100%; 
+    /* width: 100%;  */
   }
 
   .book-title {

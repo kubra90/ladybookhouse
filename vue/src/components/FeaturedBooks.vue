@@ -12,7 +12,7 @@
         </router-link>
       </div>
     </div>
-    <ul class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
+    <ul class="row py-4 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
       <book-card v-for="book in paginatedList" :book="book" :key="book.isbn" />
     </ul>
   </div>
