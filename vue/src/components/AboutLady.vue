@@ -1,7 +1,7 @@
 <template>
-    <div class="container mt-4 d-flex align-items-center justify-content-center">
+    <div class="container px-4">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
         <h4 class="title-lb">Welcome Lady Bookhouse</h4>
         <p>
           A sanctuary for book lovers of all ages. Our vast collection caters to a multitude of tastes, 
