@@ -1,36 +1,28 @@
+New book card
+
+
 <template>
-  <div id="books">
+  <div class="book-card">
+    <router-link :to="{ name: 'detail', params: { sku: book.sku }}" style="text-decoration: none;">
+    
+      <img v-bind:src="book.image" class="img-fluid"/>
+    
    
-   <router-link :to="{
-     name: 'detail',
-     params: {
-       sku: book.sku
-    }}">
-     <img v-bind:src="book.image"/>
-     <VClamp :line-clamp="1" class="book-title">{{ book.title }}</VClamp>
-   </router-link>
- 
-   <p class="book-author"><b>{{ book.author }}</b></p>       
-   
-   <div class="book-detail">
-     <p>{{ book.publisher }}, {{ book.media }}</p>
+      <b><VClamp :line-clamp="1" class="book-title">{{ book.title }}</VClamp></b>
+    
+    </router-link>
+    <p class="book-author"><b>{{ book.author }}</b></p>
+    <div class="book-detail">
+      <p>{{ book.publisher }}, {{ book.media }}</p>
     </div>
-         
     <div class="book-price">
-     <p><b>Price:</b> ${{ formattedPrice }}</p>
-    </div>    
-     
-     <router-link :to="{
-       name: 'detail',
-       params: {
-         sku: book.sku
-           }
-     }">
-       <p class="read-more">READ MORE</p>
-     </router-link> 
-         
-  </div>          
-</template>        
+      <p><b>Price:</b> ${{ formattedPrice }}</p>
+    </div>
+    <router-link :to="{ name: 'detail', params: { sku: book.sku }}" style="text-decoration: none;">
+      <p class="read-more">READ MORE</p>
+    </router-link>
+  </div>
+</template>
     
 <script>
  
@@ -51,59 +43,66 @@ export default {
 
 </script>
 
- <style scoped>
+<style scoped>
 
 
-#books img {
-  width: 70%; 
-  height: 70%; 
+.book-card {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  min-height: 350px; /* Ensures uniform card height */
+}
+
+.book-card img {
+  width:80%;
+
+  height: auto;
   object-fit: cover;
+  max-height:350px;
+  max-width:300px;
 }
 
-.book-title {
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  width: 200px; 
-  text-transform: uppercase
+.book-card .book-title,
+.book-card .book-author,
+.book-card .book-price {
+  margin-bottom: 0;
+  margin-top:0;
+  padding-top:0;
+  padding-bottom:0;
 }
 
+.book-price {
+  padding:0;
+  margin:0;
+}
 
-.book-author {
+.book-card .book-author,
+.book-card .book-title {
   margin: 0; 
   /* new css for wrapping the author */
   overflow: hidden; 
   text-overflow: ellipsis; 
-  width: 200px; 
+  width:200px; 
   white-space:nowrap;
 
 }
 
-.book-detail p, .book-price p {
-  margin: 0;
+.book-card  .book-title, .read-more {
+  color:#87271a;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
-  #books img {
-   /* width: 80%; 
-   height: auto;  */
-  }
+/* new css */
 
-  .book-title {
-    width: 120px; 
-    font-size: 0.9em; 
-  }
+@media (max-width: 468px) {
+
+.book-card .book-title,
+.book-card .book-author {
+  width:150px;
 }
 
-@media (max-width: 480px) {
-  #books img {
-    /* width: 100%;  */
   }
 
-  .book-title {
-    width: auto; 
-    font-size: 0.8em; 
-  }
-}
 
-</style> 
+</style>
