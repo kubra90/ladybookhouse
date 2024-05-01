@@ -1,7 +1,7 @@
 <template>
   <footer class="footer mt-auto footer-custom">
     <div class="container">
-      <div class="row">
+      <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
         <div class="col-md-3 mb-3 mt-4">
           <p><b>Lady Bookhouse</b></p>
           <p>375 Acorn Park Dr.</p>

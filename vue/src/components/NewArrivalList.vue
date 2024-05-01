@@ -1,12 +1,14 @@
 <template>
   <div  class="container my-5">
     <div class="row mt-5 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
+      <ul class="row book-list">
       <book-card 
         v-for="book in paginatedBooks" 
         :book="book" 
         :key="book.isbn"
-        class="col-md-3 col-sm-6 mb-4"
+        class=""
       />
+    </ul>
    
     <hr />
 
@@ -178,6 +180,25 @@ export default {
 
 .pagination .page-link:hover {
   background-color: none; /* Light grey background on hover, optional */
+}
+
+.book-list{
+  grid-template-columns: repeat(4, 1fr);
+  display:grid;
+}
+
+
+@media (max-width: 480px) {
+  .book-list{
+    grid-template-columns: repeat(2, 1fr);
+    margin-left:0.7em;
+  }
+}
+@media (max-width: 768px) {
+  .book-list {
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
 }
 </style>
 

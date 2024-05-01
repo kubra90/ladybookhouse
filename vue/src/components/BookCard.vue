@@ -1,4 +1,3 @@
-New book card
 
 
 <template>
@@ -56,9 +55,10 @@ export default {
 .book-card img {
   width:80%;
 
-  height: auto;
+  /* height: auto; */
   object-fit: cover;
-  max-height:350px;
+  /* max-height:350px; */
+  height:350px;
   max-width:300px;
 }
 
@@ -71,10 +71,6 @@ export default {
   padding-bottom:0;
 }
 
-.book-price {
-  padding:0;
-  margin:0;
-}
 
 .book-card .book-author,
 .book-card .book-title {
@@ -100,6 +96,15 @@ export default {
 .book-card .book-title,
 .book-card .book-author {
   width:150px;
+}
+.book-card img {
+  width:90%;
+  /* height:auto; */
+  object-fit: cover;
+  /* max-height:350px; */
+  height:200px;
+  
+  
 }
 
   }
