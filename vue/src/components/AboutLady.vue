@@ -1,6 +1,6 @@
 <template>
-    <div class="container px-4">
-    <div class="row">
+    <div class="container px-4 py-4">
+    <div class="row py-4 me-4 pe-4">
       <div class="col-12 mt-3 px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
         <h4 class="title-lb">Welcome Lady Bookhouse</h4>
         <p>
