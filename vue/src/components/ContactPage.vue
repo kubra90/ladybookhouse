@@ -1,9 +1,10 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4 ">
+    <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
     <h1 class="mb-4" style="color: brown; font-family: 'PT Sans', sans-serif;">Contact Us</h1>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card border-0">
+    <div class="row ">
+      
+        <div class="card border-0" style="margin:0;padding:0">
           <div class="card-body">
             <p class="card-title fw-bold">Lady Bookhouse</p>
             <p class="card-text">375 Acorn Park Dr. 1310</p>
@@ -14,8 +15,9 @@
             </p>
           </div>
         </div>
-      </div>
+      
     </div>
+  </div>
   </div>
 </template>
 
