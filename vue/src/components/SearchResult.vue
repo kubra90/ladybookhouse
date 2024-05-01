@@ -238,19 +238,7 @@
           </div>
         </nav>
         <hr class="my-0" />
-          <!-- main body after pagination numbers -->
-        <!-- <div class="container d-flex">
-          <div class="row">
-         <div class="d-flex justify-content-between" v-for="book in this.filteredBooks" :key="book.isbn">
-          <div class="">
-
-           {{ book.title }}
-          </div>
-          <div class="ms-auto">
-           <button class="btn">Add to Cart</button>
-         </div>
-         </div>
-        </div> -->
+      
         <div class="container">
   <div class="row">
     <div class="col-12 my-3" v-for="book in visibleBooks" :key="book.isbn">
@@ -326,19 +314,11 @@ export default {
       },
   
       price: 'anyPrice'
-      // This should be dynamic based on the category selected
-      // ... Other data properties ...
+    
     };
   },
   watch: {
-    // price(newValue, oldValue){
-     
-    //   if(newValue != oldValue){
-    //     this.performSearch(this.$route.query);
-    //     console.log(this.$route.query);
-    //   }
-    // },
-    // new method for price range
+    
     price() {
     if (this.getPriceRange) { // Only perform search if the price range actually matches the query, otherwise just update the query
       this.performSearch();
@@ -359,6 +339,7 @@ export default {
       this.performSearch(this.$route.query)
     }
   },
+  // check this method! It doesn't work
     $route(to, from) {
       if (to.query !== from.query) {
         this.performSearch(to.query);
@@ -382,16 +363,14 @@ export default {
       }
     }
   },
+
   created() {
     const queryParams = this.$route.query;
     console.log(queryParams);
     //   // Perform your search logic using these query parameters
     return this.performSearch(queryParams);
-    // return this.performSearch(this.$route.query);
   },
-  // mounted() {
-  //   console.log("Component mounted!");
-  // },
+
   computed: {
     ...mapState(["book", "books", "cartBooks"]),
     ...mapGetters(["getCategories"]),
@@ -440,6 +419,11 @@ export default {
   
   },
   methods: {
+    needsUpdate(newQuery, oldQuery) {
+        // Compare specific query parameters that trigger updates
+        return newQuery.search !== oldQuery.search ||
+               newQuery.filter !== oldQuery.filter;
+    },
     ...mapActions(['addToCart']),
     performSearch(queryParams) {
       console.log(this.books);
@@ -585,7 +569,7 @@ export default {
 }
 
 .no-hover:hover {
-  background-color: transparent !important; /* Ensures no color change on hover */
+  background-color: transparent !important; 
   text-decoration: underline;
   cursor: pointer;
 }
@@ -619,20 +603,19 @@ export default {
 
 #searchBox:focus,
 .form-select:focus {
-  border-color: #c4742d; /* Darker border when focused for better visibility */
+  border-color: #c4742d; 
 }
 
 .form-label {
-  /* Optional: Makes the label text bold */
-  /* font-weight: bold;   */
+ 
   color: #5d5a5a; /* Dark grey color for the text */
   font-weight: bold;
 }
 
 .pagination .page-link {
-  border: none; /* Removes the border */
-  background: none; /* Removes the background color */
-  color: black; /* Bootstrap blue for link color, adjust as necessary */
+  border: none; 
+  background: none;
+  color: black; 
   margin-top: 0.2em;
   margin-bottom: 0;
   padding-top: 0;
@@ -643,12 +626,12 @@ export default {
 }
 
 .pagination .page-item.active .page-link {
-  background-color: none; /* Bootstrap blue for active page, adjust if needed */
+  background-color: none; 
   color: orange;
 }
 
 .pagination .page-link:hover {
-  background-color: none; /* Light grey background on hover, optional */
+  background-color: none;
 }
 
 /* .cart-btn {
@@ -657,14 +640,14 @@ export default {
 
 
 .cart-btn{
-background-color: #c74c2a; /* Salmon color, keep it or change as needed */
-  color: white; /* Ensures the text color is white for better readability */
+background-color: #c74c2a; 
+  color: white; 
   /* padding: 10px 20px; */
-  font-size: 18px; /* Larger font size makes the button text more prominent */
-  border-radius: 5px; /* Rounded corners, adjust the radius as you like */
-  border: none; /* Remove border for a cleaner look */
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for a 3D effect */
-  cursor: pointer; /* Reaffirm that this is a clickable button */
+  font-size: 18px; 
+  border-radius: 5px; 
+  border: none; 
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1); 
+  cursor: pointer; 
   align-items:center;
   justify-content:center;
   width:100%;

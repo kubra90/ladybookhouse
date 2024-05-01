@@ -213,6 +213,10 @@ const router = new Router({
       component: SearchResultView,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter: (to, from, next) => {
+        console.log("Before entering searchResult");
+        next();
       }
     },
 

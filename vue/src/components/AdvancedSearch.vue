@@ -94,11 +94,19 @@ export default {
             ]
         }
     },
+    watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.$router.push({name: 'advanced-search'});
+      }
+    }
+  },
 
     computed: {
         ...mapState(['books', 'book']),
     },
     methods: {
+  
       
         searchBookDetails() {
     // Construct your query parameters based on search criteria
