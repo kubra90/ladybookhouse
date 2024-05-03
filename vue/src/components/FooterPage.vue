@@ -11,7 +11,7 @@
 
         <div class="col-md-3 mb-3 mt-4">
           <ul class="list-unstyled">
-            <li class="mb-2"><router-link class="link" v-bind:to="{ name: 'advanced-search' }">Search our
+            <li class="mb-2"><router-link class="link" v-bind:to="{ name: 'advanced-search-view' }">Search our
                 Inventory</router-link>
             </li>
             <li class="mb-2"><router-link class="link" v-bind:to="{ name: 'new-arrivals-view' }">New

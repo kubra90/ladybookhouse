@@ -46,6 +46,8 @@ export default new Vuex.Store({
     bookDetails: {},
     // deliveryOption: "USPS",
     // paymentMethod: "paypal",
+    // form for advanced search
+    formData: {},
 
     checkout: {
       paymentMethod: '',
@@ -163,9 +165,9 @@ export default new Vuex.Store({
        book.sku.includes('AM') || book.sku.includes('CS')
       })
     },
-    filteredBooksByCateg: state => (bookCateg) => {
-      return state.books.filter(book => book.category === bookCateg)
-    }
+    // filteredBooksByCateg: state => (bookCateg) => {
+    //   return state.books.filter(book => book.category === bookCateg)
+    // }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -405,6 +407,9 @@ export default new Vuex.Store({
     },
     SET_RETURNING_USER_EDITING_SHIPPING(state, value) {
       state.checkout.returningUserEditingShipping = value;
+    },
+    SET_FORM_DATA(state, formData) {
+      state.formData = formData;
     }
   },
   actions: {
@@ -426,6 +431,10 @@ export default new Vuex.Store({
     },
     updateTempOrderInfo({commit}, order){
      commit('SET_TEMP_ORDER_INFO', order)
+    },
+    updateFormData({ commit }, formData) {
+      console.log('Action called: updateFormData', formData);
+      commit('SET_FORM_DATA', formData);
     },
     // updateSelectedPaymentMethod({commit}, paymentMethod){
     // commit('SET_PAYMENT_OPTION', paymentMethod);
@@ -504,10 +513,7 @@ export default new Vuex.Store({
       const response = await getBooks()
       commit('SET_BOOKS', response.data)
     },
-    // async fetchBookById({ commit }, sku) {
-    //   const response = await getBookById(sku)
-    //   commit('SET_BOOK', response.data)
-    // },
+
     async fetchBookById({ commit }, sku) {
       try{
       const response = await getBookById(sku)
@@ -522,11 +528,6 @@ export default new Vuex.Store({
         console.error('error fetching book by sku', error);
       }
     },
-
-    // async fetchFeaturedItems({ commit }) {
-    //   const response = await getFeaturedItems()
-    //   commit('SET_FEATURED_ITEMS', response.data)
-    // },
   }
 }
 )

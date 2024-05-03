@@ -12,7 +12,7 @@
     import AdvancedSearch from '@/components/AdvancedSearch.vue';
     
     export default {
-      name: "advanced-search",
+      name: "advanced-search-view",
       components: {HeaderPage, FooterPage, AdvancedSearch}
     }
     </script>

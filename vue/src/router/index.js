@@ -17,9 +17,9 @@ import Contact from '../views/Contact.vue'
 import TermsOfSale from '../views/Terms.vue'
 import SavedBooks from '../views/SavedBooks.vue'
 import Browse from '../views/Browse.vue'
-import CategoryDetail from '../views/CategoryDetail.vue'
+// import CategoryDetail from '../views/CategoryDetail.vue'
 import Order from '../views/Order.vue'
-import AdvancedSearch from '../views/AdvancedSearch.vue'
+import AdvancedSearchView from '../views/AdvancedSearchView.vue'
 import OrderSummary from '../views/OrderSummaryView.vue'
 import AddressBook from '../views/AddressBook.vue'
 import SearchResultView from '../views/SearchResultView.vue'
@@ -191,20 +191,24 @@ const router = new Router({
         requiresAuth: false
       }
     },
-    {
-      path: "/:category",
-      name: "category-detail",
-      component: CategoryDetail,
-      meta: {
-        requiresAuth: false
-      }
-    },
+    // {
+    //   path: "/:category",
+    //   name: "category-detail",
+    //   component: CategoryDetail,
+    //   meta: {
+    //     requiresAuth: false
+    //   }
+    // },
     {
       path: "/advSearch",
-      name: "advanced-search",
-      component: AdvancedSearch,
+      name: "advanced-search-view",
+      component: AdvancedSearchView,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter: (to, from, next) => {
+        console.log("Navigating to Advanced Search");
+        next();
       }
     },
     {

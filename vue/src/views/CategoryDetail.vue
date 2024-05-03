@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <header-page />
     <div id="categories">
@@ -84,4 +84,4 @@ export default {
     /* 1 book per row for mobiles */
   }
 }
-</style>
+</style> -->

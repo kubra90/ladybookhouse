@@ -185,17 +185,6 @@ export default {
   margin-top:2%;
 }
 
-/* .book-image {
-  height: auto; 
-  border: 1px solid #ddd; 
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 120px; 
-  height: 170px; 
-  margin-right:1%;
-} */
-
-
 .book-price {
   display: flex;
   align-items: flex-start; 

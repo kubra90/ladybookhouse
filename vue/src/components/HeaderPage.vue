@@ -118,7 +118,7 @@
             </li>
             <li class="nav-item">
               <router-link
-                v-bind:to="{ name: 'advanced-search' }"
+                v-bind:to="{ name: 'advanced-search-view' }"
                 class="nav-link"
                 >Search</router-link
               >

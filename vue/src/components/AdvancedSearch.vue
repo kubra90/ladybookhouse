@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapState} from 'vuex'
+import { mapState, mapActions} from 'vuex'
 export default {
     data() {
         return {
@@ -94,34 +94,50 @@ export default {
             ]
         }
     },
-    watch: {
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.$router.push({name: 'advanced-search'});
-      }
-    }
-  },
 
     computed: {
         ...mapState(['books', 'book']),
     },
+    created() {
+  console.log("Component created");
+},
+watch: {
+  // '$route' (to, from) {
+  //   if (to.name === 'advanced-search-view' && from.name === 'search-result-view') {
+  //     console.log("x")
+  //     this.searchForm;
+  //   }
+  // }
+  '$route'(to, from) {
+    console.log("Navigated from", from.name, "to", to.name);
+  }
+},
+
+
     methods: {
+      ...mapActions(['updateFormData']),
+
+      resetForm() {
+    this.searchForm = { category: '', author: '', title: '', keywords: '', minPrice: '', maxPrice: '' }
+      },
+
   
       
         searchBookDetails() {
+          this.updateFormData(this.searchForm);
     // Construct your query parameters based on search criteria
-    const queryParams = {
-      category: this.searchForm.category,
-      author: this.searchForm.author,
-      title: this.searchForm.title,
-      keywords: this.searchForm.keywords,
-      minPrice: this.searchForm.minPrice,
-      maxPrice: this.searchForm.maxPrice,
-    };
+    // const queryParams = {
+    //   category: this.searchForm.category,
+    //   author: this.searchForm.author,
+    //   title: this.searchForm.title,
+    //   keywords: this.searchForm.keywords,
+    //   minPrice: this.searchForm.minPrice,
+    //   maxPrice: this.searchForm.maxPrice,
+    // };
 
     // Use Vue Router to navigate to the searchResult route with the query parameters
-    this.$router.push({ name: "search-result-view", query: queryParams });
-    console.log(queryParams);
+    this.$router.push({ name: "search-result-view", query: this.searchForm });
+    console.log(this.searchForm);
   }
     }
 }

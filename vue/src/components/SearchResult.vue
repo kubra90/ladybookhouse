@@ -339,12 +339,31 @@ export default {
       this.performSearch(this.$route.query)
     }
   },
-  // check this method! It doesn't work
-    $route(to, from) {
-      if (to.query !== from.query) {
-        this.performSearch(to.query);
-      }
-    },
+
+    // '$route'(to, from) {
+    //   if(to.name === 'advanced-search-view'){
+    //     console.log("this query to advanced search", to.query)
+    //     this.$router.push({name: 'advanced-search-view'})
+    //   }else if (to.query !== from.query) {
+    //     console.log("this query to", to.query)
+    //     this.performSearch(to.query);
+       
+    //   }
+    // },
+    '$route'(to, from) {
+    // Check if the route has changed to 'advanced-search-view'
+    if (to.name === 'advanced-search-view' && from.name !== 'advanced-search-view') {
+      console.log("Navigated to advanced search with query", to.query);
+      // Optionally reset data here if needed
+      this.resetData();
+    }
+
+    // Perform search only if the actual query parameters have changed
+    if (this.queryParamsChanged(to.query, from.query)) {
+      console.log("Query changed, performing search with new query:", to.query);
+      this.performSearch(to.query);
+    }
+  },
 
     booksPerPage(newValue, oldValue) {
       if (newValue != oldValue) {
@@ -363,6 +382,8 @@ export default {
       }
     }
   },
+
+
 
   created() {
     const queryParams = this.$route.query;
@@ -419,6 +440,40 @@ export default {
   
   },
   methods: {
+    resetData() {
+    // Reset simple string variables
+    this.searchDetail = '';
+    this.selectedCategory = '';
+    
+    // Reset numeric variables
+    this.currentPage = 1;
+    
+    // Reset complex objects or forms
+    this.searchForm = {
+      author: '',
+      title: '',
+      keywords: '',
+      minPrice: '',
+      maxPrice: ''
+    };
+    
+    // Reset arrays, useful if you are managing a list or a set of selections
+    this.filteredBooks = [];
+    
+    // Reset booleans to their default states
+    this.isLoading = false;
+    
+    // Reset selected options in dropdowns or similar components
+    this.condition = 'USED';  // Assuming 'USED' is a default state
+    this.price = 'anyPrice';  // Default selection for price
+    this.binding = 'all';     // Default selection for binding
+    
+    // Clear any specific flags or messages
+
+  },
+    queryParamsChanged(newQuery, oldQuery) {
+    return newQuery !== oldQuery;
+  },
     needsUpdate(newQuery, oldQuery) {
         // Compare specific query parameters that trigger updates
         return newQuery.search !== oldQuery.search ||
@@ -492,7 +547,7 @@ export default {
     updateQueryParams() {
     // Logic to update query parameters
     console.log("Updating query parameters without search");
-    this.$router.replace({
+    this.$router.push({
       name: 'search-result-view',
       query: {
         ...this.$route.query,
@@ -545,7 +600,7 @@ export default {
   
     setCategoryAndSearch(category) {
       console.log("Method called with category:", category);
-      this.$router.replace({
+      this.$router.push({
         name: "search-result-view",
         query: { ...this.$route.query, category },
       });

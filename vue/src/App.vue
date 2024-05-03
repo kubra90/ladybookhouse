@@ -15,7 +15,7 @@ import FooterPage from './components/FooterPage.vue';
 
 <template>
   <div id="app" class="flex-container">
-    <router-view class="flex-content" />
+    <router-view class="flex-content"/>
     <!-- <FooterPage /> -->
   </div>
 </template>
