@@ -117,9 +117,9 @@ watch: {
     methods: {
       ...mapActions(['updateFormData']),
 
-      resetForm() {
-    this.searchForm = { category: '', author: '', title: '', keywords: '', minPrice: '', maxPrice: '' }
-      },
+    //   resetForm() {
+    // this.searchForm = { category: '', author: '', title: '', keywords: '', minPrice: '', maxPrice: '' }
+    //   },
 
   
       
