@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.ladybookhouse.model.Book;
 import com.ladybookhouse.model.BookListDTO;
 import com.ladybookhouse.service.AobApiService;
+
+import com.ladybookhouse.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,12 @@ public class InventoryController {
     @Autowired
     AobApiService service;
 
+
+    @Autowired
+    EmailService emailService;
+
+
+
     //localhost:9000/ladybookhouse
     @RequestMapping(path = "/books/{sku}", method = RequestMethod.GET)
     public Book getBook(@PathVariable("sku") String sku) throws JsonProcessingException {
@@ -27,6 +35,7 @@ public class InventoryController {
     //get all inventory List
     @RequestMapping(path= "/books", method= RequestMethod.GET)
     public List<Book> getAllBooks() throws JsonProcessingException{
+        emailService.sendEmail("kubracetin.ist@gmail.com", "hey", "sendgrid");
         return service.getInventoryList();
     }
 
