@@ -1,22 +1,18 @@
 package com.ladybookhouse.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.dao.AddressDao;
-import com.ladybookhouse.dao.JdbcOrderDao;
 import com.ladybookhouse.dao.OrderDao;
 import com.ladybookhouse.model.*;
 import com.ladybookhouse.security.MyUserDetail;
+import com.ladybookhouse.service.EmailServiceMessage;
 import com.ladybookhouse.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -25,29 +21,34 @@ import java.util.List;
 @CrossOrigin
 public class OrderController {
 
-private OrderDao orderDao;
+    private OrderDao orderDao;
 
-private AddressDao addressDao;
+    private AddressDao addressDao;
 
 
-private MyUserDetail userDetail;
+    private MyUserDetail userDetail;
 
-private OrderService orderService;
+    private OrderService orderService;
 
-@Autowired
-public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService){
-    this.orderDao = orderDao;
-    this.addressDao =addressDao;
-    this.orderService = orderService;
-}
+    @Autowired
+    private EmailServiceMessage emailService;
+
+    @Autowired
+    public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService) {
+        this.orderDao = orderDao;
+        this.addressDao = addressDao;
+        this.orderService = orderService;
+
+    }
 
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path="/checkout", method= RequestMethod.POST)
-    public void placeOrder(@Valid @RequestBody OrderRequestDTO orderRequest) throws JsonProcessingException {
+    @RequestMapping(path = "/checkout", method = RequestMethod.POST)
+    public ResponseEntity<?> placeOrder(@Valid @RequestBody OrderRequestDTO orderRequest){
         // get the billing and shipping addresses from the methods in orderRequest
-      AddressDTO billingAddressDTO = orderRequest.getBillingAddress();
-      AddressDTO shippingAddressDTO = orderRequest.getShippingAddress();
+        try{
+        AddressDTO billingAddressDTO = orderRequest.getBillingAddress();
+        AddressDTO shippingAddressDTO = orderRequest.getShippingAddress();
 
         // Convert AddressDTOs to model Address
         Address billingAddress = convertToAddress(billingAddressDTO);
@@ -66,7 +67,38 @@ public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService or
 
         );
 
+        // Sending confirmation email
+        String emailProvider = determineProvider(orderRequest.getEmail());
+        String subject = "Order Confirmation";
+        String body = "Thank you for your order! We are processing it and will keep you updated.";
+        emailService.sendEmail(emailProvider, orderRequest.getEmail(), subject, body);
+
+        return ResponseEntity.ok().body("Order placed and email sent successfully!");
+
+    } catch (MessagingException e){
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email.");
+    } catch(Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred processing your order.");
+
     }
+
+}
+
+    private String determineProvider(String email) {
+        if (email.toLowerCase().contains("@gmail.com")) {
+            return "gmail";
+        } else if (email.toLowerCase().contains("@yahoo.com")) {
+            return "yahoo";
+        } else if (email.toLowerCase().contains("@outlook.com")) {
+            return "outlook";
+        } else {
+            return "other";
+        }
+    }
+
+
 
     @RequestMapping(path="/orders", method= RequestMethod.GET)
     public List<Order> getOrders(Principal principal) {
