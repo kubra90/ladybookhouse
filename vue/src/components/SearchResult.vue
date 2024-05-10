@@ -355,7 +355,7 @@ export default {
     if (to.name === 'advanced-search-view' && from.name !== 'advanced-search-view') {
       console.log("Navigated to advanced search with query", to.query);
       // Optionally reset data here if needed
-      this.resetData();
+      // this.resetData();
     }
 
     // Perform search only if the actual query parameters have changed
@@ -440,37 +440,37 @@ export default {
   
   },
   methods: {
-    resetData() {
-    // Reset simple string variables
-    this.searchDetail = '';
-    this.selectedCategory = '';
+  //   resetData() {
+  //   // Reset simple string variables
+  //   this.searchDetail = '';
+  //   this.selectedCategory = '';
     
-    // Reset numeric variables
-    this.currentPage = 1;
+  //   // Reset numeric variables
+  //   this.currentPage = 1;
     
-    // Reset complex objects or forms
-    this.searchForm = {
-      author: '',
-      title: '',
-      keywords: '',
-      minPrice: '',
-      maxPrice: ''
-    };
+  //   // Reset complex objects or forms
+  //   this.searchForm = {
+  //     author: '',
+  //     title: '',
+  //     keywords: '',
+  //     minPrice: '',
+  //     maxPrice: ''
+  //   };
     
-    // Reset arrays, useful if you are managing a list or a set of selections
-    this.filteredBooks = [];
+  //   // Reset arrays, useful if you are managing a list or a set of selections
+  //   this.filteredBooks = [];
     
-    // Reset booleans to their default states
-    this.isLoading = false;
+  //   // Reset booleans to their default states
+  //   this.isLoading = false;
     
-    // Reset selected options in dropdowns or similar components
-    this.condition = 'USED';  // Assuming 'USED' is a default state
-    this.price = 'anyPrice';  // Default selection for price
-    this.binding = 'all';     // Default selection for binding
+  //   // Reset selected options in dropdowns or similar components
+  //   this.condition = 'USED';  // Assuming 'USED' is a default state
+  //   this.price = 'anyPrice';  // Default selection for price
+  //   this.binding = 'all';     // Default selection for binding
     
-    // Clear any specific flags or messages
+  //   // Clear any specific flags or messages
 
-  },
+  // },
     queryParamsChanged(newQuery, oldQuery) {
     return newQuery !== oldQuery;
   },

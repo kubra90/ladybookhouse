@@ -1,5 +1,5 @@
 <template>
-  <header class="header-container header-custom">
+  <header class="header-container header-custom" v-show="showComponent">
     <div class="container">
       <div
         class="row align-items-start justify-content-between px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0"
@@ -207,7 +207,10 @@ export default {
 	},
 	computed: {
 		...mapState(["basketCount", "user", "books"]),
-		...mapGetters(["isAuthenticated"])
+		...mapGetters(["isAuthenticated"]),
+    showComponent() {
+      return this.$store.state.showHeaderAndFooter
+    }
 	}
 }
 </script>

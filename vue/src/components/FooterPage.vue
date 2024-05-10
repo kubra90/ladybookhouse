@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer mt-auto footer-custom">
+  <footer class="footer mt-auto footer-custom" v-show="showComponent">
     <div class="container">
       <div class="row px-md-0 mx-md-0 px-sm-0 mx-sm-0 px-lg-5 mx-lg-5 px-xxl-0 mx-xxl-0">
         <div class="col-md-3 mb-3 mt-4">
@@ -49,7 +49,12 @@
 
 <script>
 export default {
-  name: "footer-page"
+  name: "footer-page",
+  computed: {
+    showComponent() {
+      return this.$store.state.showHeaderAndFooter
+    }
+  }
 }
 </script>
 

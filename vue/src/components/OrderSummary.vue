@@ -1,7 +1,7 @@
 <template>
   <div class="order-summary">
     <div class="container py-4">
-      <div class="row g-4">
+      <div class="row g-4" v-if="!showConfirmationModal">
         <p
           class="h5 fw-normal"
           style="
@@ -29,22 +29,25 @@
                         >Shipping Information</span
                       >
                       <router-link
-                        v-bind:to="{ name: 'checkout', query: {focus: 'shipping'} }"
+                        v-bind:to="{
+                          name: 'checkout',
+                          query: { focus: 'shipping' },
+                        }"
                         class="btn btn-secondary btn-sm"
                         style="margin-left: 0.4rem; background-color: gray"
                         >Change</router-link
                       >
-                   
                     </div>
                     <p class="card-text">
                       <strong>{{ displayName }}</strong
                       ><br />
                       {{ tempOrderInfo.shippingAddress.addressLine }}<br />
                       {{ tempOrderInfo.shippingAddress.city }}<br />
-                      {{ tempOrderInfo.shippingAddress.stateInfo }} {{ tempOrderInfo.shippingAddress.zipcode
-                      }}<br />
+                      {{ tempOrderInfo.shippingAddress.stateInfo }}
+                      {{ tempOrderInfo.shippingAddress.zipcode }}<br />
                       {{ tempOrderInfo.shippingAddress.country }}<br />
-                      Phone: {{ tempOrderInfo.shippingAddress.phoneNumber }}<br />
+                      Phone: {{ tempOrderInfo.shippingAddress.phoneNumber
+                      }}<br />
                       Email: {{ displayEmail }}
                     </p>
                   </div>
@@ -59,14 +62,17 @@
                         >Payment Information</span
                       >
                       <router-link
-                      v-bind:to="{name: 'checkout', query: {focus: 'payment'}}"
-                      class="btn btn-secondary btn-sm"
+                        v-bind:to="{
+                          name: 'checkout',
+                          query: { focus: 'payment' },
+                        }"
+                        class="btn btn-secondary btn-sm"
                         style="margin-left: 0.4rem; background-color: gray"
                       >
                         Change
                       </router-link>
                     </div>
-                    <p class="card-text">Method: {{paymentMethod}}</p>
+                    <p class="card-text">Method: {{ paymentMethod }}</p>
                   </div>
                 </div>
               </div>
@@ -93,15 +99,32 @@
                     <span>Shipping:</span>
                     <span> ${{ formatPrice(totalShippingCost) }}</span>
                   </div>
-                  <hr>
+                  <hr />
                   <div
-                    class="d-flex justify-content-between align-items-center" style="color:#c7002c"
+                    class="d-flex justify-content-between align-items-center"
+                    style="color: #c7002c"
                   >
                     <span>Order Total:</span>
                     <span> ${{ formatPrice(totalPrice) }}</span>
                   </div>
-                  <hr>
-                  <button class="btn btn-primary w-100" style="color:white;background-color:#c7002c;width:auto;border:none;" @click="concludeOrder">Place your order</button>
+                  <hr />
+                  <!-- Button trigger modal -->
+                  <button
+                    class="btn btn-primary w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    style="
+                      color: white;
+                      background-color: #c7002c;
+                      width: auto;
+                      border: none;
+                    "
+                    @click="concludeOrder"
+                  >
+                    Place your order
+                  </button>
+
+                  <!-- till here -->
                 </div>
               </div>
               <!-- Additional details like shipping cost can be added here -->
@@ -110,37 +133,91 @@
         </div>
       </div>
 
-      <!-- Book Details and Shipping Options -->
-      <div class="row mt-4">
-<!-- Book Details with Price Adjustment and Shipping Dropdown -->
-<div class="col-12 col-md-8">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h5 class="card-title">Books in Cart</h5>
-      <div v-for="(book, index) in cartBooks" :key="index" class="mb-4">
-        <div class="d-flex align-items-center">
-          <div class="me-3 position-relative">
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
-              {{ book.quantity }}
-            </span>
-            <img :src="book.image" alt="book image" class="img-sm rounded border" style="height: 96px; width: 66px"/>
-          </div>
-          <div class="flex-grow-1">
-            <router-link :to="{ name: 'detail', params: { sku: book.sku }}" class="nav-link">
-              <strong>{{ book.title }}</strong> <br />
-              {{ book.author }}
-            </router-link>
-          </div>
-          <div>
-            <span class="price text-muted" style="color:chocolate">$ {{ book.price }}</span>
+      <!-- modal for the order confirmation -->
+      <!-- modal  -->
+      <div
+        v-if="showConfirmationModal"
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Order Confirmation
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                @click="hidePopup"
+              ></button>
+            </div>
+            <div class="modal-body">
+              Thanks for your order. Hope you'll enjoy your Book
+              <hr />
+              Order Number: {{ order.orderId}} 
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="goToHomePage"
+              >
+                Go to Home
+              </button>
+            </div>
           </div>
         </div>
-        <!-- Shipping Options Dropdown -->
       </div>
-    </div>
-  </div>
-</div>
 
+      <!-- Book Details and Shipping Options -->
+      <div class="row mt-4" v-if="!showConfirmationModal">
+        <!-- Book Details with Price Adjustment and Shipping Dropdown -->
+        <div class="col-12 col-md-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Books in Cart</h5>
+              <div v-for="(book, index) in cartBooks" :key="index" class="mb-4">
+                <div class="d-flex align-items-center">
+                  <div class="me-3 position-relative">
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"
+                    >
+                      {{ book.quantity }}
+                    </span>
+                    <img
+                      :src="book.image"
+                      alt="book image"
+                      class="img-sm rounded border"
+                      style="height: 96px; width: 66px"
+                    />
+                  </div>
+                  <div class="flex-grow-1">
+                    <router-link
+                      :to="{ name: 'detail', params: { sku: book.sku } }"
+                      class="nav-link"
+                    >
+                      <strong>{{ book.title }}</strong> <br />
+                      {{ book.author }}
+                    </router-link>
+                  </div>
+                  <div>
+                    <span class="price text-muted" style="color: chocolate"
+                      >$ {{ book.price }}</span
+                    >
+                  </div>
+                </div>
+                <!-- Shipping Options Dropdown -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -152,10 +229,26 @@
 import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "OrderSummary",
+  data() {
+    return {
+      showConfirmationModal: false,
+    };
+  },
   // Assuming props are passed or Vuex store is used
   computed: {
-    ...mapState(["order", "cartBooks", "selectedPaymentMethod", "basketCount", "tempOrderInfo","order"]),
-    ...mapGetters(["totalPrice", "isAuthenticated", "totalShippingCost", "subTotalPrice"]),
+    ...mapState([
+      "order",
+      "cartBooks",
+      "selectedPaymentMethod",
+      "basketCount",
+      "tempOrderInfo"
+    ]),
+    ...mapGetters([
+      "totalPrice",
+      "isAuthenticated",
+      "totalShippingCost",
+      "subTotalPrice",
+    ]),
     tempOrderInfo() {
       return this.$store.state.tempOrderInfo;
     },
@@ -174,9 +267,11 @@ export default {
     },
     displayName() {
       const firstName =
-        this.tempOrderInfo.shippingAddress.firstname || this.$store.state.user.firstName;
+        this.tempOrderInfo.shippingAddress.firstname ||
+        this.$store.state.user.firstName;
       const lastName =
-        this.tempOrderInfo.shippingAddress.lastname || this.$store.state.user.lastName;
+        this.tempOrderInfo.shippingAddress.lastname ||
+        this.$store.state.user.lastName;
       return `${firstName} ${lastName}`;
     },
     displayEmail() {
@@ -185,55 +280,133 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['createOrder']),
+    ...mapActions(["createOrder"]),
+
     formatPrice(value) {
       const formattedPrice = Number(value).toFixed(2);
       return formattedPrice;
     },
-   
-//    async concludeOrder() {
-//   if (this.cartBooks != null && this.cartBooks.length > 0) {
-//     // Assuming tempOrderInfo is already up-to-date with user inputs
-//     // and just needs inventory codes from cartBooks
-//     this.tempOrderInfo.inventoryCode = this.cartBooks.map(book => book.sku);
+    // toggleModal(show) {
+    //   this.showConfirmationModal = show;
+    //   this.showHeaderAndFooter = !show;
+    //   if (show) {
+    //     this.$nextTick(() => {
+    //       document.getElementById("exampleModal").style.display = "block";
+    //       document.getElementById("exampleModal").classList.add("show");
+    //       // the below change the color to salmon after
+    //       if (this.$route.name === "orderSummary") {
+    //         document.body.style.backgroundColor = "salmon";
+    //       }else {
+    //         document.body.style.backgroundColor = "";
+    //       }
+    //     });
+    //   } else {
+    //     document.getElementById("exampleModal").style.display = "none";
+    //     document.getElementById("exampleModal").classList.remove("show");
+    //   }
+    // },
+    toggleModal(show) {
+      this.showConfirmationModal = show;
+      this.$store.commit('SHOW_HEADER_AND_FOOTER', false);
+      this.$nextTick(() => {
+        const modal = document.getElementById("exampleModal");
+        if (modal) {
+          modal.style.display = show ? "block" : "none";
+          modal.classList.toggle("show", show);
+          if (this.$route.name === "orderSummary" && show) {
+            document.body.style.backgroundColor = "salmon";
+          } 
+        }
+      });
+    },
+    goToHomePage() {
+      this.$store.commit('SHOW_HEADER_AND_FOOTER', true);
+      this.$router.push({ name: "home" });
+      document.body.style.backgroundColor = "white";
+    },
+    hidePopup() {
+      this.$store.commit('SHOW_HEADER_AND_FOOTER', true);
+      this.showConfirmationModal = false;
+      this.$router.push({name: "home"})
+      document.body.style.backgroundColor = "white";
+    },
 
-//     try {
-//       // Use tempOrderInfo for creating the order
-//       await this.createOrder(this.tempOrderInfo);
+    //    async concludeOrder() {
+    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
+    //     // Assuming tempOrderInfo is already up-to-date with user inputs
+    //     // and just needs inventory codes from cartBooks
+    //     this.tempOrderInfo.inventoryCode = this.cartBooks.map(book => book.sku);
 
-//       // Navigate to the order success page
-//       this.$router.push({ name: "orderSuccess" });
-//     } catch (error) {
-//       // Log or handle the error appropriately
-//       console.error("Order submission failed", error);
-//       // Optionally, display a user-friendly error message
-//       this.$refs.alertToast.addToast({
-//         title: "Order Submission Failed",
-//         message: "There was a problem submitting your order. Please try again.",
-//       });
-//     }
-//   }
-// }
+    //     try {
+    //       // Use tempOrderInfo for creating the order
+    //       await this.createOrder(this.tempOrderInfo);
+
+    //       // Navigate to the order success page
+    //       this.$router.push({ name: "orderSuccess" });
+    //     } catch (error) {
+    //       // Log or handle the error appropriately
+    //       console.error("Order submission failed", error);
+    //       // Optionally, display a user-friendly error message
+    //       this.$refs.alertToast.addToast({
+    //         title: "Order Submission Failed",
+    //         message: "There was a problem submitting your order. Please try again.",
+    //       });
+    //     }
+    //   }
+    // }
+    // concludeOrder() {
+    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
+    //     this.tempOrderInfo.inventoryCode = [];
+    //     for (const book of this.cartBooks) {
+    //       this.tempOrderInfo.inventoryCode.push(book.sku);
+    //     }
+
+    //     try {
+    //       this.createOrder(this.tempOrderInfo);
+    //       // console.log(this.tempOrderInfo.saveAddress);
+    //       this.showConfirmationModal = true,
+    //         // this.$router.push({ name: "home" });
+    //         this.$store.commit("RESET_TEMP_ORDER_INFO");
+    //     } catch (error) {
+    //       console.error("Order submission failed", error);
+    //     }
+    //   }
+    // },
+    // concludeOrder() {
+    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
+    //     this.tempOrderInfo.inventoryCode = this.cartBooks.map(
+    //       (book) => book.sku
+    //     );
+    //     try {
+    //       this.createOrder(this.tempOrderInfo);
+    //       this.showConfirmationModal = true; // Check this line is being hit
+    //       this.$store.commit("RESET_TEMP_ORDER_INFO");
+    //     } catch (error) {
+    //       console.error("Order submission failed", error);
+    //     }
+    //   }
+    // },
     concludeOrder() {
-      if (this.cartBooks != null && this.cartBooks.length > 0) {
-        this.tempOrderInfo.inventoryCode = [];
-        for (const book of this.cartBooks) {
-          this.tempOrderInfo.inventoryCode.push(book.sku);
-        }
-
-        try {
-          this.createOrder(this.tempOrderInfo);
-          console.log(this.tempOrderInfo.saveAddress);
-          this.$router.push({ name: "orderSuccess" });
-          this.$store.commit('RESET_TEMP_ORDER_INFO')
-        } catch (error) {
-          console.error("Order submission failed", error);
-        }
+      if (this.cartBooks.length > 0) {
+        this.tempOrderInfo.inventoryCode = this.cartBooks.map(
+          (book) => book.sku
+        );
+        this.createOrder(this.tempOrderInfo)
+          .then(() => {
+         
+            console.log(this.order);
+            this.toggleModal(true);
+            this.$store.commit("RESET_TEMP_ORDER_INFO");
+          })
+          .catch((error) => {
+            console.error("Order submission failed", error);
+            this.toggleModal(false);
+            this.$store.state.showHeaderAndFooter=true;
+          });
       }
     },
-  }
-
-}
+  },
+};
 </script>
   
   <style scoped>

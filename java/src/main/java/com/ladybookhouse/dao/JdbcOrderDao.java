@@ -36,7 +36,7 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public boolean create(String email, List<String> inventoryCode, boolean saveAddress,
+    public Order create(String email, List<String> inventoryCode, boolean saveAddress,
                           boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption
     ) {
 
@@ -72,19 +72,27 @@ public class JdbcOrderDao implements OrderDao {
 
                 Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, subTotalPrice, shippingCost, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
 
-                if (orderId != null)
+                if (orderId != null) {
                     // If the order was successfully created, insert related books
                     insertOrderBooks(inventoryCode, orderId);
+//                     new code to return order
+                    Order newOrder = getOrderByOrderId(orderId);
 
-                return true;
+//                return true;
+                    return newOrder;
+                }else{
+                    return null;
+                }
 
             } catch (EmptyResultDataAccessException e) {
-                return false;
+//                return false;
+                return  null;
                 // Log exception
             } catch (DataAccessException e) {
                 // General handler for other data access exceptions
                 System.out.println("Data access error: " + e.getMessage());
-                return false;
+//                return false;
+                return null;
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }

@@ -55,7 +55,7 @@ public class OrderController {
         Address shippingAddress = convertToAddress(shippingAddressDTO);
 
         // calculate the totalPrice here
-        orderDao.create(
+        Order order =orderDao.create(
                 orderRequest.getEmail(),
                 orderRequest.getInventoryCode(),
                 orderRequest.isSaveAddress(),
@@ -66,15 +66,19 @@ public class OrderController {
                 orderRequest.getDeliveryOption()
 
         );
+        if(order !=  null) {
+            // Sending confirmation email
+            System.out.println(order);
+            System.out.println(order.getOrderId());
+            String emailProvider = determineProvider(orderRequest.getEmail());
+            String subject = "Order Confirmation";
+            String body = "Thank you for your order! We are processing it and will keep you updated.";
+            emailService.sendEmail(emailProvider, orderRequest.getEmail(), subject, body);
 
-        // Sending confirmation email
-        String emailProvider = determineProvider(orderRequest.getEmail());
-        String subject = "Order Confirmation";
-        String body = "Thank you for your order! We are processing it and will keep you updated.";
-        emailService.sendEmail(emailProvider, orderRequest.getEmail(), subject, body);
-
-        return ResponseEntity.ok().body("Order placed and email sent successfully!");
-
+            return ResponseEntity.ok(order);
+        }else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create order.");
+        }
     } catch (MessagingException e){
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email.");

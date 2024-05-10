@@ -44,7 +44,7 @@
           <div class="container p-0">
             <h6 class="mb-0">My Purchases</h6>
             <hr class="mt-1 mb-2">
-            <router-link to="/order-history" class="link">View Order History</router-link>
+            <router-link v-bind:to="{name: 'order'}" class="link">View Order History</router-link>
           </div>
         </div>
         <div class="col-md-6">

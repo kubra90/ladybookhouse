@@ -1,5 +1,7 @@
 <template>
-  <div class="container book-container d-flex flex-column flex-lg-row align-items-center justify-content-center">
+  <div
+    class="container book-container d-flex flex-column flex-lg-row align-items-center justify-content-center"
+  >
     <div class="book-details mb-4 mb-lg-0">
       <p>
         <strong style="font-size: medium">{{ book.title }}</strong>
@@ -31,7 +33,11 @@
           <strong>Ask a Question</strong>
         </button>
       </div>
-      <div v-if="showBookshelfPopup" class="overlay-bookshelf" @click="hidePopup"></div>
+      <div
+        v-if="showBookshelfPopup"
+        class="overlay-bookshelf"
+        @click="hidePopup"
+      ></div>
       <div v-if="showBookshelfPopup" class="bookshelf-popup">
         <div class="d-flex justify-content-between align-items-center">
           <p class="mb-3">This book added to your Bookshelf</p>
@@ -59,28 +65,53 @@
     </div>
 
     <div v-if="showAddedToCart" class="overlay" @click="hidePopup"></div>
-<div v-if="showAddedToCart" class="added-to-cart-popup p-4">
-  <div class="d-flex justify-content-between align-items-center">
-    <div v-if="showErrorMessage" class="alert alert-warning" role="alert" style="height:auto;">
-      You've already added this book to the cart.
+    <div v-if="showAddedToCart" class="added-to-cart-popup p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div
+          v-if="showErrorMessage"
+          class="alert alert-warning"
+          role="alert"
+          style="height: auto"
+        >
+          You've already added this book to the cart.
+        </div>
+        <div v-else class="fw-bold fs-5">Added to Cart</div>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          @click="hidePopup"
+        ></button>
+      </div>
+      <div class="d-flex align-items-center mt-3">
+        <img
+          :src="book.image"
+          class="img-fluid me-3"
+          style="width: 100px; height: auto"
+        />
+        <div>
+          <h5 class="mb-0 book-title">{{ book.title }}</h5>
+          <p class="mb-1">{{ book.author }}</p>
+          <p class="fw-bold">Price: ${{ formatPrice(book.price) }}</p>
+        </div>
+      </div>
+      <div class="mt-3 text-end">
+        <button
+          @click="hidePopup"
+          class="btn btn-outline-primary btn-sm me-2"
+          style="color: #6b3630; border-color: #6b3630"
+        >
+          CONTINUE SHOPPING
+        </button>
+        <button
+          @click="goToCart"
+          class="btn btn-primary btn-sm"
+          style="color: #6b3630; background-color: antiquewhite; border: none"
+        >
+          GO TO CART
+        </button>
+      </div>
     </div>
-    <div v-else class="fw-bold fs-5">Added to Cart</div>
-    <button type="button" class="btn-close" aria-label="Close" @click="hidePopup"></button>
-  </div>
-  <div class="d-flex align-items-center mt-3">
-    <img :src="book.image" class="img-fluid me-3" style="width: 100px; height: auto;" />
-    <div>
-      <h5 class="mb-0 book-title">{{ book.title }}</h5>
-      <p class="mb-1">{{ book.author }}</p>
-      <p class="fw-bold">Price: ${{ formatPrice(book.price) }}</p>
-    </div>
-  </div>
-  <div class="mt-3 text-end">
-    <button @click="hidePopup" class="btn btn-outline-primary btn-sm me-2" style="color:#6b3630; border-color:#6b3630;">CONTINUE SHOPPING</button>
-    <button @click="goToCart" class="btn btn-primary btn-sm" style="color:#6b3630; background-color:antiquewhite;border:none;">GO TO CART</button>
-  </div>
-</div>
-
   </div>
 </template>
   
@@ -160,7 +191,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* Overlay Style */
 .overlay-bookshelf {
   position: fixed;
@@ -210,7 +240,8 @@ export default {
   margin-top: 1rem;
 }
 
-.mb-0, .mb-1 {
+.mb-0,
+.mb-1 {
   margin-bottom: 0;
   margin-bottom: 0.25rem;
 }
@@ -234,7 +265,7 @@ export default {
   flex: 2; /* Allocate more space to the details */
   display: flex;
   flex-direction: column;
-  padding-right: 6.25rem; 
+  padding-right: 6.25rem;
 }
 
 .book-image {
@@ -321,8 +352,6 @@ export default {
   font-family: "PT Sans", sans-serif; */
 }
 
-
-
 .bookshelf-popup {
   position: fixed;
   top: 50%;
@@ -388,8 +417,6 @@ export default {
 .close-popup:hover {
   color: #555; /* Darken the color on hover */
 }
-
-
 
 .popup-content {
   display: flex;

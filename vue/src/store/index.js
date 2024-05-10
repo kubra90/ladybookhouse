@@ -26,6 +26,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     startingVal: 0,
     endingVal: 10,
+    showHeaderAndFooter: true,
     books: [],
     book: {},
     newArrivals: [],
@@ -38,7 +39,23 @@ export default new Vuex.Store({
     savedBook: {},
     // orders
     orders: [],
-    order: {},
+    order: {
+      billingId: '',
+      deliveryOption: '',
+      email: '',
+      infoMail: '',
+      inventoryCode: [],
+      message: '',
+      orderDateTime: '',
+      orderId: '',
+      saveAddress: '',
+      shippingCost: '',
+      shippingId: '',
+      subTotalPrice: '',
+      totalPrice: '',
+    },
+    // order: {},
+
     shippingAddresses: [], 
     address: {},
     addresses: [],
@@ -170,6 +187,9 @@ export default new Vuex.Store({
     // }
   },
   mutations: {
+    SHOW_HEADER_AND_FOOTER(state, show){
+      state.showHeaderAndFooter = show
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
@@ -370,6 +390,7 @@ export default new Vuex.Store({
     },
     SET_ORDER(state, data){
       state.order = data
+      console.log(state.order);
     },
     SET_ADDRESS(state, data){
       state.address = data
@@ -451,9 +472,11 @@ export default new Vuex.Store({
       commit('SET_ORDERS', response.data)
       console.log(response.data)
   },
-  async createOrder({commit}, order){
-    const response = await placeOrder(order)
+  async createOrder({commit}, tempOrderInfo){
+    const response = await placeOrder(tempOrderInfo)
+    console.log(response.data)
     commit('SET_ORDER', response.data)
+    
    },
     async getUserAddresses({commit}){
      const response = await getAddress()
