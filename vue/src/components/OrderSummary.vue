@@ -145,22 +145,23 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header my-4">
               <h5 class="modal-title" id="exampleModalLabel">
-                Order Confirmation
+                Lady Bookhouse
               </h5>
-              <button
+              <!-- <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 @click="hidePopup"
-              ></button>
+              ></button> -->
+            
             </div>
-            <div class="modal-body">
-              Thanks for your order. Hope you'll enjoy your Book
-              <hr />
-              Order Number: {{ order.orderId}} 
+            <div class="modal-body d-flex flex-column justify-content-center my-4">
+              <div>{{displayName}}, thank you for your order. </div>
+          
+              <div class="my-2 mx-1 px-1">We've received your order. We'll contact you as soon as your order is shipped</div>
             </div>
             <div class="modal-footer">
               <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -314,7 +315,7 @@ export default {
           modal.style.display = show ? "block" : "none";
           modal.classList.toggle("show", show);
           if (this.$route.name === "orderSummary" && show) {
-            document.body.style.backgroundColor = "salmon";
+            document.body.style.backgroundColor = "OldLace";
           } 
         }
       });
@@ -330,62 +331,6 @@ export default {
       this.$router.push({name: "home"})
       document.body.style.backgroundColor = "white";
     },
-
-    //    async concludeOrder() {
-    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
-    //     // Assuming tempOrderInfo is already up-to-date with user inputs
-    //     // and just needs inventory codes from cartBooks
-    //     this.tempOrderInfo.inventoryCode = this.cartBooks.map(book => book.sku);
-
-    //     try {
-    //       // Use tempOrderInfo for creating the order
-    //       await this.createOrder(this.tempOrderInfo);
-
-    //       // Navigate to the order success page
-    //       this.$router.push({ name: "orderSuccess" });
-    //     } catch (error) {
-    //       // Log or handle the error appropriately
-    //       console.error("Order submission failed", error);
-    //       // Optionally, display a user-friendly error message
-    //       this.$refs.alertToast.addToast({
-    //         title: "Order Submission Failed",
-    //         message: "There was a problem submitting your order. Please try again.",
-    //       });
-    //     }
-    //   }
-    // }
-    // concludeOrder() {
-    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
-    //     this.tempOrderInfo.inventoryCode = [];
-    //     for (const book of this.cartBooks) {
-    //       this.tempOrderInfo.inventoryCode.push(book.sku);
-    //     }
-
-    //     try {
-    //       this.createOrder(this.tempOrderInfo);
-    //       // console.log(this.tempOrderInfo.saveAddress);
-    //       this.showConfirmationModal = true,
-    //         // this.$router.push({ name: "home" });
-    //         this.$store.commit("RESET_TEMP_ORDER_INFO");
-    //     } catch (error) {
-    //       console.error("Order submission failed", error);
-    //     }
-    //   }
-    // },
-    // concludeOrder() {
-    //   if (this.cartBooks != null && this.cartBooks.length > 0) {
-    //     this.tempOrderInfo.inventoryCode = this.cartBooks.map(
-    //       (book) => book.sku
-    //     );
-    //     try {
-    //       this.createOrder(this.tempOrderInfo);
-    //       this.showConfirmationModal = true; // Check this line is being hit
-    //       this.$store.commit("RESET_TEMP_ORDER_INFO");
-    //     } catch (error) {
-    //       console.error("Order submission failed", error);
-    //     }
-    //   }
-    // },
     concludeOrder() {
       if (this.cartBooks.length > 0) {
         this.tempOrderInfo.inventoryCode = this.cartBooks.map(
@@ -410,5 +355,61 @@ export default {
 </script>
   
   <style scoped>
+
+  /* Modal content styling */
+.modal-content {
+    background-color: #f8f8f8; /* Light grey background */
+    /* border-radius: 8px;  */
+    border: none; /* No border */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+    
+}
+
+/* Modal header styling */
+.modal-header {
+    background-color: #fff; /* White background for the header */
+    width: 100%; /* Full width to align title properly */
+    display: flex;
+    justify-content: center; /* Center the title horizontally */
+    padding-bottom: 10px;
+   
+}
+.modal-title {
+    font-size: 1.00rem; /* Larger font size */
+    color: #333; /* Dark grey font color */
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Modal body styling */
+.modal-body {
+    padding: 20px; /* Ample padding for spacing */
+    display: flex; /* Ensures flexbox layout */
+    flex-direction: column; /* Stacks children vertically */
+    align-items: center; /* Centers children horizontally */
+    justify-content: center; /* Centers children vertically */
+    text-align: center;
+}
+
+
+/* Modal footer styling */
+.modal-footer {
+    /* border-top: 1px solid #dee2e6; 
+    background-color: #fff;  */
+    border-bottom-left-radius: 8px; /* Rounded bottom left corner */
+    border-bottom-right-radius: 8px; /* Rounded bottom right corner */
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #007bff; /* Primary button color */
+    border-color: #007bff; /* Border color same as background */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Secondary button color */
+    border-color: #6c757d; /* Border color same as background */
+}
+
 </style>
   

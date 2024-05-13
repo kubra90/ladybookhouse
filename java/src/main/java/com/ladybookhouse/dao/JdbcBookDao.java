@@ -5,7 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -69,10 +71,16 @@ public class JdbcBookDao implements  BookDao{
         book.setCondition(rs.getInt("condition"));
         book.setCategory(rs.getString("category"));
         book.setListedDate(rs.getDate("listed_date").toLocalDate());
-        book.setPublicationDate(rs.getDate("release_date").toLocalDate());
+        Date releaseDate = rs.getDate("release_date");
+        LocalDate publicationDate = releaseDate != null ? ((java.sql.Date) releaseDate).toLocalDate() : null;
+        book.setPublicationDate(publicationDate);
         book.setConditionAsText(rs.getString("condition_as_text"));
         book.setUsedBook(rs.getString("used_book"));
         return book;
+
+
+
+
 
     }
 }
