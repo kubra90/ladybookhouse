@@ -70,7 +70,7 @@
                   </div>
                   <div>
                     <b>Publication Date:</b>
-                    {{ getBookDetails(bookNo).publicationDate || "Loading..." }}
+                    {{ getBookDetails(bookNo).release_date || "Loading..." }}
                   </div>
                   <div>{{ getBookDetails(bookNo).notes || "Loading..." }}</div>
                 </div>

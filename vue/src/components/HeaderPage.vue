@@ -80,7 +80,7 @@
                 <button
                   class="btn btn-outline-secondary position-absolute end-0 m-1 py-1"
                   type="submit"
-                  @click.prevent="searchAllBookDetails"
+                  @click.prevent="searchAllBookDetails(searchText)"
                 >
                   <i class="fas fa-search"></i>
                 </button>
@@ -183,26 +183,30 @@ export default {
 			this.isClicked = !this.isClicked
 		},
 
-		searchAllBookDetails() {
-			const filteredDetails = this.books.filter((book) => {
-				const filteredMatch = this.searchText
-					? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
-					book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-					book.isbn === this.searchText ||
-					book.publisher
-						.toLowerCase()
-						.includes(this.searchText.toLowerCase()) ||
-					book.category.toLowerCase().includes(this.searchText.toLowerCase())
-					: true
+		searchAllBookDetails(keywords) {
+			// const filteredDetails = this.books.filter((book) => {
+			// 	const filteredMatch = this.searchText
+			// 		? book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+			// 		book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+			// 		book.isbn === this.searchText ||
+			// 		book.publisher
+			// 			.toLowerCase()
+			// 			.includes(this.searchText.toLowerCase()) ||
+			// 		book.category.toLowerCase().includes(this.searchText.toLowerCase())
+			// 		: true
 
-				return filteredMatch
-			})
+			// 	return filteredMatch
 
-			console.log(filteredDetails)
-			for (let book of filteredDetails) {
-				console.log(book.title)
-				console.log(book.author)
-			}
+        this.$router.push({
+        name: "search-result-view",
+        query: { ...this.$route.query, keywords},
+      });
+
+			// console.log(filteredDetails)
+			// for (let book of filteredDetails) {
+			// 	console.log(book.title)
+			// 	console.log(book.author)
+			// }
 		}
 	},
 	computed: {

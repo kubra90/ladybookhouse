@@ -73,7 +73,7 @@ CREATE TABLE orders(
 
 CREATE TABLE order_books (
     order_books_id SERIAL PRIMARY KEY,
-    bookNo varchar(10) NOT NULL,
+    bookNo varchar(20) NOT NULL,
     order_id INTEGER NOT NULL,
     FOREIGN KEY(order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     UNIQUE (bookNo)
@@ -102,6 +102,7 @@ CREATE TABLE books (
     condition INTEGER,
     category VARCHAR(100),
     listed_date DATE,
+    release_date DATE,
     condition_as_text VARCHAR(255),
     used_book VARCHAR(50)
 );

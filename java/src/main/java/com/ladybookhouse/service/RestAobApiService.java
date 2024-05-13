@@ -77,6 +77,17 @@ public class RestAobApiService implements AobApiService{
             String listedDateString = root.path(0).path("listed_date").asText("");
             LocalDate listedDate = listedDateString.isEmpty() ? null : LocalDate.parse(listedDateString);
 
+        String publishedDateString = root.path(0).path("release_date").asText("");
+        LocalDate publishedDate;
+        if (publishedDateString.isEmpty()) {
+            publishedDate = null;
+        } else if (publishedDateString.length() == 4) {
+            publishedDateString = publishedDateString + "-01-01";  // Defaulting to January 1st
+            publishedDate = LocalDate.parse(publishedDateString);
+        } else {
+            publishedDate = LocalDate.parse(publishedDateString);
+        }
+
 
 
         String publisher =root.path(0).path("publisher").asText("");
@@ -97,6 +108,7 @@ public class RestAobApiService implements AobApiService{
             temp.setCategory(typeBook);
             temp.setPublisher(publisher);
             temp.setListedDate(listedDate);
+            temp.setPublicationDate(publishedDate);
        temp.setCondition(condition);
         String conditionText = temp.getConditionAsText(); // Get the textual description
 
@@ -136,6 +148,17 @@ public class RestAobApiService implements AobApiService{
                 String listedDateString = root.path(i).path("listed_date").asText("");
                 LocalDate listedDate = listedDateString.isEmpty() ? null : LocalDate.parse(listedDateString);
 
+                String publishedDateString = root.path(i).path("release_date").asText("");
+                LocalDate publishedDate;
+                if (publishedDateString.isEmpty()) {
+                    publishedDate = null;
+                } else if (publishedDateString.length() == 4) {
+                    publishedDateString = publishedDateString + "-01-01";  // Defaulting to January 1st
+                    publishedDate = LocalDate.parse(publishedDateString);
+                } else {
+                    publishedDate = LocalDate.parse(publishedDateString);
+                }
+
                 Book temp = new Book();
                 temp.setTitle(title); temp.setAuthor(author); temp.setImage(image);
                 temp.setIsbn(isbn);
@@ -151,6 +174,7 @@ public class RestAobApiService implements AobApiService{
                 temp.setPublisher(publisher);
                 temp.setCondition(condition);
                 temp.setListedDate(listedDate);
+                temp.setPublicationDate(publishedDate);
                 String conditionText = temp.getConditionAsText(); // Get the textual description
 
                 String conditionUsed = type.getCondition(temp);

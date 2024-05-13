@@ -38,6 +38,8 @@ public class Book {
     private LocalDate listedDate;
 
 
+    @JsonProperty("release_date")
+    private LocalDate publicationDate;
 
     private String conditionAsText; //like new, very good
 
@@ -47,6 +49,7 @@ public class Book {
     public String getUsedBook() {
         return usedBook;
     }
+
 
     public void setUsedBook(String usedBook) {
         this.usedBook = usedBook;
@@ -226,6 +229,14 @@ public class Book {
         this.condition = condition;
     }
 
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -236,10 +247,16 @@ public class Book {
                 ", publisher='" + publisher + '\'' +
                 ", author='" + author + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", weight=" + weight +
                 ", notes='" + notes + '\'' +
                 ", quantity=" + quantity +
                 ", inventoryCode='" + inventoryCode + '\'' +
                 ", condition=" + condition +
+                ", category='" + category + '\'' +
+                ", listedDate=" + listedDate +
+                ", publicationDate=" + publicationDate +
+                ", conditionAsText='" + conditionAsText + '\'' +
+                ", usedBook='" + usedBook + '\'' +
                 '}';
     }
 }

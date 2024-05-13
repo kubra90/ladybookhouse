@@ -26,7 +26,7 @@ public class JdbcBookDao implements  BookDao{
         return jdbcTemplate.update(sql, book.getIsbn(), book.getTitle(), book.getImage(),
                 book.getPrice(), book.getMedia(), book.getPublisher(), book.getAuthor(),
                 book.getWeight(), book.getNotes(), book.getQuantity(), book.getInventoryCode(),
-                book.getCondition(), book.getCategory(), book.getListedDate(), book.getConditionAsText(),
+                book.getCondition(), book.getCategory(), book.getListedDate(), book.getPublicationDate(),book.getConditionAsText(),
                 book.getUsedBook()
                 ) == 1;
     }
@@ -69,6 +69,7 @@ public class JdbcBookDao implements  BookDao{
         book.setCondition(rs.getInt("condition"));
         book.setCategory(rs.getString("category"));
         book.setListedDate(rs.getDate("listed_date").toLocalDate());
+        book.setPublicationDate(rs.getDate("release_date").toLocalDate());
         book.setConditionAsText(rs.getString("condition_as_text"));
         book.setUsedBook(rs.getString("used_book"));
         return book;
