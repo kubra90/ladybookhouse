@@ -1,11 +1,18 @@
 package com.ladybookhouse.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ladybookhouse.dao.AddressDao;
 import com.ladybookhouse.dao.OrderDao;
 import com.ladybookhouse.model.*;
+import com.ladybookhouse.model.Address;
+import com.ladybookhouse.model.Order;
 import com.ladybookhouse.security.MyUserDetail;
 import com.ladybookhouse.service.EmailServiceMessage;
 import com.ladybookhouse.service.OrderService;
+import com.ladybookhouse.service.PayPalClient;
+import com.paypal.api.payments.*;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +20,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @RestController
 @CrossOrigin
 public class OrderController {
+
+    private final PayPalClient payPalClient;
 
     private OrderDao orderDao;
 
@@ -34,14 +45,13 @@ public class OrderController {
     private EmailServiceMessage emailService;
 
     @Autowired
-    public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService) {
+    public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService, PayPalClient payPalClient) {
         this.orderDao = orderDao;
         this.addressDao = addressDao;
         this.orderService = orderService;
+        this.payPalClient =payPalClient;
 
     }
-
-
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/checkout", method = RequestMethod.POST)
     public ResponseEntity<?> placeOrder(@Valid @RequestBody OrderRequestDTO orderRequest){
@@ -53,6 +63,12 @@ public class OrderController {
         // Convert AddressDTOs to model Address
         Address billingAddress = convertToAddress(billingAddressDTO);
         Address shippingAddress = convertToAddress(shippingAddressDTO);
+
+            // Create and process payment before creating the order
+            Payment payment =createPayment(orderRequest);
+            if(!"approved".equals(payment.getState())){
+                return ResponseEntity.badRequest().body("Payment was not successful.");
+            }
 
         // calculate the totalPrice here
         Order order =orderDao.create(
@@ -90,6 +106,33 @@ public class OrderController {
 
 }
 
+private Payment createPayment(OrderRequestDTO orderRequest) throws PayPalRESTException, JsonProcessingException {
+    BigDecimal totalPrice=orderService.calculateTotalPrice(orderRequest);
+    Amount amount = new Amount();
+    amount.setCurrency("USD");
+    amount.setTotal(String.format("%.2f", totalPrice));
+
+    Transaction transaction = new Transaction();
+    transaction.setAmount(amount);
+    transaction.setDescription("Your purchase description");
+
+    List<Transaction> transactions = new ArrayList<>();
+    transactions.add(transaction);
+
+    RedirectUrls redirectUrls = new RedirectUrls();
+    redirectUrls.setCancelUrl("http://localhost:8080/cancel");
+    redirectUrls.setReturnUrl("http://localhost:8080/process");
+
+    Payment payment = new Payment();
+    payment.setIntent("sale");
+    payment.setPayer(new Payer());
+    payment.setTransactions(transactions);
+    payment.setRedirectUrls(redirectUrls);
+
+    APIContext apiContext =payPalClient.getAPIContext();
+    return payment.create(apiContext);
+}
+
     private String determineProvider(String email) {
         if (email.toLowerCase().contains("@gmail.com")) {
             return "gmail";
@@ -101,9 +144,6 @@ public class OrderController {
             return "other";
         }
     }
-
-
-
     @RequestMapping(path="/orders", method= RequestMethod.GET)
     public List<Order> getOrders(Principal principal) {
     String email= principal.getName();
@@ -126,12 +166,4 @@ public class OrderController {
 
         return address;
     }
-
-
-
-
-
-
-
-
 }

@@ -94,6 +94,13 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+<!--        dependency for the paypal integration-->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.14.0</version>  <!-- Check for the latest version -->
+        </dependency>
+
 
 
     </dependencies>
