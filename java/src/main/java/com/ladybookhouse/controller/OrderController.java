@@ -107,6 +107,21 @@ public class OrderController {
 
 }
 
+@PostMapping("/execute-payment")
+public ResponseEntity<?> executePayment(@RequestBody PaymentExecutionRequest request){
+        try {
+            Payment payment = new Payment();
+            payment.setId(request.getPaymentId());
+            PaymentExecution paymentExecution = new PaymentExecution();
+            paymentExecution.setPayerId(request.getPayerId());
+            APIContext apiContext =payPalClient.getAPIContext();
+            Payment executedPayment = payment.execute(apiContext, paymentExecution);
+            return ResponseEntity.ok(executedPayment);
+        }catch(PayPalRESTException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to execute payment" + e.getMessage());
+        }
+}
+
 private Payment createPayment(OrderRequestDTO orderRequest) throws PayPalRESTException, JsonProcessingException {
     BigDecimal totalPrice=orderService.calculateTotalPrice(orderRequest);
     Amount amount = new Amount();
