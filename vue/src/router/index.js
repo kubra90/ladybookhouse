@@ -23,6 +23,7 @@ import AdvancedSearchView from '../views/AdvancedSearchView.vue'
 import OrderSummary from '../views/OrderSummaryView.vue'
 import AddressBook from '../views/AddressBook.vue'
 import SearchResultView from '../views/SearchResultView.vue'
+import PaymentSuccessPage from '../views/PaymentSuccessPage'
 
 Vue.use(Router)
 
@@ -223,6 +224,12 @@ const router = new Router({
         next();
       }
     },
+    // route for the successful payment
+    {
+      path: '/payment-success',
+      name: 'payment-success',
+      component: PaymentSuccessPage
+    }
 
   ]
 })

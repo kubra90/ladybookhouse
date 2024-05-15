@@ -9,4 +9,9 @@ async function placeOrder(order){
     return axios.post('/checkout', order)
 }
 
-export {getOrders, placeOrder}
+// payment
+async function executePayment(paymentId, payerId){
+    return axios.post('/execute-payment', {paymentId, payerId})
+}
+
+export {getOrders, placeOrder, executePayment}
