@@ -30,8 +30,6 @@ import java.util.List;
 @CrossOrigin
 public class OrderController {
 
-    private final PayPalClient payPalClient;
-
     private OrderDao orderDao;
 
     private AddressDao addressDao;
@@ -42,14 +40,17 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
+    private PayPalClient payPalClient;
+
+    @Autowired
     private EmailServiceMessage emailService;
 
     @Autowired
-    public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService, PayPalClient payPalClient) {
+    public OrderController(OrderDao orderDao, AddressDao addressDao, OrderService orderService) {
         this.orderDao = orderDao;
         this.addressDao = addressDao;
         this.orderService = orderService;
-        this.payPalClient =payPalClient;
+
 
     }
     @ResponseStatus(HttpStatus.CREATED)

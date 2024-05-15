@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class PayPalClient {
 
@@ -15,11 +17,19 @@ public class PayPalClient {
     @Autowired
     private Environment environment;
 
-    String clientId = environment.getProperty("paypal.client.id");
-    String clientSecret = environment.getProperty("paypal.client.secret");
-
-    @Value("${paypal.mode}")
+    private String clientId;
+    private String clientSecret;
     private String mode;
+
+    public PayPalClient() {
+    }
+
+    @PostConstruct
+    private void init() {
+        this.clientId = environment.getProperty("paypal.client.id");
+        this.clientSecret = environment.getProperty("paypal.client.secret");
+        this.mode = environment.getProperty("mode");
+    }
 
     public APIContext getAPIContext() {
         APIContext apiContext = new APIContext(clientId, clientSecret, mode);
