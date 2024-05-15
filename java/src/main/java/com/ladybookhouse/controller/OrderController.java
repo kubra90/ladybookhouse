@@ -136,8 +136,8 @@ private Payment createPayment(OrderRequestDTO orderRequest) throws PayPalRESTExc
     transactions.add(transaction);
 
     RedirectUrls redirectUrls = new RedirectUrls();
-    redirectUrls.setCancelUrl("http://localhost:8080/cancel");
-    redirectUrls.setReturnUrl("http://localhost:8080/process");
+    redirectUrls.setCancelUrl("http://localhost:9000/cancel");
+    redirectUrls.setReturnUrl("http://localhost:9000/payment-success"); //url after concluding the payment in Paypal
 
     Payment payment = new Payment();
     payment.setIntent("sale");
