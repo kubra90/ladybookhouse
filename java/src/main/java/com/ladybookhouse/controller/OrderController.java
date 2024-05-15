@@ -71,7 +71,9 @@ public class OrderController {
                 return ResponseEntity.badRequest().body("Payment was not successful.");
             }
 
-        // calculate the totalPrice here
+
+
+            // calculate the totalPrice here
         Order order =orderDao.create(
                 orderRequest.getEmail(),
                 orderRequest.getInventoryCode(),
@@ -146,7 +148,21 @@ private Payment createPayment(OrderRequestDTO orderRequest) throws PayPalRESTExc
     payment.setRedirectUrls(redirectUrls);
 
     APIContext apiContext =payPalClient.getAPIContext();
-    return payment.create(apiContext);
+    System.out.println("Using client ID: " + apiContext.getClientID());
+    System.out.println("Using Auth Token: " + apiContext.getClientSecret());
+
+//    return payment.create(apiContext);
+    try {
+        Payment createdPayment = payment.create(apiContext);
+        System.out.println("Created Payment: " + createdPayment.toJSON()); // Log created payment object
+        return createdPayment;
+    } catch (PayPalRESTException e) {
+        System.err.println("PayPal API call failed with details: " + e.getDetails());
+        if (e.getDetails() != null) {
+            System.err.println("Error details: " + e.getDetails().getMessage());
+        }
+        throw e;
+    }
 }
 
     private String determineProvider(String email) {
