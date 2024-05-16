@@ -73,51 +73,52 @@ public class PayPalClient {
         System.out.println("new access "+ accessToken);
         apiContext.setMode(mode);
         apiContext.setConfigurationMap(configMap);
+        System.out.println("apiContext is "+ apiContext);
         return apiContext;
 
 
     }
 
-    private String fetchAccessTokenManually() throws IOException, MalformedURLException {
-        String endpoint = configMap.get("oauth.EndPoint");
-        URL url = new URL(endpoint);
-        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-        httpConn.setRequestMethod("POST");
+//    private String fetchAccessTokenManually() throws IOException, MalformedURLException {
+//        String endpoint = configMap.get("oauth.EndPoint");
+//        URL url = new URL(endpoint);
+//        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+//        httpConn.setRequestMethod("POST");
+//
+//        String credentials = clientId + ":" + clientSecret;
+//        String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
+//
+//        httpConn.setRequestProperty("Authorization", "Basic " + encodedCredentials);
+//        httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//        httpConn.setRequestProperty("Accept", "application/json");
+//
+//        httpConn.setDoOutput(true);
+//        try (OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream())) {
+//            writer.write("grant_type=client_credentials");
+//            writer.flush();
+//        }
+//
+//        int responseCode = httpConn.getResponseCode();
+//        if (responseCode == HttpURLConnection.HTTP_OK) { // 200 OK
+//            Scanner scanner = new Scanner(httpConn.getInputStream()).useDelimiter("\\A");
+//            String response = scanner.hasNext() ? scanner.next() : "";
+//            scanner.close();
+//
+//           //  Extract the token from the response
+//            return extractAccessTokenFromResponse(response);
+//        } else {
+//            Scanner scanner = new Scanner(httpConn.getErrorStream()).useDelimiter("\\A");
+//            String errorResponse = scanner.hasNext() ? scanner.next() : "";
+//            scanner.close();
+//            throw new IOException("Failed to retrieve access token: " + errorResponse);
+//        }
+//    }
 
-        String credentials = clientId + ":" + clientSecret;
-        String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
-
-        httpConn.setRequestProperty("Authorization", "Basic " + encodedCredentials);
-        httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        httpConn.setRequestProperty("Accept", "application/json");
-
-        httpConn.setDoOutput(true);
-        try (OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream())) {
-            writer.write("grant_type=client_credentials");
-            writer.flush();
-        }
-
-        int responseCode = httpConn.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) { // 200 OK
-            Scanner scanner = new Scanner(httpConn.getInputStream()).useDelimiter("\\A");
-            String response = scanner.hasNext() ? scanner.next() : "";
-            scanner.close();
-
-           //  Extract the token from the response
-            return extractAccessTokenFromResponse(response);
-        } else {
-            Scanner scanner = new Scanner(httpConn.getErrorStream()).useDelimiter("\\A");
-            String errorResponse = scanner.hasNext() ? scanner.next() : "";
-            scanner.close();
-            throw new IOException("Failed to retrieve access token: " + errorResponse);
-        }
-    }
-
-    private String extractAccessTokenFromResponse(String jsonResponse) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readTree(jsonResponse);
-        return rootNode.get("access_token").asText();
-    }
+//    private String extractAccessTokenFromResponse(String jsonResponse) throws IOException {
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode rootNode = mapper.readTree(jsonResponse);
+//        return rootNode.get("access_token").asText();
+//    }
 
 
 

@@ -132,26 +132,33 @@ private Payment createPayment(OrderRequestDTO orderRequest) throws PayPalRESTExc
 
     Transaction transaction = new Transaction();
     transaction.setAmount(amount);
+
     transaction.setDescription("Your purchase description");
 
     List<Transaction> transactions = new ArrayList<>();
     transactions.add(transaction);
+    for(Transaction a: transactions){
+        System.out.println(a.getAmount());
+        System.out.println(a);
+    }
 
     RedirectUrls redirectUrls = new RedirectUrls();
     redirectUrls.setCancelUrl("http://localhost:9000/cancel");
     redirectUrls.setReturnUrl("http://localhost:9000/payment-success"); //url after concluding the payment in Paypal
 
+
+    Payer payer = new Payer();
+    payer.setPaymentMethod("paypal");
+
     Payment payment = new Payment();
     payment.setIntent("sale");
-    payment.setPayer(new Payer());
+    payment.setPayer(payer);
     payment.setTransactions(transactions);
     payment.setRedirectUrls(redirectUrls);
 
     APIContext apiContext =payPalClient.getAPIContext();
     System.out.println("Using client ID: " + apiContext.getClientID());
     System.out.println("Using Auth Token: " + apiContext.getClientSecret());
-
-//    return payment.create(apiContext);
     try {
         Payment createdPayment = payment.create(apiContext);
         System.out.println("Created Payment: " + createdPayment.toJSON()); // Log created payment object
