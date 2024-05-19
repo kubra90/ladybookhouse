@@ -18,6 +18,8 @@ public interface OrderDao {
 
     List<Order> getOrderByEmail(String email);
 
+    boolean updateOrder(int orderId, String paypalNum);
+
 
 
 }

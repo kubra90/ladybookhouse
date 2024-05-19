@@ -100,6 +100,20 @@ public class JdbcOrderDao implements OrderDao {
         throw new UsernameNotFoundException("sku number used in previous orders");
     }
 
+//    update order paypalNum only
+    @Override
+    public boolean updateOrder(int orderId, String paypalNum){
+      String sql = "UPDATE orders SET paypal_num = ? where order_id = ?";
+
+      try {
+          int updatedRows = jdbcTemplate.update(sql, paypalNum, orderId);
+          return updatedRows >0;
+      }catch (DataAccessException e) {
+          System.out.println("Data excess error during updating paypalNum: " + e.getMessage());
+          return false;
+        }
+    }
+
 
     private boolean checkUserRegistration(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
