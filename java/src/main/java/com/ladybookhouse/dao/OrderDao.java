@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderDao {
 
     Order create(String email, List<String> skus, boolean saveAddress, boolean infoMail, String message,
-                   Address billingAddress, Address shippingAddress, String deliveryOption);
+                   Address billingAddress, Address shippingAddress, String deliveryOption, String paypalNum);
 
     List<Order> findAllOrders();
 

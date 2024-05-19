@@ -64,6 +64,7 @@ CREATE TABLE orders(
   infoMail BOOLEAN,
   message varchar(250),
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  paypal_num varchar(100),
   CONSTRAINT PK_order PRIMARY KEY(order_id),
   CONSTRAINT FK_billing_address FOREIGN KEY (billing_address_id) REFERENCES address(address_id),
   CONSTRAINT FK_shipping_address FOREIGN KEY (shipping_address_id) REFERENCES address(address_id)

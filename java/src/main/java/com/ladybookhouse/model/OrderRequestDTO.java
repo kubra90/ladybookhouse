@@ -14,13 +14,13 @@ public class OrderRequestDTO {
 
         private String deliveryOption; // "USPS" or "UPS"
 
-
+       private String paypalNum;
 
     public OrderRequestDTO(){
 
     }
 
-    public OrderRequestDTO(String email, List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message, AddressDTO billingAddress, AddressDTO shippingAddress, String deliveryOption) {
+    public OrderRequestDTO(String email, List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message, AddressDTO billingAddress, AddressDTO shippingAddress, String deliveryOption, String paypalNum) {
         this.email = email;
         this.inventoryCode = inventoryCode;
         this.saveAddress = saveAddress;
@@ -29,6 +29,7 @@ public class OrderRequestDTO {
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
         this.deliveryOption = deliveryOption;
+        this.paypalNum =paypalNum;
     }
 
     // ... getters and setters ...
@@ -96,5 +97,13 @@ public class OrderRequestDTO {
 
     public void setShippingAddress(AddressDTO shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public String getPaypalNum() {
+        return paypalNum;
+    }
+
+    public void setPaypalNum(String paypalNum) {
+        this.paypalNum = paypalNum;
     }
 }

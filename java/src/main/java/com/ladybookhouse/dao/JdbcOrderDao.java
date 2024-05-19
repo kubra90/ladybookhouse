@@ -37,7 +37,7 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public Order create(String email, List<String> inventoryCode, boolean saveAddress,
-                          boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption
+                          boolean infoMail, String message, Address billingAddress, Address shippingAddress, String deliveryOption,String paypalNum
     ) {
 
         if (!checkInventoryCodesExistsInOrders(inventoryCode)) {
@@ -57,7 +57,7 @@ public class JdbcOrderDao implements OrderDao {
 //           }
                 AddressDTO billingAddressDTO = convertAddressToAddressDTO(billingAddress);
                 AddressDTO shippingAddressDTO = convertAddressToAddressDTO(shippingAddress);
-                OrderRequestDTO orderRequestDTO = new OrderRequestDTO(email, inventoryCode, saveAddress, infoMail, message, billingAddressDTO, shippingAddressDTO, deliveryOption);
+                OrderRequestDTO orderRequestDTO = new OrderRequestDTO(email, inventoryCode, saveAddress, infoMail, message, billingAddressDTO, shippingAddressDTO, deliveryOption, paypalNum);
                 BigDecimal totalPrice = orderService.calculateTotalPrice(orderRequestDTO); // Calculate the total price
 //                shipping cost and subtotal price
                 BigDecimal shippingCost =orderService.calculateShippingPrice(inventoryCode, deliveryOption);
@@ -67,10 +67,10 @@ public class JdbcOrderDao implements OrderDao {
                 System.out.println("Shipping Address: " + shippingAddress);
 
                 // Now insert the order linking it to the address IDs (if addresses were saved)
-                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, subtotal_price, shipping_cost, total_price, delivery_option,  saveAddress, infoMail, message, created_at) " +
-                        "VALUES (?, ?, ?, ?,?,?, ?, ?, ?, ?, ?) RETURNING order_id";
+                String orderSql = "INSERT INTO orders (email, billing_address_id, shipping_address_id, subtotal_price, shipping_cost, total_price, delivery_option,  saveAddress, infoMail, message, created_at, paypal_num) " +
+                        "VALUES (?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
 
-                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, subTotalPrice, shippingCost, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now());
+                Integer orderId = jdbcTemplate.queryForObject(orderSql, Integer.class, email, billingAddressId, shippingAddressId, subTotalPrice, shippingCost, totalPrice, deliveryOption, saveAddress, infoMail, message, LocalDateTime.now(), paypalNum );
 
                 if (orderId != null) {
                     // If the order was successfully created, insert related books
@@ -99,68 +99,6 @@ public class JdbcOrderDao implements OrderDao {
         }
         throw new UsernameNotFoundException("sku number used in previous orders");
     }
-
-//    @Override
-//    public boolean create(String firstname, String lastName, String country,
-//                          String zipcode, String city, String state,
-//                          String addressLine, String email, String phoneNumber,
-//                          List<String> inventoryCode, boolean saveAddress, boolean infoMail, String message) {
-//        try {
-//            // Insert the order into 'orders' table
-//            String orderSql = "INSERT INTO orders (firstname, lastname, country, city, " +
-//                    "state, zipcode, address, email, phoneNumber, saveAddress, infoMail, message) " +
-//                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING order_id";
-//
-//            Integer orderId = jdbcTemplate.queryForObject(orderSql, new Object[]{firstname, lastName, country, city, state, zipcode, addressLine, email, phoneNumber, saveAddress, infoMail, message}, Integer.class);
-//
-//            if (orderId == null) {
-//                return false;
-//            }
-//
-//            // Inserting books for the order
-//            String bookSql = "INSERT INTO order_books (order_id, bookNo) VALUES (?, ?)";
-//            for (String sku : inventoryCode) {
-//                jdbcTemplate.update(bookSql, orderId, sku);
-//            }
-//            System.out.println("Email used for query: " + email);
-//
-////            check orderId in books_order table than return true
-////            String checkSql = "SELECT order_books_id from order_books where order_id = ?";
-////            Integer orderBookId = jdbcTemplate.queryForObject(checkSql, new Object[]{orderId}, Integer.class);
-//////
-////           if (orderBookId != null)
-//                if (saveAddress) {
-//                    // Attempt to find user ID by email
-//                    String findUserIdBySql = "SELECT user_id FROM users WHERE email=?";
-//                    Integer userId = jdbcTemplate.queryForObject(findUserIdBySql, new Object[]{email}, Integer.class);
-//                    System.out.println(userId);
-//                    if (userId != null) {
-//                        // Insert new address and link it to the user
-//                        String addressSql = "INSERT INTO address (email, firstname, lastname, country, city, state, zipcode, address, phoneNumber) "
-//                                + "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?) RETURNING address_id";
-//                        Integer addressId = jdbcTemplate.queryForObject(addressSql, new Object[]{email, firstname, lastName, country, city, state, zipcode, addressLine, phoneNumber}, Integer.class);
-//                        System.out.println(addressId);
-//                        if (addressId != null) {
-//                            String linkAddressToUserSql = "INSERT INTO user_addresses(user_id, address_id) VALUES (?, ?)";
-//                            jdbcTemplate.update(linkAddressToUserSql, userId, addressId);
-//                            return true;
-//                        }
-//                    }
-//
-//            }
-//
-//                return true; // Order and book links successfully created
-//
-//            } catch(EmptyResultDataAccessException e){
-//                // Handle case where no rows are returned for a query expecting a single row
-//                System.out.println("No results found where one was expected: " + e.getMessage());
-//                return false;
-//            } catch(DataAccessException e){
-//                // General handler for other data access exceptions
-//                System.out.println("Data access error: " + e.getMessage());
-//                return false;
-//            }
-//        }
 
 
     private boolean checkUserRegistration(String email) {
@@ -297,6 +235,7 @@ public class JdbcOrderDao implements OrderDao {
         order.setInfoMail(rs.getBoolean("infoMail"));
         order.setMessage(rs.getString("message"));
         order.setOrderDateTime(Objects.requireNonNull(rs.getTimestamp("created_at")).toLocalDateTime());
+        order.setPaymentConfirmationNumber(rs.getString("paypal_num"));
         return order;
     }
 }

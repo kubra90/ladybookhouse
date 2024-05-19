@@ -31,10 +31,12 @@ public class Order {
 
     private BigDecimal shippingCost;
 
+    private String paymentConfirmationNumber;
+
     public Order() {
     }
 
-    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String deliveryOption,  BigDecimal totalPrice, String message, boolean saveAddress, boolean infoMail, BigDecimal shippingCost, BigDecimal subTotalPrice, LocalDateTime orderDateTime) {
+    public Order(int orderId, String email, int billingId, int shippingId, List<String> inventoryCode, String deliveryOption,  BigDecimal totalPrice, String message, boolean saveAddress, boolean infoMail, BigDecimal shippingCost, BigDecimal subTotalPrice, LocalDateTime orderDateTime, String paymentConfirmationNumber) {
         this.orderId = orderId;
         this.email = email;
         this.billingId = billingId;
@@ -48,6 +50,15 @@ public class Order {
         this.saveAddress = saveAddress;
         this.infoMail = infoMail;
         this.orderDateTime = orderDateTime;
+        this.paymentConfirmationNumber =paymentConfirmationNumber;
+    }
+
+    public String getPaymentConfirmationNumber() {
+        return paymentConfirmationNumber;
+    }
+
+    public void setPaymentConfirmationNumber(String paymentConfirmationNumber) {
+        this.paymentConfirmationNumber = paymentConfirmationNumber;
     }
 
     public int getOrderId() {
